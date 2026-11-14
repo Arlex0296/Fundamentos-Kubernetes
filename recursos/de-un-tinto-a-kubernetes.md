@@ -23,7 +23,7 @@ En esta guía usamos algunos términos propios de las cafeterías y restaurantes
 | **🧾 Comanda** | En los restaurantes, es el **papelito u orden escrita** donde se anota exactamente qué pidió el cliente para pasarlo a la cocina. | Representa tu **archivo manifiesto `.yaml`** donde escribes qué quieres desplegar en el clúster. |
 | **📦 Inmutable (Sellado al vacío)** | Significa que una vez cerrada la bolsa en la fábrica, **nadie puede abrirla para meterle ni quitarle nada**; si quieres otra mezcla, fabricas una bolsa nueva con otra etiqueta. | Así funcionan las **Imágenes de Docker**: nunca se editan por dentro; siempre se construye una versión nueva (`v1`, `v2`). |
 | **🥛 Acompañante (*Sidecar*)** | En muchas cafeterías te sirven la taza de café acompañada de un **vasito de agua** en la misma bandeja. | Es un **contenedor secundario (*Sidecar*)** que vive dentro del mismo **`Pod`** (bandeja) para apoyar al contenedor principal (ej. enviar logs o cifrar tráfico). |
-| **🚪 Puerta y Anfitriona (*Gateway & HTTPRoute*)** | La **puerta principal** recibe al cliente de la calle y la **anfitriona** te indica hacia qué salón o barra caminar según lo que vayas a pedir. | Representa a **Gateway API (`Gateway` + `HTTPRoute`)**: la evolución oficial del antiguo `Ingress`, que separa la puerta de entrada con TLS (`Gateway`) de las reglas web (`/pagos`, `/catalogo`) en `HTTPRoute`. |
+| **🚪 Puerta y Recepción (*Gateway & HTTPRoute*)** | La **puerta principal** recibe al cliente de la calle y la **recepción** te indica hacia qué salón o barra caminar según lo que vayas a pedir. | Representa a **Gateway API (`Gateway` + `HTTPRoute`)**: la evolución oficial del antiguo `Ingress`, que separa la puerta de entrada con TLS (`Gateway`) de las reglas web (`/pagos`, `/catalogo`) en `HTTPRoute`. |
 
 ---
 
@@ -47,7 +47,7 @@ En esta guía usamos algunos términos propios de las cafeterías y restaurantes
 | **S02** | **Deployment y ReplicaSet** | 📝 Orden de Producción | *"Mantengan siempre 3 bandejas listas en barra"* y actualicen la receta sin cerrar el local (*Rolling Update*). |
 | **S02** | **HPA (Autoscaler)** | 📈 Refuerzo de Hora Pico | Si la fila de clientes sube a las 7:00 a. m., multiplica las bandejas automáticamente de 3 a 10. |
 | **S03** | **Service (`ClusterIP`)** | 🤵 Mesero de barra fija | Atiende a los clientes con un menú fijo y lleva el pedido a cualquier bandeja disponible y sana. |
-| **S03** | **Gateway API (`Gateway` + `HTTPRoute`)** | 🚪 Puerta y Anfitriona | Sucesor oficial del `Ingress`: recibe a los clientes de la calle (`https://kubecafe.com`) y los guía según lo que pidan (`/frio`, `/postres`). |
+| **S03** | **Gateway API (`Gateway` + `HTTPRoute`)** | 🚪 Puerta y Recepción | Sucesor oficial del `Ingress`: recibe a los clientes de la calle (`https://kubecafe.com`) y los guía según lo que pidan (`/frio`, `/postres`). |
 | **S04** | **ConfigMap** | 🧂 Azúcar, canela y especias | Ajusta el sabor o las opciones del día sin tener que abrir ni volver a tostar la bolsa sellada. |
 | **S04** | **Secret** | 🔐 Caja fuerte con llaves | Recetas secretas de la casa, claves del Wi-Fi y credenciales guardadas bajo llave. |
 | **S04** | **Persistent Volume (PV/PVC)** | 🏬 Bodega externa | Sacos de café y registros permanentes que **no se pierden** aunque se caiga una taza o se cambie la mesa. |
@@ -68,7 +68,7 @@ flowchart TD
     end
 
     subgraph Entrada["🚪 Entrada y Salón del KubeCafé (Semana 03)"]
-        Gateway["🚪 Gateway + HTTPRoute: Puerta y Anfitriona\n(Rutas: /expreso, /postres)"]
+        Gateway["🚪 Gateway + HTTPRoute: Puerta y Recepción\n(Rutas: /expreso, /postres)"]
         Service["🤵 Service: Mesero con Menú Fijo\n(IP y DNS estables)"]
     end
 
@@ -182,13 +182,13 @@ Si creas una bandeja suelta (`Pod`) y alguien la tropieza, nadie prepara otra. P
 </details>
 
 <details>
-<summary><b>🌐 Semana 03 — Los Meseros y la Anfitriona (Services y Gateway API)</b></summary>
+<summary><b>🌐 Semana 03 — Los Meseros y la Recepción (Services y Gateway API)</b></summary>
 <br>
 
 Las bandejas (`Pods`) son efímeras: cada vez que se sirve una nueva bandeja, tiene un número de ticket distinto (una IP distinta). ¡No puedes mandar a los clientes a meterse a la cocina a buscar qué bandeja está libre!
 
 * **🤵 El Mesero de Barra Fija (`Service`):** Tiene una ubicación fija y conocida por todos. Recibe el pedido y lo toma de cualquiera de las bandejas listas (`Endpoints`) que tengan la etiqueta (`label`) correcta.
-* **🚪 La Puerta (`Gateway`) y la Anfitriona (`HTTPRoute`):** Evolución oficial del antiguo `Ingress` en Kubernetes. El **`Gateway`** gestiona la entrada desde la calle (puertos `80`/`443` y certificados TLS), mientras que **`HTTPRoute`** decide el enrutamiento: si el cliente pide `kubecafe.com/calientes`, lo envía al Mesero de Bebidas Calientes; si pide `kubecafe.com/postres`, lo dirige al Mesero de Repostería.
+* **🚪 La Puerta (`Gateway`) y la Recepción (`HTTPRoute`):** Evolución oficial del antiguo `Ingress` en Kubernetes. El **`Gateway`** gestiona la entrada desde la calle (puertos `80`/`443` y certificados TLS), mientras que **`HTTPRoute`** decide el enrutamiento: si el cliente pide `kubecafe.com/calientes`, lo envía al Mesero de Bebidas Calientes; si pide `kubecafe.com/postres`, lo dirige al Mesero de Repostería.
 </details>
 
 <details>

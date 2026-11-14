@@ -117,7 +117,7 @@ flowchart LR
     end
 
     subgraph F3["03 • RED Y PERSISTENCIA"]
-        S3["🌐 SEMANA 03 · PRÓXIMAMENTE\nServices y Gateway API\n☕ Mesero y Anfitriona · +40 XP"]
+        S3["🌐 SEMANA 03 · PRÓXIMAMENTE\nServices y Gateway API\n☕ Mesero y Recepción · +40 XP"]
         S4["💾 SEMANA 04 · PRÓXIMAMENTE\nConfigMaps, Secrets y PV\n☕ Especias y Bodega · +40 XP"]
     end
 
@@ -160,7 +160,7 @@ flowchart LR
 | **00**<br>🟢 *Activo* | [**De Código a Contenedor con Docker**](./semana-00-fundamentos-docker)<br><sub>🌱 Grano → 📜 Receta → 📦 Bolsa → ☕ Taza</sub> | `Dockerfile`, imágenes OCI, capas, seguridad rootless y puente a Kind/K8s. | **+50 XP**<br><sub>(5 Retos)</sub> | [📖 Guía](./semana-00-fundamentos-docker/README.md) • [🧪 Ejemplos](./semana-00-fundamentos-docker/1.ejemplos) • [💥 Retos](./semana-00-fundamentos-docker/2.reto-roto) • [📚 Docs Docker](https://docs.docker.com/) • [📊 PDF](./recursos/diapositivas/0.Fundamentos-Docker.pdf) |
 | **01**<br>🟢 *Activo* | [**El motor por dentro y tu primer Pod**](./semana-01-arquitectura)<br><sub>🍽️ Bandeja (`Pod`), 🪵 Mesas (`Nodes`) y 🏢 Gerencia</sub> | Control Plane vs. Worker Nodes, `kubectl`, Pods multicontenedor y sondas. | **+40 XP**<br><sub>(4 Retos)</sub> | [📖 Guía](./semana-01-arquitectura/README.md) • [🧪 Ejemplos](./semana-01-arquitectura/1.ejemplos) • [💥 Retos](./semana-01-arquitectura/2.reto-roto) • [📚 Docs Pods](https://kubernetes.io/es/docs/concepts/workloads/pods/) • [📊 PDF](./recursos/diapositivas/1.KubeCafe-De-Docker-a-Kubernetes.pdf) |
 | **02**<br>🔥 *En Curso* | [**Despliegues sin caídas y autorreparación**](./semana-02-deployments)<br><sub>🧐 Supervisor (`Controller`) y 📝 Orden de Turno</sub> | `ReplicaSets`, `Deployments`, *Self-healing*, *Rolling Updates* y *Rollbacks*. | **+40 XP**<br><sub>(4 Retos)</sub> | [📖 Guía](./semana-02-deployments/README.md) • [🧪 Ejemplos](./semana-02-deployments/1.ejemplos) • [💥 Retos](./semana-02-deployments/2.reto-roto) • [📚 Docs Deployments](https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/) • [🎮 Simular](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html) • [📊 PDF](./recursos/diapositivas/2.KubeCafe-De-un-Pod-al-Deployment.pdf) |
-| **03**<br>🔜 *Pronto* | **Conectando todo: Redes en K8s**<br><sub>🤵 Mesero (`Service`), 🚪 Puerta (`Gateway`) y 🧭 Anfitriona (`HTTPRoute`)</sub> | Comunicación interna y externa: `ClusterIP`, `NodePort`, DNS y **Gateway API** (`Gateway` / `HTTPRoute`). | **+40 XP** | [📚 Docs Services](https://kubernetes.io/es/docs/concepts/services-networking/service/) • [🚪 Gateway API](https://gateway-api.sigs.k8s.io/) • *Próxima sesión* 🔒 |
+| **03**<br>🔜 *Pronto* | **Conectando todo: Redes en K8s**<br><sub>🤵 Mesero (`Service`), 🚪 Puerta (`Gateway`) y 🧭 Recepción (`HTTPRoute`)</sub> | Comunicación interna y externa: `ClusterIP`, `NodePort`, DNS y **Gateway API** (`Gateway` / `HTTPRoute`). | **+40 XP** | [📚 Docs Services](https://kubernetes.io/es/docs/concepts/services-networking/service/) • [🚪 Gateway API](https://gateway-api.sigs.k8s.io/) • *Próxima sesión* 🔒 |
 | **04**<br>🔜 *Pronto* | **Configuración y Datos Persistentes**<br><sub>🧂 Especias (`ConfigMap`), 🔐 Caja fuerte y 🏬 Bodega</sub> | Desacoplar configuración con `ConfigMaps`, `Secrets` y volúmenes (`PV`/`PVC`). | **+40 XP** | [📚 Docs ConfigMaps](https://kubernetes.io/es/docs/concepts/configuration/configmap/) • *Próximamente* 🔒 |
 | **05**<br>🔜 *Pronto* | **Salud, Límites y Seguridad Básica**<br><sub>🌡️ Termómetro (`Probes`), ⚖️ Agua y 🪪 Carnets (`RBAC`)</sub> | `Liveness/Readiness Probes`, `Requests/Limits` de CPU/RAM y permisos `RBAC`. | **+40 XP** | [📚 Docs Security](https://kubernetes.io/es/docs/concepts/security/) • *Próximamente* 🔒 |
 | **06**<br>🔜 *Pronto* | **Empaquetado con Helm y Proyecto Final**<br><sub>🍱 Kit de Franquicia (`Helm Chart`)</sub> | Creación de Charts y despliegue completo de **KubeCafé** en 3 capas. | **+50 XP** | [📚 Docs Helm](https://helm.sh/docs/) • *Gran Misión Final* 🏆 |
@@ -222,7 +222,7 @@ flowchart LR
 <summary><b>🔮 Semanas 03 a 06: Vista Previa de las Próximas Estaciones de KubeCafé</b></summary>
 <br>
 
-* **🌐 Semana 03 — Redes en K8s (`Services` y `Gateway API`):** Pondremos un **Mesero de barra fija (`Service`)** para que los clientes no tengan que perseguir a los Pods cuando cambian de IP, una **Puerta principal (`Gateway`)** que reciba el tráfico externo con TLS y una **Anfitriona (`HTTPRoute`)** que dirija los pedidos desde internet por dominio, ruta (`/menu`, `/pagos`) o pesos (Canary).
+* **🌐 Semana 03 — Redes en K8s (`Services` y `Gateway API`):** Pondremos un **Mesero de barra fija (`Service`)** para que los clientes no tengan que perseguir a los Pods cuando cambian de IP, una **Puerta principal (`Gateway`)** que reciba el tráfico externo con TLS y una **Recepción (`HTTPRoute`)** que dirija los pedidos desde internet por dominio, ruta (`/menu`, `/pagos`) o pesos (Canary).
 * **💾 Semana 04 — Configuración y Persistencia (`ConfigMaps`, `Secrets` y `PV`):** Separaremos las **especias (`ConfigMap`)** y la **receta secreta de la casa (`Secret`)** de la bolsa sellada, y conectaremos una **Bodega externa (`PersistentVolume`)** para que los datos sobrevivan aunque se reinicie todo el salón.
 * **🛡️ Semana 05 — Operación y Seguridad (`Probes`, `Limits` y `RBAC`):** Instalaremos **termómetros automáticos (`Liveness/Readiness`)**, topes de agua y electricidad por mesa (`ResourceQuotas`) y carnets de empleado con permisos estrictos (`RBAC`).
 * **🎓 Semana 06 — Empaquetado con Helm y Proyecto Final:** Crearemos el **Kit de Franquicia (`Helm Chart`)** para inaugurar sucursales completas de KubeCafé (Frontend + API + Base de Datos) con un solo comando `helm install`.
@@ -254,7 +254,7 @@ flowchart LR
 | **kube-scheduler** | 📋 Despachador de mesas | Mira qué mesa tiene cafetera y agua libre para poner la taza. |
 | **Controller Manager** | 🧐 Supervisor de salón | Si una taza se derrama, ordena preparar otra inmediatamente. |
 | **Service** | 🤵 Mesero de barra fija | Atiende a los clientes con un menú fijo sin importar la taza concreta. |
-| **Gateway API (`Gateway` + `HTTPRoute`)** | 🚪 Puerta y Anfitriona | Evolución oficial del antiguo `Ingress`: `Gateway` abre la puerta (puertos/TLS) y `HTTPRoute` encamina según lo que piden (`/frio`, `/postres`). |
+| **Gateway API (`Gateway` + `HTTPRoute`)** | 🚪 Puerta y Recepción | Evolución oficial del antiguo `Ingress`: `Gateway` abre la puerta (puertos/TLS) y `HTTPRoute` encamina según lo que piden (`/frio`, `/postres`). |
 | **ConfigMap** | 🧂 Azúcar y especias | Ajusta el sabor sin cambiar la receta sellada de la bolsa. |
 | **Secret** | 🔐 Caja fuerte con llaves | Recetas secretas y contraseñas de la caja guardadas bajo llave. |
 | **Persistent Volume** | 🏬 Bodega externa | Sacos de café permanentes que no se pierden si se cae una taza. |
