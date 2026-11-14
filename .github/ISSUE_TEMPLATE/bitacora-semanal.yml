@@ -35,7 +35,7 @@ body:
         - "semana-00 — 🐳 Fundamentos de Docker (De Código a Contenedor)"
         - "semana-01 — 🌱 Arquitectura de Kubernetes y Pods"
         - "semana-02 — 🔄 Deployments, Réplicas y Autorreparación"
-        - "semana-03 — 🌐 Redes en K8s: Services e Ingress"
+        - "semana-03 — 🌐 Redes en K8s: Services y Gateway API"
         - "semana-04 — 💾 Configuración y Datos Persistentes (ConfigMaps, Secrets, PV)"
         - "semana-05 — 🛡️ Salud, Límites y Seguridad (Probes, Quotas, RBAC)"
         - "semana-06 — 🎓 Empaquetado con Helm y Proyecto Final KubeCafé"

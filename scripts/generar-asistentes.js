@@ -43,11 +43,11 @@ const WEEK_METADATA = {
     skills: 'ReplicaSets, Deployments, Self-Healing, Rolling Updates con cero caídas y Rollbacks'
   },
   'semana-03': {
-    title: '🌐 Semana 03: Redes en Kubernetes (Services e Ingress)',
-    shortBadge: '🌐_K8s_Services_&_Ingress',
+    title: '🌐 Semana 03: Redes en Kubernetes (Services y Gateway API)',
+    shortBadge: '🌐_K8s_Services_&_Gateway_API',
     color: '06B6D4',
     logo: 'kubernetes',
-    skills: 'ClusterIP, NodePort, CoreDNS y enrutamiento HTTP con Ingress Controllers'
+    skills: 'ClusterIP, NodePort, CoreDNS y enrutamiento HTTP moderno con Gateway API (Gateway y HTTPRoute)'
   },
   'semana-04': {
     title: '💾 Semana 04: Configuración y Datos Persistentes',

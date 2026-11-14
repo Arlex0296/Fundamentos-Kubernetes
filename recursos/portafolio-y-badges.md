@@ -22,7 +22,7 @@ Cada vez que entregas los **Retos Rotos** de una semana o llenas el [**📔 Form
 ### ¿Qué incluye tu Portafolio automáticamente?
 1. **Tu tarjeta de perfil oficial:** Foto de GitHub, rol, motivación y enlaces a tu LinkedIn y redes.
 2. **Insignias de Rango y Puntaje Verificado por CI/CD:** Muestra tus puntos **XP** y cuántos escenarios reales de *Troubleshooting* has superado.
-3. **Mapa de Competencias por Módulo:** Insignias visuales de cada tecnología dominada (`Docker & OCI`, `K8s Pods`, `Deployments & Rollouts`, `Services & Ingress`, `Config & Storage`, `RBAC & Security`, `Helm`).
+3. **Mapa de Competencias por Módulo:** Insignias visuales de cada tecnología dominada (`Docker & OCI`, `K8s Pods`, `Deployments & Rollouts`, `Services & Gateway API`, `Config & Storage`, `RBAC & Security`, `Helm`).
 4. **Tus Bitácoras de Reflexión (`bitacora.md`):** Evidencia escrita de cómo diagnosticas problemas reales y qué comandos dominas (lo que más valoran los reclutadores técnicos).
 
 ---

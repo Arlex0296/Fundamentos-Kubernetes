@@ -16,7 +16,7 @@
 0. [🧱 Paso 0 (Prerrequisito): Instalar Docker y Verificar Recursos](#-paso-0-prerrequisito-instalar-docker-y-verificar-recursos)
 1. [☸️ Paso 1: Instalar `kubectl`, Alias `k` y Autocompletado](#-paso-1-instalar-kubectl-alias-k-y-autocompletado)
 2. [🐳 Paso 2: ¿Qué es Kind y cómo crear tu Clúster Local?](#-paso-2-qué-es-kind-y-cómo-crear-tu-clúster-local)
-3. [🛠️ Paso 3: Personalizando tu Clúster de Kind con YAML (Multi-Nodo, Cilium e Ingress)](#️-paso-3-personalizando-tu-clúster-de-kind-con-yaml)
+3. [🛠️ Paso 3: Personalizando tu Clúster de Kind con YAML (Multi-Nodo, Cilium y Gateway API)](#️-paso-3-personalizando-tu-clúster-de-kind-con-yaml)
 4. [🧰 Paso 4: Kit de Supervivencia CLI (`kubectx`, `kubens`, `k9s` y `stern`)](#-paso-4-kit-de-supervivencia-cli-kubectx-kubens-k9s-y-stern)
    - [🔀 `kubectx` y `kubens`: Cambia de clúster y namespace en 1 segundo](#-1-kubectx-y-kubens--el-control-remoto-de-clústeres-y-namespaces)
    - [🐶 `k9s`: Panel de control interactivo en tu terminal](#-2-k9s--el-panel-de-control-interactivo-en-tu-terminal)
@@ -31,7 +31,7 @@ Como usaremos **Kind** (*Kubernetes in Docker*), cada nodo de nuestro clúster c
 
 ### 🖥️ Requisitos recomendados de tu equipo para el laboratorio
 * **CPU:** Mínimo 2 vCPUs asignadas a Docker (recomendado **4 vCPUs**).
-* **Memoria RAM:** Mínimo **4 GB de RAM** libres para Docker (recomendado **6 GB a 8 GB** para clústeres multi-nodo con Cilium o Ingress).
+* **Memoria RAM:** Mínimo **4 GB de RAM** libres para Docker (recomendado **6 GB a 8 GB** para clústeres multi-nodo con Cilium o Gateway API).
 * **Disco:** Al menos **15 GB** de espacio libre para descargar las imágenes de los nodos e imágenes de contenedores.
 
 ---
@@ -392,10 +392,10 @@ kubectl get nodes
 </details>
 
 <details>
-<summary><b>🌐 3. Clúster listo para Ingress (Puertos 80 y 443 abiertos) — <code>kind-ingress.yaml</code></b></summary>
+<summary><b>🌐 3. Clúster listo para Gateway API / Ingress (Puertos 80 y 443 abiertos) — <code>kind-gateway.yaml</code></b></summary>
 <br>
 
-Ideal para la **Semana 3 (Redes)**. Conecta los puertos `80` y `443` de tu computador directamente con el clúster para abrir tus aplicaciones en el navegador sin usar `port-forward`:
+Ideal para la **Semana 3 (Redes con Gateway API)**. Conecta los puertos `80` y `443` de tu computador directamente con el clúster para exponer tus `Gateway` y `HTTPRoute` en el navegador sin usar `port-forward`:
 
 ```yaml
 kind: Cluster
@@ -419,7 +419,7 @@ nodes:
 ```
 **Cómo crearlo:**
 ```bash
-kind create cluster --name cnm-redes --config semana-01-arquitectura/0.prepara-tu-laboratorio/kind-ingress.yaml
+kind create cluster --name cnm-redes --config semana-01-arquitectura/0.prepara-tu-laboratorio/kind-gateway.yaml
 ```
 </details>
 

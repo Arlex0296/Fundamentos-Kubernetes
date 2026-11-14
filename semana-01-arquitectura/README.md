@@ -33,7 +33,7 @@ Ahora en la **Semana 01** abrimos nuestra cafetería de especialidad (**KubeCaf�
 | **kube-scheduler** | 📋 **Despachador de mesas** | Mira qué mesa de barismo tiene cafetera y agua libre para asignar la bandeja (`Pod`). |
 | **Controller Manager** | 🧐 **Supervisor de salón** | Si una taza se derrama, detecta la falta y ordena preparar otra inmediatamente. |
 
-👉 *¿Quieres ver cómo se conecta KubeCafé hasta la Semana 06 (Services, Ingress, ConfigMaps, Secrets, PV y Helm)? Lee: [**☕ Kubernetes explicado con la Analogía del Café (KubeCafé)**](../recursos/de-un-tinto-a-kubernetes.md).*
+👉 *¿Quieres ver cómo se conecta KubeCafé hasta la Semana 06 (Services, Gateway API, ConfigMaps, Secrets, PV y Helm)? Lee: [**☕ Kubernetes explicado con la Analogía del Café (KubeCafé)**](../recursos/de-un-tinto-a-kubernetes.md).*
 
 ```mermaid
 flowchart TD

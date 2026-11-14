@@ -593,7 +593,7 @@
                                             <span class="cafe-badge text-xs text-amber-300 font-medium">🚪 La
                                                 Anfitriona</span>
                                         </div>
-                                        <h3 class="text-sm font-bold text-white">Ingress / Gateway API</h3>
+                                        <h3 class="text-sm font-bold text-white">Gateway API (Gateway + HTTPRoute)</h3>
                                         <p class="text-xs text-slate-400 mt-0.5">Enruta <code
                                                 class="text-emerald-300">mi-app.com/api</code> al Service.</p>
                                     </div>
@@ -1055,33 +1055,33 @@
                         podStatus: "Running (2/2)",
                         podVisualState: "running",
                         cafeDesc: "La entrada principal del local recibe al cliente de la calle y lo dirige directamente hacia la Anfitriona en la puerta del salón.",
-                        simpleDesc: "El balanceador de la nube recibe el paquete de Internet y lo reenvía hacia el controlador Ingress que está escuchando dentro de los Worker Nodes.",
-                        techDesc: "El Cloud LoadBalancer (AWS ALB / GCP LB / MetalLB) hace health-check de los nodos y reenvía el flujo TCP al NodePort o IP del Pod del Ingress/Gateway Controller.",
-                        yamlCode: `kind: Service\nmetadata:\n  name: ingress-gateway\nspec:\n  type: LoadBalancer\nstatus:\n  loadBalancer:\n    ingress:\n    - ip: 203.0.113.50`,
+                        simpleDesc: "El balanceador de la nube recibe el paquete de Internet y lo reenvía hacia el controlador de Gateway API que está escuchando dentro de los Worker Nodes.",
+                        techDesc: "El Cloud LoadBalancer (AWS NLB / GCP LB / MetalLB) hace health-check de los nodos y reenvía el flujo TCP al NodePort o IP del Pod del Gateway Controller (Envoy / Cilium).",
+                        yamlCode: `kind: Service\nmetadata:\n  name: kubecafe-gateway\nspec:\n  type: LoadBalancer\nstatus:\n  loadBalancer:\n    ingress:\n    - ip: 203.0.113.50`,
                         logs: [
                             "[cloud-lb] Paquete recibido en 203.0.113.50:443",
                             "[cloud-lb] Nodo 'worker-node-01' saludable -> reenviando tráfico",
-                            "[cloud-lb] Conectado con Ingress / Gateway Controller"
+                            "[cloud-lb] Conectado con Gateway API Controller (Envoy / Cilium)"
                         ]
                     },
                     {
                         id: 3,
-                        shortName: "3. Ingress L7",
-                        title: "3. Ingress / Gateway API: Ruteo Inteligente por Dominio y Ruta",
+                        shortName: "3. Gateway API",
+                        title: "3. Gateway API (Gateway + HTTPRoute): Ruteo L7 Moderno",
                         activeNodes: ["node-ingress", "node-service"],
                         fromNode: "node-ingress",
                         toNode: "node-service",
-                        packetText: "Host+Path -> Svc",
+                        packetText: "HTTPRoute -> Svc",
                         podStatus: "Running (2/2)",
                         podVisualState: "running",
-                        cafeDesc: "La Anfitriona (Ingress) mira qué pide el cliente: «¿Viene por /api/menu? ¡Adelante, el Mesero Fijo del salón principal lo atenderá!».",
-                        simpleDesc: "El Ingress lee el dominio 'mi-app.com' y la ruta '/api/menu'. Según su tabla de reglas, envía la petición al Service interno 'mi-app-svc'.",
-                        techDesc: "El proxy L7 (NGINX / Envoy / Cilium Gateway) desencripta TLS, inspecciona las cabeceras HTTP Host y Path, y hace match con la regla HTTPRoute/Ingress hacia el backend Service 'mi-app-svc:80'.",
-                        yamlCode: `kind: Ingress\nspec:\n  rules:\n  - host: mi-app.com\n    http:\n      paths:\n      - path: /api\n        backend:\n          service:\n            name: mi-app-svc`,
+                        cafeDesc: "La Puerta (Gateway) recibe al cliente y la Anfitriona (HTTPRoute) mira qué pide: «¿Viene por /api/menu? ¡Adelante, el Mesero Fijo del salón principal lo atenderá!».",
+                        simpleDesc: "Evolución oficial del antiguo Ingress: el Gateway expone el puerto/TLS y la HTTPRoute lee el dominio 'mi-app.com' y la ruta '/api/menu' para enviarla al Service interno 'mi-app-svc'.",
+                        techDesc: "El Gateway Controller (Envoy / Cilium / NGINX Gateway) termina TLS en el Gateway, evalúa la HTTPRoute (hostnames, path, headers o pesos Canary) y enruta hacia el backendRefs 'mi-app-svc:80'.",
+                        yamlCode: `apiVersion: gateway.networking.k8s.io/v1\nkind: HTTPRoute\nmetadata:\n  name: kubecafe-rutas\nspec:\n  parentRefs:\n  - name: kubecafe-gateway\n  hostnames: ["mi-app.com"]\n  rules:\n  - matches:\n    - path: { type: PathPrefix, value: /api }\n    backendRefs:\n    - name: mi-app-svc\n      port: 80`,
                         logs: [
-                            "[ingress] Terminación TLS exitosa para 'mi-app.com'",
-                            "[ingress] Regla coincidente: Host='mi-app.com' Path='/api/menu'",
-                            "[ingress] Enrutando hacia Service interno 'mi-app-svc' (10.96.0.15:80)"
+                            "[gateway] Terminación TLS exitosa en 'kubecafe-gateway' para 'mi-app.com'",
+                            "[httproute] Regla coincidente: Host='mi-app.com' Path='/api/menu'",
+                            "[httproute] Enrutando hacia Service interno 'mi-app-svc' (10.96.0.15:80)"
                         ]
                     },
                     {
@@ -1136,11 +1136,11 @@
                         podVisualState: "running",
                         cafeDesc: "¡El comensal recibe su café recién hecho en su mesa en cuestión de milisegundos y queda feliz!",
                         simpleDesc: "La respuesta viaja de vuelta hacia el usuario con código 'HTTP 200 OK' y el contenido JSON aparece en su pantalla o terminal.",
-                        techDesc: "El paquete de respuesta deshace la traducción NAT (conntrack un-DNAT), regresa por el Ingress/LoadBalancer y llega al cliente cerrando el ciclo de red de extremo a extremo.",
+                        techDesc: "El paquete de respuesta deshace la traducción NAT (conntrack un-DNAT), regresa por el Gateway API Controller / LoadBalancer y llega al cliente cerrando el ciclo de red de extremo a extremo.",
                         yamlCode: `HTTP/2 200 OK\ncontent-type: application/json\nx-served-by: mi-app-7d9f-x8k2\n\n{"menu":"Expreso Cloud Native","status":"200 OK"}`,
                         logs: [
-                            "[kernel-net] Conntrack un-DNAT completado hacia Ingress",
-                            "[ingress] Enviando respuesta TLS al cliente externo",
+                            "[kernel-net] Conntrack un-DNAT completado hacia Gateway",
+                            "[gateway] Enviando respuesta TLS al cliente externo",
                             "[cliente] < HTTP/2 200 OK recibido con éxito 🚀"
                         ]
                     }
@@ -1405,11 +1405,11 @@
                 cmd: "kubectl get events --sort-by=.metadata.creationTimestamp"
             },
             ingress: {
-                title: "🚪 Ingress Controller / Gateway API",
-                role: "Worker Node • Enrutador HTTP/HTTPS (Capa 7)",
-                cafe: "☕ En KubeCafé: Es la Anfitriona que recibe al cliente y lo guía según lo que pide.",
-                body: "Entiende el protocolo HTTP/HTTPS: lee el dominio (Host) y la ruta (/api, /ventas), gestiona los certificados TLS y dirige el tráfico hacia el Service interno correcto.",
-                cmd: "kubectl get ingress,httproute"
+                title: "🚪 Gateway API (Gateway & HTTPRoute)",
+                role: "Worker Node • Enrutador HTTP/HTTPS Moderno (Capa 7)",
+                cafe: "☕ En KubeCafé: El Gateway es la Puerta principal y la HTTPRoute es la Anfitriona que guía al cliente según lo que pide.",
+                body: "Evolución oficial del antiguo Ingress: separa la infraestructura (Gateway/puertos/TLS) de las reglas de aplicación (HTTPRoute por dominio, ruta, cabeceras o pesos Canary) hacia los Services internos.",
+                cmd: "kubectl get gateway,httproute"
             },
             service: {
                 title: "🤵 Service (ClusterIP) & kube-proxy / eBPF",
