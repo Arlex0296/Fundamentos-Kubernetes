@@ -1,6 +1,14 @@
-# 🏆 Soluciones de Retos de la Comunidad
+# 🏆 Soluciones de Retos y Portafolios de la Comunidad
 
-¡Bienvenido al espacio donde los asistentes del workshop comparten sus soluciones a los **Retos Rotos** de cada semana y suman experiencia (**+XP**) en [`ASISTENTES.md`](../../ASISTENTES.md)!
+<div align="center">
+
+[![Llenar Bitácora (+10 XP)](https://img.shields.io/badge/📔_Llenar_Bitácora_y_Generar_Portafolio_(+10_XP)-8B5CF6?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml)
+[![Ver Ranking y Portafolios](https://img.shields.io/badge/🏆_Ranking_y_Portafolios_(ASISTENTES.md)-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](../../ASISTENTES.md)
+[![Catálogo de Insignias SVG](https://img.shields.io/badge/🎖️_Insignias_Estilo_Credly-00C7B7?style=for-the-badge&logo=cncf&logoColor=white)](../../recursos/portafolio-y-badges.md)
+
+</div>
+
+¡Bienvenido al espacio donde los asistentes del workshop comparten sus soluciones a los **Retos Rotos** de cada semana, desbloquean su **Portafolio Profesional KubeCafé** con **insignias hexagonales estilo Credly** y suman experiencia (**+XP**) en [`ASISTENTES.md`](../../ASISTENTES.md)!
 
 👉 **¿Estás dando tus primeros pasos entregando un reto?** Lee el [**🧭 Manual Paso a Paso para la Comunidad (`aportes-comunidad/README.md`)**](../README.md).
 
@@ -8,14 +16,14 @@
 
 ## 📂 Estructura Oficial de Carpetas
 
-Para que el robot calificador reconozca tus ejercicios automáticamente y te asigne tus puntos (**+10 XP por cada reto resuelto**), organiza tu entrega respetando tu usuario de GitHub y los nombres originales de cada reto:
+Para que el robot calificador reconozca tus ejercicios automáticamente y te asigne tus puntos (**+10 XP por cada reto resuelto** + **+10 XP Bonus por bitácora semanal**), organiza tu entrega respetando tu usuario de GitHub y los nombres originales de cada reto:
 
 ```text
 aportes-comunidad/soluciones-retos/
 └── <tu-usuario-github>/
-    ├── README.md   <-- 🎓 (Generado automáticamente por el bot: ¡Tu Portafolio Profesional K8s!)
+    ├── README.md   <-- 🎓 (Generado automáticamente por el bot: ¡Tu Portafolio con Banner e Insignias SVG!)
     ├── semana-00/
-    │   ├── bitacora.md   <-- 📔 (Tu reflexión de la semana: vía Formulario Visual o plantilla)
+    │   ├── bitacora.md   <-- 📔 (+10 XP Bonus: vía Formulario Visual o plantilla)
     │   ├── 01-dockerfile-roto/
     │   │   └── Dockerfile
     │   ├── 02-variable-entorno-faltante/
@@ -28,23 +36,29 @@ aportes-comunidad/soluciones-retos/
     │   └── 05-puerto-y-host-desalineado/
     │       ├── Dockerfile
     │       └── app.py
-    └── semana-01/
+    ├── semana-01/
+    │   ├── bitacora.md
+    │   ├── 01-pod-con-errores.yaml
+    │   ├── 02-pod-crashloop.yaml
+    │   ├── 03-pod-pendiente-infinito.yaml
+    │   └── 04-pod-yaml-molesto.yaml
+    └── semana-02/
         ├── bitacora.md
-        ├── 01-pod-con-errores.yaml
-        ├── 02-pod-crashloop.yaml
-        ├── 03-pod-pendiente-infinito.yaml
-        └── 04-pod-yaml-molesto.yaml
+        ├── 01-deployment-selector-roto.yaml
+        ├── 02-deployment-imagen-caida-rollback.yaml
+        ├── 03-deployment-estrategia-invalida.yaml
+        └── 04-deployment-yaml-identacion.yaml
 ```
 
 ---
 
-## 📔 Registra tu Bitácora Semanal y Obtén tu Portafolio + Insignias
+## 📔 Registra tu Bitácora Semanal y Obtén tu Portafolio + Insignias (+10 XP)
 
 Además de resolver los archivos técnicos, puedes documentar qué aprendiste cada semana de **dos formas súper fáciles**:
 
 1. **🚀 Opción 1 — Formulario Visual en 1 minuto (Recomendado, sin usar Git):**  
    👉 [**Haz clic aquí para abrir el Formulario de Bitácora Semanal**](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml).  
-   El bot creará tu archivo `bitacora.md`, actualizará tu **Portafolio Profesional (`README.md`)** y te responderá con botones de 1 clic para compartir tu insignia en LinkedIn, X/Twitter, WhatsApp y Telegram.
+   El bot creará tu archivo `bitacora.md`, sumará **+10 XP**, generará tu **Portafolio Profesional (`README.md`)** con banner SVG, insignias hexagonales (**Bronce / Plata / Oro** y módulos), activará tu enlace directo `🎓 Portafolio` en el **README principal** (y competirás por el **Podio Top 5**), y te dará texto listo para publicar en **LinkedIn** etiquetando a `@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)`, WhatsApp y Telegram.
 2. **🛠️ Opción 2 — Desde tu terminal junto con tu Pull Request:**  
    Copia la [**`PLANTILLA-BITACORA.md`**](./PLANTILLA-BITACORA.md) dentro de tu carpeta semanal como `bitacora.md` y llénala en VS Code.
 
