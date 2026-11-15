@@ -92,38 +92,56 @@
 ---
 
 <!-- INICIO_PODIO_PORTAFOLIOS -->
-## 🏆 Podio de Portafolios Destacados (Top 3)
+## 🏆 Podio de Portafolios Destacados (Top 5)
 
 <div align="center">
 
 <table>
   <tr>
-    <td align="center" width="220">
+    <td align="center" width="175">
       <b>🥇 #1</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Portafolio de Stiven Munera (@StivenMunera)">
-        <img src="https://github.com/StivenMunera.png?size=120" width="72" height="72" style="border-radius: 50%;" alt="StivenMunera"/><br/>
+        <img src="https://github.com/StivenMunera.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="StivenMunera"/><br/>
         <b>Stiven Munera</b>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
-    <td align="center" width="220">
+    <td align="center" width="175">
       <b>🥈 #2</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md" title="Portafolio de Carlos Andres Montoya Alzate (@calichem26)">
-        <img src="https://github.com/calichem26.png?size=120" width="72" height="72" style="border-radius: 50%;" alt="calichem26"/><br/>
+        <img src="https://github.com/calichem26.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="calichem26"/><br/>
         <b>Carlos Andres</b>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
-    <td align="center" width="220">
+    <td align="center" width="175">
       <b>🥉 #3</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md" title="Portafolio de Yorman Agudelo (@Cuburi)">
-        <img src="https://github.com/Cuburi.png?size=120" width="72" height="72" style="border-radius: 50%;" alt="Cuburi"/><br/>
+        <img src="https://github.com/Cuburi.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="Cuburi"/><br/>
         <b>Yorman Agudelo</b>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md"><b>🎓 Ver Portafolio</b></a>
+    </td>
+    <td align="center" width="175">
+      <b>🏅 #4</b><br/>
+      <a href="./aportes-comunidad/soluciones-retos/parte193/README.md" title="Portafolio de Johan Andrés López Zuluaga (@parte193)">
+        <img src="https://github.com/parte193.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="parte193"/><br/>
+        <b>Johan Andrés</b>
+      </a><br/>
+      <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
+      <a href="./aportes-comunidad/soluciones-retos/parte193/README.md"><b>🎓 Ver Portafolio</b></a>
+    </td>
+    <td align="center" width="175">
+      <b>🏅 #5</b><br/>
+      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Portafolio de Fernando Avila (@RAVILA28)">
+        <img src="https://github.com/RAVILA28.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="RAVILA28"/><br/>
+        <b>Fernando Avila</b>
+      </a><br/>
+      <sub>⛵ Marinero • <b>90 XP</b></sub><br/>
+      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
   </tr>
 </table>
@@ -556,24 +574,21 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
         <img src="https://github.com/ccsanchezb04.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="ccsanchezb04"/><br/>
         <sub><b>Cristian Sanchez</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=ccsanchezb04">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/luis-tapasco/" title="Luis Tapasco (@Luistapasco) — 10 XP">
         <img src="https://github.com/Luistapasco.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Luistapasco"/><br/>
         <sub><b>Luis Tapasco</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=Luistapasco">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/dlapaz" title="Eduardo D. La paz (@VivaGarp) — 10 XP">
         <img src="https://github.com/VivaGarp.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="VivaGarp"/><br/>
         <sub><b>Eduardo D.</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=VivaGarp">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
   </tr>
   <tr>
@@ -582,48 +597,42 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
         <img src="https://github.com/ypaolavar.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="ypaolavar"/><br/>
         <sub><b>Paola Vargas</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=ypaolavar">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/jeraldin-caliz/" title="Jeraldin Caliz (@Jera26) — 10 XP">
         <img src="https://github.com/Jera26.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Jera26"/><br/>
         <sub><b>Jeraldin Caliz</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=Jera26">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://linkedin.com/in/kevindazar" title="Kevin Daza (@kevindazardev) — 10 XP">
         <img src="https://github.com/kevindazardev.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="kevindazardev"/><br/>
         <sub><b>Kevin Daza</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=kevindazardev">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/jcrvillamizar" title="Juan Carlos Rodriguez Villamizar (@jcrvillamizar) — 10 XP">
         <img src="https://github.com/jcrvillamizar.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="jcrvillamizar"/><br/>
         <sub><b>Juan Carlos</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=jcrvillamizar">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/airy-nc/" title="Airy Nieves (@aiops88) — 10 XP">
         <img src="https://github.com/aiops88.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="aiops88"/><br/>
         <sub><b>Airy Nieves</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=aiops88">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://linkedin.com/in/dupegui" title="David Upegui (@DavidUpegui) — 10 XP">
         <img src="https://github.com/DavidUpegui.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="DavidUpegui"/><br/>
         <sub><b>David Upegui</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=DavidUpegui">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
   </tr>
   <tr>
@@ -632,48 +641,42 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
         <img src="https://github.com/mateoqc123.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="mateoqc123"/><br/>
         <sub><b>Yeison Mateo</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=mateoqc123">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/diego-mona/" title="Diego Moná (@Hedache77) — 10 XP">
         <img src="https://github.com/Hedache77.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Hedache77"/><br/>
         <sub><b>Diego Moná</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=Hedache77">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/JhonnyPong/" title="Jhonnatan Gil (@jthan24) — 10 XP">
         <img src="https://github.com/jthan24.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="jthan24"/><br/>
         <sub><b>Jhonnatan Gil</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=jthan24">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://linkedin.com/in/danielestebanosoriodavid/" title="Daniel Esteban (@da237) — 10 XP">
         <img src="https://github.com/da237.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="da237"/><br/>
         <sub><b>Daniel Esteban</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=da237">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/giovanigonzalogarzonsegura-cloudarchitect" title="Gonzalo Garzon (@ggarzons) — 10 XP">
         <img src="https://github.com/ggarzons.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="ggarzons"/><br/>
         <sub><b>Gonzalo Garzon</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=ggarzons">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://linkedin.com/in/maria-camila-zapata-arrubla-a594041b1/" title="Maria Camila Zapata Arrubla (@Camilaux) — 10 XP">
         <img src="https://github.com/Camilaux.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Camilaux"/><br/>
         <sub><b>Maria Camila</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=Camilaux">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
   </tr>
   <tr>
@@ -682,48 +685,42 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
         <img src="https://github.com/CristianCGonzalezO.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="CristianCGonzalezO"/><br/>
         <sub><b>Cristian Gonzalez</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=CristianCGonzalezO">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://linkedin.com/in/santiagoasz/" title="Santiago Sanchez (@santiagoalex) — 10 XP">
         <img src="https://github.com/santiagoalex.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="santiagoalex"/><br/>
         <sub><b>Santiago Sanchez</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=santiagoalex">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/mao-correa/" title="Hector Mauricio Forero Correa (@maocorrea1015) — 10 XP">
         <img src="https://github.com/maocorrea1015.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="maocorrea1015"/><br/>
         <sub><b>Hector Mauricio</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=maocorrea1015">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/wilfredo-gonzalez-ortiz-5718a2161/" title="Wilfredo Gonzalez (@wilfredogonzalez05) — 10 XP">
         <img src="https://github.com/wilfredogonzalez05.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="wilfredogonzalez05"/><br/>
         <sub><b>Wilfredo Gonzalez</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=wilfredogonzalez05">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://github.com/Danielgiraldo2010" title="Daniel Giraldo (@Danielgiraldo2010) — 10 XP">
         <img src="https://github.com/Danielgiraldo2010.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Danielgiraldo2010"/><br/>
         <sub><b>Daniel Giraldo</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=Danielgiraldo2010">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://linkedin.com/in/emmanuel-uribe-89890525a" title="Emmanuel Uribe (@emmanuel-uribe) — 10 XP">
         <img src="https://github.com/emmanuel-uribe.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="emmanuel-uribe"/><br/>
         <sub><b>Emmanuel Uribe</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=emmanuel-uribe">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
   </tr>
   <tr>
@@ -732,48 +729,42 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
         <img src="https://github.com/manuonda.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="manuonda"/><br/>
         <sub><b>David García</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=manuonda">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/mateo-orozco-cano-21bb90437/" title="Mateo Orozco Cano (@MateoOrozcoCano) — 10 XP">
         <img src="https://github.com/MateoOrozcoCano.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="MateoOrozcoCano"/><br/>
         <sub><b>Mateo Orozco</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=MateoOrozcoCano">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://github.com/SirJulianM3003" title="Julián Esteban Madrid (@SirJulianM3003) — 10 XP">
         <img src="https://github.com/SirJulianM3003.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="SirJulianM3003"/><br/>
         <sub><b>Julián Esteban</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=SirJulianM3003">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/edwinalexanderrg" title="Edwin Restrepo (@edwin8855) — 10 XP">
         <img src="https://github.com/edwin8855.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="edwin8855"/><br/>
         <sub><b>Edwin Restrepo</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=edwin8855">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://github.com/MiguelCeballos944" title="Miguel ceballos (@MiguelCeballos944) — 10 XP">
         <img src="https://github.com/MiguelCeballos944.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="MiguelCeballos944"/><br/>
         <sub><b>Miguel ceballos</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=MiguelCeballos944">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/manuela-orozco-jimenez/" title="Manuela Orozco Jimenez (@ManuelaOJ) — 10 XP">
         <img src="https://github.com/ManuelaOJ.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="ManuelaOJ"/><br/>
         <sub><b>Manuela Orozco</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=ManuelaOJ">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
   </tr>
   <tr>
@@ -782,48 +773,42 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
         <img src="https://github.com/camilorendon08.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="camilorendon08"/><br/>
         <sub><b>Camilo Rendon</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=camilorendon08">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/sergio-andres-garcia-jaramillo" title="Sergio Andres Garcia Jaramillo (@sergiogarciaj01) — 10 XP">
         <img src="https://github.com/sergiogarciaj01.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="sergiogarciaj01"/><br/>
         <sub><b>Sergio Andres</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=sergiogarciaj01">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/yepesd/" title="Juan D Yepes (@yepesd86) — 10 XP">
         <img src="https://github.com/yepesd86.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="yepesd86"/><br/>
         <sub><b>Juan D</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=yepesd86">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/josedavid9316/" title="Jose David Moncada Arango (@josedavid9316) — 10 XP">
         <img src="https://github.com/josedavid9316.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="josedavid9316"/><br/>
         <sub><b>Jose David</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=josedavid9316">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://www.linkedin.com/in/juan-diego-alvarado-gantiva-7801a816a/" title="Juan Diego Alvarado (@juand-alvarado) — 10 XP">
         <img src="https://github.com/juand-alvarado.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="juand-alvarado"/><br/>
         <sub><b>Juan Diego</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=juand-alvarado">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
     <td align="center" width="140">
       <a href="https://github.com/YimmyZuluaga" title="Yimmy Zuluaga (@YimmyZuluaga) — 10 XP">
         <img src="https://github.com/YimmyZuluaga.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="YimmyZuluaga"/><br/>
         <sub><b>Yimmy Zuluaga</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>10 XP</b></sub><br/>
-      <sub><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=YimmyZuluaga">➕ Portafolio</a></sub>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
   </tr>
 </table>

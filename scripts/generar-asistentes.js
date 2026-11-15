@@ -989,10 +989,10 @@ function buildReadmeMosaicSection(students, instructorsList = []) {
       const profileLink = entry.hasPortfolioDir
         ? `./aportes-comunidad/soluciones-retos/${entry.userFolderName || user}/README.md`
         : cleanLinkedin(entry.linkedin) || `https://github.com/${user}`;
-      const portfolioSubLink = entry.hasPortfolioDir
-        ? `<a href="./aportes-comunidad/soluciones-retos/${entry.userFolderName || user}/README.md">🎓 Portafolio</a>`
-        : `<a href="${buildBitacoraIssueUrl(user)}">➕ Portafolio</a>`;
-      return `    <td align="center" width="140">\n      <a href="${profileLink}" title="${fullName} (@${user}) — ${xp} XP">\n        <img src="https://github.com/${user}.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="${user}"/><br/>\n        <sub><b>${medal}${shortName}</b></sub>\n      </a><br/>\n      <sub>${rango} • <b>${xp} XP</b></sub><br/>\n      <sub>${portfolioSubLink}</sub>\n    </td>`;
+      const portfolioLine = entry.hasPortfolioDir
+        ? `<br/>\n      <sub><a href="./aportes-comunidad/soluciones-retos/${entry.userFolderName || user}/README.md">🎓 Portafolio</a></sub>`
+        : '';
+      return `    <td align="center" width="140">\n      <a href="${profileLink}" title="${fullName} (@${user}) — ${xp} XP">\n        <img src="https://github.com/${user}.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="${user}"/><br/>\n        <sub><b>${medal}${shortName}</b></sub>\n      </a><br/>\n      <sub>${rango} • <b>${xp} XP</b></sub>${portfolioLine}\n    </td>`;
     });
     rowsHtml.push(`  <tr>\n${cells.join('\n')}\n  </tr>`);
   }
@@ -1041,13 +1041,13 @@ ${rowsHtml.join('\n')}
 }
 
 function buildReadmePodiumSection(students) {
-  const top3 = students.filter(s => s.hasPortfolioDir).slice(0, 3);
-  if (top3.length === 0) {
+  const top5 = students.filter(s => s.hasPortfolioDir).slice(0, 5);
+  if (top5.length === 0) {
     return `<!-- INICIO_PODIO_PORTAFOLIOS -->\n<!-- FIN_PODIO_PORTAFOLIOS -->`;
   }
 
-  const medals = ['🥇 #1', '🥈 #2', '🥉 #3'];
-  const cells = top3.map((entry, idx) => {
+  const medals = ['🥇 #1', '🥈 #2', '🥉 #3', '🏅 #4', '🏅 #5'];
+  const cells = top5.map((entry, idx) => {
     const user = cleanGithubUser(entry.github);
     const fullName = (entry.nombre || user).replace(/<[^>]*>/g, '').trim();
     const parts = fullName.split(/\s+/);
@@ -1055,11 +1055,11 @@ function buildReadmePodiumSection(students) {
     const rango = (entry.rango || '⛵ Marinero').trim();
     const xp = entry.puntos || 10;
     const portfolioUrl = `./aportes-comunidad/soluciones-retos/${entry.userFolderName || user}/README.md`;
-    return `    <td align="center" width="220">\n      <b>${medals[idx] || `#${idx + 1}`}</b><br/>\n      <a href="${portfolioUrl}" title="Portafolio de ${fullName} (@${user})">\n        <img src="https://github.com/${user}.png?size=120" width="72" height="72" style="border-radius: 50%;" alt="${user}"/><br/>\n        <b>${shortName}</b>\n      </a><br/>\n      <sub>${rango} • <b>${xp} XP</b></sub><br/>\n      <a href="${portfolioUrl}"><b>🎓 Ver Portafolio</b></a>\n    </td>`;
+    return `    <td align="center" width="175">\n      <b>${medals[idx] || `#${idx + 1}`}</b><br/>\n      <a href="${portfolioUrl}" title="Portafolio de ${fullName} (@${user})">\n        <img src="https://github.com/${user}.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="${user}"/><br/>\n        <b>${shortName}</b>\n      </a><br/>\n      <sub>${rango} • <b>${xp} XP</b></sub><br/>\n      <a href="${portfolioUrl}"><b>🎓 Ver Portafolio</b></a>\n    </td>`;
   });
 
   return `<!-- INICIO_PODIO_PORTAFOLIOS -->
-## 🏆 Podio de Portafolios Destacados (Top 3)
+## 🏆 Podio de Portafolios Destacados (Top 5)
 
 <div align="center">
 
