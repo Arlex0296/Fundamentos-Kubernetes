@@ -164,16 +164,6 @@ En WhatsApp y Telegram el mensaje y enlace a tu portafolio se cargan automática
 
 ---
 
-### 🎖️ Insignia Dinámica para tu Perfil de GitHub (`github.com/Cuburi/Cuburi`)
-
-Pega esta línea en el `README.md` de tu perfil personal de GitHub para mostrar tu rango oficial y enlazar directamente a este portafolio verificado:
-
-```markdown
-[![Portafolio Kubernetes KubeCafé](https://img.shields.io/badge/KubeCafé_CNCF-🧭_Timonel_K8s_(100_XP)-7c3aed?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/Cuburi)
-```
-
----
-
 <div align="center">
   <sub>🏔️☕ Portafolio generado y verificado automáticamente por <b><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes">Cloud Native Medellín (CNCF) — De Cero a Capitán en Kubernetes</a></b></sub>
 </div>

@@ -164,16 +164,6 @@ En WhatsApp y Telegram el mensaje y enlace a tu portafolio se cargan automática
 
 ---
 
-### 🎖️ Insignia Dinámica para tu Perfil de GitHub (`github.com/jujo23z/jujo23z`)
-
-Pega esta línea en el `README.md` de tu perfil personal de GitHub para mostrar tu rango oficial y enlazar directamente a este portafolio verificado:
-
-```markdown
-[![Portafolio Kubernetes KubeCafé](https://img.shields.io/badge/KubeCafé_CNCF-⛵_Tripulante_K8s_(60_XP)-0284c7?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/jujo23z)
-```
-
----
-
 <div align="center">
   <sub>🏔️☕ Portafolio generado y verificado automáticamente por <b><a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes">Cloud Native Medellín (CNCF) — De Cero a Capitán en Kubernetes</a></b></sub>
 </div>

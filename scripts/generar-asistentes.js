@@ -926,16 +926,6 @@ En WhatsApp y Telegram el mensaje y enlace a tu portafolio se cargan automática
 
 ---
 
-### 🎖️ Insignia Dinámica para tu Perfil de GitHub (\`github.com/${user}/${user}\`)
-
-Pega esta línea en el \`README.md\` de tu perfil personal de GitHub para mostrar tu rango oficial y enlazar directamente a este portafolio verificado:
-
-\`\`\`markdown
-${share.githubProfileSnippet}
-\`\`\`
-
----
-
 <div align="center">
   <sub>🏔️☕ Portafolio generado y verificado automáticamente por <b><a href="${REPO_URL}">Cloud Native Medellín (CNCF) — De Cero a Capitán en Kubernetes</a></b></sub>
 </div>
