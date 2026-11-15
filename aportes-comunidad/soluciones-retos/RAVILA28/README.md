@@ -13,12 +13,37 @@
 
 ---
 
-### 🎖️ Insignias Oficiales y Rango Verificado (CI/CD)
+### 🎖️ Rango Verificado e Insignias Oficiales (CI/CD)
 
-[![Rango Oficial](https://img.shields.io/badge/KubeCafé_CNCF-⛵_Tripulante_K8s_(90_XP)-0284c7?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/blob/main/ASISTENTES.md)
-[![XP Verificado](https://img.shields.io/badge/⚡_Puntaje_Total-90_XP-10b981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/blob/main/ASISTENTES.md)
-[![Retos Superados](https://img.shields.io/badge/🛠️_Retos_Rotos_Resueltos-8-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/blob/main/ASISTENTES.md)
-[![Comunidad CNCF](https://img.shields.io/badge/🇨🇴_Capítulo_Oficial-CNCF_Medellín-00C7B7?style=for-the-badge&logo=cncf&logoColor=white)](https://ocgroups.dev/cncf/group/2majk4r)
+<table>
+  <tr>
+    <td align="center" width="165">
+      <a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/blob/main/ASISTENTES.md" title="Rango Oficial: ⛵ Marinero">
+        <img src="../../../recursos/insignias/rango-marinero.svg" width="140" alt="⛵ Marinero"/>
+      </a>
+    </td>
+    <td align="center" width="140">
+      <sub>⚡ <b>PUNTAJE TOTAL</b></sub><br/>
+      <h3><code>90 XP</code></h3>
+      <sub>Verificado CI/CD</sub>
+    </td>
+    <td align="center" width="140">
+      <sub>🛠️ <b>RETOS RESUELTOS</b></sub><br/>
+      <h3><code>8</code></h3>
+      <sub>Troubleshooting</sub>
+    </td>
+    <td align="center" width="140">
+      <sub>✍️ <b>BITÁCORAS</b></sub><br/>
+      <h3><code>0</code></h3>
+      <sub><a href="#-bitácoras-de-reflexión-e-ingeniería">Ver notas</a></sub>
+    </td>
+    <td align="center" width="165">
+      <a href="https://ocgroups.dev/cncf/group/2majk4r" title="Capítulo Oficial CNCF Medellín">
+        <img src="../../../recursos/insignias/cncf-medellin.svg" width="140" alt="CNCF Medellín"/>
+      </a>
+    </td>
+  </tr>
+</table>
 
 </div>
 
