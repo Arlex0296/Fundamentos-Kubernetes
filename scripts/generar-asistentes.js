@@ -988,10 +988,10 @@ function buildStudentRow(entry, rankPosition) {
     else if (rankPosition === 3) medal = '🥉 #3';
   }
 
-  const avatar = `<img src="https://github.com/${user}.png?size=50" width="32" height="32" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"> **${nombre}**`;
+  const avatar = `<img src="https://github.com/${user}.png?size=80" width="42" height="42" alt="${user}"/>`;
   const badgesStr = buildSocialBadgesString(entry);
 
-  return `| ${medal} | ${avatar} | ${rol} | ${badgesStr} | ${rango}<br><sub>${progreso}</sub> | ${motivacion} |`;
+  return `| ${medal} | ${avatar} | **${nombre}** | ${rol} | ${badgesStr} | ${rango} · **${entry.puntos || 10} XP**<br><sub>${progreso.replace(/^\*\*\d+\s*XP\*\*\s*/, '')}</sub> | ${motivacion} |`;
 }
 
 function buildReadmeMosaicSection(students, instructorsList = []) {
@@ -1148,13 +1148,13 @@ function updateReadmeWithMosaic(students, readmeContent, instructorsList = []) {
           const rol = (inst.rol || '🤝 Colaborador').trim();
           const mot = (inst.motivacion || 'Compartir conocimiento y fortalecer la comunidad Cloud Native en Medellín. 🏔️☕').trim();
           const instBadges = buildSocialBadgesString(inst).replace(/<br>/g, ' &nbsp; ');
-          return `| <img src="https://github.com/${u}.png?size=50" width="36" height="36" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"> **${nom}** | ${rol} | ${instBadges} | ${mot} |`;
+          return `| <img src="https://github.com/${u}.png?size=80" width="44" height="44" alt="${u}"/> | **${nom}** | ${rol} | ${instBadges} | ${mot} |`;
         }).join('\n');
         instructorCard = `
 ## 👨‍🏫 Capitán y Colaboradores de la Nave (Equipo Organizador)
 
-| 👤 Integrante | 💼 Rol / Especialidad | 🌐 Redes Profesionales | 🎯 Misión en la Comunidad |
-| :--- | :--- | :---: | :--- |
+| Foto | 👤 Integrante | 💼 Rol / Especialidad | 🌐 Redes Profesionales | 🎯 Misión en la Comunidad |
+| :---: | :--- | :--- | :---: | :--- |
 ${instRows}
 
 ---
@@ -1223,8 +1223,8 @@ ${instructorCard}
 ## 👥 Tabla de Posiciones de la Tripulación (${students.length} Tripulantes)
 
 <!-- INICIO_TABLA_ASISTENTES -->
-| # | 👤 Tripulante | 💼 Rol / Especialidad | 🌐 Redes y Portafolio | 🎖️ Rango y Progreso (XP) | 🎯 ¿Qué te motivó a unirte? |
-| :---: | :--- | :--- | :---: | :---: | :--- |
+| # | Foto | 👤 Tripulante | 💼 Rol / Especialidad | 🌐 Redes y Portafolio | 🎖️ Rango y Progreso (XP) | 🎯 ¿Qué te motivó a unirte? |
+| :---: | :---: | :--- | :--- | :---: | :---: | :--- |
 ${rows}
 <!-- FIN_TABLA_ASISTENTES -->
 
