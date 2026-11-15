@@ -737,25 +737,30 @@ function generateStudentPortfolioReadme(student, evalResult) {
     return `<a href="${targetHref}" title="${meta.title}"><img src="${badgeSrc}" width="175" alt="${meta.title}"/></a>`;
   });
 
-  // Filas de progreso técnico por semana
+  // Filas de progreso técnico por semana (tabla limpia de 4 columnas)
   const tableRows = Object.entries(WEEK_METADATA).map(([wk, meta]) => {
     const rep = evalResult.detailedReport.find(r => r.weekKey === wk);
     const weekFolderExists = fs.existsSync(path.join(userDir, rep ? rep.weekDirName : wk));
-    const folderLink = weekFolderExists ? `[📂 Ver Soluciones](./${rep ? rep.weekDirName : wk})` : '—';
+    const folderLink = weekFolderExists ? `[📂 Código](./${rep ? rep.weekDirName : wk})` : '—';
 
-    let statusBadge = '`⚪ Pendiente`';
+    const solved = rep ? rep.solvedCount : 0;
+    const total = rep ? rep.totalExpected : 0;
+    const filledBlocks = total > 0 ? Math.round((solved / total) * 5) : 0;
+    const emptyBlocks = Math.max(0, 5 - filledBlocks);
+
+    let progressCell = `⬜⬜⬜⬜⬜<br/><sub>⚪ Pendiente</sub>`;
     if (rep && rep.isComplete) {
-      statusBadge = `\`✅ ${rep.solvedCount}/${rep.totalExpected} Verificados (+${rep.solvedCount * 10} XP)\``;
-    } else if (rep && rep.solvedCount > 0) {
-      statusBadge = `\`⏳ ${rep.solvedCount}/${rep.totalExpected} Verificados (+${rep.solvedCount * 10} XP)\``;
+      progressCell = `${'🟩'.repeat(5)}<br/><sub>✅ <b>${solved}/${total}</b> · <code>+${solved * 10} XP</code></sub>`;
+    } else if (solved > 0) {
+      progressCell = `${'🟨'.repeat(filledBlocks)}${'⬜'.repeat(emptyBlocks)}<br/><sub>⏳ <b>${solved}/${total}</b> · <code>+${solved * 10} XP</code></sub>`;
     }
 
     const bitacoraLink =
       rep && rep.hasBitacora
-        ? `[📔 Leer Bitácora (+10 XP)](./${rep.weekDirName}/bitacora.md)`
-        : `[➕ Crear Bitácora (+10 XP)](${buildBitacoraIssueUrl(user, wk)})`;
+        ? `[📔 Leer](./${rep.weekDirName}/bitacora.md)`
+        : `[➕ Crear](${buildBitacoraIssueUrl(user, wk)})`;
 
-    return `| **${meta.title}** | ${meta.skills} | ${statusBadge} | ${folderLink} | ${bitacoraLink} |`;
+    return `| **${meta.title}**<br/><sub>${meta.skills}</sub> | ${progressCell} | ${folderLink} | ${bitacoraLink} |`;
   });
 
   // Listar bitácoras escritas para mostrarlas destacadas
@@ -849,8 +854,8 @@ ${moduleBadges.join('\n')}
 
 Cada entrega en este portafolio es validada automáticamente por el motor de integración continua de [**De Cero a Capitán en Kubernetes — Cloud Native Medellín (CNCF)**](${REPO_URL}) frente a escenarios reales de resolución de fallos (*Troubleshooting*):
 
-| Módulo del Workshop | Habilidades Practicadas | Estado de Validación | Código / Manifiestos | Bitácora Técnica |
-| :--- | :--- | :---: | :---: | :---: |
+| Módulo & Habilidades Practicadas | Progreso | Evidencias | Bitácora (+10 XP) |
+| :--- | :---: | :---: | :---: |
 ${tableRows.join('\n')}
 
 ---
