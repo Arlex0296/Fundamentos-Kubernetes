@@ -151,7 +151,7 @@ git push origin TU-USUARIO/semana-01
 En las semanas siguientes (Semana 2, 3, 4, etc.) solo tienes que:
 1. Volver a la rama principal: `git checkout main`
 2. Traer los cambios nuevos del curso (ver pregunta 2 abajo).
-3. Crear tu nueva rama para esa semana: `git checkout -b solucion-semana-02`
+3. Crear tu nueva rama para esa semana: `git checkout -b TU-USUARIO/semana-02`
 4. Hacer tus cambios, `git add .`, `git commit -m "..."`, `git push` y abrir el PR.
 </details>
 

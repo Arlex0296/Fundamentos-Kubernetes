@@ -192,10 +192,13 @@ flowchart LR
 > ☕ **Misión en KubeCafé:** Inauguramos el local entendiendo cómo la **Oficina de Gerencia (`Control Plane`)** recibe comandas en la **Caja (`API Server`)**, las anota en el **Libro Contable (`etcd`)**, elige una **Mesa libre (`Scheduler`)** y le ordena al **Barista (`kubelet`)** servir tu primera **Bandeja (`Pod`)**.
 
 * 🧪 **Laboratorios Prácticos ([`semana-01-arquitectura/1.ejemplos`](./semana-01-arquitectura/1.ejemplos)):**
-  1. `01-mi-primer-pod.yaml` — Tu primera bandeja servida en el clúster.
-  2. `02-pod-con-variables-y-recursos.yaml` — Dosificación de agua (RAM) y cafetera (CPU).
-  3. `03-pod-multicontenedor-sidecar.yaml` — Café principal + vaso de agua acompañante (*Sidecar*).
-  4. `04-pod-sondas-salud.yaml` y `05-pod-ia-inferencia.yaml` — Termómetros de salud y microservicio de IA.
+  1. [`01-mi-primer-pod.yaml`](./semana-01-arquitectura/1.ejemplos/01-mi-primer-pod.yaml) — Tu primera bandeja servida en el clúster (`hola-medellin`).
+  2. [`02-pod-multi-contenedor.yaml`](./semana-01-arquitectura/1.ejemplos/02-pod-multi-contenedor.yaml) — Café principal + vaso de agua acompañante (*Sidecar* `pod-dos-contenedores`).
+  3. [`03-pod-con-recursos-y-env.yaml`](./semana-01-arquitectura/1.ejemplos/03-pod-con-recursos-y-env.yaml) — Dosificación de agua (RAM), cafetera (CPU) y variables (`pod-recursos-y-variables`).
+  4. [`04-pod-con-init-container.yaml`](./semana-01-arquitectura/1.ejemplos/04-pod-con-init-container.yaml) — Preparación previa antes de abrir barra (`pod-con-init-container`).
+  5. [`05-pod-con-health-checks.yaml`](./semana-01-arquitectura/1.ejemplos/05-pod-con-health-checks.yaml) — Termómetros de salud con `livenessProbe` y `readinessProbe` (`pod-con-health-checks`).
+  6. [`06-pod-inferencia-ia-ollama.yaml`](./semana-01-arquitectura/1.ejemplos/06-pod-inferencia-ia-ollama.yaml) — Barista IA local con Ollama (`pod-inferencia-ia`).
+  7. [`07-pod-observabilidad-metricas-logs.yaml`](./semana-01-arquitectura/1.ejemplos/07-pod-observabilidad-metricas-logs.yaml) — Métricas Prometheus y Logs JSON (`pod-observabilidad-kubecafe`).
 * 💥 **Los 4 Retos Rotos ([`semana-01-arquitectura/2.reto-roto`](./semana-01-arquitectura/2.reto-roto)):**
   `01-pod-con-errores.yaml` (`ImagePullBackOff`) • `02-pod-crashloop.yaml` (`CrashLoopBackOff`) • `03-pod-pendiente-infinito.yaml` (`Pending`) • `04-pod-yaml-molesto.yaml`
 * 🚀 [**Entrar a la Semana 01**](./semana-01-arquitectura) | 🖥️ [**Guía Visual Headlamp**](./semana-01-arquitectura/headlamp.md) | 📊 [**Ver Diapositivas PDF**](./recursos/diapositivas/1.KubeCafe-De-Docker-a-Kubernetes.pdf)

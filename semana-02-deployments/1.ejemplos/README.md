@@ -20,7 +20,7 @@
 
 ### Paso 1: Aplica el Deployment básico
 ```bash
-kubectl apply -f semana-02-deployments/1.ejemplos/01-primer-deployment-replicas.yaml
+kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/01-primer-deployment-replicas.yaml
 ```
 
 ### Paso 2: Observa la jerarquía (Deployment ➔ ReplicaSet ➔ Pods)
@@ -73,7 +73,7 @@ kubectl get pods -l app=cafecito -w
 ### Forma Declarativa (Buena práctica en producción):
 Abre `01-primer-deployment-replicas.yaml`, cambia `replicas: 3` a `replicas: 4` y aplica:
 ```bash
-kubectl apply -f semana-02-deployments/1.ejemplos/01-primer-deployment-replicas.yaml
+kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/01-primer-deployment-replicas.yaml
 ```
 
 ---
@@ -82,7 +82,7 @@ kubectl apply -f semana-02-deployments/1.ejemplos/01-primer-deployment-replicas.
 
 Aplica el Deployment con estrategia `RollingUpdate`:
 ```bash
-kubectl apply -f semana-02-deployments/1.ejemplos/02-rolling-update-cero-caidas.yaml
+kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/02-rolling-update-cero-caidas.yaml
 ```
 
 Verifica que esté corriendo con 4 réplicas:
@@ -133,11 +133,49 @@ kubectl rollout status deployment/api-pedidos-rolling
 
 ---
 
-## 🤖 Laboratorio 5: Barista IA (Inferencia Escalable)
+## 🧹 Laboratorio 5: Estrategia `Recreate` (`03-estrategia-recreate.yaml`)
+
+A diferencia de `RollingUpdate`, la estrategia `Recreate` apaga todos los Pods antiguos **antes** de crear los nuevos (útil para migraciones de base de datos o volúmenes exclusivos `ReadWriteOnce`).
+
+```bash
+kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/03-estrategia-recreate.yaml
+kubectl get pods -l app=batch-procesador
+```
+
+Prueba actualizar la imagen o el comando y observa en vivo cómo terminan primero las 2 réplicas antes de nacer las nuevas:
+```bash
+kubectl set image deployment/batch-procesador-recreate worker=busybox:1.36
+kubectl get pods -l app=batch-procesador -w
+```
+
+---
+
+## 🛡️ Laboratorio 6: Estándar de Producción (`04-deployment-con-recursos-y-probes.yaml`)
+
+Este manifiesto (`portal-clientes-prod`) combina **usuario no-root (`10001`)**, `requests`/`limits`, variables de entorno y sondas `livenessProbe` / `readinessProbe`:
+
+```bash
+kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/04-deployment-con-recursos-y-probes.yaml
+kubectl get pods -l app=portal-clientes
+```
+
+Verifica que el contenedor no corre como `root` y prueba el portal web:
+```bash
+# Comprobar usuario no privilegiado (uid=10001):
+kubectl exec deployment/portal-clientes-prod -- id
+
+# Abrir túnel hacia el puerto 8080 del contenedor unprivileged:
+kubectl port-forward deployment/portal-clientes-prod 8080:8080
+```
+Abre **[http://localhost:8080](http://localhost:8080)** en tu navegador para confirmar que Nginx responde correctamente.
+
+---
+
+## 🤖 Laboratorio 7: Barista IA (Inferencia Escalable)
 
 Aplica el Deployment del Barista Virtual de KubeCafé:
 ```bash
-kubectl apply -f semana-02-deployments/1.ejemplos/05-deployment-ia-inferencia.yaml
+kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/05-deployment-ia-inferencia.yaml
 ```
 
 Abre un túnel hacia una de las réplicas:
@@ -166,6 +204,6 @@ Si escalas el deployment con `kubectl scale deployment barista-ia --replicas=5`,
 ## 🧹 Limpieza del Laboratorio
 Cuando termines de practicar, puedes eliminar los deployments creados:
 ```bash
-kubectl delete -f semana-02-deployments/1.ejemplos/
+kubectl delete -f $PWD/semana-02-deployments/1.ejemplos/
 ```
 
