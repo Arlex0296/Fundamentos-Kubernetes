@@ -947,11 +947,10 @@ function buildSocialBadgesString(entry) {
     );
   }
 
+  let portfolioBadge = '';
   if (entry.hasPortfolioDir) {
     const folder = entry.userFolderName || user;
-    badges.push(
-      `[![Portafolio K8s](https://img.shields.io/badge/🎓_Portafolio_K8s-00C7B7?style=flat-square&logo=kubernetes&logoColor=white)](./aportes-comunidad/soluciones-retos/${folder}/README.md)`
-    );
+    portfolioBadge = `[![Portafolio K8s](https://img.shields.io/badge/🎓_Portafolio_K8s-00C7B7?style=flat-square&logo=kubernetes&logoColor=white)](./aportes-comunidad/soluciones-retos/${folder}/README.md)`;
   }
 
   const extraLinks = [];
@@ -970,7 +969,8 @@ function buildSocialBadgesString(entry) {
     badges.push(buildSocialBadge(link));
   }
 
-  return badges.join('<br>');
+  const socialLine = badges.join(' ');
+  return portfolioBadge ? `${socialLine}<br>${portfolioBadge}` : socialLine;
 }
 
 function buildStudentRow(entry, rankPosition) {
@@ -1131,6 +1131,10 @@ function updateReadmeWithMosaic(students, readmeContent, instructorsList = []) {
 
     function renderAsistentesMarkdown(students, instructorsList, officialChallenges) {
       const rows = students.map((s, idx) => buildStudentRow(s, idx + 1)).join('\n');
+      const totalPortfolios = students.filter(s => s.hasPortfolioDir).length;
+      const capitanesCount = students.filter(s => (s.rango || '').includes('Capitán')).length;
+      const timonelesCount = students.filter(s => (s.rango || '').includes('Timonel')).length;
+      const marinerosCount = students.length - capitanesCount - timonelesCount;
 
       const weekChallengesText = Object.entries(officialChallenges)
         .map(([week, nums]) => `\`${week}\` (${nums.length} retos rotos)`)
@@ -1169,32 +1173,39 @@ ${instRows}
 [![Actualizar mis Datos](https://img.shields.io/badge/✏️_Actualizar_mis_Datos_o_Redes_Sociales-f57c00?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml)
 [![Insignias y Portafolio](https://img.shields.io/badge/🎖️_Insignias_para_LinkedIn_y_GitHub-326CE5?style=for-the-badge&logo=linkedin)](./recursos/portafolio-y-badges.md)
 
+<table>
+  <tr>
+    <td align="center" width="150"><sub>⛵ <b>TRIPULANTES</b></sub><br/><h3><code>${students.length}</code></h3></td>
+    <td align="center" width="150"><sub>🎓 <b>PORTAFOLIOS</b></sub><br/><h3><code>${totalPortfolios}</code></h3></td>
+    <td align="center" width="150"><sub>🥇 <b>CAPITANES (ORO)</b></sub><br/><h3><code>${capitanesCount}</code></h3></td>
+    <td align="center" width="150"><sub>🥈 <b>TIMONELES (PLATA)</b></sub><br/><h3><code>${timonelesCount}</code></h3></td>
+    <td align="center" width="150"><sub>🥉 <b>MARINEROS (BRONCE)</b></sub><br/><h3><code>${marinerosCount}</code></h3></td>
+  </tr>
+</table>
+
 </div>
 
 ---
 
-## 🏆 Sistema de Puntaje (XP), Portafolio Profesional y Validación
+## 🏆 Sistema de Puntaje (XP) y Rangos Oficiales
 
 A medida que avances semana a semana, nuestro bot de GitHub Actions inspeccionará tu carpeta \`aportes-comunidad/soluciones-retos/<tu-usuario>/semana-XX/\`, **validará tus soluciones de \`2.reto-roto/\`**, generará tu **Portafolio Profesional KubeCafé (\`README.md\`)** y actualizará tu puntaje en este muro:
 
 | Acción / Logro | Puntos / Insignia | Regla de Validación Estricta |
 | :--- | :---: | :--- |
 | **1. Registro en el Muro** | **+10 XP** | Por registrarte en el formulario o vía Pull Request. |
-| **2. Reto Roto Resuelto y Validado** | **+10 XP por reto** | Cada ejercicio de \`2.reto-roto/\` (${weekChallengesText}) que resuelvas y pase la validación de contenido suma **+10 XP** en la tabla de posiciones (ej. Semana 00 completa = +50 XP, Semana 01 completa = +40 XP). |
-| **3. Bitácora de Navegación y Portafolio KubeCafé** | **🎓 Portafolio + 📔 Insignia** | Registra lo aprendido en el **[📔 Formulario Visual de Bitácora](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml)** (o incluye \`bitacora.md\` en tu PR) para desbloquear tu **Portafolio Profesional K8s** con botones para compartir en LinkedIn, Instagram, WhatsApp y Telegram. |
+| **2. Reto Roto Resuelto y Validado** | **+10 XP por reto** | Cada ejercicio de \`2.reto-roto/\` (${weekChallengesText}) que resuelvas y pase la validación de contenido suma **+10 XP** en la tabla de posiciones. |
+| **3. Bitácora de Navegación y Portafolio KubeCafé** | **+10 XP + 🎓 Portafolio** | Registra lo aprendido en el **[📔 Formulario Visual de Bitácora](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml)** (o incluye \`bitacora.md\` en tu PR) para desbloquear tu **Portafolio Profesional K8s**. |
 
 ### 🎖️ Requisitos para subir de Rango:
-| Rango | Requisito | Insignia Oficial para tu Perfil | Lo que representa en la travesía |
+| Insignia Oficial | Rango | Requisito | Lo que representa en la travesía |
 | :---: | :---: | :---: | :--- |
-| **⛵ Marinero** | Registro inicial (**10 XP**) | ![Marinero](https://img.shields.io/badge/KubeCafé-⛵_Marinero-0284c7?style=flat-square&logo=kubernetes&logoColor=white) | Te registraste en este muro y zarpó tu primer Pod en el clúster. |
-| **🧭 Timonel** | **2+ Semanas Completadas al 100%** | ![Timonel](https://img.shields.io/badge/KubeCafé-🧭_Timonel-7c3aed?style=flat-square&logo=kubernetes&logoColor=white) | Resolviste y validaste **todos** los ejercicios de los _Retos Rotos_ de al menos 2 semanas. |
-| **⚓ Capitán K8s** | **6 Semanas Completadas al 100%** | ![Capitán](https://img.shields.io/badge/KubeCafé-⚓_Capitán_K8s-f59e0b?style=flat-square&logo=kubernetes&logoColor=white) | Dominas la navegación del clúster, completaste todos los ejercicios de las 6 semanas y el proyecto final. |
+| <img src="./recursos/insignias/rango-marinero.svg" width="84" alt="Marinero Bronce"/> | **⛵ Marinero**<br><sub>🥉 Bronce</sub> | Registro inicial (**10 XP**) | Te registraste en este muro y zarpó tu primer Pod en el clúster. |
+| <img src="./recursos/insignias/rango-timonel.svg" width="84" alt="Timonel Plata"/> | **🧭 Timonel K8s**<br><sub>🥈 Plata</sub> | **2+ Semanas al 100%** | Resolviste y validaste **todos** los ejercicios de los _Retos Rotos_ de al menos 2 semanas. |
+| <img src="./recursos/insignias/rango-capitan.svg" width="84" alt="Capitán Oro"/> | **⚓ Capitán K8s**<br><sub>🥇 Oro</sub> | **6 Semanas al 100%** | Dominas la navegación del clúster, completaste todos los ejercicios de las 6 semanas y el proyecto final. |
 
----
-
-## 📝 ¿Cómo registrarte, actualizar tus datos o llenar tu Bitácora Semanal?
-
-No necesitas tocar código para registrarte o documentar tu bitácora semanal:
+<details>
+<summary>📝 <b>¿Cómo registrarte, actualizar tus datos o llenar tu Bitácora Semanal? (Haz clic para ver los 3 pasos)</b></summary>
 
 1. **➕ Registro o Actualización de Perfil (30 segundos):**
    - 👉 **[Abrir Formulario Visual de Registro / Actualización](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml)**
@@ -1204,6 +1215,8 @@ No necesitas tocar código para registrarte o documentar tu bitácora semanal:
    - Elige la semana, escribe qué aprendiste y qué reto solucionaste, y haz clic en **\`Create\`**. El bot creará tu archivo \`bitacora.md\`, actualizará tu **🎓 Portafolio K8s** y te dará enlaces de 1 clic para compartir tu logro en LinkedIn, Instagram, WhatsApp y Telegram.
 3. **🛠️ Vía Pull Request desde tu terminal (Para practicar Git):**
    - También puedes editar tu bloque en [\`asistentes.json\`](./asistentes.json) o copiar la [\`PLANTILLA-BITACORA.md\`](./aportes-comunidad/soluciones-retos/PLANTILLA-BITACORA.md) dentro de tu carpeta semanal.
+
+</details>
 
 ---
 ${instructorCard}
