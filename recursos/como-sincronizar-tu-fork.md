@@ -15,22 +15,39 @@ Si hiciste **Fork** en la Semana 00 o 01, tu copia personal no recibe los archiv
 
 ## 🗺️ Entendiendo el Mapa: `upstream` vs `origin` vs `Tu Computador`
 
+Piensa en esto como **3 copias del mismo proyecto**:
+
+| Nombre | ¿Dónde está? | ¿Qué es en palabras simples? |
+| :--- | :--- | :--- |
+| **`upstream`** 🏛️ | `edwinbermudez91/Fundamentos-Kubernetes` | El **repositorio oficial del curso** donde el Capitán sube los retos nuevos cada semana. |
+| **`origin`** ☁️ | `TU-USUARIO/Fundamentos-Kubernetes` | **Tu copia (Fork) en la nube de GitHub**. Aquí subes tus ramas antes de abrir un Pull Request. |
+| **Local** 💻 | Carpeta `Fundamentos-Kubernetes/` en tu PC | **Tu espacio de trabajo** donde pruebas Docker/Kubernetes y resuelves los retos. |
+
 ```mermaid
-flowchart LR
-    U["🏛️ Repositorio Oficial (upstream)\nedwinbermudez91/Fundamentos-Kubernetes"]
-    O["☁️ Tu Fork en GitHub (origin)\nTU-USUARIO/Fundamentos-Kubernetes"]
-    L["💻 Tu Computador Local\nCarpeta Fundamentos-Kubernetes/"]
+flowchart TB
+    subgraph S1["📥 1. Bajar novedades cada semana"]
+        direction LR
+        U1["🏛️ upstream<br/>(Curso Oficial)"] -->|"Sync fork en GitHub"| O1["☁️ origin<br/>(Tu Fork)"]
+        O1 -->|"git pull origin main"| L1["💻 Tu PC<br/>(Carpeta Local)"]
+    end
 
-    U ==>|"1. Sync Fork / git fetch upstream"| O
-    O ==>|"2. git pull origin main"| L
-    U -.->|"Vía rápida en terminal:\ngit pull upstream main"| L
-    L ==>|"3. git push origin tu-rama"| O
-    O ==>|"4. Pull Request (PR)"| U
+    subgraph S2["📤 2. Subir tu solución"]
+        direction LR
+        L2["💻 Tu PC<br/>(tu-rama)"] -->|"git push origin tu-rama"| O2["☁️ origin<br/>(Tu Fork)"]
+        O2 -->|"Pull Request (PR)"| U2["🏛️ upstream<br/>(Curso Oficial)"]
+    end
 
-    style U fill:#064E3B,stroke:#10B981,stroke-width:2px,color:#ECFDF5
-    style O fill:#1E3A8A,stroke:#00F0FF,stroke-width:2px,color:#FFFFFF
-    style L fill:#3B0764,stroke:#C084FC,stroke-width:2px,color:#F3E8FF
+    style U1 fill:#064E3B,stroke:#10B981,stroke-width:2px,color:#ECFDF5
+    style O1 fill:#1E3A8A,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF
+    style L1 fill:#3B0764,stroke:#C084FC,stroke-width:2px,color:#F3E8FF
+    style L2 fill:#3B0764,stroke:#C084FC,stroke-width:2px,color:#F3E8FF
+    style O2 fill:#1E3A8A,stroke:#38BDF8,stroke-width:2px,color:#FFFFFF
+    style U2 fill:#064E3B,stroke:#10B981,stroke-width:2px,color:#ECFDF5
 ```
+
+> [!NOTE]
+> **¿Se borran mis soluciones al sincronizar?**  
+> **No.** Sincronizar solo trae los archivos nuevos del curso; tus entregas en `aportes-comunidad/soluciones-retos/TU-USUARIO/` permanecen intactas.
 
 ---
 
