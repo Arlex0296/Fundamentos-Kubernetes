@@ -656,7 +656,7 @@ function buildShareLinks(user, nombre, rango, points, hasPortfolioDir = false, f
     `📂 Mi Portafolio de Laboratorios y Bitácora verificada:`,
     `${portfolioUrl}`,
     B,
-    `Agradecimientos a Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por este espacio de formación abierta:`,
+    `Agradecimientos a @Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por este espacio de formación abierta:`,
     B,
     `🏢 LinkedIn: https://www.linkedin.com/company/cloud-native-colombia/`,
     B,
@@ -791,12 +791,14 @@ function generateStudentPortfolioReadme(student, evalResult) {
 
   const content = `<div align="center">
 
-# 🎓 Portafolio Profesional Cloud Native & Kubernetes
+<img src="../../../recursos/insignias/banner-portafolio.svg" width="100%" alt="Portafolio Cloud Native &amp; Kubernetes — CNCF Medellín"/>
 
-<img src="https://github.com/${user}.png?size=160" width="80" height="80" style="border-radius: 50%; object-fit: cover; margin-top: 8px;" alt="${user}"/><br/>
+<br/>
 
-### ${nombre} (\`@${user}\`)
-**${rol}**
+<img src="https://github.com/${user}.png?size=220" width="110" height="110" alt="${user}"/><br/>
+
+## ${nombre}
+**${rol}** • [\`@${user}\`](https://github.com/${user}) • ${rango}
 
 *«${motivacion}»*
 
@@ -885,9 +887,10 @@ Publica tus avances prácticos y tu progreso verificado por CI/CD ante reclutado
 ### 🚀 Publicar en LinkedIn (Recomendado para Reclutadores)
 
 > [!TIP]
-> **¿Por qué copiar el texto y adjuntar imagen en LinkedIn?**  
+> **¿Por qué copiar el texto, etiquetarnos y adjuntar imagen en LinkedIn?**  
 > 1. **Espaciado protegido:** El bloque de texto ya incluye separadores invisibles (\`U+2800\`) para que el editor de LinkedIn **no comprima ni junte todo el texto** en un solo párrafo al pegar.  
-> 2. **Mayor visibilidad profesional:** Las publicaciones nativas en LinkedIn con **texto + imagen propia (captura de pantalla)** tienen **hasta 10 veces más alcance e interacción** en el feed que compartir un enlace suelto (el cual además arroja *"Cannot display preview"* en carpetas de GitHub).
+> 2. **Etiqueta oficial (\`@\`):** LinkedIn no activa las menciones al pegar texto plano. Al pegar, **borra y vuelve a escribir \`@Cloud Native Colombia\`** y haz clic en **Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)** en el menú desplegable para que tu post quede etiquetado.  
+> 3. **Mayor visibilidad profesional:** Las publicaciones nativas en LinkedIn con **texto + imagen propia (captura de pantalla)** tienen **hasta 10 veces más alcance e interacción** en el feed que compartir un enlace suelto (el cual además arroja *"Cannot display preview"* en carpetas de GitHub).
 
 Sigue estos **3 sencillos pasos**:
 
@@ -896,8 +899,8 @@ Sigue estos **3 sencillos pasos**:
 ${share.shareMessage}
 \`\`\`
 
-2. **Toma una captura de pantalla** de la cabecera de tu portafolio (donde se ven tu foto, tu rango **${rango}**, tus **${points} XP** y las insignias de tus retos resueltos).
-3. **Abre el creador de publicaciones de LinkedIn:** Haz clic en el botón de abajo, pega el texto (\`Ctrl+V\` / \`Cmd+V\`) y adjunta tu captura de pantalla:
+2. **Toma una captura de pantalla** de la cabecera de tu portafolio (donde se ven tu foto, tu rango **${rango}**, tus **${points} XP** y las insignias hexagonales de tus retos resueltos).
+3. **Pega en LinkedIn, etiqueta a la comunidad y adjunta tu imagen:** Haz clic en el botón de abajo, pega el texto (\`Ctrl+V\` / \`Cmd+V\`), busca **\`@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)\`** en el desplegable para etiquetarnos y sube tu captura:
 
 <div align="center">
 
@@ -1539,6 +1542,39 @@ ${rows}
 </svg>\n`;
     }
 
+    function buildPortfolioBannerSvg() {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 135" width="900" height="135">
+  <defs>
+    <linearGradient id="bannerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1120"/>
+      <stop offset="50%" stop-color="#172554"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="bannerAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="896" height="131" rx="16" fill="url(#bannerBg)" stroke="url(#bannerAccent)" stroke-width="2.5"/>
+  <g opacity="0.12" transform="translate(80, 67)" color="#38BDF8">
+    <circle cx="0" cy="0" r="36" fill="none" stroke="currentColor" stroke-width="6"/>
+    <circle cx="0" cy="0" r="11" fill="currentColor"/>
+    <line x1="0" y1="-46" x2="0" y2="46" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-40" y1="-23" x2="40" y2="23" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    <line x1="40" y1="-23" x2="-40" y2="23" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.12" transform="translate(820, 67)" color="#2DD4BF">
+    <polygon points="0,-42 36,-21 36,21 0,42 -36,21 -36,-21" fill="none" stroke="currentColor" stroke-width="5"/>
+    <polygon points="0,-24 21,-12 21,12 0,24 -21,12 -21,-12" fill="currentColor" opacity="0.5"/>
+  </g>
+  <text x="450" y="38" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="800" fill="#FDE047" letter-spacing="3.2">CLOUD NATIVE MEDELLÍN (CNCF) • KUBECAFÉ</text>
+  <text x="450" y="74" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="27" font-weight="900" fill="#FFFFFF" letter-spacing="1.2">PORTAFOLIO CLOUD NATIVE &amp; KUBERNETES</text>
+  <rect x="260" y="88" width="380" height="2" rx="1" fill="url(#bannerAccent)" opacity="0.85"/>
+  <text x="450" y="110" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#93C5FD" letter-spacing="2.2">DE CERO A CAPITÁN EN KUBERNETES</text>
+</svg>\n`;
+    }
+
     function ensureInsigniasSvgs() {
       fs.mkdirSync(INSIGNIAS_DIR, { recursive: true });
       const states = ['completado', 'progreso', 'bloqueado'];
@@ -1552,6 +1588,7 @@ ${rows}
         const filePath = path.join(INSIGNIAS_DIR, `${key}.svg`);
         fs.writeFileSync(filePath, buildSpecialBadgeSvg(key, cfg), 'utf8');
       }
+      fs.writeFileSync(path.join(INSIGNIAS_DIR, 'banner-portafolio.svg'), buildPortfolioBannerSvg(), 'utf8');
     }
 
     function syncAllFiles(rawData) {
