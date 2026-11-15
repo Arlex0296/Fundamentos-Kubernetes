@@ -89,19 +89,27 @@ Una **rama** (*branch*) es una línea de trabajo independiente para no mezclar t
 git checkout -b TU-USUARIO/semana-01
 ```
 
+#### 📁 Crea tu carpeta personal y copia allí los retos (¡sin tocar los originales!)
+Trabaja **siempre** dentro de `aportes-comunidad/soluciones-retos/TU-USUARIO/semana-XX/`:
+
+```bash
+mkdir -p aportes-comunidad/soluciones-retos/TU-USUARIO/semana-01
+cp semana-01-arquitectura/2.reto-roto/*.yaml aportes-comunidad/soluciones-retos/TU-USUARIO/semana-01/
+```
+
 ---
 
 ### Paso 4: Guarda tus cambios (`git add` y `git commit`)
 
-Cuando edites archivos en VS Code y los guardes (`Cmd + S` o `Ctrl + S`), los cambios están en tu disco, pero Git todavía no los ha registrado en su historia oficial.
+Cuando edites los archivos **dentro de `aportes-comunidad/soluciones-retos/TU-USUARIO/semana-XX/`** en VS Code y los guardes (`Cmd + S` o `Ctrl + S`), los cambios están en tu disco, pero Git todavía no los ha registrado en su historia oficial.
 
 Para guardarlos en Git, ejecutas dos comandos:
 
-#### 1. Prepara los cambios:
+#### 1. Prepara **solo** tu carpeta personal:
 ```bash
-git add .
+git add aportes-comunidad/soluciones-retos/TU-USUARIO/
 ```
-* **¿Qué hace?** El punto (`.`) le dice a Git: *"toma todos los archivos que acabo de modificar o crear en esta carpeta y colócalos en la caja listos para empacar"*.
+* **¿Qué hace?** Agrega únicamente tus soluciones en `aportes-comunidad/soluciones-retos/TU-USUARIO/` y evita subir por accidente cambios en los archivos originales de `2.reto-roto/`. Verifica con `git status` que no hayas modificado nada fuera de tu carpeta.
 
 #### 2. Sella y titula tu paquete:
 ```bash
@@ -162,7 +170,7 @@ En las semanas siguientes (Semana 2, 3, 4, etc.) solo tienes que:
 1. Volver a la rama principal: `git checkout main`
 2. Traer los cambios nuevos del curso (ver pregunta 2 abajo).
 3. Crear tu nueva rama para esa semana: `git checkout -b TU-USUARIO/semana-02`
-4. Hacer tus cambios, `git add .`, `git commit -m "..."`, `git push` y abrir el PR.
+4. Copiar los retos a tu carpeta `aportes-comunidad/soluciones-retos/TU-USUARIO/semana-02/`, resolverlos, ejecutar `git add aportes-comunidad/soluciones-retos/TU-USUARIO/`, `git commit -m "..."`, `git push` y abrir el PR.
 </details>
 
 <details>
