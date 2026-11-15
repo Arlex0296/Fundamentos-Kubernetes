@@ -13,7 +13,7 @@
   <polygon points="110,16 196,66 196,166 110,216 24,166 24,66" fill="url(#sbg_cncf-medellin)"/>
   <polygon points="110,22 190,68 190,164 110,210 30,164 30,68" fill="none" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.75"/>
   <text x="110" y="54" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="800" fill="#FDE047" letter-spacing="1.0">CAPÍTULO OFICIAL</text>
-  <g color="#2DD4BF" transform="translate(110, 86) scale(0.88) translate(-110, -82)">
+  <g color="#FDE047" transform="translate(110, 86) scale(0.88) translate(-110, -82)">
     <rect x="89" y="64" width="42" height="36" rx="5" fill="none" stroke="currentColor" stroke-width="4"/>
       <path d="M101 82 L107 88 L120 75" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
   </g>

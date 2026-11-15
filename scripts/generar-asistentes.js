@@ -1440,40 +1440,46 @@ ${rows}
 
     const SPECIAL_HEX_BADGES = {
       'rango-marinero': {
-        issuer: 'RANGO OFICIAL',
+        issuer: 'RANGO BRONCE',
         sub: 'TRIPULACIÓN K8S',
         label: 'MARINERO',
         pill: '⛵ EN TRAVESÍA',
         footer: 'KUBECAFÉ',
-        gradStart: '#38BDF8',
-        gradEnd: '#0284C7',
-        pillBg: '#0284C7',
+        borderTop: '#FDBA74',
+        gradStart: '#EA580C',
+        gradEnd: '#9A3412',
+        pillBg: '#B45309',
+        accent: '#FDBA74',
         stars: '★',
         icon: `<path d="M110 56 L110 96 M110 58 L132 88 L110 88 Z M88 94 Q110 106 132 94 L126 104 Q110 110 94 104 Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>`
       },
       'rango-timonel': {
-        issuer: 'RANGO OFICIAL',
+        issuer: 'RANGO PLATA',
         sub: 'TRIPULACIÓN K8S',
         label: 'TIMONEL K8S',
         pill: '🧭 NAVEGANTE',
         footer: 'KUBECAFÉ',
-        gradStart: '#C084FC',
-        gradEnd: '#7C3AED',
-        pillBg: '#7C3AED',
+        borderTop: '#F8FAFC',
+        gradStart: '#CBD5E1',
+        gradEnd: '#475569',
+        pillBg: '#64748B',
+        accent: '#E2E8F0',
         stars: '★ ★',
         icon: `<circle cx="110" cy="82" r="20" fill="none" stroke="currentColor" stroke-width="4"/>
       <polygon points="110,65 115,82 110,99 105,82" fill="currentColor"/>
       <circle cx="110" cy="82" r="4" fill="#0B1120"/>`
       },
       'rango-capitan': {
-        issuer: 'RANGO MÁXIMO',
+        issuer: 'RANGO ORO',
         sub: 'MAESTRÍA K8S',
         label: 'CAPITÁN K8S',
         pill: '⚓ COMANDANTE',
         footer: 'KUBECAFÉ',
-        gradStart: '#FDE047',
-        gradEnd: '#D97706',
-        pillBg: '#D97706',
+        borderTop: '#FEF08A',
+        gradStart: '#FACC15',
+        gradEnd: '#B45309',
+        pillBg: '#CA8A04',
+        accent: '#FDE047',
         stars: '★ ★ ★',
         icon: `<circle cx="110" cy="63" r="5" fill="none" stroke="currentColor" stroke-width="3.5"/>
       <line x1="110" y1="68" x2="110" y2="103" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
@@ -1486,9 +1492,11 @@ ${rows}
         label: 'CNCF MEDELLÍN',
         pill: '🇨🇴 COMUNIDAD',
         footer: 'CLOUD NATIVE',
+        borderTop: '#FDE047',
         gradStart: '#2DD4BF',
         gradEnd: '#0D9488',
         pillBg: '#0D9488',
+        accent: '#FDE047',
         stars: '★ ★ ★',
         icon: `<rect x="89" y="64" width="42" height="36" rx="5" fill="none" stroke="currentColor" stroke-width="4"/>
       <path d="M101 82 L107 88 L120 75" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`
@@ -1499,7 +1507,7 @@ ${rows}
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 245" width="220" height="245">
   <defs>
     <linearGradient id="sb_${key}" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="0%" stop-color="${cfg.borderTop}"/>
       <stop offset="100%" stop-color="${cfg.gradStart}"/>
     </linearGradient>
     <linearGradient id="sbg_${key}" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -1510,19 +1518,19 @@ ${rows}
   <polygon points="110,8 204,62 204,170 110,224 16,170 16,62" fill="url(#sb_${key})"/>
   <polygon points="110,16 196,66 196,166 110,216 24,166 24,66" fill="url(#sbg_${key})"/>
   <polygon points="110,22 190,68 190,164 110,210 30,164 30,68" fill="none" stroke="${cfg.gradStart}" stroke-width="1.5" stroke-opacity="0.75"/>
-  <text x="110" y="54" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="800" fill="#FDE047" letter-spacing="1.0">${cfg.issuer}</text>
-  <g color="${cfg.gradStart}" transform="translate(110, 86) scale(0.88) translate(-110, -82)">
+  <text x="110" y="54" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="800" fill="${cfg.accent}" letter-spacing="1.0">${cfg.issuer}</text>
+  <g color="${cfg.accent}" transform="translate(110, 86) scale(0.88) translate(-110, -82)">
     ${cfg.icon}
   </g>
   <polygon points="10,118 210,118 202,154 18,154" fill="${cfg.gradEnd}"/>
   <polygon points="10,118 18,154 24,149 16,118" fill="#000000" opacity="0.3"/>
   <polygon points="210,118 202,154 196,149 204,118" fill="#000000" opacity="0.3"/>
-  <text x="110" y="131" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="800" fill="#FDE047" letter-spacing="1.6">${cfg.sub}</text>
+  <text x="110" y="131" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="800" fill="${cfg.accent}" letter-spacing="1.6">${cfg.sub}</text>
   <text x="110" y="148" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" letter-spacing="0.8">${cfg.label}</text>
   <rect x="52" y="159" width="116" height="20" rx="10" fill="${cfg.pillBg}"/>
   <text x="110" y="172.5" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="800" fill="#FFFFFF" letter-spacing="0.8">${cfg.pill}</text>
   <text x="110" y="190" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="700" fill="#CBD5E1" opacity="0.95" letter-spacing="1.0">${cfg.footer}</text>
-  <text x="110" y="203" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10.5" fill="#FDE047" letter-spacing="2.5">${cfg.stars}</text>
+  <text x="110" y="203" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10.5" fill="${cfg.accent}" letter-spacing="2.5">${cfg.stars}</text>
 </svg>\n`;
     }
 
