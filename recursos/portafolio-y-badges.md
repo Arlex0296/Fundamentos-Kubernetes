@@ -21,14 +21,14 @@ Cada vez que entregas los **Retos Rotos** de una semana o llenas el [**📔 Form
 
 ### ¿Qué incluye tu Portafolio automáticamente?
 1. **Cabecera profesional con Banner SVG:** Banner oficial Cloud Native Medellín, tu foto de GitHub, rol, rango, motivación y enlaces a LinkedIn/redes.
-2. **Panel de Rango (Bronce / Plata / Oro) y KPIs Verificados por CI/CD:** Medallón hexagonal estilo Credly de tu rango, sello del capítulo CNCF Medellín, puntaje **XP**, retos superados y bitácoras.
-3. **Mapa de Competencias Hexagonal (7 Módulos):** Insignias SVG estilo Credly con 3 estados (`✓ Verificado`, `⏳ En Progreso`, `🔒 Próximamente`) para `Docker & OCI`, `K8s Pods`, `Deployments`, `Gateway API`, `Config & PV`, `Security RBAC` y `Helm Chart`.
+2. **Panel de Rango (Bronce / Plata / Oro) y KPIs Verificados por CI/CD:** Medallón hexagonal KubeCafé de tu rango, sello del capítulo CNCF Medellín, puntaje **XP**, retos superados y bitácoras.
+3. **Mapa de Competencias Hexagonal (7 Módulos):** Insignias SVG verificadas con 3 estados (`✓ Verificado`, `⏳ En Progreso`, `🔒 Próximamente`) para `Docker & OCI`, `K8s Pods`, `Deployments`, `Gateway API`, `Config & PV`, `Security RBAC` y `Helm Chart`.
 4. **Tabla de Evidencias con Barra de Progreso:** Progreso visual por semana (`🟩🟩🟩🟩🟩`) y enlaces directos a tu código y bitácoras.
 5. **Visibilidad en el Repositorio Principal:** Al crear tu portafolio, aparece el enlace directo `🎓 Portafolio` bajo tu tarjeta en el mosaico del [README principal](../README.md) y compites por entrar al **Podio Top 5**.
 
 ---
 
-## 🎖️ 2. Catálogo de Insignias Hexagonales Estilo Credly (SVG)
+## 🎖️ 2. Catálogo de Insignias Oficiales KubeCafé (SVG)
 
 Puedes copiar cualquiera de estas insignias vectoriales oficiales y pegarlas en el `README.md` de tu perfil personal de GitHub (`https://github.com/TU-USUARIO/TU-USUARIO`) o en tu Fork.
 

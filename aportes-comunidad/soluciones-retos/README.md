@@ -4,11 +4,11 @@
 
 [![Llenar Bitácora (+10 XP)](https://img.shields.io/badge/📔_Llenar_Bitácora_y_Generar_Portafolio_(+10_XP)-8B5CF6?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml)
 [![Ver Ranking y Portafolios](https://img.shields.io/badge/🏆_Ranking_y_Portafolios_(ASISTENTES.md)-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](../../ASISTENTES.md)
-[![Catálogo de Insignias SVG](https://img.shields.io/badge/🎖️_Insignias_Estilo_Credly-00C7B7?style=for-the-badge&logo=cncf&logoColor=white)](../../recursos/portafolio-y-badges.md)
+[![Catálogo de Insignias SVG](https://img.shields.io/badge/🎖️_Insignias_KubeCafé-00C7B7?style=for-the-badge&logo=cncf&logoColor=white)](../../recursos/portafolio-y-badges.md)
 
 </div>
 
-¡Bienvenido al espacio donde los asistentes del workshop comparten sus soluciones a los **Retos Rotos** de cada semana, desbloquean su **Portafolio Profesional KubeCafé** con **insignias hexagonales estilo Credly** y suman experiencia (**+XP**) en [`ASISTENTES.md`](../../ASISTENTES.md)!
+¡Bienvenido al espacio donde los asistentes del workshop comparten sus soluciones a los **Retos Rotos** de cada semana, desbloquean su **Portafolio Profesional KubeCafé** con **insignias hexagonales verificadas** y suman experiencia (**+XP**) en [`ASISTENTES.md`](../../ASISTENTES.md)!
 
 👉 **¿Estás dando tus primeros pasos entregando un reto?** Lee el [**🧭 Manual Paso a Paso para la Comunidad (`aportes-comunidad/README.md`)**](../README.md).
 

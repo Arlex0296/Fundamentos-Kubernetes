@@ -722,7 +722,7 @@ function generateStudentPortfolioReadme(student, evalResult) {
   const motivacion = (student.motivacion || 'Dominar contenedores y Kubernetes desde la práctica.').trim();
   const share = buildShareLinks(user, nombre, rango, points, true, folderName);
 
-  // Insignias de módulos estilo Credly (SVG)
+  // Insignias de módulos KubeCafé (SVG)
   const moduleBadges = Object.entries(WEEK_METADATA).map(([wk, meta]) => {
     const rep = evalResult.detailedReport.find(r => r.weekKey === wk);
     let state = 'bloqueado';
@@ -1396,7 +1396,7 @@ ${rows}
       }
     };
 
-    function buildCredlyBadgeSvg(weekKey, state) {
+    function buildModuleBadgeSvg(weekKey, state) {
       const vis = BADGE_VISUALS[weekKey] || BADGE_VISUALS['semana-01'];
       const isDone = state === 'completado';
       const isProg = state === 'progreso';
@@ -1584,7 +1584,7 @@ ${rows}
       for (const weekKey of Object.keys(WEEK_METADATA)) {
         for (const state of states) {
           const filePath = path.join(INSIGNIAS_DIR, `${weekKey}-${state}.svg`);
-          fs.writeFileSync(filePath, buildCredlyBadgeSvg(weekKey, state), 'utf8');
+          fs.writeFileSync(filePath, buildModuleBadgeSvg(weekKey, state), 'utf8');
         }
       }
       for (const [key, cfg] of Object.entries(SPECIAL_HEX_BADGES)) {

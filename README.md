@@ -86,7 +86,7 @@
 | [**`semana-01-arquitectura/`**](./semana-01-arquitectura) | [![Kubernetes](https://img.shields.io/badge/K8s_Pods-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](./semana-01-arquitectura) · 🟢 *Disponible* | Arquitectura interna (Control Plane vs Workers), creación de Pods y contenedores Sidecar. |
 | [**`semana-02-deployments/`**](./semana-02-deployments) | [![Deployments](https://img.shields.io/badge/Deployments-10B981?style=flat-square&logo=kubernetes&logoColor=white)](./semana-02-deployments) · 🔥 *En Curso* | Controladores de réplicas, autorreparación (*self-healing*), rolling updates con cero caídas y rollbacks. |
 | [**`aportes-comunidad/`**](./aportes-comunidad) | [![Comunidad](https://img.shields.io/badge/Comunidad-F59E0B?style=flat-square&logo=github&logoColor=white)](./aportes-comunidad) · 🎓 *Portafolios* | Entrega de retos rotos (+XP), **Portafolios Profesionales KubeCafé** verificados y bitácoras semanales. |
-| [**`recursos/`**](./recursos) | [![KubeCafé](https://img.shields.io/badge/Recursos-8B5CF6?style=flat-square&logo=coffeescript&logoColor=white)](./recursos) · 🎮 *Simulador* | Simulador KubeCafé, diapositivas PDF, [**Shell DX (Terminal Pro)**](./recursos/guia-shell-dx-kubernetes.md), [**Insignias Credly**](./recursos/portafolio-y-badges.md), Trivy, Harbor y Ollama. |
+| [**`recursos/`**](./recursos) | [![KubeCafé](https://img.shields.io/badge/Recursos-8B5CF6?style=flat-square&logo=coffeescript&logoColor=white)](./recursos) · 🎮 *Simulador* | Simulador KubeCafé, diapositivas PDF, [**Shell DX (Terminal Pro)**](./recursos/guia-shell-dx-kubernetes.md), [**Insignias KubeCafé**](./recursos/portafolio-y-badges.md), Trivy, Harbor y Ollama. |
 | [**`scripts/`**](./scripts) | [![NodeJS](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)](./scripts) · ⚙️ *Automatización* | Scripts que validan los retos, calculan puntajes y generan el portafolio de cada estudiante. |
 
 ---
@@ -830,7 +830,7 @@ A medida que envíes tus Pull Requests (PRs) resolviendo los retos rotos de cada
 * 🧭 **Timonel — Plata (2+ Semanas Completadas al 100%):** Resolviste y validaste **todos** los ejercicios de los *Retos Rotos* de al menos 2 semanas (`5/5` en Semana 00, `4/4` en Semana 01, etc.).
 * ⚓ **Capitán K8s — Oro (6 Semanas Completadas al 100%):** Dominas la navegación del clúster, completaste todos los retos de las 6 semanas y el proyecto final.
 
-### 🎓 Tu Portafolio Profesional KubeCafé, Bitácora de Navegación e Insignias Hexagonales (Estilo Credly)
+### 🎓 Tu Portafolio Profesional KubeCafé, Bitácora de Navegación e Insignias Oficiales
 
 En **Cloud Native Medellín (CNCF)** queremos que tu esfuerzo técnico sea visible en tu carrera profesional. Cada vez que entregas un reto o llenas el [**📔 Formulario Visual de Bitácora Semanal**](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml), nuestro robot genera automáticamente tu **Portafolio Profesional de Aprendizaje** dentro de `aportes-comunidad/soluciones-retos/<tu-usuario>/README.md` con **Banner SVG**, **medallones hexagonales por módulo**, enlace directo en el mosaico principal y texto listo para compartir en **LinkedIn** etiquetando a `@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)`:
 
