@@ -166,23 +166,23 @@
     function formatSocialDisplay(url) {
       return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/+$/, '');
     }
-    function getSocialIcon(url) {
+    function getSocialType(url) {
       const l = url.toLowerCase();
-      if (l.includes('linkedin.com')) return '💼';
-      if (l.includes('github.com')) return '🐙';
-      if (l.includes('x.com') || l.includes('twitter.com')) return '𝕏';
-      if (l.includes('instagram.com')) return '📸';
-      if (l.includes('youtube.com')) return '▶️';
-      return '🌐';
+      if (l.includes('linkedin.com')) return 'linkedin';
+      if (l.includes('github.com')) return 'github';
+      if (l.includes('x.com') || l.includes('twitter.com')) return 'x';
+      if (l.includes('instagram.com')) return 'instagram';
+      if (l.includes('youtube.com')) return 'youtube';
+      return 'web';
     }
     const personalSocials = [
-      { icon: '🐙', url: `https://github.com/${user}`, display: `github.com/${user}` }
+      { type: 'github', url: `https://github.com/${user}`, display: `github.com/${user}` }
     ];
     if (linkedinUrl) {
-      personalSocials.push({ icon: '💼', url: linkedinUrl, display: formatSocialDisplay(linkedinUrl) });
+      personalSocials.push({ type: 'linkedin', url: linkedinUrl, display: formatSocialDisplay(linkedinUrl) });
     }
     extraRedes.forEach(u => {
-      personalSocials.push({ icon: getSocialIcon(u), url: u, display: formatSocialDisplay(u) });
+      personalSocials.push({ type: getSocialType(u), url: u, display: formatSocialDisplay(u) });
     });
 
     const VALID_STATES = new Set(['completado', 'progreso', 'bloqueado']);
@@ -343,15 +343,101 @@
       ctx.font = '600 19px system-ui, -apple-system, sans-serif';
       ctx.fillText(fitText(rol, 705), 192, 190);
 
-      const socialsLine = personalSocials.map(s => `${s.icon} ${s.display}`).join('   •   ');
-      let socialFontSize = 14.5;
-      ctx.font = `600 ${socialFontSize}px system-ui, -apple-system, sans-serif`;
-      while (socialFontSize > 10 && ctx.measureText(socialsLine).width > 705) {
-        socialFontSize -= 0.5;
-        ctx.font = `600 ${socialFontSize}px system-ui, -apple-system, sans-serif`;
+      // Vector brand icon helper for social URLs
+      const GITHUB_PATH = new Path2D('M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12');
+      function drawBrandIcon(type, x, y, size) {
+        ctx.save();
+        if (type === 'github') {
+          ctx.translate(x, y);
+          ctx.scale(size / 24, size / 24);
+          ctx.fillStyle = '#F8FAFC';
+          ctx.fill(GITHUB_PATH);
+        } else if (type === 'linkedin') {
+          ctx.fillStyle = '#0A66C2';
+          roundRect(x, y, size, size, size * 0.22);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = `900 ${Math.round(size * 0.62)}px system-ui, -apple-system, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('in', x + size / 2, y + size * 0.54);
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'alphabetic';
+        } else if (type === 'x') {
+          ctx.fillStyle = '#0F172A';
+          roundRect(x, y, size, size, size * 0.22);
+          ctx.fill();
+          ctx.strokeStyle = '#64748B';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = `800 ${Math.round(size * 0.65)}px system-ui, -apple-system, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('𝕏', x + size / 2, y + size * 0.53);
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'alphabetic';
+        } else if (type === 'instagram') {
+          ctx.fillStyle = '#E4405F';
+          roundRect(x, y, size, size, size * 0.25);
+          ctx.fill();
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.arc(x + size / 2, y + size / 2, size * 0.22, 0, Math.PI * 2);
+          ctx.stroke();
+        } else if (type === 'youtube') {
+          ctx.fillStyle = '#FF0000';
+          roundRect(x, y, size, size, size * 0.22);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.beginPath();
+          ctx.moveTo(x + size * 0.38, y + size * 0.28);
+          ctx.lineTo(x + size * 0.72, y + size * 0.5);
+          ctx.lineTo(x + size * 0.38, y + size * 0.72);
+          ctx.closePath();
+          ctx.fill();
+        } else {
+          ctx.fillStyle = '#0284C7';
+          ctx.beginPath();
+          ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = `700 ${Math.round(size * 0.6)}px system-ui, -apple-system, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('🌐', x + size / 2, y + size * 0.54);
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'alphabetic';
+        }
+        ctx.restore();
       }
-      ctx.fillStyle = '#7DD3FC';
-      ctx.fillText(socialsLine, 192, 219);
+
+      let socialFontSize = 14.5;
+      const iconSize = 16;
+      const iconGap = 7;
+      const itemGap = 20;
+      function measureSocialsWidth(fs) {
+        ctx.font = `600 ${fs}px system-ui, -apple-system, sans-serif`;
+        return personalSocials.reduce((sum, s, i) => {
+          return sum + iconSize + iconGap + ctx.measureText(s.display).width + (i > 0 ? itemGap : 0);
+        }, 0);
+      }
+      while (socialFontSize > 10 && measureSocialsWidth(socialFontSize) > 705) {
+        socialFontSize -= 0.5;
+      }
+      ctx.font = `600 ${socialFontSize}px system-ui, -apple-system, sans-serif`;
+      let sx = 192;
+      personalSocials.forEach((s, i) => {
+        if (i > 0) {
+          ctx.fillStyle = '#475569';
+          ctx.fillText('•', sx - itemGap / 2 - 2, 219);
+        }
+        drawBrandIcon(s.type, sx, 219 - iconSize + 3, iconSize);
+        ctx.fillStyle = '#7DD3FC';
+        ctx.fillText(s.display, sx + iconSize + iconGap, 219);
+        sx += iconSize + iconGap + ctx.measureText(s.display).width + itemGap;
+      });
 
       // CNCF Medellín & Rank SVG Insignias (right of profile)
       if (cncfBadgeImg) {
