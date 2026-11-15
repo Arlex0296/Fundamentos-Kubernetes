@@ -1374,11 +1374,11 @@ ${rows}
       const statusBg = isDone ? '#10B981' : isProg ? '#F59E0B' : '#334155';
       const statusText = isDone ? '✓ VERIFICADO' : isProg ? '⏳ EN PROGRESO' : '🔒 PRÓXIMAMENTE';
       const statusFg = isDone || isProg ? '#FFFFFF' : '#94A3B8';
-      const issuerColor = isDone ? '#E2E8F0' : isProg ? '#FDE68A' : '#94A3B8';
+      const issuerColor = isDone ? '#FDE047' : isProg ? '#FDE68A' : '#94A3B8';
       const subColor = isDone ? '#FDE047' : isProg ? '#FDE68A' : '#94A3B8';
       const opacity = isDone || isProg ? '1' : '0.58';
       const stars = isDone
-        ? `<text x="110" y="210" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#FDE047" letter-spacing="3">★ ★ ★</text>`
+        ? `<text x="110" y="203" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10.5" fill="#FDE047" letter-spacing="2.5">★ ★ ★</text>`
         : '';
 
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 245" width="220" height="245">
@@ -1396,8 +1396,8 @@ ${rows}
     <polygon points="110,8 204,62 204,170 110,224 16,170 16,62" fill="url(#b_${weekKey}_${state})"/>
     <polygon points="110,16 196,66 196,166 110,216 24,166 24,66" fill="url(#bg_${weekKey}_${state})"/>
     <polygon points="110,22 190,68 190,164 110,210 30,164 30,68" fill="none" stroke="${isDone ? vis.gradStart : borderStart}" stroke-width="1.5" stroke-opacity="${isDone ? '0.75' : '0.35'}"/>
-    <text x="110" y="50" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="800" fill="${issuerColor}" letter-spacing="1.4">CNCF MEDELLÍN</text>
-    <g color="${iconColor}" transform="translate(0, 4)">
+    <text x="110" y="54" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="800" fill="${issuerColor}" letter-spacing="1.0">CNCF MEDELLÍN</text>
+    <g color="${iconColor}" transform="translate(110, 86) scale(0.88) translate(-110, -82)">
       ${vis.icon}
     </g>
     <polygon points="10,118 210,118 202,154 18,154" fill="${ribbonFill}"/>
@@ -1405,9 +1405,9 @@ ${rows}
     <polygon points="210,118 202,154 196,149 204,118" fill="#000000" opacity="0.3"/>
     <text x="110" y="131" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="800" fill="${subColor}" letter-spacing="1.8">${vis.sub}</text>
     <text x="110" y="148" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" letter-spacing="0.8">${vis.label}</text>
-    <rect x="50" y="162" width="120" height="22" rx="11" fill="${statusBg}"/>
-    <text x="110" y="177" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="800" fill="${statusFg}" letter-spacing="0.8">${statusText}</text>
-    <text x="110" y="196" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" fill="${issuerColor}" opacity="0.9" letter-spacing="1.1">KUBECAFÉ</text>
+    <rect x="52" y="159" width="116" height="20" rx="10" fill="${statusBg}"/>
+    <text x="110" y="172.5" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="800" fill="${statusFg}" letter-spacing="0.8">${statusText}</text>
+    <text x="110" y="190" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="700" fill="#CBD5E1" opacity="0.95" letter-spacing="1.0">KUBECAFÉ</text>
     ${stars}
   </g>
 </svg>\n`;
