@@ -989,7 +989,10 @@ function buildReadmeMosaicSection(students, instructorsList = []) {
       const profileLink = entry.hasPortfolioDir
         ? `./aportes-comunidad/soluciones-retos/${entry.userFolderName || user}/README.md`
         : cleanLinkedin(entry.linkedin) || `https://github.com/${user}`;
-      return `    <td align="center" width="140">\n      <a href="${profileLink}" title="${fullName} (@${user}) — ${xp} XP">\n        <img src="https://github.com/${user}.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="${user}"/><br/>\n        <sub><b>${medal}${shortName}</b></sub>\n      </a><br/>\n      <sub>${rango} • <b>${xp} XP</b></sub>\n    </td>`;
+      const portfolioSubLink = entry.hasPortfolioDir
+        ? `<a href="./aportes-comunidad/soluciones-retos/${entry.userFolderName || user}/README.md">🎓 Portafolio</a>`
+        : `<a href="${buildBitacoraIssueUrl(user)}">➕ Portafolio</a>`;
+      return `    <td align="center" width="140">\n      <a href="${profileLink}" title="${fullName} (@${user}) — ${xp} XP">\n        <img src="https://github.com/${user}.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="${user}"/><br/>\n        <sub><b>${medal}${shortName}</b></sub>\n      </a><br/>\n      <sub>${rango} • <b>${xp} XP</b></sub><br/>\n      <sub>${portfolioSubLink}</sub>\n    </td>`;
     });
     rowsHtml.push(`  <tr>\n${cells.join('\n')}\n  </tr>`);
   }
@@ -1037,41 +1040,86 @@ ${rowsHtml.join('\n')}
 <!-- FIN_MOSAICO_TRIPULACION -->`;
 }
 
+function buildReadmePodiumSection(students) {
+  const top3 = students.filter(s => s.hasPortfolioDir).slice(0, 3);
+  if (top3.length === 0) {
+    return `<!-- INICIO_PODIO_PORTAFOLIOS -->\n<!-- FIN_PODIO_PORTAFOLIOS -->`;
+  }
+
+  const medals = ['🥇 #1', '🥈 #2', '🥉 #3'];
+  const cells = top3.map((entry, idx) => {
+    const user = cleanGithubUser(entry.github);
+    const fullName = (entry.nombre || user).replace(/<[^>]*>/g, '').trim();
+    const parts = fullName.split(/\s+/);
+    const shortName = parts.length > 2 ? `${parts[0]} ${parts[1]}` : fullName;
+    const rango = (entry.rango || '⛵ Marinero').trim();
+    const xp = entry.puntos || 10;
+    const portfolioUrl = `./aportes-comunidad/soluciones-retos/${entry.userFolderName || user}/README.md`;
+    return `    <td align="center" width="220">\n      <b>${medals[idx] || `#${idx + 1}`}</b><br/>\n      <a href="${portfolioUrl}" title="Portafolio de ${fullName} (@${user})">\n        <img src="https://github.com/${user}.png?size=120" width="72" height="72" style="border-radius: 50%;" alt="${user}"/><br/>\n        <b>${shortName}</b>\n      </a><br/>\n      <sub>${rango} • <b>${xp} XP</b></sub><br/>\n      <a href="${portfolioUrl}"><b>🎓 Ver Portafolio</b></a>\n    </td>`;
+  });
+
+  return `<!-- INICIO_PODIO_PORTAFOLIOS -->
+## 🏆 Podio de Portafolios Destacados (Top 3)
+
+<div align="center">
+
+<table>
+  <tr>
+${cells.join('\n')}
+  </tr>
+</table>
+
+<sub>🎓 <b>Explora todos los portafolios verificados:</b> <a href="./ASISTENTES.md"><b>🏆 Tabla de Posiciones y Portafolios (ASISTENTES.md)</b></a> • <a href="./aportes-comunidad/soluciones-retos"><b>📂 Carpeta de Portafolios</b></a> • <a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml"><b>📔 Sumar +10 XP con mi Bitácora</b></a></sub>
+
+</div>
+<!-- FIN_PODIO_PORTAFOLIOS -->`;
+}
+
 function updateReadmeWithMosaic(students, readmeContent, instructorsList = []) {
+  let updated = readmeContent;
+
+  const podiumBlock = buildReadmePodiumSection(students);
+  const podiumStart = '<!-- INICIO_PODIO_PORTAFOLIOS -->';
+  const podiumEnd = '<!-- FIN_PODIO_PORTAFOLIOS -->';
+  if (updated.includes(podiumStart) && updated.includes(podiumEnd)) {
+    const podiumRegex = new RegExp(`${podiumStart}[\\s\\S]*?${podiumEnd}`);
+    updated = updated.replace(podiumRegex, podiumBlock);
+  }
+
   const mosaicBlock = buildReadmeMosaicSection(students, instructorsList);
   const startMarker = '<!-- INICIO_MOSAICO_TRIPULACION -->';
   const endMarker = '<!-- FIN_MOSAICO_TRIPULACION -->';
 
-  if (readmeContent.includes(startMarker) && readmeContent.includes(endMarker)) {
-    const regex = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`);
-    return readmeContent.replace(regex, mosaicBlock);
-  }
+    if (updated.includes(startMarker) && updated.includes(endMarker)) {
+      const regex = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`);
+      return updated.replace(regex, mosaicBlock);
+    }
 
-  const targetHeading = '## 🏆 Rangos de Navegación (Gamificación)';
-  if (readmeContent.includes(targetHeading)) {
-    return readmeContent.replace(targetHeading, `${mosaicBlock}\n\n---\n\n${targetHeading}`);
-  }
-  return readmeContent + '\n\n' + mosaicBlock + '\n';
-}
+    const targetHeading = '## 🏆 Rangos de Navegación (Gamificación)';
+      if (updated.includes(targetHeading)) {
+        return updated.replace(targetHeading, `${mosaicBlock}\n\n---\n\n${targetHeading}`);
+      }
+      return updated + '\n\n' + mosaicBlock + '\n';
+    }
 
-function renderAsistentesMarkdown(students, instructorsList, officialChallenges) {
-  const rows = students.map((s, idx) => buildStudentRow(s, idx + 1)).join('\n');
+    function renderAsistentesMarkdown(students, instructorsList, officialChallenges) {
+      const rows = students.map((s, idx) => buildStudentRow(s, idx + 1)).join('\n');
 
-  const weekChallengesText = Object.entries(officialChallenges)
-    .map(([week, nums]) => `\`${week}\` (${nums.length} retos rotos)`)
-    .join(', ');
+      const weekChallengesText = Object.entries(officialChallenges)
+        .map(([week, nums]) => `\`${week}\` (${nums.length} retos rotos)`)
+        .join(', ');
 
-  let instructorCard = '';
-  if (instructorsList && instructorsList.length > 0) {
-    const instRows = instructorsList.map(inst => {
-      const u = cleanGithubUser(inst.github);
-      const nom = (inst.nombre || u).trim();
-      const rol = (inst.rol || '🤝 Colaborador').trim();
-      const mot = (inst.motivacion || 'Compartir conocimiento y fortalecer la comunidad Cloud Native en Medellín. 🏔️☕').trim();
-      const instBadges = buildSocialBadgesString(inst).replace(/<br>/g, ' &nbsp; ');
-      return `| <img src="https://github.com/${u}.png?size=50" width="36" height="36" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"> **${nom}** | ${rol} | ${instBadges} | ${mot} |`;
-    }).join('\n');
-    instructorCard = `
+      let instructorCard = '';
+      if (instructorsList && instructorsList.length > 0) {
+        const instRows = instructorsList.map(inst => {
+          const u = cleanGithubUser(inst.github);
+          const nom = (inst.nombre || u).trim();
+          const rol = (inst.rol || '🤝 Colaborador').trim();
+          const mot = (inst.motivacion || 'Compartir conocimiento y fortalecer la comunidad Cloud Native en Medellín. 🏔️☕').trim();
+          const instBadges = buildSocialBadgesString(inst).replace(/<br>/g, ' &nbsp; ');
+          return `| <img src="https://github.com/${u}.png?size=50" width="36" height="36" style="border-radius: 50%; vertical-align: middle; margin-right: 8px;"> **${nom}** | ${rol} | ${instBadges} | ${mot} |`;
+        }).join('\n');
+        instructorCard = `
 ## 👨‍🏫 Capitán y Colaboradores de la Nave (Equipo Organizador)
 
 | 👤 Integrante | 💼 Rol / Especialidad | 🌐 Redes Profesionales | 🎯 Misión en la Comunidad |
@@ -1080,9 +1128,9 @@ ${instRows}
 
 ---
 `;
-  }
+      }
 
-  return `# 🙌 Muro de Asistentes y Ranking de la Tripulación — Cloud Native Medellín 🏔️☕
+      return `# 🙌 Muro de Asistentes y Ranking de la Tripulación — Cloud Native Medellín 🏔️☕
 
 ¡Te damos la bienvenida a bordo! Este muro es el registro histórico, el **directorio de Portafolios Profesionales KubeCafé** y la **tabla de posiciones (Leaderboard)** de todas las personas que hacen parte de esta travesía de aprendizaje: **De Cero a Capitán en Kubernetes**.
 
@@ -1144,138 +1192,138 @@ ${rows}
 > **Impulsa tu Marca Profesional y Haz Networking:**  
 > Haz clic en el botón **\`🎓 Portafolio K8s\`** de los tripulantes para ver sus laboratorios verificados y bitácoras, y visita la [**🎖️ Guía de Portafolio e Insignias para LinkedIn y GitHub (\`recursos/portafolio-y-badges.md\`)**](./recursos/portafolio-y-badges.md) para agregar tu insignia oficial a tu perfil. 🤝🚀
 `;
-}
+    }
 
-function processAndSortData(rawData) {
-  const officialChallenges = discoverOfficialChallenges();
-  const map = new Map();
+    function processAndSortData(rawData) {
+      const officialChallenges = discoverOfficialChallenges();
+      const map = new Map();
 
-  for (const item of rawData) {
-    const cleanUser = cleanGithubUser(item.github);
-    const key = cleanUser.toLowerCase();
-    if (!map.has(key)) {
-      item.github = cleanUser;
-      item.linkedin = cleanLinkedin(item.linkedin);
-      item.redes = parseExtraSocialLinks(item.redes);
-      if (item.x && !item.redes.includes(item.x)) item.redes.push(item.x);
-      delete item.x;
-      map.set(key, item);
-    } else {
-      const existing = map.get(key);
-      if (item.linkedin && cleanLinkedin(item.linkedin)) existing.linkedin = cleanLinkedin(item.linkedin);
-      if (item.rol && item.rol !== 'Tripulante de la Comunidad') existing.rol = item.rol;
-      if (item.motivacion && !item.motivacion.startsWith('Aporte en PR')) existing.motivacion = item.motivacion;
-      if (item.redes) {
-        for (const r of parseExtraSocialLinks(item.redes)) {
-          if (!existing.redes.includes(r)) existing.redes.push(r);
+      for (const item of rawData) {
+        const cleanUser = cleanGithubUser(item.github);
+        const key = cleanUser.toLowerCase();
+        if (!map.has(key)) {
+          item.github = cleanUser;
+          item.linkedin = cleanLinkedin(item.linkedin);
+          item.redes = parseExtraSocialLinks(item.redes);
+          if (item.x && !item.redes.includes(item.x)) item.redes.push(item.x);
+          delete item.x;
+          map.set(key, item);
+        } else {
+          const existing = map.get(key);
+          if (item.linkedin && cleanLinkedin(item.linkedin)) existing.linkedin = cleanLinkedin(item.linkedin);
+          if (item.rol && item.rol !== 'Tripulante de la Comunidad') existing.rol = item.rol;
+          if (item.motivacion && !item.motivacion.startsWith('Aporte en PR')) existing.motivacion = item.motivacion;
+          if (item.redes) {
+            for (const r of parseExtraSocialLinks(item.redes)) {
+              if (!existing.redes.includes(r)) existing.redes.push(r);
+            }
+          }
         }
       }
+
+      const instructorsList = [];
+      const students = [];
+
+      let orderIndex = 0;
+      for (const item of map.values()) {
+        const isInstructor = INSTRUCTORS.includes(item.github.toLowerCase());
+        if (isInstructor) {
+          item.rango = '⚓ Capitán K8s';
+          instructorsList.push(item);
+        } else {
+          const evalResult = evaluateUserProgress(item.github, officialChallenges);
+          item.rango = evalResult.rango;
+          item.puntos = evalResult.points;
+          item.semanasCompletas = evalResult.completedWeeksCount;
+          item.progresoTexto = evalResult.summaryText;
+          item.hasPortfolioDir = evalResult.hasPortfolioDir;
+          item.userFolderName = evalResult.userFolderName;
+          item._evalResult = evalResult;
+          item._order = orderIndex++;
+          students.push(item);
+        }
+      }
+
+      students.sort((a, b) => {
+        if (b.puntos !== a.puntos) return b.puntos - a.puntos;
+        return a._order - b._order;
+      });
+
+      const cleanJsonList = [];
+      for (const inst of instructorsList) {
+        cleanJsonList.push({
+          github: inst.github,
+          nombre: inst.nombre,
+          rol: inst.rol,
+          linkedin: inst.linkedin || '',
+          redes: inst.redes || [],
+          rango: inst.rango,
+          motivacion: inst.motivacion
+        });
+      }
+      for (const s of students) {
+        cleanJsonList.push({
+          github: s.github,
+          nombre: s.nombre,
+          rol: s.rol,
+          linkedin: s.linkedin || '',
+          redes: s.redes || [],
+          rango: s.rango,
+          puntos: s.puntos,
+          motivacion: s.motivacion
+        });
+      }
+
+      return {
+        cleanJsonList,
+        students,
+        instructorsList,
+        officialChallenges
+      };
     }
-  }
 
-  const instructorsList = [];
-  const students = [];
+    function syncAllFiles(rawData) {
+      const { cleanJsonList, students, instructorsList, officialChallenges } = processAndSortData(rawData);
+      fs.writeFileSync(JSON_PATH, JSON.stringify(cleanJsonList, null, 2) + '\n', 'utf8');
 
-  let orderIndex = 0;
-  for (const item of map.values()) {
-    const isInstructor = INSTRUCTORS.includes(item.github.toLowerCase());
-    if (isInstructor) {
-      item.rango = '⚓ Capitán K8s';
-      instructorsList.push(item);
-    } else {
-      const evalResult = evaluateUserProgress(item.github, officialChallenges);
-      item.rango = evalResult.rango;
-      item.puntos = evalResult.points;
-      item.semanasCompletas = evalResult.completedWeeksCount;
-      item.progresoTexto = evalResult.summaryText;
-      item.hasPortfolioDir = evalResult.hasPortfolioDir;
-      item.userFolderName = evalResult.userFolderName;
-      item._evalResult = evalResult;
-      item._order = orderIndex++;
-      students.push(item);
+      // Generar el README.md de Portafolio Profesional para cada estudiante con carpeta en soluciones-retos/
+      for (const s of students) {
+        if (s.hasPortfolioDir && s._evalResult) {
+          generateStudentPortfolioReadme(s, s._evalResult);
+        }
+      }
+
+      const md = renderAsistentesMarkdown(students, instructorsList, officialChallenges);
+      fs.writeFileSync(MD_PATH, md, 'utf8');
+      if (fs.existsSync(README_PATH)) {
+        const readme = fs.readFileSync(README_PATH, 'utf8');
+        fs.writeFileSync(README_PATH, updateReadmeWithMosaic(students, readme, instructorsList), 'utf8');
+      }
+      return { cleanJsonList, students, instructorsList, officialChallenges };
     }
-  }
 
-  students.sort((a, b) => {
-    if (b.puntos !== a.puntos) return b.puntos - a.puntos;
-    return a._order - b._order;
-  });
-
-  const cleanJsonList = [];
-  for (const inst of instructorsList) {
-    cleanJsonList.push({
-      github: inst.github,
-      nombre: inst.nombre,
-      rol: inst.rol,
-      linkedin: inst.linkedin || '',
-      redes: inst.redes || [],
-      rango: inst.rango,
-      motivacion: inst.motivacion
-    });
-  }
-  for (const s of students) {
-    cleanJsonList.push({
-      github: s.github,
-      nombre: s.nombre,
-      rol: s.rol,
-      linkedin: s.linkedin || '',
-      redes: s.redes || [],
-      rango: s.rango,
-      puntos: s.puntos,
-      motivacion: s.motivacion
-    });
-  }
-
-  return {
-    cleanJsonList,
-    students,
-    instructorsList,
-    officialChallenges
-  };
-}
-
-function syncAllFiles(rawData) {
-  const { cleanJsonList, students, instructorsList, officialChallenges } = processAndSortData(rawData);
-  fs.writeFileSync(JSON_PATH, JSON.stringify(cleanJsonList, null, 2) + '\n', 'utf8');
-
-  // Generar el README.md de Portafolio Profesional para cada estudiante con carpeta en soluciones-retos/
-  for (const s of students) {
-    if (s.hasPortfolioDir && s._evalResult) {
-      generateStudentPortfolioReadme(s, s._evalResult);
+    if (require.main === module) {
+      const data = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
+      const { students } = syncAllFiles(data);
+      const withPortfolio = students.filter(s => s.hasPortfolioDir).length;
+      console.log(`✅ ASISTENTES.md, README.md y ${withPortfolio} Portafolios Profesionales actualizados (${students.length} estudiantes).`);
     }
-  }
 
-  const md = renderAsistentesMarkdown(students, instructorsList, officialChallenges);
-  fs.writeFileSync(MD_PATH, md, 'utf8');
-  if (fs.existsSync(README_PATH)) {
-    const readme = fs.readFileSync(README_PATH, 'utf8');
-    fs.writeFileSync(README_PATH, updateReadmeWithMosaic(students, readme, instructorsList), 'utf8');
-  }
-  return { cleanJsonList, students, instructorsList, officialChallenges };
-}
-
-if (require.main === module) {
-  const data = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
-  const { students } = syncAllFiles(data);
-  const withPortfolio = students.filter(s => s.hasPortfolioDir).length;
-  console.log(`✅ ASISTENTES.md, README.md y ${withPortfolio} Portafolios Profesionales actualizados (${students.length} estudiantes).`);
-}
-
-module.exports = {
-  INSTRUCTORS,
-  WEEK_METADATA,
-  BITACORA_DROPDOWN_OPTIONS,
-  CHALLENGE_VALIDATORS,
-  cleanGithubUser,
-  cleanLinkedin,
-  parseExtraSocialLinks,
-  discoverOfficialChallenges,
-  evaluateUserProgress,
-  buildShareLinks,
-  buildBitacoraIssueUrl,
-  generateStudentPortfolioReadme,
-  processAndSortData,
-  syncAllFiles,
-  updateReadmeWithMosaic,
-  renderAsistentesMarkdown
-};
+    module.exports = {
+      INSTRUCTORS,
+      WEEK_METADATA,
+      BITACORA_DROPDOWN_OPTIONS,
+      CHALLENGE_VALIDATORS,
+      cleanGithubUser,
+      cleanLinkedin,
+      parseExtraSocialLinks,
+      discoverOfficialChallenges,
+      evaluateUserProgress,
+      buildShareLinks,
+      buildBitacoraIssueUrl,
+      generateStudentPortfolioReadme,
+      processAndSortData,
+      syncAllFiles,
+      updateReadmeWithMosaic,
+      renderAsistentesMarkdown
+    };
