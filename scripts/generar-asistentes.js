@@ -721,9 +721,7 @@ function generateStudentPortfolioReadme(student, evalResult) {
   const points = evalResult.points;
   const motivacion = (student.motivacion || 'Dominar contenedores y Kubernetes desde la práctica.').trim();
   const share = buildShareLinks(user, nombre, rango, points, true, folderName);
-
-  // Insignias de módulos KubeCafé (SVG)
-  const moduleBadges = Object.entries(WEEK_METADATA).map(([wk, meta]) => {
+  const moduleStates = Object.entries(WEEK_METADATA).map(([wk, meta]) => {
     const rep = evalResult.detailedReport.find(r => r.weekKey === wk);
     let state = 'bloqueado';
     if (rep && rep.isComplete) {
@@ -731,6 +729,18 @@ function generateStudentPortfolioReadme(student, evalResult) {
     } else if (rep && (rep.solvedCount > 0 || rep.hasBitacora)) {
       state = 'progreso';
     }
+    return { wk, meta, rep, state };
+  });
+  const badgesParam = moduleStates.map(m => `${m.wk}:${m.state}`).join(',');
+  const linkedin = cleanLinkedin(student.linkedin);
+  const extraSocials = parseExtraSocialLinks(student.redes);
+  const completedMods = evalResult.detailedReport
+    .filter(r => r.isComplete || r.solvedCount > 0)
+    .map(r => (WEEK_METADATA[r.weekKey]?.shortBadge || r.weekKey).replace(/_/g, ' '));
+  const cardGeneratorUrl = `https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=${encodeURIComponent(user)}&nombre=${encodeURIComponent(nombre)}&rol=${encodeURIComponent(rol)}&rango=${encodeURIComponent(rango)}&xp=${encodeURIComponent(String(points))}&retos=${encodeURIComponent(String(evalResult.totalSolvedChallenges))}&bitacoras=${encodeURIComponent(String(evalResult.totalBitacoras))}&semanas=${encodeURIComponent(completedMods.join(','))}&badges=${encodeURIComponent(badgesParam)}&linkedin=${encodeURIComponent(linkedin || '')}&redes=${encodeURIComponent(extraSocials.join(','))}&portfolio=${encodeURIComponent(`${REPO_URL}/tree/main/aportes-comunidad/soluciones-retos/${folderName}`)}`;
+
+  // Insignias de módulos KubeCafé (SVG)
+  const moduleBadges = moduleStates.map(({ wk, meta, rep, state }) => {
     const badgeSrc = `../../../recursos/insignias/${wk}-${state}.svg`;
     const weekFolderExists = rep && fs.existsSync(path.join(userDir, rep.weekDirName));
     const targetHref = weekFolderExists ? `./${rep.weekDirName}` : '#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé';
@@ -782,7 +792,6 @@ function generateStudentPortfolioReadme(student, evalResult) {
   const socialLinksBar = [
     `[![GitHub](https://img.shields.io/badge/GitHub-@${user}-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/${user})`
   ];
-  const linkedin = cleanLinkedin(student.linkedin);
   if (linkedin) {
     socialLinksBar.push(
       `[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](${linkedin})`
@@ -899,12 +908,13 @@ Sigue estos **3 sencillos pasos**:
 ${share.shareMessage}
 \`\`\`
 
-2. **Toma una captura de pantalla** de la cabecera de tu portafolio (donde se ven tu foto, tu rango **${rango}**, tus **${points} XP** y las insignias hexagonales de tus retos resueltos).
-3. **Pega en LinkedIn, etiqueta a la comunidad y adjunta tu imagen:** Haz clic en el botón de abajo, pega el texto (\`Ctrl+V\` / \`Cmd+V\`), busca **\`@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)\`** en el desplegable para etiquetarnos y sube tu captura:
+2. **Descarga tu Tarjeta PNG en 1 clic** (lista en \`1200×630\` con tu rango **${rango}**, tus **${points} XP** y tus módulos) o toma una captura de tu cabecera.
+3. **Pega en LinkedIn, etiqueta a la comunidad y adjunta tu imagen:** Haz clic en el botón de LinkedIn, pega el texto (\`Ctrl+V\` / \`Cmd+V\`), busca **\`@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)\`** en el desplegable para etiquetarnos y sube tu tarjeta PNG:
 
 <div align="center">
 
-[![Publicar en LinkedIn](https://img.shields.io/badge/1._Abrir_y_Crear_Post_en-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](${share.linkedinShareUrl})
+[![Descargar Tarjeta PNG](https://img.shields.io/badge/1._Descargar_Tarjeta_PNG-(1200x630)-10B981?style=for-the-badge&logo=kubernetes&logoColor=white)](${cardGeneratorUrl})
+[![Publicar en LinkedIn](https://img.shields.io/badge/2._Abrir_y_Crear_Post_en-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](${share.linkedinShareUrl})
 
 </div>
 
@@ -912,15 +922,23 @@ ${share.shareMessage}
 
 ### 🌐 Compartir en otras Redes y Canales Oficiales
 
-En WhatsApp y Telegram el mensaje y enlace a tu portafolio se cargan automáticamente en 1 solo clic:
+**Comparte tu portafolio en 1 clic:**
 
 <div align="center">
 
+[![Tarjeta PNG](https://img.shields.io/badge/🖼️_Tarjeta_PNG-Para_Redes-10B981?style=for-the-badge)](${cardGeneratorUrl})
 [![Compartir en WhatsApp](https://img.shields.io/badge/Compartir_en-WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](${share.whatsappShareUrl})
 [![Compartir en Telegram](https://img.shields.io/badge/Compartir_en-Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](${share.telegramShareUrl})
+
+</div>
+
+**Canales oficiales de Cloud Native Colombia:**
+
+<div align="center">
+
+[![LinkedIn Comunidad](https://img.shields.io/badge/LinkedIn-Cloud_Native_Colombia-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](${share.linkedinCompanyUrl})
 [![Instagram @colombiacloudnative](https://img.shields.io/badge/Instagram-@colombiacloudnative-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](${share.instagramShareUrl})
 [![YouTube @CloudNativeColombia](https://img.shields.io/badge/YouTube-@CloudNativeColombia-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](${share.youtubeShareUrl})
-[![LinkedIn Comunidad](https://img.shields.io/badge/LinkedIn-Cloud_Native_Colombia-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](${share.linkedinCompanyUrl})
 
 </div>
 

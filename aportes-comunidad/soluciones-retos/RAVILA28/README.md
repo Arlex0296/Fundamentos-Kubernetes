@@ -137,12 +137,13 @@ Agradecimientos a @Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por e
 #Kubernetes #Docker #CloudNative #DevOps #KubeCafe #CNCFMedellin #OpenSource
 ```
 
-2. **Toma una captura de pantalla** de la cabecera de tu portafolio (donde se ven tu foto, tu rango **⛵ Marinero**, tus **90 XP** y las insignias hexagonales de tus retos resueltos).
-3. **Pega en LinkedIn, etiqueta a la comunidad y adjunta tu imagen:** Haz clic en el botón de abajo, pega el texto (`Ctrl+V` / `Cmd+V`), busca **`@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)`** en el desplegable para etiquetarnos y sube tu captura:
+2. **Descarga tu Tarjeta PNG en 1 clic** (lista en `1200×630` con tu rango **⛵ Marinero**, tus **90 XP** y tus módulos) o toma una captura de tu cabecera.
+3. **Pega en LinkedIn, etiqueta a la comunidad y adjunta tu imagen:** Haz clic en el botón de LinkedIn, pega el texto (`Ctrl+V` / `Cmd+V`), busca **`@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)`** en el desplegable para etiquetarnos y sube tu tarjeta PNG:
 
 <div align="center">
 
-[![Publicar en LinkedIn](https://img.shields.io/badge/1._Abrir_y_Crear_Post_en-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/feed/?shareActive=true)
+[![Descargar Tarjeta PNG](https://img.shields.io/badge/1._Descargar_Tarjeta_PNG-(1200x630)-10B981?style=for-the-badge&logo=kubernetes&logoColor=white)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=RAVILA28&nombre=Fernando%20Avila&rol=DevOps&rango=%E2%9B%B5%20Marinero&xp=90&retos=8&bitacoras=0&semanas=%F0%9F%90%B3%20Docker%20%26%20OCI%2C%F0%9F%8C%B1%20K8s%20Pods%20%26%20Arquitectura&badges=semana-00%3Acompletado%2Csemana-01%3Aprogreso%2Csemana-02%3Abloqueado%2Csemana-03%3Abloqueado%2Csemana-04%3Abloqueado%2Csemana-05%3Abloqueado%2Csemana-06%3Abloqueado&linkedin=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fraymundo-avila-r-04775932&redes=&portfolio=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2FRAVILA28)
+[![Publicar en LinkedIn](https://img.shields.io/badge/2._Abrir_y_Crear_Post_en-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/feed/?shareActive=true)
 
 </div>
 
@@ -150,15 +151,23 @@ Agradecimientos a @Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por e
 
 ### 🌐 Compartir en otras Redes y Canales Oficiales
 
-En WhatsApp y Telegram el mensaje y enlace a tu portafolio se cargan automáticamente en 1 solo clic:
+**Comparte tu portafolio en 1 clic:**
 
 <div align="center">
 
+[![Tarjeta PNG](https://img.shields.io/badge/🖼️_Tarjeta_PNG-Para_Redes-10B981?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=RAVILA28&nombre=Fernando%20Avila&rol=DevOps&rango=%E2%9B%B5%20Marinero&xp=90&retos=8&bitacoras=0&semanas=%F0%9F%90%B3%20Docker%20%26%20OCI%2C%F0%9F%8C%B1%20K8s%20Pods%20%26%20Arquitectura&badges=semana-00%3Acompletado%2Csemana-01%3Aprogreso%2Csemana-02%3Abloqueado%2Csemana-03%3Abloqueado%2Csemana-04%3Abloqueado%2Csemana-05%3Abloqueado%2Csemana-06%3Abloqueado&linkedin=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fraymundo-avila-r-04775932&redes=&portfolio=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2FRAVILA28)
 [![Compartir en WhatsApp](https://img.shields.io/badge/Compartir_en-WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send?text=%E2%98%B8%EF%B8%8F%20%C2%A1Sigo%20construyendo%20mi%20Portafolio%20Pr%C3%A1ctico%20de%20Docker%20y%20Kubernetes%20en%20el%20workshop%20%22De%20Cero%20a%20Capit%C3%A1n%20en%20Kubernetes%22%20con%20la%20comunidad%20Cloud%20Native%20Medell%C3%ADn%20(CNCF)!%20%F0%9F%8F%94%EF%B8%8F%E2%98%95%0A%E2%A0%80%0A%F0%9F%8E%96%EF%B8%8F%20Rango%20actual%3A%20%E2%9B%B5%20Marinero%20(90%20XP)%0A%E2%A0%80%0A%F0%9F%93%82%20Mi%20Portafolio%20de%20Laboratorios%20y%20Bit%C3%A1cora%20verificada%3A%0Ahttps%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2FRAVILA28%0A%E2%A0%80%0AAgradecimientos%20a%20%40Cloud%20Native%20Colombia%20(Armenia%2C%20Bogota%2C%20Cali%2C%20Medellin)%20por%20este%20espacio%20de%20formaci%C3%B3n%20abierta%3A%0A%E2%A0%80%0A%F0%9F%8F%A2%20LinkedIn%3A%20https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fcloud-native-colombia%2F%0A%E2%A0%80%0A%F0%9F%93%B8%20Instagram%3A%20https%3A%2F%2Fwww.instagram.com%2Fcolombiacloudnative%2F%0A%E2%A0%80%0A%E2%96%B6%EF%B8%8F%20YouTube%3A%20https%3A%2F%2Fwww.youtube.com%2F%40CloudNativeColombia%0A%E2%A0%80%0A%F0%9F%94%97%20Cap%C3%ADtulo%20oficial%20CNCF%3A%20https%3A%2F%2Focgroups.dev%2Fcncf%2Fgroup%2F2majk4r%0A%E2%A0%80%0A%23Kubernetes%20%23Docker%20%23CloudNative%20%23DevOps%20%23KubeCafe%20%23CNCFMedellin%20%23OpenSource)
 [![Compartir en Telegram](https://img.shields.io/badge/Compartir_en-Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/share/url?url=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2FRAVILA28&text=%E2%98%B8%EF%B8%8F%20Mi%20Portafolio%20Pr%C3%A1ctico%20de%20Docker%20y%20Kubernetes%20en%20Cloud%20Native%20Medell%C3%ADn%20(%E2%9B%B5%20Marinero%20%E2%80%A2%2090%20XP)%20%F0%9F%8F%94%EF%B8%8F%E2%98%95)
+
+</div>
+
+**Canales oficiales de Cloud Native Colombia:**
+
+<div align="center">
+
+[![LinkedIn Comunidad](https://img.shields.io/badge/LinkedIn-Cloud_Native_Colombia-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/cloud-native-colombia/)
 [![Instagram @colombiacloudnative](https://img.shields.io/badge/Instagram-@colombiacloudnative-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/colombiacloudnative/)
 [![YouTube @CloudNativeColombia](https://img.shields.io/badge/YouTube-@CloudNativeColombia-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@CloudNativeColombia)
-[![LinkedIn Comunidad](https://img.shields.io/badge/LinkedIn-Cloud_Native_Colombia-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/cloud-native-colombia/)
 
 </div>
 
