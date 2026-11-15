@@ -228,6 +228,7 @@
 
     let avatarImgLoaded = null;
     let rankBadgeImg = null;
+    let cncfBadgeImg = null;
     const weekBadgeImgs = {};
 
     function fitText(text, maxWidth) {
@@ -332,7 +333,7 @@
       // Name, Handle, Role, Social URLs
       ctx.fillStyle = '#FFFFFF';
       ctx.font = '900 38px system-ui, -apple-system, sans-serif';
-      ctx.fillText(fitText(nombre, 780), 192, 134);
+      ctx.fillText(fitText(nombre, 705), 192, 134);
 
       ctx.fillStyle = '#38BDF8';
       ctx.font = '700 20px system-ui, -apple-system, sans-serif';
@@ -340,21 +341,24 @@
 
       ctx.fillStyle = '#CBD5E1';
       ctx.font = '600 19px system-ui, -apple-system, sans-serif';
-      ctx.fillText(fitText(rol, 780), 192, 190);
+      ctx.fillText(fitText(rol, 705), 192, 190);
 
       const socialsLine = personalSocials.map(s => `${s.icon} ${s.display}`).join('   •   ');
       let socialFontSize = 14.5;
       ctx.font = `600 ${socialFontSize}px system-ui, -apple-system, sans-serif`;
-      while (socialFontSize > 10.5 && ctx.measureText(socialsLine).width > 815) {
+      while (socialFontSize > 10 && ctx.measureText(socialsLine).width > 705) {
         socialFontSize -= 0.5;
         ctx.font = `600 ${socialFontSize}px system-ui, -apple-system, sans-serif`;
       }
       ctx.fillStyle = '#7DD3FC';
       ctx.fillText(socialsLine, 192, 219);
 
-      // Rank SVG Insignia (right of profile)
+      // CNCF Medellín & Rank SVG Insignias (right of profile)
+      if (cncfBadgeImg) {
+        ctx.drawImage(cncfBadgeImg, W - 56 - 106 - 14 - 106, 102, 106, 118);
+      }
       if (rankBadgeImg) {
-        ctx.drawImage(rankBadgeImg, W - 56 - 106, 98, 106, 118);
+        ctx.drawImage(rankBadgeImg, W - 56 - 106, 102, 106, 118);
       }
 
       // 3 KPI boxes
@@ -440,18 +444,39 @@
     rImg.onload = () => { rankBadgeImg = rImg; drawCard(); };
     rImg.src = `./insignias/rango-${rankKey}.svg`;
 
+    const cImg = new Image();
+    cImg.onload = () => { cncfBadgeImg = cImg; drawCard(); };
+    cImg.src = './insignias/cncf-medellin.svg';
+
     badgeList.slice(0, 7).forEach(b => {
       const wImg = new Image();
       wImg.onload = () => { weekBadgeImgs[b.wk] = wImg; drawCard(); };
       wImg.src = `./insignias/${b.wk}-${b.state}.svg`;
     });
 
-    // Try loading avatar with CORS; fallback cleanly if blocked
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => { avatarImgLoaded = img; drawCard(); };
-    img.onerror = () => { avatarImgLoaded = null; drawCard(); };
-    img.src = `https://github.com/${encodeURIComponent(user)}.png?size=200`;
+    // Load GitHub avatar directly from avatars.githubusercontent.com (avoids github.com 302 CORS block)
+    function loadAvatarWithCors(url, onFail) {
+      const av = new Image();
+      av.crossOrigin = 'anonymous';
+      av.onload = () => { avatarImgLoaded = av; drawCard(); };
+      av.onerror = () => { if (onFail) onFail(); else { avatarImgLoaded = null; drawCard(); } };
+      av.src = url;
+    }
+
+    loadAvatarWithCors(`https://avatars.githubusercontent.com/${encodeURIComponent(user)}?s=200`, async () => {
+      try {
+        const res = await fetch(`https://api.github.com/users/${encodeURIComponent(user)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.avatar_url) {
+            loadAvatarWithCors(data.avatar_url, null);
+            return;
+          }
+        }
+      } catch {}
+      avatarImgLoaded = null;
+      drawCard();
+    });
     drawCard();
 
     function showToast(msg) {
