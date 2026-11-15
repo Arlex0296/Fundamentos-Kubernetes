@@ -20,35 +20,49 @@ Cada vez que entregas los **Retos Rotos** de una semana o llenas el [**📔 Form
 `https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/<TU-USUARIO>`
 
 ### ¿Qué incluye tu Portafolio automáticamente?
-1. **Tu tarjeta de perfil oficial:** Foto de GitHub, rol, motivación y enlaces a tu LinkedIn y redes.
-2. **Insignias de Rango y Puntaje Verificado por CI/CD:** Muestra tus puntos **XP** y cuántos escenarios reales de *Troubleshooting* has superado.
-3. **Mapa de Competencias por Módulo:** Insignias visuales de cada tecnología dominada (`Docker & OCI`, `K8s Pods`, `Deployments & Rollouts`, `Services & Gateway API`, `Config & Storage`, `RBAC & Security`, `Helm`).
-4. **Tus Bitácoras de Reflexión (`bitacora.md`):** Evidencia escrita de cómo diagnosticas problemas reales y qué comandos dominas (lo que más valoran los reclutadores técnicos).
+1. **Cabecera profesional con Banner SVG:** Banner oficial Cloud Native Medellín, tu foto de GitHub, rol, rango, motivación y enlaces a LinkedIn/redes.
+2. **Panel de Rango (Bronce / Plata / Oro) y KPIs Verificados por CI/CD:** Medallón hexagonal estilo Credly de tu rango, sello del capítulo CNCF Medellín, puntaje **XP**, retos superados y bitácoras.
+3. **Mapa de Competencias Hexagonal (7 Módulos):** Insignias SVG estilo Credly con 3 estados (`✓ Verificado`, `⏳ En Progreso`, `🔒 Próximamente`) para `Docker & OCI`, `K8s Pods`, `Deployments`, `Gateway API`, `Config & PV`, `Security RBAC` y `Helm Chart`.
+4. **Tabla de Evidencias con Barra de Progreso:** Progreso visual por semana (`🟩🟩🟩🟩🟩`) y enlaces directos a tu código y bitácoras.
+5. **Visibilidad en el Repositorio Principal:** Al crear tu portafolio, aparece el enlace directo `🎓 Portafolio` bajo tu tarjeta en el mosaico del [README principal](../README.md) y compites por entrar al **Podio Top 5**.
 
 ---
 
-## 🎖️ 2. Catálogo de Insignias Oficiales (Badges para tu Perfil de GitHub)
+## 🎖️ 2. Catálogo de Insignias Hexagonales Estilo Credly (SVG)
 
-Puedes copiar cualquiera de estas insignias y pegarlas en el archivo `README.md` de tu perfil personal de GitHub (`https://github.com/TU-USUARIO/TU-USUARIO`) o en el `README.md` de tu Fork.
+Puedes copiar cualquiera de estas insignias vectoriales oficiales y pegarlas en el `README.md` de tu perfil personal de GitHub (`https://github.com/TU-USUARIO/TU-USUARIO`) o en tu Fork.
 
 > 💡 **Recuerda:** Reemplaza `TU-USUARIO` en el enlace final para que al hacer clic sobre la insignia lleve directamente a tu Portafolio Verificado.
 
-### ⚓ Insignias por Rango de Navegación
+### ⚓ Insignias por Rango de Navegación (Bronce, Plata y Oro)
 
-| Rango | Vista Previa de la Insignia | Código Markdown (Copiar y Pegar) |
+| Rango | Vista Previa | Código Markdown (Copiar y Pegar) |
 | :--- | :---: | :--- |
-| **⛵ Tripulante / Marinero** | [![Marinero K8s](https://img.shields.io/badge/KubeCafé_CNCF-⛵_Marinero_Cloud_Native-0284c7?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes) | `[![Marinero K8s](https://img.shields.io/badge/KubeCafé_CNCF-⛵_Marinero_Cloud_Native-0284c7?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO)` |
-| **🧭 Timonel K8s** | [![Timonel K8s](https://img.shields.io/badge/KubeCafé_CNCF-🧭_Timonel_Kubernetes-7c3aed?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes) | `[![Timonel K8s](https://img.shields.io/badge/KubeCafé_CNCF-🧭_Timonel_Kubernetes-7c3aed?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO)` |
-| **⚓ Capitán K8s** | [![Capitán K8s](https://img.shields.io/badge/KubeCafé_CNCF-⚓_Capitán_Kubernetes-f59e0b?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes) | `[![Capitán K8s](https://img.shields.io/badge/KubeCafé_CNCF-⚓_Capitán_Kubernetes-f59e0b?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO)` |
+| **⛵ Marinero**<br><sub>🥉 Bronce (Registro)</sub> | <img src="./insignias/rango-marinero.svg" width="110" alt="Marinero Bronce"/> | `[![Marinero Bronce](https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/recursos/insignias/rango-marinero.svg)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO)` |
+| **🧭 Timonel K8s**<br><sub>🥈 Plata (2+ Semanas)</sub> | <img src="./insignias/rango-timonel.svg" width="110" alt="Timonel Plata"/> | `[![Timonel Plata](https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/recursos/insignias/rango-timonel.svg)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO)` |
+| **⚓ Capitán K8s**<br><sub>🥇 Oro (6 Semanas)</sub> | <img src="./insignias/rango-capitan.svg" width="110" alt="Capitán Oro"/> | `[![Capitán Oro](https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/recursos/insignias/rango-capitan.svg)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO)` |
+| **🇨🇴 CNCF Medellín**<br><sub>Capítulo Oficial</sub> | <img src="./insignias/cncf-medellin.svg" width="110" alt="CNCF Medellín"/> | `[![CNCF Medellín](https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/recursos/insignias/cncf-medellin.svg)](https://ocgroups.dev/cncf/group/2majk4r)` |
 
-### 🧩 Insignias por Especialidad y Módulo Completado
+### 🧩 Insignias por Módulo Completado
 
-```markdown
-<!-- Copia las insignias de las semanas que ya hayas superado -->
-[![Semana 00 Docker](https://img.shields.io/badge/🐳_Docker_&_OCI-Verificado-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO/semana-00)
-[![Semana 01 Pods](https://img.shields.io/badge/🌱_K8s_Pods_&_Arquitectura-Verificado-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO/semana-01)
-[![Semana 02 Deployments](https://img.shields.io/badge/🔄_K8s_Deployments_&_HA-Verificado-10B981?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO/semana-02)
-[![Comunidad CNCF Medellín](https://img.shields.io/badge/🇨🇴_Comunidad-CNCF_Medellín-00C7B7?style=for-the-badge&logo=cncf&logoColor=white)](https://ocgroups.dev/cncf/group/2majk4r)
+<div align="center">
+  <img src="./insignias/semana-00-completado.svg" width="125" alt="Semana 00 Docker & OCI"/>
+  <img src="./insignias/semana-01-completado.svg" width="125" alt="Semana 01 K8s Pods"/>
+  <img src="./insignias/semana-02-completado.svg" width="125" alt="Semana 02 Deployments"/>
+  <img src="./insignias/semana-03-completado.svg" width="125" alt="Semana 03 Gateway API"/>
+  <img src="./insignias/semana-04-completado.svg" width="125" alt="Semana 04 Config & PV"/>
+  <img src="./insignias/semana-05-completado.svg" width="125" alt="Semana 05 Security RBAC"/>
+  <img src="./insignias/semana-06-completado.svg" width="125" alt="Semana 06 Helm Chart"/>
+</div>
+
+```html
+<!-- Pega las insignias SVG de las semanas que ya completaste -->
+<a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO/semana-00">
+  <img src="https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/recursos/insignias/semana-00-completado.svg" width="140" alt="Docker & OCI"/>
+</a>
+<a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO/semana-01">
+  <img src="https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/recursos/insignias/semana-01-completado.svg" width="140" alt="K8s Pods"/>
+</a>
 ```
 
 ---
@@ -60,14 +74,15 @@ Cada vez que llenas tu bitácora o entras a tu portafolio personal (`aportes-com
 ### 🚀 Publicar en LinkedIn con Alto Alcance (Recomendado)
 
 > [!TIP]
-> **¿Por qué copiar el texto y adjuntar imagen en LinkedIn en lugar de un enlace directo?**  
-> 1. **Políticas de LinkedIn:** Por privacidad y anti-spam, LinkedIn **no permite pre-llenar texto automáticamente** desde enlaces externos ni generar vistas previas de subcarpetas de GitHub (muestra *"Cannot display preview"*).  
-> 2. **Mayor visibilidad profesional:** El algoritmo de LinkedIn premia las publicaciones nativas con **texto + imagen (captura de pantalla)** con hasta **10 veces más alcance e interacción** en el feed que los enlaces externos compartidos directamente.
+> **¿Por qué copiar el texto, etiquetarnos y adjuntar imagen en LinkedIn?**  
+> 1. **Espaciado protegido:** El texto usa separadores invisibles (`U+2800`) para que LinkedIn no junte los párrafos al pegar.  
+> 2. **Etiqueta oficial (`@`):** LinkedIn no activa menciones al pegar texto plano. Al pegar, **borra y vuelve a escribir `@Cloud Native Colombia`** y selecciona **Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)** en el menú desplegable para que tu post quede etiquetado.  
+> 3. **Mayor visibilidad profesional:** Las publicaciones nativas con **texto + captura de pantalla** tienen hasta **10 veces más alcance** que compartir un enlace suelto.
 
 #### Flujo en 3 Pasos:
 1. **Copia la plantilla de texto** que está abajo (o la que se genera automáticamente con tu rango y XP en tu portafolio).
-2. **Toma una captura de pantalla** de tu portafolio en GitHub (o de tus terminales superando los retos).
-3. **Haz clic en el botón de abajo**, pega el texto (`Ctrl+V` / `Cmd+V`) y adjunta la captura de pantalla:
+2. **Toma una captura de pantalla** de la cabecera de tu portafolio en GitHub (donde se ven tu banner, rango e insignias hexagonales).
+3. **Haz clic en el botón de abajo**, pega el texto (`Ctrl+V` / `Cmd+V`), **etiqueta a `@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)`** y adjunta tu captura:
 
 <div align="center">
 
@@ -89,7 +104,7 @@ Esta semana estuve practicando y resolviendo escenarios reales de Troubleshootin
 📂 Toda mi evidencia práctica, manifiestos corregidos y bitácora técnica están verificados con CI/CD en mi portafolio de GitHub:
 👉 https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/TU-USUARIO
 ⠀
-Agradecimientos a Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por este espacio de formación abierta:
+Agradecimientos a @Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por este espacio de formación abierta:
 ⠀
 🏢 LinkedIn: https://www.linkedin.com/company/cloud-native-colombia/
 📸 Instagram: https://www.instagram.com/colombiacloudnative/
