@@ -734,7 +734,7 @@ function generateStudentPortfolioReadme(student, evalResult) {
     const badgeSrc = `../../../recursos/insignias/${wk}-${state}.svg`;
     const weekFolderExists = rep && fs.existsSync(path.join(userDir, rep.weekDirName));
     const targetHref = weekFolderExists ? `./${rep.weekDirName}` : '#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé';
-    return `<a href="${targetHref}" title="${meta.title}"><img src="${badgeSrc}" width="136" alt="${meta.title}"/></a>`;
+    return `<a href="${targetHref}" title="${meta.title}"><img src="${badgeSrc}" width="175" alt="${meta.title}"/></a>`;
   });
 
   // Filas de progreso técnico por semana
@@ -1365,18 +1365,20 @@ ${rows}
       const isDone = state === 'completado';
       const isProg = state === 'progreso';
 
-      const borderStart = isDone ? vis.gradStart : isProg ? '#FBBF24' : '#475569';
-      const borderEnd = isDone ? vis.gradEnd : isProg ? '#D97706' : '#334155';
-      const bgTop = isDone ? '#0F172A' : isProg ? '#1C1917' : '#0F172A';
-      const bgBottom = isDone ? '#1E293B' : isProg ? '#292524' : '#1E293B';
-      const iconColor = isDone ? vis.gradStart : isProg ? '#FBBF24' : '#64748B';
-      const ribbonFill = isDone ? vis.gradEnd : isProg ? '#B45309' : '#334155';
-      const statusBg = isDone ? '#10B981' : isProg ? '#F59E0B' : '#334155';
+      const borderStart = isDone ? '#FDE047' : isProg ? '#FBBF24' : '#334155';
+      const borderEnd = isDone ? vis.gradStart : isProg ? '#D97706' : '#1E293B';
+      const bgTop = isDone ? vis.gradStart : isProg ? '#78350F' : '#0F172A';
+      const bgBottom = isDone ? vis.gradEnd : isProg ? '#451A03' : '#1E293B';
+      const iconColor = isDone ? '#FFFFFF' : isProg ? '#FDE68A' : '#475569';
+      const ribbonFill = isDone ? '#0F172A' : isProg ? '#92400E' : '#1E293B';
+      const statusBg = isDone ? '#FDE047' : isProg ? '#F59E0B' : '#334155';
       const statusText = isDone ? '✓ VERIFICADO' : isProg ? '⏳ EN PROGRESO' : '🔒 PRÓXIMAMENTE';
-      const statusFg = isDone || isProg ? '#FFFFFF' : '#94A3B8';
-      const opacity = isDone || isProg ? '1' : '0.72';
+      const statusFg = isDone ? '#0F172A' : isProg ? '#FFFFFF' : '#64748B';
+      const issuerColor = isDone ? '#FFFFFF' : isProg ? '#FDE68A' : '#64748B';
+      const subColor = isDone ? '#FDE047' : isProg ? '#FDE68A' : '#94A3B8';
+      const opacity = isDone || isProg ? '1' : '0.45';
       const stars = isDone
-        ? `<text x="110" y="210" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#FDE047" letter-spacing="3">★ ★ ★</text>`
+        ? `<text x="110" y="210" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#FDE047" letter-spacing="3">★ ★ ★</text>`
         : '';
 
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 245" width="220" height="245">
@@ -1391,21 +1393,21 @@ ${rows}
     </linearGradient>
   </defs>
   <g opacity="${opacity}">
-    <polygon points="110,10 202,63 202,169 110,222 18,169 18,63" fill="url(#b_${weekKey}_${state})"/>
-    <polygon points="110,18 195,67 195,165 110,214 25,165 25,67" fill="url(#bg_${weekKey}_${state})"/>
-    <polygon points="110,25 188,70 188,162 110,207 32,162 32,70" fill="none" stroke="${borderStart}" stroke-width="1.2" stroke-opacity="0.45"/>
-    <text x="110" y="45" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" fill="#94A3B8" letter-spacing="1.6">CNCF MEDELLÍN</text>
+    <polygon points="110,8 204,62 204,170 110,224 16,170 16,62" fill="url(#b_${weekKey}_${state})"/>
+    <polygon points="110,16 196,66 196,166 110,216 24,166 24,66" fill="url(#bg_${weekKey}_${state})"/>
+    <polygon points="110,23 189,69 189,163 110,209 31,163 31,69" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-opacity="${isDone ? '0.45' : '0.15'}"/>
+    <text x="110" y="45" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="800" fill="${issuerColor}" letter-spacing="1.6">CNCF MEDELLÍN</text>
     <g color="${iconColor}">
       ${vis.icon}
     </g>
-    <polygon points="12,118 208,118 200,152 20,152" fill="${ribbonFill}"/>
-    <polygon points="12,118 20,152 25,148 18,118" fill="#000000" opacity="0.22"/>
-    <polygon points="208,118 200,152 195,148 202,118" fill="#000000" opacity="0.22"/>
-    <text x="110" y="131" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="700" fill="#E2E8F0" letter-spacing="1.8">${vis.sub}</text>
-    <text x="110" y="146" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13.5" font-weight="800" fill="#FFFFFF" letter-spacing="0.8">${vis.label}</text>
-    <rect x="52" y="164" width="116" height="22" rx="11" fill="${statusBg}"/>
-    <text x="110" y="179" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="800" fill="${statusFg}" letter-spacing="0.8">${statusText}</text>
-    <text x="110" y="198" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="600" fill="#94A3B8" letter-spacing="1.2">KUBECAFÉ LABS</text>
+    <polygon points="10,118 210,118 202,154 18,154" fill="${ribbonFill}"/>
+    <polygon points="10,118 18,154 24,149 16,118" fill="#000000" opacity="0.3"/>
+    <polygon points="210,118 202,154 196,149 204,118" fill="#000000" opacity="0.3"/>
+    <text x="110" y="131" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="800" fill="${subColor}" letter-spacing="1.8">${vis.sub}</text>
+    <text x="110" y="148" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" letter-spacing="0.8">${vis.label}</text>
+    <rect x="50" y="164" width="120" height="23" rx="11.5" fill="${statusBg}"/>
+    <text x="110" y="179.5" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="800" fill="${statusFg}" letter-spacing="0.8">${statusText}</text>
+    <text x="110" y="198" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" fill="${issuerColor}" opacity="0.85" letter-spacing="1.2">KUBECAFÉ LABS</text>
     ${stars}
   </g>
 </svg>\n`;

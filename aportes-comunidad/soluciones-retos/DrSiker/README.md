@@ -28,13 +28,13 @@
 
 <div align="center">
 
-<a href="./semana-00" title="🐳 Semana 00: Fundamentos de Docker (De Código a Contenedor)"><img src="../../../recursos/insignias/semana-00-completado.svg" width="136" alt="🐳 Semana 00: Fundamentos de Docker (De Código a Contenedor)"/></a>
-<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🌱 Semana 01: Arquitectura de Kubernetes y Pods"><img src="../../../recursos/insignias/semana-01-bloqueado.svg" width="136" alt="🌱 Semana 01: Arquitectura de Kubernetes y Pods"/></a>
-<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🔄 Semana 02: Deployments, Réplicas y Autorreparación"><img src="../../../recursos/insignias/semana-02-bloqueado.svg" width="136" alt="🔄 Semana 02: Deployments, Réplicas y Autorreparación"/></a>
-<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🌐 Semana 03: Redes en Kubernetes (Services y Gateway API)"><img src="../../../recursos/insignias/semana-03-bloqueado.svg" width="136" alt="🌐 Semana 03: Redes en Kubernetes (Services y Gateway API)"/></a>
-<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="💾 Semana 04: Configuración y Datos Persistentes"><img src="../../../recursos/insignias/semana-04-bloqueado.svg" width="136" alt="💾 Semana 04: Configuración y Datos Persistentes"/></a>
-<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🛡️ Semana 05: Salud, Límites y Seguridad (RBAC)"><img src="../../../recursos/insignias/semana-05-bloqueado.svg" width="136" alt="🛡️ Semana 05: Salud, Límites y Seguridad (RBAC)"/></a>
-<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🎓 Semana 06: Empaquetado con Helm y Proyecto Final KubeCafé"><img src="../../../recursos/insignias/semana-06-bloqueado.svg" width="136" alt="🎓 Semana 06: Empaquetado con Helm y Proyecto Final KubeCafé"/></a>
+<a href="./semana-00" title="🐳 Semana 00: Fundamentos de Docker (De Código a Contenedor)"><img src="../../../recursos/insignias/semana-00-completado.svg" width="175" alt="🐳 Semana 00: Fundamentos de Docker (De Código a Contenedor)"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🌱 Semana 01: Arquitectura de Kubernetes y Pods"><img src="../../../recursos/insignias/semana-01-bloqueado.svg" width="175" alt="🌱 Semana 01: Arquitectura de Kubernetes y Pods"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🔄 Semana 02: Deployments, Réplicas y Autorreparación"><img src="../../../recursos/insignias/semana-02-bloqueado.svg" width="175" alt="🔄 Semana 02: Deployments, Réplicas y Autorreparación"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🌐 Semana 03: Redes en Kubernetes (Services y Gateway API)"><img src="../../../recursos/insignias/semana-03-bloqueado.svg" width="175" alt="🌐 Semana 03: Redes en Kubernetes (Services y Gateway API)"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="💾 Semana 04: Configuración y Datos Persistentes"><img src="../../../recursos/insignias/semana-04-bloqueado.svg" width="175" alt="💾 Semana 04: Configuración y Datos Persistentes"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🛡️ Semana 05: Salud, Límites y Seguridad (RBAC)"><img src="../../../recursos/insignias/semana-05-bloqueado.svg" width="175" alt="🛡️ Semana 05: Salud, Límites y Seguridad (RBAC)"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🎓 Semana 06: Empaquetado con Helm y Proyecto Final KubeCafé"><img src="../../../recursos/insignias/semana-06-bloqueado.svg" width="175" alt="🎓 Semana 06: Empaquetado con Helm y Proyecto Final KubeCafé"/></a>
 
 </div>
 
