@@ -1367,18 +1367,18 @@ ${rows}
 
       const borderStart = isDone ? '#FDE047' : isProg ? '#FBBF24' : '#334155';
       const borderEnd = isDone ? vis.gradStart : isProg ? '#D97706' : '#1E293B';
-      const bgTop = isDone ? vis.gradStart : isProg ? '#78350F' : '#0F172A';
-      const bgBottom = isDone ? vis.gradEnd : isProg ? '#451A03' : '#1E293B';
-      const iconColor = isDone ? '#FFFFFF' : isProg ? '#FDE68A' : '#475569';
-      const ribbonFill = isDone ? '#0F172A' : isProg ? '#92400E' : '#1E293B';
-      const statusBg = isDone ? '#FDE047' : isProg ? '#F59E0B' : '#334155';
+      const bgTop = '#0B1120';
+      const bgBottom = isDone ? '#162238' : isProg ? '#1C1917' : '#111827';
+      const iconColor = isDone ? vis.gradStart : isProg ? '#FBBF24' : '#64748B';
+      const ribbonFill = isDone ? vis.gradEnd : isProg ? '#B45309' : '#1E293B';
+      const statusBg = isDone ? '#10B981' : isProg ? '#F59E0B' : '#334155';
       const statusText = isDone ? '✓ VERIFICADO' : isProg ? '⏳ EN PROGRESO' : '🔒 PRÓXIMAMENTE';
-      const statusFg = isDone ? '#0F172A' : isProg ? '#FFFFFF' : '#64748B';
-      const issuerColor = isDone ? '#FFFFFF' : isProg ? '#FDE68A' : '#64748B';
+      const statusFg = isDone || isProg ? '#FFFFFF' : '#94A3B8';
+      const issuerColor = isDone ? '#E2E8F0' : isProg ? '#FDE68A' : '#94A3B8';
       const subColor = isDone ? '#FDE047' : isProg ? '#FDE68A' : '#94A3B8';
-      const opacity = isDone || isProg ? '1' : '0.45';
+      const opacity = isDone || isProg ? '1' : '0.58';
       const stars = isDone
-        ? `<text x="110" y="210" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#FDE047" letter-spacing="3">★ ★ ★</text>`
+        ? `<text x="110" y="210" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#FDE047" letter-spacing="3">★ ★ ★</text>`
         : '';
 
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 245" width="220" height="245">
@@ -1395,9 +1395,9 @@ ${rows}
   <g opacity="${opacity}">
     <polygon points="110,8 204,62 204,170 110,224 16,170 16,62" fill="url(#b_${weekKey}_${state})"/>
     <polygon points="110,16 196,66 196,166 110,216 24,166 24,66" fill="url(#bg_${weekKey}_${state})"/>
-    <polygon points="110,23 189,69 189,163 110,209 31,163 31,69" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-opacity="${isDone ? '0.45' : '0.15'}"/>
-    <text x="110" y="45" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="800" fill="${issuerColor}" letter-spacing="1.6">CNCF MEDELLÍN</text>
-    <g color="${iconColor}">
+    <polygon points="110,22 190,68 190,164 110,210 30,164 30,68" fill="none" stroke="${isDone ? vis.gradStart : borderStart}" stroke-width="1.5" stroke-opacity="${isDone ? '0.75' : '0.35'}"/>
+    <text x="110" y="50" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="800" fill="${issuerColor}" letter-spacing="1.4">CNCF MEDELLÍN</text>
+    <g color="${iconColor}" transform="translate(0, 4)">
       ${vis.icon}
     </g>
     <polygon points="10,118 210,118 202,154 18,154" fill="${ribbonFill}"/>
@@ -1405,9 +1405,9 @@ ${rows}
     <polygon points="210,118 202,154 196,149 204,118" fill="#000000" opacity="0.3"/>
     <text x="110" y="131" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="800" fill="${subColor}" letter-spacing="1.8">${vis.sub}</text>
     <text x="110" y="148" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" letter-spacing="0.8">${vis.label}</text>
-    <rect x="50" y="164" width="120" height="23" rx="11.5" fill="${statusBg}"/>
-    <text x="110" y="179.5" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="800" fill="${statusFg}" letter-spacing="0.8">${statusText}</text>
-    <text x="110" y="198" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" fill="${issuerColor}" opacity="0.85" letter-spacing="1.2">KUBECAFÉ LABS</text>
+    <rect x="50" y="162" width="120" height="22" rx="11" fill="${statusBg}"/>
+    <text x="110" y="177" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="800" fill="${statusFg}" letter-spacing="0.8">${statusText}</text>
+    <text x="110" y="196" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" fill="${issuerColor}" opacity="0.9" letter-spacing="1.1">KUBECAFÉ</text>
     ${stars}
   </g>
 </svg>\n`;
