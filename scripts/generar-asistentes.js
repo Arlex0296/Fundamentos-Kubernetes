@@ -72,6 +72,28 @@ const WEEK_METADATA = {
   }
 };
 
+const BITACORA_DROPDOWN_OPTIONS = {
+  'semana-00': 'semana-00 — 🐳 Fundamentos de Docker (De Código a Contenedor)',
+  'semana-01': 'semana-01 — 🌱 Arquitectura de Kubernetes y Pods',
+  'semana-02': 'semana-02 — 🔄 Deployments, Réplicas y Autorreparación',
+  'semana-03': 'semana-03 — 🌐 Redes en K8s: Services y Gateway API',
+  'semana-04': 'semana-04 — 💾 Configuración y Datos Persistentes (ConfigMaps, Secrets, PV)',
+  'semana-05': 'semana-05 — 🛡️ Salud, Límites y Seguridad (Probes, Quotas, RBAC)',
+  'semana-06': 'semana-06 — 🎓 Empaquetado con Helm y Proyecto Final KubeCafé'
+};
+
+function buildBitacoraIssueUrl(githubUser = '', weekKey = '') {
+  const params = new URLSearchParams({ template: 'bitacora-semanal.yml' });
+  const cleanUser = cleanGithubUser(githubUser);
+  if (cleanUser) {
+    params.set('github_user', cleanUser);
+  }
+  if (weekKey && BITACORA_DROPDOWN_OPTIONS[weekKey]) {
+    params.set('semana', BITACORA_DROPDOWN_OPTIONS[weekKey]);
+  }
+  return `${REPO_URL}/issues/new?${params.toString()}`;
+}
+
 function cleanGithubUser(input, fallbackUser = '') {
   if (!input) return fallbackUser;
   let val = input.trim();
@@ -522,6 +544,10 @@ function evaluateUserProgress(githubUser, officialChallenges) {
     const shortLabel = weekKey.replace('semana-', 'Sem ');
     const bitacoraTag = hasBitacora ? ' 📔' : '';
 
+    if (hasBitacora) {
+      points += 10; // +10 XP bonus por documentar bitácora semanal
+    }
+
     if (solvedCount > 0) {
       points += solvedCount * 10; // +10 XP por cada reto roto validado
       totalSolvedChallenges += solvedCount;
@@ -532,7 +558,7 @@ function evaluateUserProgress(githubUser, officialChallenges) {
         weekSummaries.push(`⏳ ${shortLabel}: ${solvedCount}/${totalExpected}${bitacoraTag}`);
       }
     } else if (hasBitacora) {
-      weekSummaries.push(`📔 ${shortLabel}: Bitácora`);
+      weekSummaries.push(`📔 ${shortLabel}: Bitácora (+10 XP)`);
     }
 
     detailedReport.push({
@@ -559,8 +585,9 @@ function evaluateUserProgress(githubUser, officialChallenges) {
       const bFile = path.join(userSolDir, d.name, 'bitacora.md');
       if (fs.existsSync(bFile) && fs.readFileSync(bFile, 'utf8').trim().length > 40) {
         totalBitacoras += 1;
+        points += 10; // +10 XP bonus por documentar bitácora semanal
         const shortLabel = wk.replace('semana-', 'Sem ');
-        weekSummaries.push(`📔 ${shortLabel}: Bitácora`);
+        weekSummaries.push(`📔 ${shortLabel}: Bitácora (+10 XP)`);
         detailedReport.push({
           weekKey: wk,
           weekDirName: d.name,
@@ -721,8 +748,8 @@ function generateStudentPortfolioReadme(student, evalResult) {
 
     const bitacoraLink =
       rep && rep.hasBitacora
-        ? `[📔 Leer Bitácora](./${rep.weekDirName}/bitacora.md)`
-        : `[➕ Crear Bitácora](${REPO_URL}/issues/new?template=bitacora-semanal.yml)`;
+        ? `[📔 Leer Bitácora (+10 XP)](./${rep.weekDirName}/bitacora.md)`
+        : `[➕ Crear Bitácora (+10 XP)](${buildBitacoraIssueUrl(user, wk)})`;
 
     return `| **${meta.title}** | ${meta.skills} | ${statusBadge} | ${folderLink} | ${bitacoraLink} |`;
   });
@@ -732,13 +759,16 @@ function generateStudentPortfolioReadme(student, evalResult) {
     .filter(r => r.hasBitacora)
     .map(r => {
       const meta = WEEK_METADATA[r.weekKey] || { title: r.weekKey };
-      return `- 📔 **[${meta.title}](./${r.weekDirName}/bitacora.md)** — *Reflexión técnica, diagnóstico de errores y comandos practicados.*`;
+      return `- 📔 **[${meta.title}](./${r.weekDirName}/bitacora.md)** *(+10 XP Bonus)* — *Reflexión técnica, diagnóstico de errores y comandos practicados.*`;
     });
+
+  const nextMissingBitacora = evalResult.detailedReport.find(r => !r.hasBitacora);
+  const quickBitacoraUrl = buildBitacoraIssueUrl(user, nextMissingBitacora ? nextMissingBitacora.weekKey : 'semana-01');
 
   const bitacorasSection =
     bitacoraItems.length > 0
       ? bitacoraItems.join('\n')
-      : `> 💡 *Aún no has registrado bitácoras escritas. Haz clic en **[📔 Registrar mi Bitácora de Aprendizaje en 1 minuto](${REPO_URL}/issues/new?template=bitacora-semanal.yml)** para documentar lo que aprendiste esta semana.*`;
+      : `> 💡 *¡Suma **+10 XP Bonus** por semana! Haz clic en **[📔 Registrar mi Bitácora de Aprendizaje en 20 segundos](${quickBitacoraUrl})** para documentar lo que aprendiste y obtener un post personalizado para LinkedIn.*`;
 
   const socialLinksBar = [
     `[![GitHub](https://img.shields.io/badge/GitHub-@${user}-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/${user})`
@@ -769,7 +799,7 @@ ${socialLinksBar.join(' ')}
 
 [![Rango Oficial](${share.rankBadgeUrl})](${REPO_URL}/blob/main/ASISTENTES.md)
 [![XP Verificado](https://img.shields.io/badge/⚡_Puntaje_Total-${points}_XP-10b981?style=for-the-badge&logo=githubactions&logoColor=white)](${REPO_URL}/blob/main/ASISTENTES.md)
-[![Retos Superados](https://img.shields.io/badge/🛠️_Retos_Rotos_Resueltos-${evalResult.totalSolvedChallenges}-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](${REPO_URL}/blob/main/ASISTENTES.md)
+[![Retos Superados](https://img.shields.io/badge/🛠️_Retos_Rotos_Resueltos-${evalResult.totalSolvedChallenges}-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](${REPO_URL}/blob/main/ASISTENTES.md)${evalResult.totalBitacoras > 0 ? `\n[![Cronista Cloud Native](https://img.shields.io/badge/✍️_Cronista_Cloud_Native-${evalResult.totalBitacoras}_Bitácoras-8B5CF6?style=for-the-badge&logo=readthedocs&logoColor=white)](#bitacoras)` : ''}
 [![Comunidad CNCF](https://img.shields.io/badge/🇨🇴_Capítulo_Oficial-CNCF_Medellín-00C7B7?style=for-the-badge&logo=cncf&logoColor=white)](https://ocgroups.dev/cncf/group/2majk4r)
 
 </div>
@@ -1234,6 +1264,7 @@ if (require.main === module) {
 module.exports = {
   INSTRUCTORS,
   WEEK_METADATA,
+  BITACORA_DROPDOWN_OPTIONS,
   CHALLENGE_VALIDATORS,
   cleanGithubUser,
   cleanLinkedin,
@@ -1241,6 +1272,7 @@ module.exports = {
   discoverOfficialChallenges,
   evaluateUserProgress,
   buildShareLinks,
+  buildBitacoraIssueUrl,
   generateStudentPortfolioReadme,
   processAndSortData,
   syncAllFiles,

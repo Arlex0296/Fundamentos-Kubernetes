@@ -177,12 +177,20 @@ jobs:
                 ? reportLines.join('\n')
                 : '- 📝 **Registro en el Muro de la Tripulación:** `+10 XP`';
 
+            const missingBitacoraWeeks = userEval.detailedReport
+              .filter(r => r.solvedCount > 0 && !r.hasBitacora)
+              .map(r => r.weekKey);
+            const latestMissingBitacora = missingBitacoraWeeks.length > 0
+              ? missingBitacoraWeeks[missingBitacoraWeeks.length - 1]
+              : '';
+
             core.setOutput('has_updates', 'true');
             core.setOutput('user', user);
             core.setOutput('new_rank', userEval.rango);
             core.setOutput('points', userEval.points.toString());
             core.setOutput('pr_number', pr.number.toString());
             core.setOutput('report', reportMarkdown);
+            core.setOutput('missing_bitacora_week', latestMissingBitacora);
 
       - name: 💾 Guardar cambios en el repositorio
         if: steps.calcular.outputs.has_updates == 'true'
@@ -210,18 +218,28 @@ jobs:
           NEW_RANK: ${{ steps.calcular.outputs.new_rank }}
           POINTS: ${{ steps.calcular.outputs.points }}
           REPORT: ${{ steps.calcular.outputs.report }}
+          MISSING_BITACORA_WEEK: ${{ steps.calcular.outputs.missing_bitacora_week }}
         with:
           script: |
-            const { buildShareLinks } = require('./scripts/generar-asistentes.js');
+            const { buildShareLinks, buildBitacoraIssueUrl } = require('./scripts/generar-asistentes.js');
             const user = process.env.GH_USER || '';
             const prNumber = parseInt(process.env.PR_NUMBER || '0', 10);
             const rank = process.env.NEW_RANK || '';
             const points = process.env.POINTS || '';
             const report = process.env.REPORT || '';
+            const missingBitacoraWeek = process.env.MISSING_BITACORA_WEEK || '';
 
             if (!points || !prNumber) return;
 
             const share = buildShareLinks(user, user, rank, parseInt(points, 10), true, user);
+            const bitacoraUrl = buildBitacoraIssueUrl(user, missingBitacoraWeek || 'semana-01');
+            const bitacoraCta = missingBitacoraWeek
+              ? [
+                  '',
+                  `> 💡 **¡Reto Bonus (+10 XP)!** Aún no has registrado tu bitácora de \`${missingBitacoraWeek}\`.`,
+                  `> Haz clic aquí para sumar **+10 XP extra** en 20 segundos y obtener tu post personalizado para LinkedIn: **[📔 Reclamar +10 XP con mi Bitácora](${bitacoraUrl})**`
+                ].join('\n')
+              : '';
 
             const comment = [
               `### 🏆 ¡Felicidades @${user}! Tu Pull Request ha sido fusionado con éxito.`,
@@ -233,6 +251,7 @@ jobs:
               '',
               '#### 📋 Detalle por semana:',
               report,
+              bitacoraCta,
               '',
               '---',
               '',
@@ -244,8 +263,6 @@ jobs:
               '```markdown',
               share.githubProfileSnippet,
               '```',
-              '',
-              `> 💡 *¿Aún no has escrito tu reflexión de esta semana? Llena en 1 minuto el **[📔 Formulario Visual de Bitácora Semanal](https://github.com/${context.repo.owner}/${context.repo.repo}/issues/new?template=bitacora-semanal.yml)** para enriquecer tu portafolio.*`,
               '',
               `👉 **[Ver la Tabla de Posiciones en ASISTENTES.md](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/ASISTENTES.md)**`
             ].join('\n');
