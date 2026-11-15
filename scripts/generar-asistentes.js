@@ -406,6 +406,72 @@ const CHALLENGE_VALIDATORS = {
           );
         })
     }
+  ],
+  'semana-03': [
+    {
+      id: '01',
+      name: '01-service-selector-roto',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto01 = /reto-?01|barra-svc|kubecafe-barra/.test(code) || /0?1/.test(f.relPath);
+          return (
+            isReto01 &&
+            /kind:\s*Service/.test(code) &&
+            !code.includes('barra-equivocada') &&
+            /app:\s*kubecafe-barra/.test(code)
+          );
+        })
+    },
+    {
+      id: '02',
+      name: '02-service-targetport-incorrecto',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto02 = /reto-?02|caja-svc|kubecafe-caja/.test(code) || /0?2/.test(f.relPath);
+          return (
+            isReto02 &&
+            /kind:\s*Service/.test(code) &&
+            !/targetPort:\s*9090\b/.test(code) &&
+            /targetPort:\s*80\b/.test(code)
+          );
+        })
+    },
+    {
+      id: '03',
+      name: '03-nodeport-fuera-de-rango',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto03 = /reto-?03|vitrina-svc/.test(code) || /0?3/.test(f.relPath);
+          const match = code.match(/nodePort:\s*(\d+)/);
+          const port = match ? parseInt(match[1], 10) : 0;
+          return (
+            isReto03 &&
+            /kind:\s*Service/.test(code) &&
+            /type:\s*NodePort/.test(code) &&
+            port >= 30000 &&
+            port <= 32767
+          );
+        })
+    },
+    {
+      id: '04',
+      name: '04-httproute-parentref-roto',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto04 = /reto-?04|kubecafe-api-route/.test(code) || /0?4/.test(f.relPath);
+          return (
+            isReto04 &&
+            /kind:\s*HTTPRoute/.test(code) &&
+            !code.includes('gateway-fantasma') &&
+            /kubecafe-gateway/.test(code) &&
+            /port:\s*80\b/.test(code)
+          );
+        })
+    }
   ]
 };
 

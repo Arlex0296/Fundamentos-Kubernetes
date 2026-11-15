@@ -1,0 +1,49 @@
+# ==============================================================================
+# EJEMPLO 01: Service ClusterIP (Comunicación Interna en KubeCafé)
+# Analogía: El Mesero interno que atiende pedidos entre cocina y barra.
+# ==============================================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubecafe-cocina
+  labels:
+    app: kubecafe-cocina
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubecafe-cocina
+  template:
+    metadata:
+      labels:
+        app: kubecafe-cocina
+    spec:
+      containers:
+        - name: cocina
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cocina-svc
+  labels:
+    app: kubecafe-cocina
+spec:
+  # ClusterIP: IP virtual estable SOLO accesible dentro del clúster
+  type: ClusterIP
+  selector:
+    app: kubecafe-cocina
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80        # Puerto que expone el Service dentro del clúster
+      targetPort: 80  # Puerto real donde escucha el contenedor

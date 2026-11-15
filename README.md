@@ -84,7 +84,8 @@
 | :--- | :---: | :--- |
 | [**`semana-00-fundamentos-docker/`**](./semana-00-fundamentos-docker) | [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](./semana-00-fundamentos-docker) · 🟢 *Disponible* | Empaquetado de aplicaciones, imágenes Alpine ligeras, redes bridge y volúmenes persistentes. |
 | [**`semana-01-arquitectura/`**](./semana-01-arquitectura) | [![Kubernetes](https://img.shields.io/badge/K8s_Pods-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](./semana-01-arquitectura) · 🟢 *Disponible* | Arquitectura interna (Control Plane vs Workers), creación de Pods y contenedores Sidecar. |
-| [**`semana-02-deployments/`**](./semana-02-deployments) | [![Deployments](https://img.shields.io/badge/Deployments-10B981?style=flat-square&logo=kubernetes&logoColor=white)](./semana-02-deployments) · 🔥 *En Curso* | Controladores de réplicas, autorreparación (*self-healing*), rolling updates con cero caídas y rollbacks. |
+| [**`semana-02-deployments/`**](./semana-02-deployments) | [![Deployments](https://img.shields.io/badge/Deployments-10B981?style=flat-square&logo=kubernetes&logoColor=white)](./semana-02-deployments) · 🟢 *Disponible* | Controladores de réplicas, autorreparación (*self-healing*), rolling updates con cero caídas y rollbacks. |
+| [**`semana-03-services-gateway/`**](./semana-03-services-gateway) | [![Services & Gateway](https://img.shields.io/badge/Services_&_Gateway_API-06B6D4?style=flat-square&logo=kubernetes&logoColor=white)](./semana-03-services-gateway) · 🔥 *En Curso* | Redes en K8s: `ClusterIP`, `NodePort`, descubrimiento `CoreDNS` y enrutamiento con **Gateway API**. |
 | [**`aportes-comunidad/`**](./aportes-comunidad) | [![Comunidad](https://img.shields.io/badge/Comunidad-F59E0B?style=flat-square&logo=github&logoColor=white)](./aportes-comunidad) · 🎓 *Portafolios* | Entrega de retos rotos (+XP), **Portafolios Profesionales KubeCafé** verificados y bitácoras semanales. |
 | [**`recursos/`**](./recursos) | [![KubeCafé](https://img.shields.io/badge/Recursos-8B5CF6?style=flat-square&logo=coffeescript&logoColor=white)](./recursos) · 🎮 *Simulador* | Simulador KubeCafé, diapositivas PDF, [**Shell DX (Terminal Pro)**](./recursos/guia-shell-dx-kubernetes.md), [**Insignias KubeCafé**](./recursos/portafolio-y-badges.md), Trivy, Harbor y Ollama. |
 | [**`scripts/`**](./scripts) | [![NodeJS](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)](./scripts) · ⚙️ *Automatización* | Scripts que validan los retos, calculan puntajes y generan el portafolio de cada estudiante. |
@@ -159,12 +160,13 @@
 
 <div align="center">
 
-[![Progreso del Workshop](https://img.shields.io/badge/🚂_Estación_Actual-Semana_02_(Deployments_y_Auto--Curación)-00C7B7?style=for-the-badge)](./semana-02-deployments)
-[![XP Desbloqueable Hoy](https://img.shields.io/badge/⚡_XP_Disponible_Hoy-130_XP_Retos_+_30_XP_Bitácoras-f59e0b?style=for-the-badge)](./ASISTENTES.md)
+[![Progreso del Workshop](https://img.shields.io/badge/🚂_Estación_Actual-Semana_03_(Services_y_Gateway_API)-06B6D4?style=for-the-badge)](./semana-03-services-gateway)
+[![XP Desbloqueable Hoy](https://img.shields.io/badge/⚡_XP_Disponible_Hoy-170_XP_Retos_+_40_XP_Bitácoras-f59e0b?style=for-the-badge)](./ASISTENTES.md)
 [![Abrir Simulador KubeCafé](https://img.shields.io/badge/🎮_Probar_en_Vivo-Simulador_KubeCafé-326CE5?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html)
+[![Panel Interactivo 360](https://img.shields.io/badge/☕_Panel_360°-Las_7_Semanas_Interactivas-10B981?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/panel-interactivo-kubecafe.html)
 
-**Progreso de la Travesía Cloud Native (3 de 7 módulos activos):**  
-`🟢 Semana 00` ━━━▶ `🟢 Semana 01` ━━━▶ `🔥 Semana 02 (ACTUAL)` ━━━▶ `⚪ Semana 03` ━━━▶ `⚪ Semana 04` ━━━▶ `⚪ Semana 05` ━━━▶ `⚪ Semana 06`
+**Progreso de la Travesía Cloud Native (4 de 7 módulos activos):**  
+`🟢 Semana 00` ━━━▶ `🟢 Semana 01` ━━━▶ `🟢 Semana 02` ━━━▶ `🔥 Semana 03 (ACTUAL)` ━━━▶ `⚪ Semana 04` ━━━▶ `⚪ Semana 05` ━━━▶ `⚪ Semana 06`
 
 </div>
 
@@ -178,11 +180,11 @@ flowchart LR
 
     subgraph F2["02 • NÚCLEO KUBERNETES"]
         S1["🌱 SEMANA 01 · DISPONIBLE\nArquitectura y Pods\n☕ Mesas y Gerencia · +40 XP"]
-        S2["🔄 SEMANA 02 · EN CURSO\nDeployments y Réplicas\n☕ Supervisor y Rollouts · +40 XP"]
+        S2["🔄 SEMANA 02 · DISPONIBLE\nDeployments y Réplicas\n☕ Supervisor y Rollouts · +40 XP"]
     end
 
     subgraph F3["03 • RED Y PERSISTENCIA"]
-        S3["🌐 SEMANA 03 · PRÓXIMAMENTE\nServices y Gateway API\n☕ Mesero y Recepción · +40 XP"]
+        S3["🌐 SEMANA 03 · EN CURSO\nServices y Gateway API\n☕ Mesero y Recepción · +40 XP"]
         S4["💾 SEMANA 04 · PRÓXIMAMENTE\nConfigMaps, Secrets y PV\n☕ Especias y Bodega · +40 XP"]
     end
 
@@ -201,20 +203,21 @@ flowchart LR
     click S0 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-00-fundamentos-docker" "Ir a Semana 00: Fundamentos de Docker"
     click S1 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-01-arquitectura" "Ir a Semana 01: Arquitectura y Pods"
     click S2 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-02-deployments" "Ir a Semana 02: Deployments y Réplicas"
+    click S3 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-03-services-gateway" "Ir a Semana 03: Services y Gateway API"
 
     classDef done fill:#064E3B,stroke:#10B981,stroke-width:2px,color:#ECFDF5;
     classDef active fill:#1E3A8A,stroke:#00F0FF,stroke-width:3px,color:#FFFFFF;
     classDef next fill:#0F172A,stroke:#475569,stroke-width:1.5px,stroke-dasharray: 4 4,color:#CBD5E1;
     classDef final fill:#3B0764,stroke:#C084FC,stroke-width:2px,stroke-dasharray: 4 4,color:#F3E8FF;
 
-    class S0,S1 done;
-    class S2 active;
-    class S3,S4,S5 next;
+    class S0,S1,S2 done;
+    class S3 active;
+    class S4,S5 next;
     class S6 final;
 
     style F1 fill:#0B1120,stroke:#10B981,stroke-width:1.5px,color:#10B981
-    style F2 fill:#0B1120,stroke:#00F0FF,stroke-width:2px,color:#00F0FF
-    style F3 fill:#0B1120,stroke:#475569,stroke-width:1.5px,stroke-dasharray: 5 5,color:#94A3B8
+    style F2 fill:#0B1120,stroke:#10B981,stroke-width:1.5px,color:#10B981
+    style F3 fill:#0B1120,stroke:#00F0FF,stroke-width:2px,color:#00F0FF
     style F4 fill:#0B1120,stroke:#A855F7,stroke-width:1.5px,stroke-dasharray: 5 5,color:#C084FC
 ```
 
@@ -224,8 +227,8 @@ flowchart LR
 | :---: | :--- | :--- | :---: | :--- |
 | **00**<br>🟢 *Activo* | [**De Código a Contenedor con Docker**](./semana-00-fundamentos-docker)<br><sub>🌱 Grano → 📜 Receta → 📦 Bolsa → ☕ Taza</sub> | `Dockerfile`, imágenes OCI, capas, seguridad rootless y puente a Kind/K8s. | **+50 XP**<br><sub>(5 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-00-fundamentos-docker/README.md) • [🧪 Ejemplos](./semana-00-fundamentos-docker/1.ejemplos) • [💥 Retos](./semana-00-fundamentos-docker/2.reto-roto) • [📚 Docs Docker](https://docs.docker.com/) • [📊 PDF](./recursos/diapositivas/0.Fundamentos-Docker.pdf) |
 | **01**<br>🟢 *Activo* | [**El motor por dentro y tu primer Pod**](./semana-01-arquitectura)<br><sub>🍽️ Bandeja (`Pod`), 🪵 Mesas (`Nodes`) y 🏢 Gerencia</sub> | Control Plane vs. Worker Nodes, `kubectl`, Pods multicontenedor y sondas. | **+40 XP**<br><sub>(4 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-01-arquitectura/README.md) • [🧪 Ejemplos](./semana-01-arquitectura/1.ejemplos) • [💥 Retos](./semana-01-arquitectura/2.reto-roto) • [📚 Docs Pods](https://kubernetes.io/es/docs/concepts/workloads/pods/) • [📊 PDF](./recursos/diapositivas/1.KubeCafe-De-Docker-a-Kubernetes.pdf) |
-| **02**<br>🔥 *En Curso* | [**Despliegues sin caídas y autorreparación**](./semana-02-deployments)<br><sub>🧐 Supervisor (`Controller`) y 📝 Orden de Turno</sub> | `ReplicaSets`, `Deployments`, *Self-healing*, *Rolling Updates* y *Rollbacks*. | **+40 XP**<br><sub>(4 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-02-deployments/README.md) • [🧪 Ejemplos](./semana-02-deployments/1.ejemplos) • [💥 Retos](./semana-02-deployments/2.reto-roto) • [📚 Docs Deployments](https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/) • [🎮 Simular](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html) • [📊 PDF](./recursos/diapositivas/2.KubeCafe-De-un-Pod-al-Deployment.pdf) |
-| **03**<br>🔜 *Pronto* | **Conectando todo: Redes en K8s**<br><sub>🤵 Mesero (`Service`), 🚪 Puerta (`Gateway`) y 🧭 Recepción (`HTTPRoute`)</sub> | Comunicación interna y externa: `ClusterIP`, `NodePort`, DNS y **Gateway API** (`Gateway` / `HTTPRoute`). | **+40 XP** | [📚 Docs Services](https://kubernetes.io/es/docs/concepts/services-networking/service/) • [🚪 Gateway API](https://gateway-api.sigs.k8s.io/) • *Próxima sesión* 🔒 |
+| **02**<br>🟢 *Activo* | [**Despliegues sin caídas y autorreparación**](./semana-02-deployments)<br><sub>🧐 Supervisor (`Controller`) y 📝 Orden de Turno</sub> | `ReplicaSets`, `Deployments`, *Self-healing*, *Rolling Updates* y *Rollbacks*. | **+40 XP**<br><sub>(4 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-02-deployments/README.md) • [🧪 Ejemplos](./semana-02-deployments/1.ejemplos) • [💥 Retos](./semana-02-deployments/2.reto-roto) • [📚 Docs Deployments](https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/) • [🎮 Simular](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html) • [📊 PDF](./recursos/diapositivas/2.KubeCafe-De-un-Pod-al-Deployment.pdf) |
+| **03**<br>🔥 *En Curso* | [**Conectando todo: Redes en K8s**](./semana-03-services-gateway)<br><sub>🤵 Mesero (`Service`), 🚪 Puerta (`Gateway`) y 🧭 Recepción (`HTTPRoute`)</sub> | Comunicación interna y externa: `ClusterIP`, `NodePort`, `CoreDNS` y **Gateway API** (`Gateway` / `HTTPRoute`). | **+40 XP**<br><sub>(4 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-03-services-gateway/README.md) • [🧪 Ejemplos](./semana-03-services-gateway/1.ejemplos) • [💥 Retos](./semana-03-services-gateway/2.reto-roto) • [📚 Docs Services](https://kubernetes.io/es/docs/concepts/services-networking/service/) • [🚪 Gateway API](https://gateway-api.sigs.k8s.io/) • [🐝 Cilium Gateway](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/) |
 | **04**<br>🔜 *Pronto* | **Configuración y Datos Persistentes**<br><sub>🧂 Especias (`ConfigMap`), 🔐 Caja fuerte y 🏬 Bodega</sub> | Desacoplar configuración con `ConfigMaps`, `Secrets` y volúmenes (`PV`/`PVC`). | **+40 XP** | [📚 Docs ConfigMaps](https://kubernetes.io/es/docs/concepts/configuration/configmap/) • *Próximamente* 🔒 |
 | **05**<br>🔜 *Pronto* | **Salud, Límites y Seguridad Básica**<br><sub>🌡️ Termómetro (`Probes`), ⚖️ Agua y 🪪 Carnets (`RBAC`)</sub> | `Liveness/Readiness Probes`, `Requests/Limits` de CPU/RAM y permisos `RBAC`. | **+40 XP** | [📚 Docs Security](https://kubernetes.io/es/docs/concepts/security/) • *Próximamente* 🔒 |
 | **06**<br>🔜 *Pronto* | **Empaquetado con Helm y Proyecto Final**<br><sub>🍱 Kit de Franquicia (`Helm Chart`)</sub> | Creación de Charts y despliegue completo de **KubeCafé** en 3 capas. | **+50 XP** | [📚 Docs Helm](https://helm.sh/docs/) • *Gran Misión Final* 🏆 |
@@ -269,8 +272,8 @@ flowchart LR
 * 🚀 [**Entrar a la Semana 01**](./semana-01-arquitectura) | 🖥️ [**Guía Visual Headlamp**](./semana-01-arquitectura/headlamp.md) | 📊 [**Ver Diapositivas PDF**](./recursos/diapositivas/1.KubeCafe-De-Docker-a-Kubernetes.pdf)
 </details>
 
-<details open>
-<summary><b>🔥 Semana 02 (ESTACIÓN ACTUAL): Despliegues sin Caídas y Autorreparación (🟢 Disponible — Gana +40 XP)</b></summary>
+<details>
+<summary><b>🔄 Semana 02: Despliegues sin Caídas y Autorreparación (🟢 Disponible — Gana +40 XP)</b></summary>
 <br>
 
 > ☕ **Misión en KubeCafé:** Un Pod suelto es frágil: si se derrama la taza, nadie la repone. Aquí contratamos al **Supervisor de Barra (`ReplicaSet` + `Deployment`)** para garantizar que **siempre haya 3 baristas activos** (*Self-Healing*) y cambiar la receta del café en caliente sin cerrar la tienda (*Rolling Update* y *Rollback*).
@@ -286,11 +289,26 @@ flowchart LR
 * 🚀 [**Entrar a la Semana 02**](./semana-02-deployments) | 🧪 [**Ir a los Ejemplos**](./semana-02-deployments/1.ejemplos) | 💥 [**Resolver los Retos Rotos (+40 XP)**](./semana-02-deployments/2.reto-roto) | 📊 [**Ver Diapositivas PDF**](./recursos/diapositivas/2.KubeCafe-De-un-Pod-al-Deployment.pdf)
 </details>
 
-<details>
-<summary><b>🔮 Semanas 03 a 06: Vista Previa de las Próximas Estaciones de KubeCafé</b></summary>
+<details open>
+<summary><b>🔥 Semana 03 (ESTACIÓN ACTUAL): Redes en K8s — Services, CoreDNS y Gateway API (🟢 Disponible — Gana +40 XP)</b></summary>
 <br>
 
-* **🌐 Semana 03 — Redes en K8s (`Services` y `Gateway API`):** Pondremos un **Mesero de barra fija (`Service`)** para que los clientes no tengan que perseguir a los Pods cuando cambian de IP, una **Puerta principal (`Gateway`)** que reciba el tráfico externo con TLS y una **Recepción (`HTTPRoute`)** que dirija los pedidos desde internet por dominio, ruta (`/menu`, `/pagos`) o pesos (Canary).
+> ☕ **Misión en KubeCafé:** Los baristas (`Pods`) cambian de IP cada vez que se reinician. Aquí contratamos al **Mesero (`Service`)** para dar una dirección fija interna (`ClusterIP`) o externa (`NodePort`), usamos el directorio **CoreDNS** entre namespaces y abrimos la **Puerta Principal (`Gateway`)** con la **Recepcionista (`HTTPRoute`)**.
+
+* 🧪 **Laboratorios Prácticos ([`semana-03-services-gateway/1.ejemplos`](./semana-03-services-gateway/1.ejemplos)):**
+  1. [`01-service-clusterip-interno.yaml`](./semana-03-services-gateway/1.ejemplos/01-service-clusterip-interno.yaml) — `Service ClusterIP` (`cocina-svc`) e inspección de `Endpoints`.
+  2. [`02-service-nodeport-externo.yaml`](./semana-03-services-gateway/1.ejemplos/02-service-nodeport-externo.yaml) — Exposición externa directa vía `NodePort` (`30080`).
+  3. [`03-dns-interno-coredns.yaml`](./semana-03-services-gateway/1.ejemplos/03-dns-interno-coredns.yaml) — Resolución DNS cross-namespace (`cocina-svc.default.svc.cluster.local`).
+  4. [`04-gateway-api-httproute.yaml`](./semana-03-services-gateway/1.ejemplos/04-gateway-api-httproute.yaml) — Enrutamiento HTTP por rutas (`/cocina` y `/menu`) con **Gateway API**.
+* 💥 **Los 4 Retos Rotos ([`semana-03-services-gateway/2.reto-roto`](./semana-03-services-gateway/2.reto-roto)):**
+  `01-service-selector-roto.yaml` • `02-service-targetport-incorrecto.yaml` • `03-nodeport-fuera-de-rango.yaml` • `04-httproute-parentref-roto.yaml`
+* 🚀 [**Entrar a la Semana 03**](./semana-03-services-gateway) | 🧪 [**Ir a los Ejemplos**](./semana-03-services-gateway/1.ejemplos) | 💥 [**Resolver los Retos Rotos (+40 XP)**](./semana-03-services-gateway/2.reto-roto)
+</details>
+
+<details>
+<summary><b>🔮 Semanas 04 a 06: Vista Previa de las Próximas Estaciones de KubeCafé</b></summary>
+<br>
+
 * **💾 Semana 04 — Configuración y Persistencia (`ConfigMaps`, `Secrets` y `PV`):** Separaremos las **especias (`ConfigMap`)** y la **receta secreta de la casa (`Secret`)** de la bolsa sellada, y conectaremos una **Bodega externa (`PersistentVolume`)** para que los datos sobrevivan aunque se reinicie todo el salón.
 * **🛡️ Semana 05 — Operación y Seguridad (`Probes`, `Limits` y `RBAC`):** Instalaremos **termómetros automáticos (`Liveness/Readiness`)**, topes de agua y electricidad por mesa (`ResourceQuotas`) y carnets de empleado con permisos estrictos (`RBAC`).
 * **🎓 Semana 06 — Empaquetado con Helm y Proyecto Final:** Crearemos el **Kit de Franquicia (`Helm Chart`)** para inaugurar sucursales completas de KubeCafé (Frontend + API + Base de Datos) con un solo comando `helm install`.
