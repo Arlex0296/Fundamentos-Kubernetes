@@ -815,7 +815,7 @@ ${socialLinksBar.join(' ')}
 
 ---
 
-### 🎖️ Rango Verificado e Insignias Oficiales (CI/CD)
+### 🎖️ Rango Verificado • Cloud Native Medellín
 
 <table>
   <tr>
@@ -827,7 +827,7 @@ ${socialLinksBar.join(' ')}
     <td align="center" width="140">
       <sub>⚡ <b>PUNTAJE TOTAL</b></sub><br/>
       <h3><code>${points} XP</code></h3>
-      <sub>Verificado CI/CD</sub>
+      <sub>Verificado • Cloud Native Medellín</sub>
     </td>
     <td align="center" width="140">
       <sub>🛠️ <b>RETOS RESUELTOS</b></sub><br/>
@@ -889,7 +889,7 @@ ${bitacorasSection}
 
 ## 📣 Comparte tu Portafolio Profesional en Redes Sociales
 
-Publica tus avances prácticos y tu progreso verificado por CI/CD ante reclutadores, líderes técnicos y la comunidad Cloud Native.
+Publica tus avances prácticos y tu progreso verificado por Cloud Native Medellín ante reclutadores, líderes técnicos y la comunidad Cloud Native.
 
 ---
 

@@ -507,10 +507,15 @@
       ctx.fillStyle = '#64748B';
       ctx.fillRect(56, 548, W - 112, 1);
 
+      const verifiedText = 'VERIFICADO • CLOUD NATIVE MEDELLÍN ✓';
+      ctx.font = '800 13.5px system-ui, -apple-system, sans-serif';
+      const verifiedWidth = ctx.measureText(verifiedText).width;
+      const maxUrlWidth = W - 112 - verifiedWidth - 24;
+
       const cleanPortfolioUrl = `🔗 ${portfolioUrl.replace(/^https?:\/\//, '')}`;
       let urlFontSize = 14.5;
       ctx.font = `700 ${urlFontSize}px system-ui, -apple-system, sans-serif`;
-      while (urlFontSize > 10.5 && ctx.measureText(cleanPortfolioUrl).width > 855) {
+      while (urlFontSize > 10 && ctx.measureText(cleanPortfolioUrl).width > maxUrlWidth) {
         urlFontSize -= 0.5;
         ctx.font = `700 ${urlFontSize}px system-ui, -apple-system, sans-serif`;
       }
@@ -518,9 +523,9 @@
       ctx.fillText(cleanPortfolioUrl, 56, 582);
 
       ctx.fillStyle = '#2DD4BF';
-      ctx.font = '800 14px system-ui, -apple-system, sans-serif';
+      ctx.font = '800 13.5px system-ui, -apple-system, sans-serif';
       ctx.textAlign = 'right';
-      ctx.fillText('VERIFICADO POR CI/CD ✓', W - 56, 582);
+      ctx.fillText(verifiedText, W - 56, 582);
       ctx.textAlign = 'left';
     }
 
