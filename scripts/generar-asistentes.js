@@ -16,6 +16,7 @@ const JSON_PATH = path.join(ROOT, 'asistentes.json');
 const MD_PATH = path.join(ROOT, 'ASISTENTES.md');
 const README_PATH = path.join(ROOT, 'README.md');
 const SOLUCIONES_DIR = path.join(ROOT, 'aportes-comunidad', 'soluciones-retos');
+const INSIGNIAS_DIR = path.join(ROOT, 'recursos', 'insignias');
 const REPO_URL = 'https://github.com/edwinbermudez91/Fundamentos-Kubernetes';
 
 const INSTRUCTORS = ['edwinbermudez91', 'santiago1023', 'vdevalen', 'andresqb198', 'ka1999'];
@@ -721,16 +722,19 @@ function generateStudentPortfolioReadme(student, evalResult) {
   const motivacion = (student.motivacion || 'Dominar contenedores y Kubernetes desde la práctica.').trim();
   const share = buildShareLinks(user, nombre, rango, points, true, folderName);
 
-  // Insignias de módulos
+  // Insignias de módulos estilo Credly (SVG)
   const moduleBadges = Object.entries(WEEK_METADATA).map(([wk, meta]) => {
     const rep = evalResult.detailedReport.find(r => r.weekKey === wk);
+    let state = 'bloqueado';
     if (rep && rep.isComplete) {
-      return `![${wk}](https://img.shields.io/badge/${meta.shortBadge}-✅_Completado-${meta.color}?style=for-the-badge&logo=${meta.logo}&logoColor=white)`;
+      state = 'completado';
+    } else if (rep && (rep.solvedCount > 0 || rep.hasBitacora)) {
+      state = 'progreso';
     }
-    if (rep && (rep.solvedCount > 0 || rep.hasBitacora)) {
-      return `![${wk}](https://img.shields.io/badge/${meta.shortBadge}-⏳_En_Progreso-f59e0b?style=for-the-badge&logo=${meta.logo}&logoColor=white)`;
-    }
-    return `![${wk}](https://img.shields.io/badge/${meta.shortBadge}-⚪_Próximamente-475569?style=for-the-badge&logo=${meta.logo}&logoColor=white)`;
+    const badgeSrc = `../../../recursos/insignias/${wk}-${state}.svg`;
+    const weekFolderExists = rep && fs.existsSync(path.join(userDir, rep.weekDirName));
+    const targetHref = weekFolderExists ? `./${rep.weekDirName}` : '#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé';
+    return `<a href="${targetHref}" title="${meta.title}"><img src="${badgeSrc}" width="136" alt="${meta.title}"/></a>`;
   });
 
   // Filas de progreso técnico por semana
@@ -1282,7 +1286,144 @@ ${rows}
       };
     }
 
+    const BADGE_VISUALS = {
+      'semana-00': {
+        label: 'DOCKER &amp; OCI',
+        sub: 'SEMANA 00',
+        gradStart: '#38BDF8',
+        gradEnd: '#0284C7',
+        icon: `<rect x="86" y="70" width="14" height="12" rx="2" fill="currentColor" opacity="0.95"/>
+      <rect x="103" y="70" width="14" height="12" rx="2" fill="currentColor" opacity="0.95"/>
+      <rect x="120" y="70" width="14" height="12" rx="2" fill="currentColor" opacity="0.85"/>
+      <rect x="94" y="55" width="14" height="12" rx="2" fill="currentColor" opacity="0.85"/>
+      <rect x="111" y="55" width="14" height="12" rx="2" fill="currentColor" opacity="0.95"/>
+      <path d="M80 87 h60 c0 12 -10 21 -30 21 c-20 0 -30 -9 -30 -21 z" fill="currentColor" opacity="0.95"/>`
+      },
+      'semana-01': {
+        label: 'K8S PODS',
+        sub: 'SEMANA 01',
+        gradStart: '#60A5FA',
+        gradEnd: '#2563EB',
+        icon: `<circle cx="110" cy="82" r="19" fill="none" stroke="currentColor" stroke-width="4.5"/>
+      <circle cx="110" cy="82" r="6" fill="currentColor"/>
+      <line x1="110" y1="57" x2="110" y2="107" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="88" y1="70" x2="132" y2="94" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="132" y1="70" x2="88" y2="94" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>`
+      },
+      'semana-02': {
+        label: 'DEPLOYMENTS',
+        sub: 'SEMANA 02',
+        gradStart: '#34D399',
+        gradEnd: '#059669',
+        icon: `<path d="M90 76 a22 22 0 0 1 36 -8" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
+      <polygon points="129,63 130,75 119,71" fill="currentColor"/>
+      <path d="M130 88 a22 22 0 0 1 -36 8" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
+      <polygon points="91,101 90,89 101,93" fill="currentColor"/>
+      <rect x="103" y="75" width="14" height="14" rx="3" fill="currentColor"/>`
+      },
+      'semana-03': {
+        label: 'GATEWAY API',
+        sub: 'SEMANA 03',
+        gradStart: '#22D3EE',
+        gradEnd: '#0891B2',
+        icon: `<circle cx="110" cy="66" r="8" fill="currentColor"/>
+      <circle cx="86" cy="96" r="7" fill="currentColor" opacity="0.9"/>
+      <circle cx="110" cy="99" r="7" fill="currentColor" opacity="0.9"/>
+      <circle cx="134" cy="96" r="7" fill="currentColor" opacity="0.9"/>
+      <line x1="110" y1="74" x2="86" y2="90" stroke="currentColor" stroke-width="3.5"/>
+      <line x1="110" y1="74" x2="110" y2="92" stroke="currentColor" stroke-width="3.5"/>
+      <line x1="110" y1="74" x2="134" y2="90" stroke="currentColor" stroke-width="3.5"/>`
+      },
+      'semana-04': {
+        label: 'CONFIG &amp; PV',
+        sub: 'SEMANA 04',
+        gradStart: '#A78BFA',
+        gradEnd: '#7C3AED',
+        icon: `<ellipse cx="110" cy="66" rx="22" ry="7" fill="currentColor" opacity="0.95"/>
+      <path d="M88 66 v14 c0 4 10 7 22 7 s22 -3 22 -7 v-14" fill="none" stroke="currentColor" stroke-width="4"/>
+      <path d="M88 80 v14 c0 4 10 7 22 7 s22 -3 22 -7 v-14" fill="none" stroke="currentColor" stroke-width="4"/>`
+      },
+      'semana-05': {
+        label: 'SECURITY RBAC',
+        sub: 'SEMANA 05',
+        gradStart: '#FBBF24',
+        gradEnd: '#D97706',
+        icon: `<path d="M110 57 L133 66 V83 C133 96 122 104 110 108 C98 104 87 96 87 83 V66 Z" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M101 82 L107 88 L120 74" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>`
+      },
+      'semana-06': {
+        label: 'HELM CHART',
+        sub: 'SEMANA 06',
+        gradStart: '#F472B6',
+        gradEnd: '#DB2777',
+        icon: `<polygon points="110,56 117,71 134,73 121,84 125,101 110,93 95,101 99,84 86,73 103,71" fill="currentColor" opacity="0.95"/>`
+      }
+    };
+
+    function buildCredlyBadgeSvg(weekKey, state) {
+      const vis = BADGE_VISUALS[weekKey] || BADGE_VISUALS['semana-01'];
+      const isDone = state === 'completado';
+      const isProg = state === 'progreso';
+
+      const borderStart = isDone ? vis.gradStart : isProg ? '#FBBF24' : '#475569';
+      const borderEnd = isDone ? vis.gradEnd : isProg ? '#D97706' : '#334155';
+      const bgTop = isDone ? '#0F172A' : isProg ? '#1C1917' : '#0F172A';
+      const bgBottom = isDone ? '#1E293B' : isProg ? '#292524' : '#1E293B';
+      const iconColor = isDone ? vis.gradStart : isProg ? '#FBBF24' : '#64748B';
+      const ribbonFill = isDone ? vis.gradEnd : isProg ? '#B45309' : '#334155';
+      const statusBg = isDone ? '#10B981' : isProg ? '#F59E0B' : '#334155';
+      const statusText = isDone ? '✓ VERIFICADO' : isProg ? '⏳ EN PROGRESO' : '🔒 PRÓXIMAMENTE';
+      const statusFg = isDone || isProg ? '#FFFFFF' : '#94A3B8';
+      const opacity = isDone || isProg ? '1' : '0.72';
+      const stars = isDone
+        ? `<text x="110" y="210" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#FDE047" letter-spacing="3">★ ★ ★</text>`
+        : '';
+
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 245" width="220" height="245">
+  <defs>
+    <linearGradient id="b_${weekKey}_${state}" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${borderStart}"/>
+      <stop offset="100%" stop-color="${borderEnd}"/>
+    </linearGradient>
+    <linearGradient id="bg_${weekKey}_${state}" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="${bgTop}"/>
+      <stop offset="100%" stop-color="${bgBottom}"/>
+    </linearGradient>
+  </defs>
+  <g opacity="${opacity}">
+    <polygon points="110,10 202,63 202,169 110,222 18,169 18,63" fill="url(#b_${weekKey}_${state})"/>
+    <polygon points="110,18 195,67 195,165 110,214 25,165 25,67" fill="url(#bg_${weekKey}_${state})"/>
+    <polygon points="110,25 188,70 188,162 110,207 32,162 32,70" fill="none" stroke="${borderStart}" stroke-width="1.2" stroke-opacity="0.45"/>
+    <text x="110" y="45" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" fill="#94A3B8" letter-spacing="1.6">CNCF MEDELLÍN</text>
+    <g color="${iconColor}">
+      ${vis.icon}
+    </g>
+    <polygon points="12,118 208,118 200,152 20,152" fill="${ribbonFill}"/>
+    <polygon points="12,118 20,152 25,148 18,118" fill="#000000" opacity="0.22"/>
+    <polygon points="208,118 200,152 195,148 202,118" fill="#000000" opacity="0.22"/>
+    <text x="110" y="131" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="700" fill="#E2E8F0" letter-spacing="1.8">${vis.sub}</text>
+    <text x="110" y="146" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13.5" font-weight="800" fill="#FFFFFF" letter-spacing="0.8">${vis.label}</text>
+    <rect x="52" y="164" width="116" height="22" rx="11" fill="${statusBg}"/>
+    <text x="110" y="179" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="800" fill="${statusFg}" letter-spacing="0.8">${statusText}</text>
+    <text x="110" y="198" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="600" fill="#94A3B8" letter-spacing="1.2">KUBECAFÉ LABS</text>
+    ${stars}
+  </g>
+</svg>\n`;
+    }
+
+    function ensureInsigniasSvgs() {
+      fs.mkdirSync(INSIGNIAS_DIR, { recursive: true });
+      const states = ['completado', 'progreso', 'bloqueado'];
+      for (const weekKey of Object.keys(WEEK_METADATA)) {
+        for (const state of states) {
+          const filePath = path.join(INSIGNIAS_DIR, `${weekKey}-${state}.svg`);
+          fs.writeFileSync(filePath, buildCredlyBadgeSvg(weekKey, state), 'utf8');
+        }
+      }
+    }
+
     function syncAllFiles(rawData) {
+      ensureInsigniasSvgs();
       const { cleanJsonList, students, instructorsList, officialChallenges } = processAndSortData(rawData);
       fs.writeFileSync(JSON_PATH, JSON.stringify(cleanJsonList, null, 2) + '\n', 'utf8');
 

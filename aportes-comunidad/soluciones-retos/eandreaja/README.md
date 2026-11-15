@@ -28,13 +28,13 @@
 
 <div align="center">
 
-![semana-00](https://img.shields.io/badge/🐳_Docker_&_OCI-⏳_En_Progreso-f59e0b?style=for-the-badge&logo=docker&logoColor=white)
-![semana-01](https://img.shields.io/badge/🌱_K8s_Pods_&_Arquitectura-⚪_Próximamente-475569?style=for-the-badge&logo=kubernetes&logoColor=white)
-![semana-02](https://img.shields.io/badge/🔄_K8s_Deployments_&_Rollouts-⚪_Próximamente-475569?style=for-the-badge&logo=kubernetes&logoColor=white)
-![semana-03](https://img.shields.io/badge/🌐_K8s_Services_&_Gateway_API-⚪_Próximamente-475569?style=for-the-badge&logo=kubernetes&logoColor=white)
-![semana-04](https://img.shields.io/badge/💾_K8s_Config_&_Storage-⚪_Próximamente-475569?style=for-the-badge&logo=kubernetes&logoColor=white)
-![semana-05](https://img.shields.io/badge/🛡️_K8s_Security_&_Probes-⚪_Próximamente-475569?style=for-the-badge&logo=kubernetes&logoColor=white)
-![semana-06](https://img.shields.io/badge/🎓_Helm_&_Arquitectura_K8s-⚪_Próximamente-475569?style=for-the-badge&logo=helm&logoColor=white)
+<a href="./semana-00" title="🐳 Semana 00: Fundamentos de Docker (De Código a Contenedor)"><img src="../../../recursos/insignias/semana-00-progreso.svg" width="136" alt="🐳 Semana 00: Fundamentos de Docker (De Código a Contenedor)"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🌱 Semana 01: Arquitectura de Kubernetes y Pods"><img src="../../../recursos/insignias/semana-01-bloqueado.svg" width="136" alt="🌱 Semana 01: Arquitectura de Kubernetes y Pods"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🔄 Semana 02: Deployments, Réplicas y Autorreparación"><img src="../../../recursos/insignias/semana-02-bloqueado.svg" width="136" alt="🔄 Semana 02: Deployments, Réplicas y Autorreparación"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🌐 Semana 03: Redes en Kubernetes (Services y Gateway API)"><img src="../../../recursos/insignias/semana-03-bloqueado.svg" width="136" alt="🌐 Semana 03: Redes en Kubernetes (Services y Gateway API)"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="💾 Semana 04: Configuración y Datos Persistentes"><img src="../../../recursos/insignias/semana-04-bloqueado.svg" width="136" alt="💾 Semana 04: Configuración y Datos Persistentes"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🛡️ Semana 05: Salud, Límites y Seguridad (RBAC)"><img src="../../../recursos/insignias/semana-05-bloqueado.svg" width="136" alt="🛡️ Semana 05: Salud, Límites y Seguridad (RBAC)"/></a>
+<a href="#-evidencias-técnicas-y-laboratorios-resueltos-en--kubecafé" title="🎓 Semana 06: Empaquetado con Helm y Proyecto Final KubeCafé"><img src="../../../recursos/insignias/semana-06-bloqueado.svg" width="136" alt="🎓 Semana 06: Empaquetado con Helm y Proyecto Final KubeCafé"/></a>
 
 </div>
 
