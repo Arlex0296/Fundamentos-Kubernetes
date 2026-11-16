@@ -105,6 +105,16 @@
     "motivacion": "Reforzar conocimiento y aportar a la comunidad."
   },
   {
+    "github": "eandreaja",
+    "nombre": "Andrea Jaramillo",
+    "rol": "Python Developer · Data Science en formación",
+    "linkedin": "https://www.linkedin.com/in/eandreaja/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 70,
+    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
+  },
+  {
     "github": "devdavco",
     "nombre": "David Corrales",
     "rol": "Desarrollador Fullstack Java",
@@ -163,16 +173,6 @@
     "rango": "⛵ Marinero",
     "puntos": 60,
     "motivacion": "Aprender sobre Docker y Kubernete. Aprovechadno al maximo estos cursos"
-  },
-  {
-    "github": "eandreaja",
-    "nombre": "Andrea Jaramillo",
-    "rol": "Python Developer · Data Science en formación",
-    "linkedin": "https://www.linkedin.com/in/eandreaja/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 60,
-    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
   },
   {
     "github": "sanjavier88",
