@@ -81,42 +81,44 @@ jobs:
               : `\`\`\`bash\nkubectl get pods -o wide\nkubectl describe pod <nombre-pod>\n\`\`\``;
             const aplicacionBlock = aplicacion || 'Seguir practicando en los laboratorios del workshop y aplicando buenas prácticas Cloud Native.';
 
-            const bitacoraMarkdown = `# 📔 Bitácora de Aprendizaje — ${weekMeta.title}
-
-> ⛵ **Tripulante:** [\`@${userFolderName}\`](https://github.com/${userFolderName})  
-> 🗓️ **Fecha de registro:** \`${today}\`  
-> 🎓 **Portafolio Principal:** [⬅️ Volver a mi Portafolio Profesional K8s](../README.md)
-
----
-
-## 1️⃣ 💡 ¿Qué aprendí esta semana?
-
-${aprendizaje}
-
----
-
-## 2️⃣ 🧩 ¿Qué fue lo más retador y cómo lo resolví?
-
-${desafio}
-
----
-
-## 3️⃣ 💻 Comandos y herramientas que practiqué
-
-${comandosBlock}
-
----
-
-## 4️⃣ 🚀 Aplicación real y próximos pasos
-
-${aplicacionBlock}
-
----
-
-<div align="center">
-  <sub>🏔️☕ Bitácora registrada en <b><a href="https://github.com/${context.repo.owner}/${context.repo.repo}">De Cero a Capitán en Kubernetes — Cloud Native Medellín (CNCF)</a></b></sub>
-</div>
-`;
+            const bitacoraMarkdown = [
+              `# 📔 Bitácora de Aprendizaje — ${weekMeta.title}`,
+              '',
+              `> ⛵ **Tripulante:** [\`@${userFolderName}\`](https://github.com/${userFolderName})  `,
+              `> 🗓️ **Fecha de registro:** \`${today}\`  `,
+              `> 🎓 **Portafolio Principal:** [⬅️ Volver a mi Portafolio Profesional K8s](../README.md)`,
+              '',
+              '---',
+              '',
+              '## 1️⃣ 💡 ¿Qué aprendí esta semana?',
+              '',
+              aprendizaje,
+              '',
+              '---',
+              '',
+              '## 2️⃣ 🧩 ¿Qué fue lo más retador y cómo lo resolví?',
+              '',
+              desafio,
+              '',
+              '---',
+              '',
+              '## 3️⃣ 💻 Comandos y herramientas que practiqué',
+              '',
+              comandosBlock,
+              '',
+              '---',
+              '',
+              '## 4️⃣ 🚀 Aplicación real y próximos pasos',
+              '',
+              aplicacionBlock,
+              '',
+              '---',
+              '',
+              '<div align="center">',
+              `  <sub>🏔️☕ Bitácora registrada en <b><a href="https://github.com/${context.repo.owner}/${context.repo.repo}">De Cero a Capitán en Kubernetes — Cloud Native Medellín (CNCF)</a></b></sub>`,
+              '</div>',
+              ''
+            ].join('\n');
 
             const bitacoraFilePath = path.join(weekDirPath, 'bitacora.md');
             fs.writeFileSync(bitacoraFilePath, bitacoraMarkdown, 'utf8');
@@ -186,6 +188,7 @@ ${aplicacionBlock}
 
             const share = buildShareLinks(user, nombre, rango, xp, true, user);
             const bitacoraUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/aportes-comunidad/soluciones-retos/${user}/${weekKey}/bitacora.md`;
+            const cardGeneratorUrl = `https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=${encodeURIComponent(user)}&nombre=${encodeURIComponent(nombre)}&rango=${encodeURIComponent(rango)}&xp=${encodeURIComponent(String(xp))}&portfolio=${encodeURIComponent(share.portfolioUrl)}`;
 
             const blank = '\u2800';
             const customLinkedinPost = [
@@ -222,7 +225,7 @@ ${aplicacionBlock}
               '',
               '### 📣 ¡Comparte tu aprendizaje personalizado en LinkedIn y Redes con 1 clic!',
               '',
-              share.badgesBar,
+              `[![Descargar Tarjeta PNG](https://img.shields.io/badge/☸️_1._Descargar_Tarjeta_PNG-(1200x630)-2ea44f?style=for-the-badge&logo=kubernetes&logoColor=white)](${cardGeneratorUrl}) ${share.badgesBar}`,
               '',
               '#### 📋 Post personalizado para LinkedIn (con tus aprendizajes de esta semana):',
               '```text',

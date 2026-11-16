@@ -45,6 +45,16 @@
     "motivacion": "Apoyar y acompañar a la comunidad Cloud Native Medellín en su travesía por Kubernetes. 🏔️☕"
   },
   {
+    "github": "juanjosegonzalezrosales",
+    "nombre": "Juan José González Rosales",
+    "rol": "Desarrollador Jr",
+    "linkedin": "https://www.linkedin.com/in/juan-josé-gonzález-rosales-40a4a8203?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 120,
+    "motivacion": "Aprender sobre contenedores y kubernetes con el ánimo de crecer profesionalmente."
+  },
+  {
     "github": "StivenMunera",
     "nombre": "Stiven Munera",
     "rol": "FullStack Developer Jr",
@@ -95,6 +105,26 @@
     "motivacion": "Reforzar conocimiento y aportar a la comunidad."
   },
   {
+    "github": "marnathali",
+    "nombre": "Nathali Anzola",
+    "rol": "Software Engineer",
+    "linkedin": "https://linkedin.com/in/maria-nathali-anzola",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 90,
+    "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
+  },
+  {
+    "github": "eandreaja",
+    "nombre": "Andrea Jaramillo",
+    "rol": "Python Developer · Data Science en formación",
+    "linkedin": "https://www.linkedin.com/in/eandreaja/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 70,
+    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
+  },
+  {
     "github": "devdavco",
     "nombre": "David Corrales",
     "rol": "Desarrollador Fullstack Java",
@@ -125,26 +155,6 @@
     "motivacion": "Quiero aprender todo lo posible de la comunidad y si es posible aportar."
   },
   {
-    "github": "juanjosegonzalezrosales",
-    "nombre": "Juan José González Rosales",
-    "rol": "Desarrollador Jr",
-    "linkedin": "https://www.linkedin.com/in/juan-josé-gonzález-rosales-40a4a8203?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 60,
-    "motivacion": "Aprender sobre contenedores y kubernetes con el ánimo de crecer profesionalmente."
-  },
-  {
-    "github": "marnathali",
-    "nombre": "Nathali Anzola",
-    "rol": "Software Engineer",
-    "linkedin": "https://linkedin.com/in/maria-nathali-anzola",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 60,
-    "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
-  },
-  {
     "github": "DrSiker",
     "nombre": "Didier Alexander Rendón Chaverra",
     "rol": "DevSecOps/Cloud Engineer",
@@ -173,16 +183,6 @@
     "rango": "⛵ Marinero",
     "puntos": 50,
     "motivacion": "No tengo conocimiento de la nube, así que con el curso espero poder aprender a utilizarla."
-  },
-  {
-    "github": "eandreaja",
-    "nombre": "Andrea Jaramillo",
-    "rol": "Python Developer · Data Science en formación",
-    "linkedin": "https://www.linkedin.com/in/eandreaja/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 50,
-    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
   },
   {
     "github": "glgaviria64",

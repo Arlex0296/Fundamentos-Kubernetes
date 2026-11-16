@@ -227,11 +227,24 @@ const CHALLENGE_VALIDATORS = {
     {
       id: '02',
       name: '02-variable-entorno-faltante',
-      validate: files =>
-        files.some(f => {
-          const code = stripComments(f.content);
-          return /ENV\s+APP_SECRET_TOKEN/i.test(code);
-        })
+      validate: (files, weekPath) => {
+        if (files.some(f => /ENV\s+APP_SECRET_TOKEN/i.test(stripComments(f.content)))) {
+          return true;
+        }
+        if (weekPath && fs.existsSync(weekPath)) {
+          const reto02Dir = fs
+            .readdirSync(weekPath, { withFileTypes: true })
+            .find(d => d.isDirectory() && /0?2/.test(d.name));
+          if (reto02Dir) {
+            const readmePath = path.join(weekPath, reto02Dir.name, 'README.md');
+            if (fs.existsSync(readmePath)) {
+              const md = fs.readFileSync(readmePath, 'utf8');
+              return /APP_SECRET_TOKEN/i.test(md) && /(-e\b|--env\b|--env-file\b|env_file)/i.test(md);
+            }
+          }
+        }
+        return false;
+      }
     },
     {
       id: '03',
@@ -284,13 +297,16 @@ const CHALLENGE_VALIDATORS = {
         files.some(f => {
           const code = stripComments(f.content);
           const isReto01 = /name:\s*reto-01-imagen/.test(code) || /0?1/.test(f.relPath);
+          const standardNginx =
+            /image:\s*nginx:(latest|alpine|1\.\d+)/.test(code) && /containerPort:\s*80\b/.test(code);
+          const unprivilegedNginx =
+            /image:\s*nginxinc\/nginx-unprivileged\b/.test(code) && /containerPort:\s*8080\b/.test(code);
           return (
             isReto01 &&
             /kind:\s*Pod/.test(code) &&
-            /image:\s*nginx:(latest|alpine|1\.\d+)/.test(code) &&
             !code.includes('version-fantasma-999') &&
-            /containerPort:\s*80\b/.test(code) &&
-            !code.includes('80809')
+            !code.includes('80809') &&
+            (standardNginx || unprivilegedNginx)
           );
         })
     },
@@ -581,7 +597,7 @@ function evaluateUserProgress(githubUser, officialChallenges) {
         const validators = CHALLENGE_VALIDATORS[weekKey];
         if (validators) {
           for (const v of validators) {
-            if (v.validate(files)) {
+            if (v.validate(files, weekPath)) {
               solvedNums.push(v.id);
             } else {
               missingNums.push(`${v.id} (${v.name})`);
