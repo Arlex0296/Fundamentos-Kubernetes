@@ -105,6 +105,16 @@
     "motivacion": "Reforzar conocimiento y aportar a la comunidad."
   },
   {
+    "github": "marnathali",
+    "nombre": "Nathali Anzola",
+    "rol": "Software Engineer",
+    "linkedin": "https://linkedin.com/in/maria-nathali-anzola",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 90,
+    "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
+  },
+  {
     "github": "eandreaja",
     "nombre": "Andrea Jaramillo",
     "rol": "Python Developer · Data Science en formación",
@@ -143,16 +153,6 @@
     "rango": "⛵ Marinero",
     "puntos": 60,
     "motivacion": "Quiero aprender todo lo posible de la comunidad y si es posible aportar."
-  },
-  {
-    "github": "marnathali",
-    "nombre": "Nathali Anzola",
-    "rol": "Software Engineer",
-    "linkedin": "https://linkedin.com/in/maria-nathali-anzola",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 60,
-    "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
   },
   {
     "github": "DrSiker",
