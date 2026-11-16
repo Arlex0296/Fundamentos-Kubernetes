@@ -137,12 +137,12 @@
     </td>
     <td align="center" width="175">
       <b>🏅 #5</b><br/>
-      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Portafolio de Fernando Avila (@RAVILA28)">
-        <img src="https://github.com/RAVILA28.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="RAVILA28"/><br/>
-        <b>Fernando Avila</b>
+      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Portafolio de Juan José González Rosales (@juanjosegonzalezrosales)">
+        <img src="https://github.com/juanjosegonzalezrosales.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
+        <b>Juan José</b>
       </a><br/>
-      <sub>⛵ Marinero • <b>90 XP</b></sub><br/>
-      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md"><b>🎓 Ver Portafolio</b></a>
+      <sub>⛵ Marinero • <b>100 XP</b></sub><br/>
+      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
   </tr>
 </table>
@@ -496,20 +496,20 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/parte193/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Juan José González Rosales (@juanjosegonzalezrosales) — 100 XP">
+        <img src="https://github.com/juanjosegonzalezrosales.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
+        <sub><b>Juan José</b></sub>
+      </a><br/>
+      <sub>⛵ Marinero • <b>100 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 90 XP">
         <img src="https://github.com/RAVILA28.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="RAVILA28"/><br/>
         <sub><b>Fernando Avila</b></sub>
       </a><br/>
       <sub>⛵ Marinero • <b>90 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md">🎓 Portafolio</a></sub>
-    </td>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Juan José González Rosales (@juanjosegonzalezrosales) — 70 XP">
-        <img src="https://github.com/juanjosegonzalezrosales.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
-        <sub><b>Juan José</b></sub>
-      </a><br/>
-      <sub>⛵ Marinero • <b>70 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md">🎓 Portafolio</a></sub>
     </td>
   </tr>
   <tr>
