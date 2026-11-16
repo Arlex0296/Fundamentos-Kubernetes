@@ -45,6 +45,16 @@
     "motivacion": "Apoyar y acompañar a la comunidad Cloud Native Medellín en su travesía por Kubernetes. 🏔️☕"
   },
   {
+    "github": "juanjosegonzalezrosales",
+    "nombre": "Juan José González Rosales",
+    "rol": "Desarrollador Jr",
+    "linkedin": "https://www.linkedin.com/in/juan-josé-gonzález-rosales-40a4a8203?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 110,
+    "motivacion": "Aprender sobre contenedores y kubernetes con el ánimo de crecer profesionalmente."
+  },
+  {
     "github": "StivenMunera",
     "nombre": "Stiven Munera",
     "rol": "FullStack Developer Jr",
@@ -83,16 +93,6 @@
     "rango": "🧭 Timonel",
     "puntos": 100,
     "motivacion": "Entender de verdad cómo funcionan los contenedores y poder llevar mis propias apps de mi computador a producción sin miedo"
-  },
-  {
-    "github": "juanjosegonzalezrosales",
-    "nombre": "Juan José González Rosales",
-    "rol": "Desarrollador Jr",
-    "linkedin": "https://www.linkedin.com/in/juan-josé-gonzález-rosales-40a4a8203?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 100,
-    "motivacion": "Aprender sobre contenedores y kubernetes con el ánimo de crecer profesionalmente."
   },
   {
     "github": "RAVILA28",

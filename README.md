@@ -101,6 +101,15 @@
   <tr>
     <td align="center" width="175">
       <b>🥇 #1</b><br/>
+      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Portafolio de Juan José González Rosales (@juanjosegonzalezrosales)">
+        <img src="https://github.com/juanjosegonzalezrosales.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
+        <b>Juan José</b>
+      </a><br/>
+      <sub>⛵ Marinero • <b>110 XP</b></sub><br/>
+      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md"><b>🎓 Ver Portafolio</b></a>
+    </td>
+    <td align="center" width="175">
+      <b>🥈 #2</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Portafolio de Stiven Munera (@StivenMunera)">
         <img src="https://github.com/StivenMunera.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="StivenMunera"/><br/>
         <b>Stiven Munera</b>
@@ -109,7 +118,7 @@
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
     <td align="center" width="175">
-      <b>🥈 #2</b><br/>
+      <b>🥉 #3</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md" title="Portafolio de Carlos Andres Montoya Alzate (@calichem26)">
         <img src="https://github.com/calichem26.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="calichem26"/><br/>
         <b>Carlos Andres</b>
@@ -118,7 +127,7 @@
       <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
     <td align="center" width="175">
-      <b>🥉 #3</b><br/>
+      <b>🏅 #4</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md" title="Portafolio de Yorman Agudelo (@Cuburi)">
         <img src="https://github.com/Cuburi.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="Cuburi"/><br/>
         <b>Yorman Agudelo</b>
@@ -127,22 +136,13 @@
       <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
     <td align="center" width="175">
-      <b>🏅 #4</b><br/>
+      <b>🏅 #5</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/parte193/README.md" title="Portafolio de Johan Andrés López Zuluaga (@parte193)">
         <img src="https://github.com/parte193.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="parte193"/><br/>
         <b>Johan Andrés</b>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/parte193/README.md"><b>🎓 Ver Portafolio</b></a>
-    </td>
-    <td align="center" width="175">
-      <b>🏅 #5</b><br/>
-      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Portafolio de Juan José González Rosales (@juanjosegonzalezrosales)">
-        <img src="https://github.com/juanjosegonzalezrosales.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
-        <b>Juan José</b>
-      </a><br/>
-      <sub>⛵ Marinero • <b>100 XP</b></sub><br/>
-      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
   </tr>
 </table>
@@ -464,9 +464,17 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
 <table>
   <tr>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Juan José González Rosales (@juanjosegonzalezrosales) — 110 XP">
+        <img src="https://github.com/juanjosegonzalezrosales.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
+        <sub><b>🥇 Juan José</b></sub>
+      </a><br/>
+      <sub>⛵ Marinero • <b>110 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Stiven Munera (@StivenMunera) — 100 XP">
         <img src="https://github.com/StivenMunera.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="StivenMunera"/><br/>
-        <sub><b>🥇 Stiven Munera</b></sub>
+        <sub><b>🥈 Stiven Munera</b></sub>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md">🎓 Portafolio</a></sub>
@@ -474,7 +482,7 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md" title="Carlos Andres Montoya Alzate (@calichem26) — 100 XP">
         <img src="https://github.com/calichem26.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="calichem26"/><br/>
-        <sub><b>🥈 Carlos Andres</b></sub>
+        <sub><b>🥉 Carlos Andres</b></sub>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/calichem26/README.md">🎓 Portafolio</a></sub>
@@ -482,7 +490,7 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md" title="Yorman Agudelo (@Cuburi) — 100 XP">
         <img src="https://github.com/Cuburi.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Cuburi"/><br/>
-        <sub><b>🥉 Yorman Agudelo</b></sub>
+        <sub><b>Yorman Agudelo</b></sub>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md">🎓 Portafolio</a></sub>
@@ -494,14 +502,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/parte193/README.md">🎓 Portafolio</a></sub>
-    </td>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Juan José González Rosales (@juanjosegonzalezrosales) — 100 XP">
-        <img src="https://github.com/juanjosegonzalezrosales.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
-        <sub><b>Juan José</b></sub>
-      </a><br/>
-      <sub>⛵ Marinero • <b>100 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 90 XP">
