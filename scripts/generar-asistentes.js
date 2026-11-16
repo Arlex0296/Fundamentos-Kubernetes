@@ -284,13 +284,16 @@ const CHALLENGE_VALIDATORS = {
         files.some(f => {
           const code = stripComments(f.content);
           const isReto01 = /name:\s*reto-01-imagen/.test(code) || /0?1/.test(f.relPath);
+          const standardNginx =
+            /image:\s*nginx:(latest|alpine|1\.\d+)/.test(code) && /containerPort:\s*80\b/.test(code);
+          const unprivilegedNginx =
+            /image:\s*nginxinc\/nginx-unprivileged\b/.test(code) && /containerPort:\s*8080\b/.test(code);
           return (
             isReto01 &&
             /kind:\s*Pod/.test(code) &&
-            /image:\s*nginx:(latest|alpine|1\.\d+)/.test(code) &&
             !code.includes('version-fantasma-999') &&
-            /containerPort:\s*80\b/.test(code) &&
-            !code.includes('80809')
+            !code.includes('80809') &&
+            (standardNginx || unprivilegedNginx)
           );
         })
     },
