@@ -504,11 +504,11 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/parte193/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 90 XP">
+      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 100 XP">
         <img src="https://github.com/RAVILA28.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="RAVILA28"/><br/>
         <sub><b>Fernando Avila</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>90 XP</b></sub><br/>
+      <sub>⛵ Marinero • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md">🎓 Portafolio</a></sub>
     </td>
   </tr>
