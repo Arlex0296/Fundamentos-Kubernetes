@@ -188,6 +188,7 @@ jobs:
 
             const share = buildShareLinks(user, nombre, rango, xp, true, user);
             const bitacoraUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/aportes-comunidad/soluciones-retos/${user}/${weekKey}/bitacora.md`;
+            const cardGeneratorUrl = `https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=${encodeURIComponent(user)}&nombre=${encodeURIComponent(nombre)}&rango=${encodeURIComponent(rango)}&xp=${encodeURIComponent(String(xp))}&portfolio=${encodeURIComponent(share.portfolioUrl)}`;
 
             const blank = '\u2800';
             const customLinkedinPost = [
@@ -224,7 +225,7 @@ jobs:
               '',
               '### 📣 ¡Comparte tu aprendizaje personalizado en LinkedIn y Redes con 1 clic!',
               '',
-              share.badgesBar,
+              `[![Descargar Tarjeta PNG](https://img.shields.io/badge/☸️_1._Descargar_Tarjeta_PNG-(1200x630)-2ea44f?style=for-the-badge&logo=kubernetes&logoColor=white)](${cardGeneratorUrl}) ${share.badgesBar}`,
               '',
               '#### 📋 Post personalizado para LinkedIn (con tus aprendizajes de esta semana):',
               '```text',
