@@ -165,6 +165,16 @@
     "motivacion": "Aprender sobre Docker y Kubernete. Aprovechadno al maximo estos cursos"
   },
   {
+    "github": "eandreaja",
+    "nombre": "Andrea Jaramillo",
+    "rol": "Python Developer · Data Science en formación",
+    "linkedin": "https://www.linkedin.com/in/eandreaja/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 60,
+    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
+  },
+  {
     "github": "sanjavier88",
     "nombre": "Jorge Alberto Monsalve Ruiz",
     "rol": "Estudiante",
@@ -173,16 +183,6 @@
     "rango": "⛵ Marinero",
     "puntos": 50,
     "motivacion": "No tengo conocimiento de la nube, así que con el curso espero poder aprender a utilizarla."
-  },
-  {
-    "github": "eandreaja",
-    "nombre": "Andrea Jaramillo",
-    "rol": "Python Developer · Data Science en formación",
-    "linkedin": "https://www.linkedin.com/in/eandreaja/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 50,
-    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
   },
   {
     "github": "glgaviria64",
