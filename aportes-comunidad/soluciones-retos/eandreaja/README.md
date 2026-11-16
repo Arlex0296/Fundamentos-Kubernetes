@@ -9,7 +9,7 @@
 ## Andrea Jaramillo
 **Python Developer · Data Science en formación** • [`@eandreaja`](https://github.com/eandreaja) • ⛵ Marinero
 
-*«Un modelo que nunca sale del notebook es solo es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto desde el código hasta un contenedor y un clúster.»*
+*«Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster.»*
 
 [![GitHub](https://img.shields.io/badge/GitHub-@eandreaja-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/eandreaja) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eandreaja/)
 
