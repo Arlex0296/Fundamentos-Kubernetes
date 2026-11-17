@@ -55,6 +55,16 @@
     "motivacion": "Aprender sobre contenedores y kubernetes con el ánimo de crecer profesionalmente."
   },
   {
+    "github": "karolrojas68",
+    "nombre": "Karol Rojas",
+    "rol": "Tripulante de la Comunidad",
+    "linkedin": "",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 120,
+    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
+  },
+  {
     "github": "RAVILA28",
     "nombre": "Fernando Avila",
     "rol": "DevOps",
@@ -63,16 +73,6 @@
     "rango": "🧭 Timonel",
     "puntos": 110,
     "motivacion": "Reforzar conocimiento y aportar a la comunidad."
-  },
-  {
-    "github": "karolrojas68",
-    "nombre": "Karol Rojas",
-    "rol": "Tripulante de la Comunidad",
-    "linkedin": "",
-    "redes": [],
-    "rango": "🧭 Timonel",
-    "puntos": 110,
-    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
   },
   {
     "github": "StivenMunera",

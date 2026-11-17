@@ -110,21 +110,21 @@
     </td>
     <td align="center" width="175">
       <b>🥈 #2</b><br/>
+      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Portafolio de Karol Rojas (@karolrojas68)">
+        <img src="https://github.com/karolrojas68.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="karolrojas68"/><br/>
+        <b>Karol Rojas</b>
+      </a><br/>
+      <sub>🧭 Timonel • <b>120 XP</b></sub><br/>
+      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md"><b>🎓 Ver Portafolio</b></a>
+    </td>
+    <td align="center" width="175">
+      <b>🥉 #3</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Portafolio de Fernando Avila (@RAVILA28)">
         <img src="https://github.com/RAVILA28.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="RAVILA28"/><br/>
         <b>Fernando Avila</b>
       </a><br/>
       <sub>🧭 Timonel • <b>110 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md"><b>🎓 Ver Portafolio</b></a>
-    </td>
-    <td align="center" width="175">
-      <b>🥉 #3</b><br/>
-      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Portafolio de Karol Rojas (@karolrojas68)">
-        <img src="https://github.com/karolrojas68.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="karolrojas68"/><br/>
-        <b>Karol Rojas</b>
-      </a><br/>
-      <sub>🧭 Timonel • <b>110 XP</b></sub><br/>
-      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
     <td align="center" width="175">
       <b>🏅 #4</b><br/>
@@ -472,20 +472,20 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Karol Rojas (@karolrojas68) — 120 XP">
+        <img src="https://github.com/karolrojas68.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="karolrojas68"/><br/>
+        <sub><b>🥈 Karol Rojas</b></sub>
+      </a><br/>
+      <sub>🧭 Timonel • <b>120 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 110 XP">
         <img src="https://github.com/RAVILA28.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="RAVILA28"/><br/>
-        <sub><b>🥈 Fernando Avila</b></sub>
+        <sub><b>🥉 Fernando Avila</b></sub>
       </a><br/>
       <sub>🧭 Timonel • <b>110 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md">🎓 Portafolio</a></sub>
-    </td>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Karol Rojas (@karolrojas68) — 110 XP">
-        <img src="https://github.com/karolrojas68.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="karolrojas68"/><br/>
-        <sub><b>🥉 Karol Rojas</b></sub>
-      </a><br/>
-      <sub>🧭 Timonel • <b>110 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Stiven Munera (@StivenMunera) — 100 XP">
