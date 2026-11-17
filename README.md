@@ -514,6 +514,14 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
   </tr>
   <tr>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Karol Rojas (@karolrojas68) — 100 XP">
+        <img src="https://github.com/karolrojas68.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="karolrojas68"/><br/>
+        <sub><b>Karol Rojas</b></sub>
+      </a><br/>
+      <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/marnathali/README.md" title="Nathali Anzola (@marnathali) — 90 XP">
         <img src="https://github.com/marnathali.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="marnathali"/><br/>
         <sub><b>Nathali Anzola</b></sub>
@@ -536,14 +544,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       </a><br/>
       <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/devdavco/README.md">🎓 Portafolio</a></sub>
-    </td>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Karol Rojas (@karolrojas68) — 60 XP">
-        <img src="https://github.com/karolrojas68.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="karolrojas68"/><br/>
-        <sub><b>Karol Rojas</b></sub>
-      </a><br/>
-      <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/jujo23z/README.md" title="Juan Jose Jaramillo (@jujo23z) — 60 XP">

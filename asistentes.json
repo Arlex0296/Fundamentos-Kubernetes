@@ -105,6 +105,16 @@
     "motivacion": "Entender de verdad cómo funcionan los contenedores y poder llevar mis propias apps de mi computador a producción sin miedo"
   },
   {
+    "github": "karolrojas68",
+    "nombre": "Karol Rojas",
+    "rol": "Tripulante de la Comunidad",
+    "linkedin": "",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 100,
+    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
+  },
+  {
     "github": "marnathali",
     "nombre": "Nathali Anzola",
     "rol": "Software Engineer",
@@ -133,16 +143,6 @@
     "rango": "⛵ Marinero",
     "puntos": 60,
     "motivacion": "El conocimiento es la clave para mi avance tanto profesional como laboral."
-  },
-  {
-    "github": "karolrojas68",
-    "nombre": "Karol Rojas",
-    "rol": "Tripulante de la Comunidad",
-    "linkedin": "",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 60,
-    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
   },
   {
     "github": "jujo23z",
