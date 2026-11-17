@@ -119,6 +119,15 @@
     </td>
     <td align="center" width="175">
       <b>🥉 #3</b><br/>
+      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Portafolio de Karol Rojas (@karolrojas68)">
+        <img src="https://github.com/karolrojas68.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="karolrojas68"/><br/>
+        <b>Karol Rojas</b>
+      </a><br/>
+      <sub>🧭 Timonel • <b>110 XP</b></sub><br/>
+      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md"><b>🎓 Ver Portafolio</b></a>
+    </td>
+    <td align="center" width="175">
+      <b>🏅 #4</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Portafolio de Stiven Munera (@StivenMunera)">
         <img src="https://github.com/StivenMunera.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="StivenMunera"/><br/>
         <b>Stiven Munera</b>
@@ -127,22 +136,13 @@
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
     <td align="center" width="175">
-      <b>🏅 #4</b><br/>
+      <b>🏅 #5</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md" title="Portafolio de Carlos Andres Montoya Alzate (@calichem26)">
         <img src="https://github.com/calichem26.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="calichem26"/><br/>
         <b>Carlos Andres</b>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md"><b>🎓 Ver Portafolio</b></a>
-    </td>
-    <td align="center" width="175">
-      <b>🏅 #5</b><br/>
-      <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md" title="Portafolio de Yorman Agudelo (@Cuburi)">
-        <img src="https://github.com/Cuburi.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="Cuburi"/><br/>
-        <b>Yorman Agudelo</b>
-      </a><br/>
-      <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
-      <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
   </tr>
 </table>
@@ -480,9 +480,17 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Karol Rojas (@karolrojas68) — 110 XP">
+        <img src="https://github.com/karolrojas68.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="karolrojas68"/><br/>
+        <sub><b>🥉 Karol Rojas</b></sub>
+      </a><br/>
+      <sub>🧭 Timonel • <b>110 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Stiven Munera (@StivenMunera) — 100 XP">
         <img src="https://github.com/StivenMunera.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="StivenMunera"/><br/>
-        <sub><b>🥉 Stiven Munera</b></sub>
+        <sub><b>Stiven Munera</b></sub>
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md">🎓 Portafolio</a></sub>
@@ -503,6 +511,8 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md">🎓 Portafolio</a></sub>
     </td>
+  </tr>
+  <tr>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/parte193/README.md" title="Johan Andrés López Zuluaga (@parte193) — 100 XP">
         <img src="https://github.com/parte193.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="parte193"/><br/>
@@ -510,16 +520,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/parte193/README.md">🎓 Portafolio</a></sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Karol Rojas (@karolrojas68) — 100 XP">
-        <img src="https://github.com/karolrojas68.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="karolrojas68"/><br/>
-        <sub><b>Karol Rojas</b></sub>
-      </a><br/>
-      <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/marnathali/README.md" title="Nathali Anzola (@marnathali) — 90 XP">

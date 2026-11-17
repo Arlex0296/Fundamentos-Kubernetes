@@ -65,6 +65,16 @@
     "motivacion": "Reforzar conocimiento y aportar a la comunidad."
   },
   {
+    "github": "karolrojas68",
+    "nombre": "Karol Rojas",
+    "rol": "Tripulante de la Comunidad",
+    "linkedin": "",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 110,
+    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
+  },
+  {
     "github": "StivenMunera",
     "nombre": "Stiven Munera",
     "rol": "FullStack Developer Jr",
@@ -103,16 +113,6 @@
     "rango": "🧭 Timonel",
     "puntos": 100,
     "motivacion": "Entender de verdad cómo funcionan los contenedores y poder llevar mis propias apps de mi computador a producción sin miedo"
-  },
-  {
-    "github": "karolrojas68",
-    "nombre": "Karol Rojas",
-    "rol": "Tripulante de la Comunidad",
-    "linkedin": "",
-    "redes": [],
-    "rango": "🧭 Timonel",
-    "puntos": 100,
-    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
   },
   {
     "github": "marnathali",
