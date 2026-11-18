@@ -51,6 +51,7 @@ metadata:
   name: kubecafe-lb-svc
 spec:
   type: LoadBalancer
+  allocateLoadBalancerNodePorts: false
   selector:
     app: kubecafe-lb
   ports:
