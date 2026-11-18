@@ -16,6 +16,7 @@
 | [`06-canary-solo-service.yaml`](./06-canary-solo-service.yaml) | Canary Deployment con solo `Service` (`75% / 25%`) | 3 baristas con receta v1 + 1 barista probando receta v2 bajo el mismo Mesero. |
 | [`07-gateway-canary-deployment.yaml`](./07-gateway-canary-deployment.yaml) | Canary Deployment con `Gateway API` (`weight: 80/20`) | La recepcionista (`HTTPRoute`) envía 80% de clientes a v1 y 20% a v2. |
 | [`08-gateway-ia-ollama-modelos.yaml`](./08-gateway-ia-ollama-modelos.yaml) | Frontend + `Gateway API` ➔ 2 Modelos IA (Ollama) | Selector web que enruta `/ia/rapido` o `/ia/avanzado` a distintos modelos. |
+| [`09-bonus-gateway-inference-extension.yaml`](./09-bonus-gateway-inference-extension.yaml) | **Bonus:** `Gateway API Inference Extension` (`CPU`) | `InferencePool` + `InferenceModel` enrutando `/v1/chat/completions` por modelo. |
 
 ---
 
@@ -378,6 +379,36 @@ curl -s http://$GW_IP/ia/rapido
 curl -s http://$GW_IP/ia/avanzado
 ```
 *(También puedes abrir `http://$GW_IP/` en tu navegador para usar los botones del selector de modelos).*
+
+---
+
+## 🌟 Bonus Lab: Gateway API Inference Extension (Lo nuevo en K8s para IA en CPU)
+
+**Gateway API Inference Extension** (`InferencePool` + `InferenceModel`) es la extensión oficial de Kubernetes para servir LLMs: en lugar de balancear por IP como un `Service` clásico, el Gateway inspecciona el campo `"model"` del JSON y elige el Pod óptimo según carga y prioridad (`Critical` vs `Sheddable`). Todo esto funciona **100% en CPU** con modelos ligeros como `qwen2.5:0.5b`.
+
+### Paso 1: Instala los CRDs de Gateway API Inference Extension
+```bash
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api-inference-extension/releases/latest/download/manifests.yaml
+```
+
+### Paso 2: Aplica el Pool de Ollama en CPU, `InferencePool`, `InferenceModel` y `HTTPRoute`
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/09-bonus-gateway-inference-extension.yaml
+kubectl get inferencepool,inferencemodel,httproute
+```
+
+### Paso 3: Descarga el modelo ligero en los Pods y prueba `/v1/chat/completions`
+```bash
+# Descarga qwen2.5:0.5b (~400 MB) en un Pod de ollama-cpu-pool:
+POD=$(kubectl get pod -l app=ollama-cpu -o jsonpath='{.items[0].metadata.name}')
+kubectl exec $POD -- ollama pull qwen2.5:0.5b
+
+# Envía una petición al Gateway especificando el modelo en el JSON:
+GW_IP=$(kubectl get gateway kubecafe-gateway -o jsonpath='{.status.addresses[0].value}')
+curl -s http://$GW_IP/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen2.5:0.5b","messages":[{"role":"user","content":"Explica Kubernetes en 1 frase"}]}'
+```
 
 ---
 
