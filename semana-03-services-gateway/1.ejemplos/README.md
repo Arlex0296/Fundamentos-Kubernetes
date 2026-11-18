@@ -461,7 +461,6 @@ done
 Si estás trabajando en **iximiuz Labs** (por ejemplo desde `dev-machine`) y quieres ver tus aplicaciones web (`NodePort`, `LoadBalancer`, `/canary-ui` o el `AI Gateway`) en un navegador real:
 
 ```bash
-docker rm -f firefox
 docker run -d --name firefox -p 3000:3000 --shm-size="1gb" lscr.io/linuxserver/firefox:latest
 ```
 
@@ -479,4 +478,5 @@ kubectl delete -f semana-03-services-gateway/1.ejemplos/04-gateway-api-httproute
 kubectl delete -f semana-03-services-gateway/1.ejemplos/03-dns-interno-coredns.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/02-service-nodeport-externo.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/01-service-clusterip-interno.yaml --ignore-not-found
+docker rm -f firefox
 ```
