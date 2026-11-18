@@ -97,13 +97,25 @@ mkdir -p aportes-comunidad/soluciones-retos/TU-USUARIO/semana-00
 cp -r semana-00-fundamentos-docker/2.reto-roto/0* aportes-comunidad/soluciones-retos/TU-USUARIO/semana-00/
 ```
 
-#### ☸️ Si vas a resolver la Semana 01 (Kubernetes):
+#### ☸️ Si vas a resolver la Semana 01 (Pods):
 ```bash
 # 1. Crea tu carpeta personal para la Semana 01
 mkdir -p aportes-comunidad/soluciones-retos/TU-USUARIO/semana-01
 
 # 2. Copia los archivos YAML rotos dentro de tu carpeta
 cp semana-01-arquitectura/2.reto-roto/*.yaml aportes-comunidad/soluciones-retos/TU-USUARIO/semana-01/
+```
+
+#### 🔄 Si vas a resolver la Semana 02 (Deployments):
+```bash
+mkdir -p aportes-comunidad/soluciones-retos/TU-USUARIO/semana-02
+cp semana-02-deployments/2.reto-roto/*.yaml aportes-comunidad/soluciones-retos/TU-USUARIO/semana-02/
+```
+
+#### 🌐 Si vas a resolver la Semana 03 (Services y Gateway API):
+```bash
+mkdir -p aportes-comunidad/soluciones-retos/TU-USUARIO/semana-03
+cp semana-03-services-gateway/2.reto-roto/*.yaml aportes-comunidad/soluciones-retos/TU-USUARIO/semana-03/
 ```
 
 *(Para semanas futuras —`semana-02`, `semana-03`, etc.— el proceso es idéntico: creas la carpeta `semana-XX` y copias allí los archivos desde `semana-XX-.../2.reto-roto/`).*

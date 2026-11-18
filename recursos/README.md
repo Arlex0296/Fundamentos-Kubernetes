@@ -8,9 +8,11 @@ En esta carpeta encontrarás todas las guías complementarias, herramientas visu
 
 | Recurso | Descripción |
 | :--- | :--- |
+| [**🎛️ Panel Interactivo 360° (`panel-interactivo-kubecafe.html`)**](./panel-interactivo-kubecafe.html) | Panel interactivo unificado con las 7 semanas (`S00` a `S06`) y pestaña integrada del Simulador de Arquitectura ([abrir en GitHub Pages](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/panel-interactivo-kubecafe.html)). |
 | [**🎮 Simulador Interactivo KubeCafé (`simulador-interactivo-kubernetes.html`)**](./simulador-interactivo-kubernetes.html) | Simulador visual en el navegador ([abrir en GitHub Pages](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html)) para ver paso a paso cómo viaja el tráfico (`Gateway API`, `Service`, `Pods`) y cómo opera el *Self-Healing*. |
+| [**🖼️ Generador de Tarjeta PNG (`tarjeta-portafolio.html`)**](./tarjeta-portafolio.html) | Generador de tarjeta visual (`1200×630`) con rango, XP e insignias lista para descargar y compartir en LinkedIn y redes. |
 | [**☕ De un Tinto a Kubernetes (`de-un-tinto-a-kubernetes.md`)**](./de-un-tinto-a-kubernetes.md) | Guía visual completa con diagramas Mermaid y la analogía de la cafetería KubeCafé conectando todas las semanas. |
-| [**📊 Diapositivas en PDF (`diapositivas/`)**](./diapositivas/README.md) | Presentaciones oficiales del workshop listas para descargar (`0.Fundamentos-Docker.pdf`, `1.KubeCafe-De-Docker-a-Kubernetes.pdf`, `2.KubeCafe-De-un-Pod-al-Deployment.pdf`). |
+| [**📊 Diapositivas en PDF (`diapositivas/`)**](./diapositivas/README.md) | Presentaciones oficiales del workshop listas para descargar (`0.Fundamentos-Docker.pdf`, `1.KubeCafe-De-Docker-a-Kubernetes.pdf`, `2.KubeCafe-De-un-Pod-al-Deployment.pdf`, `3.KubeCafe-Services-y-Gateway-API.pdf`). |
 
 ---
 

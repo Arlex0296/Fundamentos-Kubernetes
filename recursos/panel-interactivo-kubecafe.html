@@ -671,53 +671,62 @@
 
       else if (state.week === 3) {
         controls.innerHTML = `
-          <button onclick="sendTraffic('/cocina')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netRoute === '/cocina' ? 'bg-cyan-600/40 border-cyan-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'} border">🌐 1. GET /cocina (Gateway)</button>
-          <button onclick="sendTraffic('/menu')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netRoute === '/menu' ? 'bg-cyan-600/40 border-cyan-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'} border">🌐 2. GET /menu (Gateway)</button>
+          <button onclick="sendTraffic('/cocina')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netRoute === '/cocina' ? 'bg-cyan-600/40 border-cyan-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'} border">🌐 1. GET /cocina</button>
+          <button onclick="sendTraffic('/menu')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netRoute === '/menu' ? 'bg-cyan-600/40 border-cyan-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'} border">🌐 2. GET /menu</button>
           <button onclick="sendNodePortTraffic()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netRoute === 'nodeport' ? 'bg-amber-600/40 border-amber-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'} border">🔌 3. NodePort (:30080)</button>
-          <button onclick="toggleBrokenSelector()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netLabelBroken ? 'bg-rose-600/40 border-rose-400 text-white' : 'bg-rose-600/20 border-rose-500/40 text-rose-200'} border">🏷️ 4. ${state.netLabelBroken ? 'Reparar Selector' : 'Romper Selector (0 Endpoints)'}</button>
+          <button onclick="sendLoadBalancerTraffic()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netRoute === 'lb' ? 'bg-emerald-600/40 border-emerald-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'} border">⚖️ 4. LoadBalancer (Cilium L2)</button>
+          <button onclick="sendAiGatewayTraffic()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netRoute === '/ia/auto' ? 'bg-purple-600/40 border-purple-400 text-white' : 'bg-slate-800 border-slate-700 text-slate-300'} border">🤖 5. AI Gateway (70/30)</button>
+          <button onclick="toggleBrokenSelector()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold ${state.netLabelBroken ? 'bg-rose-600/40 border-rose-400 text-white' : 'bg-rose-600/20 border-rose-500/40 text-rose-200'} border">🏷️ 6. ${state.netLabelBroken ? 'Reparar Selector' : 'Romper Selector'}</button>
         `;
         const isCocina = state.netRoute === '/cocina';
         const isNodePort = state.netRoute === 'nodeport';
-        const svcName = isCocina ? 'cocina-svc (ClusterIP)' : isNodePort ? 'menu-nodeport-svc (:30080)' : 'menu-svc (ClusterIP)';
+        const isLb = state.netRoute === 'lb';
+        const isAi = state.netRoute === '/ia/auto';
+        const skipGw = isNodePort || isLb;
+        const svcName = isCocina ? 'cocina-svc (ClusterIP)' : isNodePort ? 'menu-nodeport-svc (:30080)' : isLb ? 'kubecafe-lb-svc (172.16.0.200)' : isAi ? 'ollama-llama/gemma (70/30)' : 'menu-svc (ClusterIP)';
         const hop = state.netStage;
         const epsCount = state.netLabelBroken ? 0 : 2;
         stage.innerHTML = `
           <div class="flex flex-col gap-3">
             <div class="flex flex-col md:flex-row items-center justify-between gap-2">
-              <div class="flex-1 w-full p-3 rounded-xl border ${hop === 0 ? 'node-active' : isNodePort ? 'border-slate-800 opacity-45' : 'border-blue-500/50'} bg-blue-950/30 text-center transition-all">
+              <div class="flex-1 w-full p-3 rounded-xl border ${hop === 0 ? 'node-active' : skipGw ? 'border-slate-800 opacity-45' : 'border-blue-500/50'} bg-blue-950/30 text-center transition-all">
                 <svg class="w-9 h-9 mx-auto mb-1 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
                 <div class="text-xs font-bold text-white">1. Gateway (Cilium)</div>
-                <div class="text-[11px] text-cyan-300">${isNodePort ? 'Omitido (Acceso directo a Nodo)' : 'gatewayClassName: cilium (:80)'}</div>
+                <div class="text-[11px] text-cyan-300">${isLb ? 'Omitido (Cilium L2 ARP)' : isNodePort ? 'Omitido (Acceso a Nodo)' : 'gatewayClassName: cilium (:80)'}</div>
               </div>
-              <svg class="w-7 h-6 shrink-0 hidden md:block" viewBox="0 0 32 20"><path d="M2 10 H26 M20 4 L28 10 L20 16" fill="none" stroke="${hop >= 1 && !isNodePort ? '#00F0FF' : '#334155'}" stroke-width="2.5" class="${hop >= 1 && !isNodePort ? 'flow-line' : ''}"/></svg>
-              <div class="flex-1 w-full p-3 rounded-xl border ${hop === 1 ? 'node-active' : isNodePort ? 'border-slate-800 opacity-45' : 'border-purple-500/50'} bg-purple-950/30 text-center transition-all">
+              <svg class="w-7 h-6 shrink-0 hidden md:block" viewBox="0 0 32 20"><path d="M2 10 H26 M20 4 L28 10 L20 16" fill="none" stroke="${hop >= 1 && !skipGw ? '#00F0FF' : '#334155'}" stroke-width="2.5" class="${hop >= 1 && !skipGw ? 'flow-line' : ''}"/></svg>
+              <div class="flex-1 w-full p-3 rounded-xl border ${hop === 1 ? 'node-active' : skipGw ? 'border-slate-800 opacity-45' : 'border-purple-500/50'} bg-purple-950/30 text-center transition-all">
                 <svg class="w-9 h-9 mx-auto mb-1 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-                <div class="text-xs font-bold text-white">2. HTTPRoute</div>
-                <div class="text-[11px] text-purple-300">${isNodePort ? 'Sin HTTPRoute (L4)' : `PathPrefix: ${state.netRoute}`}</div>
+                <div class="text-xs font-bold text-white">2. ${isAi ? 'HTTPRoute (AI 70/30)' : 'HTTPRoute'}</div>
+                <div class="text-[11px] text-purple-300">${isLb ? 'EXTERNAL-IP: 172.16.0.200' : isNodePort ? 'Sin HTTPRoute (L4)' : `PathPrefix: ${state.netRoute}`}</div>
               </div>
               <svg class="w-7 h-6 shrink-0 hidden md:block" viewBox="0 0 32 20"><path d="M2 10 H26 M20 4 L28 10 L20 16" fill="none" stroke="${hop >= 2 ? '#A855F7' : '#334155'}" stroke-width="2.5" class="${hop >= 2 ? 'flow-line' : ''}"/></svg>
               <div class="flex-1 w-full p-3 rounded-xl border ${hop === 2 ? 'node-active' : state.netLabelBroken ? 'border-rose-500 bg-rose-950/30' : 'border-cyan-500/50 bg-slate-900'} text-center transition-all">
                 <svg class="w-9 h-9 mx-auto mb-1 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="6" rx="2"/><rect x="2" y="15" width="20" height="6" rx="2"/></svg>
                 <div class="text-xs font-bold text-white">3. ${svcName}</div>
-                <div class="text-[11px] ${state.netLabelBroken ? 'text-rose-300 font-bold' : 'text-emerald-300'}">EndpointSlices: ${epsCount} IPs</div>
+                <div class="text-[11px] ${state.netLabelBroken ? 'text-rose-300 font-bold' : 'text-emerald-300'}">${isLb ? 'allocateLoadBalancerNodePorts: false' : `EndpointSlices: ${epsCount} IPs`}</div>
               </div>
               <svg class="w-7 h-6 shrink-0 hidden md:block" viewBox="0 0 32 20"><path d="M2 10 H26 M20 4 L28 10 L20 16" fill="none" stroke="${hop >= 3 && !state.netLabelBroken ? '#10B981' : '#334155'}" stroke-width="2.5" class="${hop >= 3 && !state.netLabelBroken ? 'flow-line' : ''}"/></svg>
               <div class="flex-1 w-full space-y-2">
                 <div class="p-2 rounded-lg border ${state.netLabelBroken ? 'border-rose-500/50 bg-rose-950/20 text-rose-300' : hop >= 3 ? 'node-active bg-emerald-950/50 text-white' : 'border-emerald-500/40 bg-emerald-950/20 text-slate-200'} text-xs text-center transition-all">
-                  ☕ Pod-1 (10.244.0.12:80)<br/><span class="text-[10px] font-mono">label: app=${ isCocina ? 'cocina' : 'menu' }</span>
+                  ${isAi ? '🤖 llama3.2:1b (:11434 · 70%)' : '☕ Pod-1 (10.244.0.12:80)'}<br/><span class="text-[10px] font-mono">label: app=${ isCocina ? 'cocina' : isLb ? 'kubecafe-lb' : isAi ? 'ollama-rapido' : 'menu' }</span>
                 </div>
                 <div class="p-2 rounded-lg border ${state.netLabelBroken ? 'border-rose-500/50 bg-rose-950/20 text-rose-300' : hop >= 3 ? 'border-emerald-400 bg-emerald-950/40 text-white' : 'border-emerald-500/40 bg-emerald-950/20 text-slate-200'} text-xs text-center transition-all">
-                  ☕ Pod-2 (10.244.0.15:80)<br/><span class="text-[10px] font-mono">label: app=${ isCocina ? 'cocina' : 'menu' }</span>
+                  ${isAi ? '🧠 gemma2:2b (:11434 · 30%)' : '☕ Pod-2 (10.244.0.15:80)'}<br/><span class="text-[10px] font-mono">label: app=${ isCocina ? 'cocina' : isLb ? 'kubecafe-lb' : isAi ? 'ollama-avanzado' : 'menu' }</span>
                 </div>
               </div>
             </div>
             <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 text-[11px] text-slate-300 flex flex-wrap justify-between gap-2">
-              <span>📡 <b>CoreDNS interno:</b> <code class="text-cyan-300">${isCocina ? 'cocina-svc' : 'menu-svc'}.default.svc.cluster.local</code></span>
-              <span>Selector del Service: <code class="${state.netLabelBroken ? 'text-rose-400 font-bold' : 'text-emerald-300'}">app: ${state.netLabelBroken ? 'typo-erroneo ❌' : (isCocina ? 'cocina' : 'menu')}</code></span>
+              <span>📡 <b>CoreDNS interno:</b> <code class="text-cyan-300">${isCocina ? 'cocina-svc' : isLb ? 'kubecafe-lb-svc' : isAi ? 'ollama-llama-svc' : 'menu-svc'}.default.svc.cluster.local</code></span>
+              <span>Selector del Service: <code class="${state.netLabelBroken ? 'text-rose-400 font-bold' : 'text-emerald-300'}">app: ${state.netLabelBroken ? 'typo-erroneo ❌' : (isCocina ? 'cocina' : isLb ? 'kubecafe-lb' : isAi ? 'ollama-*' : 'menu')}</code></span>
             </div>
           </div>
         `;
-        yaml.textContent = isNodePort
+        yaml.textContent = isLb
+          ? `apiVersion: cilium.io/v2\nkind: CiliumLoadBalancerIPPool\nmetadata:\n  name: iximiuz-pool\nspec:\n  blocks:\n    - start: "172.16.0.200"\n      stop: "172.16.0.240"\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: kubecafe-lb-svc\nspec:\n  type: LoadBalancer\n  allocateLoadBalancerNodePorts: false\n  selector:\n    app: kubecafe-lb\n  ports:\n    - port: 80\n      targetPort: 80`
+          : isAi
+          ? `apiVersion: gateway.networking.k8s.io/v1\nkind: HTTPRoute\nmetadata:\n  name: kubecafe-ia-route\nspec:\n  parentRefs:\n    - name: kubecafe-gateway\n  rules:\n    - matches:\n        - path: { type: PathPrefix, value: /ia/auto }\n      backendRefs:\n        - name: ollama-llama-svc\n          port: 11434\n          weight: 70\n        - name: ollama-gemma-svc\n          port: 11434\n          weight: 30`
+          : isNodePort
           ? `apiVersion: v1\nkind: Service\nmetadata:\n  name: menu-nodeport-svc\nspec:\n  type: NodePort\n  selector:\n    app: ${state.netLabelBroken ? 'typo-erroneo' : 'menu'}\n  ports:\n    - port: 80\n      targetPort: 80\n      nodePort: 30080 # Rango K8s: 30000-32767`
           : `apiVersion: gateway.networking.k8s.io/v1\nkind: Gateway\nmetadata:\n  name: kubecafe-gateway\nspec:\n  gatewayClassName: cilium\n  listeners:\n    - name: http\n      protocol: HTTP\n      port: 80\n---\napiVersion: gateway.networking.k8s.io/v1\nkind: HTTPRoute\nmetadata:\n  name: kubecafe-rutas\nspec:\n  parentRefs:\n    - name: kubecafe-gateway\n  rules:\n    - matches:\n        - path: { type: PathPrefix, value: ${state.netRoute} }\n      backendRefs:\n        - name: ${isCocina ? 'cocina-svc' : 'menu-svc'}\n          port: 80`;
       }
@@ -1087,6 +1096,23 @@
         { label: '1. Puerto del Nodo (:30080)', msg: '🔌 Cliente externo conecta directo a <NodeIP>:30080 (sin Gateway)...', action: () => { state.netStage = 2; renderWeek(); } },
         { label: '2. Service NodePort', msg: '🤵 menu-nodeport-svc reenvía de :30080 → targetPort :80 via EndpointSlice...', action: () => { state.netStage = 3; renderWeek(); log('🔌 Tráfico NodePort :30080 → Pod :80 (200 OK)', 'ok'); } }
       ], null, 'curl -i http://172.18.0.2:30080');
+    }
+    function sendLoadBalancerTraffic() {
+      state.netRoute = 'lb';
+      state.netLabelBroken = false;
+      runProcess([
+        { label: '1. Cilium LB IPAM + L2 ARP', msg: '⚖️ Cilium asigna 172.16.0.200 (iximiuz-pool) y la anuncia por ARP en eth0...', action: () => { state.netStage = 2; renderWeek(); } },
+        { label: '2. Service LoadBalancer', msg: '☕ kubecafe-lb-svc (sin NodePort) balancea directo a los Pods!', action: () => { state.netStage = 3; renderWeek(); log('⚖️ LoadBalancer 172.16.0.200 → Pod :80 (200 OK, sin NodePort)', 'ok'); } }
+      ], null, 'kubectl apply -f 10a-cilium-ippool-l2.yaml -f 10b-service-loadbalancer-app.yaml && curl -s http://172.16.0.200');
+    }
+    function sendAiGatewayTraffic() {
+      state.netRoute = '/ia/auto';
+      state.netLabelBroken = false;
+      runProcess([
+        { label: '1. Cilium Gateway', msg: '🚪 Petición de inferencia entra a kubecafe-gateway (/ia/auto)...', action: () => { state.netStage = 0; renderWeek(); } },
+        { label: '2. AI Gateway (70/30)', msg: '🤖 HTTPRoute balancea por weight: 70% llama3.2:1b / 30% gemma2:2b...', action: () => { state.netStage = 1; renderWeek(); } },
+        { label: '3. Backend Ollama (:11434)', msg: '🧠 Modelo de IA responde desde el Pod en CPU!', action: () => { state.netStage = 3; renderWeek(); log('🤖 AI Gateway /ia/auto → Ollama :11434 (200 OK)', 'ok'); } }
+      ], null, 'curl -s http://$GW_IP/ia/auto');
     }
     function toggleBrokenSelector() {
       state.netLabelBroken = !state.netLabelBroken;

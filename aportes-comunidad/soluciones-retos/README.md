@@ -42,12 +42,18 @@ aportes-comunidad/soluciones-retos/
     │   ├── 02-pod-crashloop.yaml
     │   ├── 03-pod-pendiente-infinito.yaml
     │   └── 04-pod-yaml-molesto.yaml
-    └── semana-02/
+    ├── semana-02/
+    │   ├── bitacora.md
+    │   ├── 01-deployment-selector-roto.yaml
+    │   ├── 02-deployment-imagen-caida-rollback.yaml
+    │   ├── 03-deployment-estrategia-invalida.yaml
+    │   └── 04-deployment-yaml-identacion.yaml
+    └── semana-03/
         ├── bitacora.md
-        ├── 01-deployment-selector-roto.yaml
-        ├── 02-deployment-imagen-caida-rollback.yaml
-        ├── 03-deployment-estrategia-invalida.yaml
-        └── 04-deployment-yaml-identacion.yaml
+        ├── 01-service-selector-roto.yaml
+        ├── 02-service-targetport-incorrecto.yaml
+        ├── 03-nodeport-fuera-de-rango.yaml
+        └── 04-httproute-parentref-roto.yaml
 ```
 
 ---
@@ -110,3 +116,7 @@ Apóyate siempre en las fuentes oficiales para investigar las causas de error y 
   * [Guía Oficial de Depuración y Diagnóstico de Pods](https://kubernetes.io/es/docs/tasks/debug/debug-application/debug-pods/)
   * [Especificación Oficial de Pods](https://kubernetes.io/es/docs/concepts/workloads/pods/)
   * [Guía Oficial de Deployments, Réplicas y Rollouts](https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/)
+  * [Services en Kubernetes (`ClusterIP`, `NodePort`, `LoadBalancer`)](https://kubernetes.io/es/docs/concepts/services-networking/service/)
+  * [EndpointSlices y Descubrimiento DNS (`CoreDNS`)](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/)
+  * [Kubernetes Gateway API (`Gateway` y `HTTPRoute`)](https://gateway-api.sigs.k8s.io/)
+  * [Cilium Gateway API & LoadBalancer IPAM](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)

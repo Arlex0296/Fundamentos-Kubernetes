@@ -15,9 +15,10 @@ Al finalizar esta semana serás capaz de:
 2. **Diferenciar los tipos de exposición**:
    - `ClusterIP`: comunicación interna exclusiva dentro del clúster.
    - `NodePort`: exposición externa directa en el rango `30000-32767` de cada nodo.
-3. **Usar el DNS interno (`CoreDNS`)** para conectar microservicios por nombre (`<service>.<namespace>.svc.cluster.local`).
+   - `LoadBalancer` (con **Cilium LB IPAM + L2 Announcements**): asignación de IP externa real (`EXTERNAL-IP`) sin necesidad de abrir un `NodePort` (`allocateLoadBalancerNodePorts: false`).
+3. **Usar el DNS interno (`CoreDNS`)** para conectar microservicios por nombre y FQDN (`<service>.<namespace>.svc.cluster.local`).
 4. **Inspeccionar `Endpoints` y `EndpointSlices`** (`kubectl get endpoints` / `kubectl get endpointslices`) para diagnosticar si un `Service` está conectado correctamente a sus Pods y entender por qué `EndpointSlices` reemplaza a `Endpoints` en clústeres modernos.
-5. **Enrutar tráfico HTTP moderno con Gateway API** (`Gateway` + `HTTPRoute`), el sucesor estándar de `Ingress`.
+5. **Enrutar tráfico HTTP moderno con Gateway API y AI Gateway** (`Gateway` + `HTTPRoute` + `Canary` por peso + balanceo hacia modelos de IA **Ollama** y `Gateway API Inference Extension` en CPU).
 6. **Resolver los 4 retos rotos de la semana** y acumular **+40 XP** en el marcador de la comunidad.
 
 ---
