@@ -149,23 +149,6 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /ia/auto
-      filters:
-        - type: URLRewrite
-          urlRewrite:
-            path:
-              type: ReplacePrefixMatch
-              replacePrefixMatch: /
-      backendRefs:
-        - name: ollama-llama-svc
-          port: 11434
-          weight: 70
-        - name: ollama-gemma-svc
-          port: 11434
-          weight: 30
-    - matches:
-        - path:
-            type: PathPrefix
             value: /ia/rapido
       filters:
         - type: URLRewrite
@@ -179,23 +162,6 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /ia/auto
-      filters:
-        - type: URLRewrite
-          urlRewrite:
-            path:
-              type: ReplacePrefixMatch
-              replacePrefixMatch: /
-      backendRefs:
-        - name: ollama-llama-svc
-          port: 11434
-          weight: 70
-        - name: ollama-gemma-svc
-          port: 11434
-          weight: 30
-    - matches:
-        - path:
-            type: PathPrefix
             value: /ia/avanzado
       filters:
         - type: URLRewrite
@@ -206,23 +172,6 @@ spec:
       backendRefs:
         - name: ollama-gemma-svc
           port: 11434
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /ia/auto
-      filters:
-        - type: URLRewrite
-          urlRewrite:
-            path:
-              type: ReplacePrefixMatch
-              replacePrefixMatch: /
-      backendRefs:
-        - name: ollama-llama-svc
-          port: 11434
-          weight: 70
-        - name: ollama-gemma-svc
-          port: 11434
-          weight: 30
     - matches:
         - path:
             type: PathPrefix

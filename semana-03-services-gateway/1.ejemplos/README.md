@@ -485,6 +485,13 @@ Luego, en **iximiuz**, abre el modal **Expose HTTP(S) Ports**, selecciona:
 ## 🧹 Limpieza de los Ejemplos
 
 ```bash
+kubectl delete -f semana-03-services-gateway/1.ejemplos/10b-service-loadbalancer-app.yaml --ignore-not-found
+kubectl delete -f semana-03-services-gateway/1.ejemplos/10a-cilium-ippool-l2.yaml --ignore-not-found
+kubectl delete -f semana-03-services-gateway/1.ejemplos/09-bonus-gateway-inference-extension.yaml --ignore-not-found
+kubectl delete -f semana-03-services-gateway/1.ejemplos/08-gateway-ia-ollama-modelos.yaml --ignore-not-found
+kubectl delete -f semana-03-services-gateway/1.ejemplos/07-gateway-canary-deployment.yaml --ignore-not-found
+kubectl delete -f semana-03-services-gateway/1.ejemplos/06-canary-solo-service.yaml --ignore-not-found
+kubectl delete -f semana-03-services-gateway/1.ejemplos/05-frontend-nodeport-backend-clusterip.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/04-gateway-api-httproute.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/03-dns-interno-coredns.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/02-service-nodeport-externo.yaml --ignore-not-found
