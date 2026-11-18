@@ -465,7 +465,10 @@ docker rm -f firefox
 docker run -d --name firefox -p 3000:3000 --shm-size="1gb" lscr.io/linuxserver/firefox:latest
 ```
 
-Luego abre el puerto **`3000`** desde el panel de exposición de puertos de iximiuz y navega directamente a `http://<LB_IP>` (por ejemplo `http://172.16.0.200`) o `http://<NODE_IP>:30090`.
+Luego, en **iximiuz**, abre el modal **Expose HTTP(S) Ports**, selecciona:
+- **Machine:** `dev-machine`
+- **Port:** `3000`
+- Haz clic en **EXPOSE** y abre la URL generada en tu navegador. Desde ese Firefox ya puedes entrar a `http://<LB_IP>` (ej. `http://172.16.0.200`) o `http://<NODE_IP>:30090`.
 
 ---
 
