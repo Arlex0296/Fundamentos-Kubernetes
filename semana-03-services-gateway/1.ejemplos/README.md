@@ -416,7 +416,13 @@ curl -s http://$GW_IP/v1/chat/completions \
 
 ## ⚖️ Laboratorio 10: Service `LoadBalancer` con Cilium (`IPPool` + `L2 Announcements`)
 
-En un clúster propio o en **iximiuz Kubernetes Cluster Playground** (red `172.16.0.0/24` sobre `eth0`), un `Service` de tipo `LoadBalancer` queda en `<pending>` a menos que un controlador asigne IPs. **Cilium** puede asignar IPs de un rango (`CiliumLoadBalancerIPPool`) y anunciarlas por ARP en capa 2 (`CiliumL2AnnouncementPolicy`).
+En un clúster propio o en **iximiuz Kubernetes Cluster Playground** (red `172.16.0.0/24` sobre `eth0`), un `Service` de tipo `LoadBalancer` queda en `<pending>` a menos que un controlador asigne IPs. **Cilium** puede asignar IPs de un rango y anunciarlas en la red local.
+
+### 🧩 ¿Qué hace cada recurso que vamos a desplegar?
+1. **`CiliumLoadBalancerIPPool` (`10a-cilium-ippool-l2.yaml`):** Es la "caja de IPs disponibles" (`172.16.0.200` a `172.16.0.240`) de donde Cilium toma una `EXTERNAL-IP` libre cuando creas un `Service` `LoadBalancer`.
+2. **`CiliumL2AnnouncementPolicy` (`10a-cilium-ippool-l2.yaml`):** Le indica a Cilium en qué interfaz de red (`eth0`) debe anunciar por ARP (*"yo tengo esta IP"*) para que `dev-machine` y la red del clúster puedan llegar a ella.
+3. **`Deployment` (`10b-service-loadbalancer-app.yaml`):** Levanta 2 Pods con una página web KubeCafé que muestra qué Pod exacto responde.
+4. **`Service` `type: LoadBalancer` (`10b-service-loadbalancer-app.yaml`):** Recibe una `EXTERNAL-IP` del Pool y reparte el tráfico entre los 2 Pods. Con `allocateLoadBalancerNodePorts: false` evitamos que Kubernetes abra un puerto `NodePort` adicional innecesario.
 
 ### Paso 1: Verifica si Cilium tiene habilitado L2 Announcements
 ```bash
