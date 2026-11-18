@@ -12,6 +12,10 @@
 | [`02-service-nodeport-externo.yaml`](./02-service-nodeport-externo.yaml) | `Service` tipo `NodePort` (`30080`) | Ventanilla directa hacia la calle en un puerto fijo. |
 | [`03-dns-interno-coredns.yaml`](./03-dns-interno-coredns.yaml) | Descubrimiento con `CoreDNS` entre namespaces | Llamar por nombre (`cocina-svc.default.svc.cluster.local`). |
 | [`04-gateway-api-httproute.yaml`](./04-gateway-api-httproute.yaml) | `Gateway` y `HTTPRoute` (Gateway API) | Puerta principal y recepcionista enrutando `/cocina` y `/menu`. |
+| [`05-frontend-nodeport-backend-clusterip.yaml`](./05-frontend-nodeport-backend-clusterip.yaml) | Frontend (`NodePort`) ➔ Backend (`ClusterIP`) | Salón abierto al público conectado internamente con la API de cocina. |
+| [`06-canary-solo-service.yaml`](./06-canary-solo-service.yaml) | Canary Deployment con solo `Service` (`75% / 25%`) | 3 baristas con receta v1 + 1 barista probando receta v2 bajo el mismo Mesero. |
+| [`07-gateway-canary-deployment.yaml`](./07-gateway-canary-deployment.yaml) | Canary Deployment con `Gateway API` (`weight: 80/20`) | La recepcionista (`HTTPRoute`) envía 80% de clientes a v1 y 20% a v2. |
+| [`08-gateway-ia-ollama-modelos.yaml`](./08-gateway-ia-ollama-modelos.yaml) | Frontend + `Gateway API` ➔ 2 Modelos IA (Ollama) | Selector web que enruta `/ia/rapido` o `/ia/avanzado` a distintos modelos. |
 
 ---
 
@@ -42,15 +46,32 @@ kubectl get pods -l app=kubecafe-cocina -o wide
 kubectl apply -f semana-03-services-gateway/1.ejemplos/02-service-nodeport-externo.yaml
 ```
 
-### Paso 2: Verifica el puerto asignado y accede
+### Paso 2: Verifica los 3 puertos y prueba desde cada Nodo
 ```bash
 kubectl get svc menu-nodeport-svc
+kubectl describe svc menu-nodeport-svc
 ```
-Para probar desde tu máquina:
+> 💡 **Los 3 puertos del `NodePort`:**
+> - `port: 80` ➔ Puerto interno del `Service` (`ClusterIP`).
+> - `targetPort: 80` ➔ Puerto donde escucha el contenedor dentro del `Pod`.
+> - `nodePort: 30080` ➔ Puerto abierto en **todos los nodos** del clúster (rango válido: `30000–32767`).
+
+Obtén la IP de cada nodo del clúster y haz `curl` contra **cualquier nodo** (aunque el Pod no esté corriendo en ese nodo, `kube-proxy`/Cilium redirige el tráfico):
 ```bash
-kubectl port-forward svc/menu-nodeport-svc 8081:80
+# 1. Ver las IPs internas de todos los nodos (control-plane y workers)
+kubectl get nodes -o wide
+
+# 2. Probar con curl usando la INTERNAL-IP de cada nodo:
+curl -i http://<IP-NODO-1>:30080
+curl -i http://<IP-NODO-2>:30080
+
+# 3. En un solo comando para probar todos los nodos automáticamente:
+for ip in $(kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}'); do
+  echo "Probando nodo $ip:30080..."
+  curl -s -o /dev/null -w "HTTP %{http_code}\n" http://$ip:30080
+done
 ```
-Abre `http://localhost:8081` en tu navegador (o usa `http://<IP-DEL-NODO>:30080` si tu clúster expone los nodos directamente).
+*(Si usas **Kind** o **Docker Desktop** en macOS/Windows y las IPs internas de los nodos no son alcanzables desde tu host, usa `kubectl port-forward svc/menu-nodeport-svc 8081:80` y abre `http://localhost:8081`).*
 
 ---
 
@@ -62,22 +83,140 @@ kubectl apply -f semana-03-services-gateway/1.ejemplos/03-dns-interno-coredns.ya
 kubectl wait --for=condition=Ready pod/mesero-tester -n kubecafe-salon --timeout=60s
 ```
 
-### Paso 2: Prueba la resolución DNS entre Namespaces
-Desde `kubecafe-salon`, intenta llamar a `cocina-svc` (que vive en `default`):
+### Paso 2: Prueba la resolución DNS y los FQDNs entre Namespaces
+Desde `kubecafe-salon`, revisa primero cómo resuelve DNS el Pod y luego prueba cada nivel del FQDN hacia `cocina-svc` (que vive en `default`):
 ```bash
-# 1. Nombre corto falla porque está en otro namespace:
+# 0. Inspecciona la configuración DNS inyectada por CoreDNS/kubelet:
+kubectl exec -n kubecafe-salon mesero-tester -- cat /etc/resolv.conf
+
+# 1. Nombre corto falla porque busca en kubecafe-salon.svc.cluster.local:
+kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc || echo "Falla sin namespace"
 kubectl exec -n kubecafe-salon mesero-tester -- curl -s --max-time 3 http://cocina-svc || echo "Falla sin namespace"
 
 # 2. Usando <service>.<namespace> funciona:
-kubectl exec -n kubecafe-salon mesero-tester -- curl -I http://cocina-svc.default
+kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc.default
+kubectl exec -n kubecafe-salon mesero-tester -- curl -i http://cocina-svc.default
 
-# 3. Usando el FQDN completo de Kubernetes:
-kubectl exec -n kubecafe-salon mesero-tester -- curl -I http://cocina-svc.default.svc.cluster.local
+# 3. Usando <service>.<namespace>.svc:
+kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc.default.svc
+kubectl exec -n kubecafe-salon mesero-tester -- curl -i http://cocina-svc.default.svc
+
+# 4. Usando el FQDN completo de Kubernetes (<service>.<namespace>.svc.cluster.local):
+kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc.default.svc.cluster.local
+kubectl exec -n kubecafe-salon mesero-tester -- curl -i http://cocina-svc.default.svc.cluster.local
 ```
 
 ---
 
-## 🏛️ Laboratorio 4: Enrutamiento HTTP Moderno con Gateway API (Cilium)
+## ⚡ Laboratorio 4: Modo Imperativo Paso a Paso (Sin escribir YAML)
+
+Si quieres practicar rápido en terminal o en un examen (CKA/CKAD), puedes crear toda la arquitectura de Services y probar el FQDN usando **solo comandos imperativos**:
+
+### Paso 1: Crear el Deployment de la cocina
+```bash
+kubectl create deployment cocina-imp --image=nginx:alpine --replicas=2 --port=80
+kubectl rollout status deployment/cocina-imp
+```
+
+### Paso 2: Exponer el Deployment con un Service `ClusterIP`
+```bash
+kubectl expose deployment cocina-imp --name=cocina-imp-svc --port=80 --target-port=80 --type=ClusterIP
+kubectl get svc cocina-imp-svc
+kubectl get endpointslices -l kubernetes.io/service-name=cocina-imp-svc
+```
+
+### Paso 3: Exponer otro Service como `NodePort`
+```bash
+kubectl expose deployment cocina-imp --name=cocina-imp-nodeport --port=80 --target-port=80 --type=NodePort
+kubectl get svc cocina-imp-nodeport
+```
+
+### Paso 4: Crear un Namespace y un Pod temporal para probar el FQDN
+```bash
+kubectl create namespace salon-imp
+
+# Lanza un Pod interactivo temporal (--rm lo borra al salir) y prueba el FQDN:
+kubectl run tester-imp -n salon-imp --image=curlimages/curl:8.10.1 --rm -it --restart=Never -- \
+  sh -c "
+    echo '--- 1. Sin namespace (falla) ---' && \
+    curl -s --max-time 2 http://cocina-imp-svc || echo 'Fallo esperado'; \
+    echo '--- 2. Con namespace (cocina-imp-svc.default) ---' && \
+    curl -s -o /dev/null -w '%{http_code}\n' http://cocina-imp-svc.default; \
+    echo '--- 3. FQDN completo ---' && \
+    curl -s -o /dev/null -w '%{http_code}\n' http://cocina-imp-svc.default.svc.cluster.local
+  "
+```
+
+### Paso 5: Exportar a YAML si lo quieres guardar como manifiesto
+```bash
+kubectl create deployment cocina-imp --image=nginx:alpine --replicas=2 --port=80 --dry-run=client -o yaml > cocina-imp.yaml
+kubectl expose deployment cocina-imp --name=cocina-imp-svc --port=80 --target-port=80 --dry-run=client -o yaml >> cocina-imp.yaml
+```
+
+### Paso 6: Limpiar recursos imperativos
+```bash
+kubectl delete svc cocina-imp-svc cocina-imp-nodeport --ignore-not-found
+kubectl delete deployment cocina-imp --ignore-not-found
+kubectl delete namespace salon-imp --ignore-not-found
+```
+
+---
+
+## 🔗 Laboratorio 5 (Integrador): Frontend (`NodePort`) ➔ Backend (`ClusterIP` + FQDN)
+
+Este ejercicio conecta una arquitectura real de 2 capas:
+1. **Backend (`api-backend-svc` · `ClusterIP`):** solo accesible dentro del clúster.
+2. **Frontend (`web-frontend-svc` · `NodePort :30090`):** expuesto hacia afuera; cuando recibe `/api`, reenvía la petición al Backend usando su FQDN interno (`http://api-backend-svc.default.svc.cluster.local`).
+
+### Paso 1: Aplica el Backend (`ClusterIP`) y Frontend (`NodePort`)
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/05-frontend-nodeport-backend-clusterip.yaml
+```
+
+### Paso 2: Verifica ambos Services y prueba el flujo completo
+```bash
+kubectl get svc api-backend-svc web-frontend-svc
+kubectl get endpointslices -l 'kubernetes.io/service-name in (api-backend-svc, web-frontend-svc)'
+
+# Prueba contra la INTERNAL-IP de cualquier nodo en el puerto 30090:
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+curl -i http://$NODE_IP:30090/
+curl -i http://$NODE_IP:30090/api
+
+# Prueba el balanceo de carga entre las 3 réplicas del Backend (verás cambiar backend_pod):
+for i in {1..6}; do
+  curl -s http://$NODE_IP:30090/api
+done
+```
+*(En Kind/Docker Desktop en macOS/Windows: `kubectl port-forward svc/web-frontend-svc 8090:80` y luego `curl -i http://localhost:8090/api`).*
+
+---
+
+## 🐤 Laboratorio 6: Canary Deployment con solo `Service` (`75% v1` / `25% v2`)
+
+No siempre necesitas un Gateway o Service Mesh para hacer pruebas **Canary**: un simple `Service` cuyo `selector` (`app: barista`) coincida con **dos Deployments** (`barista-v1` con 3 réplicas y `barista-v2-canary` con 1 réplica) repartirá el tráfico proporcionalmente según el número de Pods (`75%` vs `25%`).
+
+### Paso 1: Aplica ambos Deployments y el Service compartido
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/06-canary-solo-service.yaml
+kubectl get pods -l app=barista --show-labels
+kubectl get endpointslices -l kubernetes.io/service-name=barista-canary-svc
+```
+
+### Paso 2: Prueba el reparto de tráfico (v1 vs v2)
+```bash
+kubectl run canary-tester --image=curlimages/curl:8.10.1 --rm -it --restart=Never -- \
+  sh -c 'for i in $(seq 1 12); do curl -s http://barista-canary-svc; done'
+```
+> 💡 **Observa:** Aproximadamente 3 de cada 4 respuestas vendrán de `v1.0` y 1 de cada 4 de `v2.0 (Canary)`. Si `v2.0` funciona bien, escalas `barista-v2-canary` y reduces `barista-v1`:
+> ```bash
+> kubectl scale deployment barista-v2-canary --replicas=3
+> kubectl scale deployment barista-v1 --replicas=0
+> ```
+
+---
+
+## 🏛️ Laboratorio 7: Enrutamiento HTTP Moderno con Gateway API (Cilium)
 
 Este laboratorio utiliza **Cilium** (el CNI del clúster) como controlador nativo de **Gateway API** (`gatewayClassName: cilium`).
 
@@ -120,6 +259,125 @@ GW_IP=$(kubectl get gateway kubecafe-gateway -o jsonpath='{.status.addresses[0].
 curl -I http://$GW_IP/cocina
 curl -I http://$GW_IP/menu
 ```
+
+### Paso 4: Más ejemplos de `HTTPRoute` (Hostnames, Headers y Canary por Peso)
+
+1. **Enrutamiento por dominio (`hostnames`)** — ideal para separar `cocina.kubecafe.local` y `menu.kubecafe.local` en el mismo Gateway:
+   ```yaml
+   apiVersion: gateway.networking.k8s.io/v1
+   kind: HTTPRoute
+   metadata:
+     name: kubecafe-por-dominio
+   spec:
+     parentRefs:
+       - name: kubecafe-gateway
+     hostnames:
+       - "cocina.kubecafe.local"
+     rules:
+       - backendRefs:
+           - name: cocina-svc
+             port: 80
+   ```
+   Pruébalo sin editar `/etc/hosts` usando el header `Host`:
+   ```bash
+   curl -i -H "Host: cocina.kubecafe.local" http://$GW_IP/
+   ```
+
+2. **Enrutamiento por `headers` (Pruebas Beta / Feature Flags):**
+   ```yaml
+   apiVersion: gateway.networking.k8s.io/v1
+   kind: HTTPRoute
+   metadata:
+     name: kubecafe-por-header
+   spec:
+     parentRefs:
+       - name: kubecafe-gateway
+     rules:
+       - matches:
+           - headers:
+               - name: X-Env
+                 value: beta
+         backendRefs:
+           - name: menu-nodeport-svc
+             port: 80
+       - backendRefs:
+           - name: cocina-svc
+             port: 80
+   ```
+   ```bash
+   curl -i -H "X-Env: beta" http://$GW_IP/
+   ```
+
+3. **Canary Deployment (División de tráfico por `weight` 80% / 20%):**
+   ```yaml
+   apiVersion: gateway.networking.k8s.io/v1
+   kind: HTTPRoute
+   metadata:
+     name: kubecafe-canary
+   spec:
+     parentRefs:
+       - name: kubecafe-gateway
+     rules:
+       - backendRefs:
+           - name: cocina-svc
+             port: 80
+             weight: 80
+           - name: menu-nodeport-svc
+             port: 80
+             weight: 20
+   ```
+
+---
+
+## 🚦 Laboratorio 8: Canary Deployment Fácil con Gateway API (`80%` / `20%`)
+
+A diferencia del **Laboratorio 6** (donde el porcentaje dependía del número de Pods), con **Gateway API** puedes controlar el porcentaje exacto (`weight: 80` / `weight: 20`) sin importar cuántas réplicas tenga cada Deployment.
+
+### Paso 1: Aplica los 2 Deployments, sus 2 Services y el `HTTPRoute`
+*(Requiere tener `kubecafe-gateway` creado del Laboratorio 7).*
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/07-gateway-canary-deployment.yaml
+kubectl get httproute menu-canary-route
+```
+
+### Paso 2: Prueba el reparto 80% / 20% en `/canary`
+```bash
+GW_IP=$(kubectl get gateway kubecafe-gateway -o jsonpath='{.status.addresses[0].value}')
+for i in $(seq 1 10); do
+  curl -s http://$GW_IP/canary
+done
+```
+> 💡 **Observa:** Alrededor de 8 respuestas dirán `Menu v1.0 (Estable - 80%)` y 2 dirán `Menu v2.0 (Canary - 20%)`. Para pasar el 100% del tráfico a `v2`, solo cambia `weight: 0` en `menu-v1-svc` y `weight: 100` en `menu-v2-svc`.
+
+---
+
+## 🤖 Laboratorio 9: AI Gateway — Frontend con Gateway API consumiendo 2 Modelos de IA (Ollama)
+
+En este laboratorio montas un **AI Gateway** en Kubernetes: un único punto de entrada (`Gateway` + `HTTPRoute`) donde un mismo **Frontend web** (`ia-frontend-svc`) consume **dos backends de IA distintos** en el puerto estándar de Ollama (`:11434`):
+- `/ia/rapido` ➔ `ollama-llama-svc:11434` (`llama3.2:1b`)
+- `/ia/avanzado` ➔ `ollama-gemma-svc:11434` (`gemma2:2b`)
+
+> 💡 **¿Por qué usar un AI Gateway?** Te permite cambiar de modelo, hacer A/B testing con `weight`, o enrutar por header (`X-Model`) sin modificar el código del Frontend.
+
+### Paso 1: Aplica el Frontend, los 2 Modelos y el `HTTPRoute`
+*(Requiere tener `kubecafe-gateway` creado del Laboratorio 7).*
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/08-gateway-ia-ollama-modelos.yaml
+kubectl get svc ia-frontend-svc ollama-llama-svc ollama-gemma-svc
+kubectl get httproute kubecafe-ia-route
+```
+
+### Paso 2: Prueba ambos modelos desde terminal o navegador
+```bash
+GW_IP=$(kubectl get gateway kubecafe-gateway -o jsonpath='{.status.addresses[0].value}')
+
+# 1. Probar el modelo rápido:
+curl -s http://$GW_IP/ia/rapido
+
+# 2. Probar el modelo avanzado:
+curl -s http://$GW_IP/ia/avanzado
+```
+*(También puedes abrir `http://$GW_IP/` en tu navegador para usar los botones del selector de modelos).*
 
 ---
 
