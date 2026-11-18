@@ -17,7 +17,8 @@
 | [`07-gateway-canary-deployment.yaml`](./07-gateway-canary-deployment.yaml) | Canary Deployment con `Gateway API` (`weight: 80/20`) | La recepcionista (`HTTPRoute`) envía 80% de clientes a v1 y 20% a v2. |
 | [`08-gateway-ia-ollama-modelos.yaml`](./08-gateway-ia-ollama-modelos.yaml) | Frontend + `Gateway API` ➔ 2 Modelos IA (Ollama) | Selector web que enruta `/ia/rapido` o `/ia/avanzado` a distintos modelos. |
 | [`09-bonus-gateway-inference-extension.yaml`](./09-bonus-gateway-inference-extension.yaml) | **Bonus:** `Gateway API Inference Extension` (`CPU`) | `InferencePool` + `InferenceModel` enrutando `/v1/chat/completions` por modelo. |
-| [`10-cilium-loadbalancer-l2.yaml`](./10-cilium-loadbalancer-l2.yaml) | `Service` tipo `LoadBalancer` con **Cilium L2** | Asigna IP externa real (`172.16.0.200–240`) en la red del clúster. |
+| [`10a-cilium-ippool-l2.yaml`](./10a-cilium-ippool-l2.yaml) | `CiliumLoadBalancerIPPool` + `CiliumL2AnnouncementPolicy` | Configura el rango `172.16.0.200–240` y anuncios L2 en `eth0`. |
+| [`10b-service-loadbalancer-app.yaml`](./10b-service-loadbalancer-app.yaml) | `Deployment` + `Service` `LoadBalancer` | App web KubeCafé expuesta en `EXTERNAL-IP` sin `NodePort`. |
 
 ---
 
@@ -437,10 +438,14 @@ kubectl -n kube-system rollout restart daemonset/cilium
 ```
 > 📚 **Documentación oficial de Cilium:** [LoadBalancer IPAM](https://docs.cilium.io/en/stable/network/lb-ipam/) • [L2 Announcements (ARP)](https://docs.cilium.io/en/stable/network/l2-announcements/) • [Gateway API en Cilium](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)
 
-### Paso 2: Aplica el Pool de IPs (`172.16.0.200–172.16.0.240`), la Política L2 y el Service `LoadBalancer`
+### Paso 2: Aplica primero la configuración de Cilium (`IPPool` + `L2 Policy`) y luego la App (`LoadBalancer`)
 ```bash
-kubectl apply -f semana-03-services-gateway/1.ejemplos/10-cilium-loadbalancer-l2.yaml
+# 1. Configurar rango de IPs y política L2 en Cilium:
+kubectl apply -f semana-03-services-gateway/1.ejemplos/10a-cilium-ippool-l2.yaml
 kubectl get ciliumloadbalancerippool,ciliuml2announcementpolicy
+
+# 2. Desplegar la aplicación y su Service LoadBalancer (sin NodePort):
+kubectl apply -f semana-03-services-gateway/1.ejemplos/10b-service-loadbalancer-app.yaml
 kubectl get svc kubecafe-lb-svc
 ```
 > 💡 En unos segundos, la columna `EXTERNAL-IP` de `kubecafe-lb-svc` mostrará una IP del rango (por ejemplo `172.16.0.200`).
