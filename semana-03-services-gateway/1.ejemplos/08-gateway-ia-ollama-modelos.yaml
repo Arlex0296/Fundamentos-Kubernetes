@@ -85,9 +85,10 @@ data:
     <!DOCTYPE html>
     <html lang="es">
     <body style="font-family:sans-serif;background:#0f172a;color:#f8fafc;padding:2rem">
-      <h2>🤖☕ KubeCafé Barista IA — Selector de Modelos</h2>
+      <h2>🤖☕ KubeCafé Barista IA — Selector de Modelos (AI Gateway)</h2>
       <button onclick="ask('/ia/rapido')">⚡ Modelo Rápido (llama3.2:1b)</button>
       <button onclick="ask('/ia/avanzado')">🧠 Modelo Avanzado (gemma2:2b)</button>
+      <button onclick="ask('/ia/auto')">⚖️ Auto Balanceado (70% / 30%)</button>
       <pre id="out" style="margin-top:1rem;background:#020617;padding:1rem;border-radius:8px"></pre>
       <script>
         async function ask(path) {
@@ -148,6 +149,23 @@ spec:
     - matches:
         - path:
             type: PathPrefix
+            value: /ia/auto
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      backendRefs:
+        - name: ollama-llama-svc
+          port: 11434
+          weight: 70
+        - name: ollama-gemma-svc
+          port: 11434
+          weight: 30
+    - matches:
+        - path:
+            type: PathPrefix
             value: /ia/rapido
       filters:
         - type: URLRewrite
@@ -161,6 +179,23 @@ spec:
     - matches:
         - path:
             type: PathPrefix
+            value: /ia/auto
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      backendRefs:
+        - name: ollama-llama-svc
+          port: 11434
+          weight: 70
+        - name: ollama-gemma-svc
+          port: 11434
+          weight: 30
+    - matches:
+        - path:
+            type: PathPrefix
             value: /ia/avanzado
       filters:
         - type: URLRewrite
@@ -171,6 +206,40 @@ spec:
       backendRefs:
         - name: ollama-gemma-svc
           port: 11434
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ia/auto
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      backendRefs:
+        - name: ollama-llama-svc
+          port: 11434
+          weight: 70
+        - name: ollama-gemma-svc
+          port: 11434
+          weight: 30
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /ia/auto
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      backendRefs:
+        - name: ollama-llama-svc
+          port: 11434
+          weight: 70
+        - name: ollama-gemma-svc
+          port: 11434
+          weight: 30
     - matches:
         - path:
             type: PathPrefix
