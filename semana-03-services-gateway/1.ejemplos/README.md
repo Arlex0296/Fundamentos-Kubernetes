@@ -456,6 +456,19 @@ done
 
 ---
 
+## 🖥️ Tip Visual en iximiuz: Navegador Firefox en el puerto `3000`
+
+Si estás trabajando en **iximiuz Labs** (por ejemplo desde `dev-machine`) y quieres ver tus aplicaciones web (`NodePort`, `LoadBalancer`, `/canary-ui` o el `AI Gateway`) en un navegador real:
+
+```bash
+docker rm -f firefox
+docker run -d --name firefox -p 3000:3000 --shm-size="1gb" lscr.io/linuxserver/firefox:latest
+```
+
+Luego abre el puerto **`3000`** desde el panel de exposición de puertos de iximiuz y navega directamente a `http://<LB_IP>` (por ejemplo `http://172.16.0.200`) o `http://<NODE_IP>:30090`.
+
+---
+
 ## 🧹 Limpieza de los Ejemplos
 
 ```bash
