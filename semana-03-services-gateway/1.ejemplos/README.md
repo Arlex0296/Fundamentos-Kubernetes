@@ -17,6 +17,7 @@
 | [`07-gateway-canary-deployment.yaml`](./07-gateway-canary-deployment.yaml) | Canary Deployment con `Gateway API` (`weight: 80/20`) | La recepcionista (`HTTPRoute`) envía 80% de clientes a v1 y 20% a v2. |
 | [`08-gateway-ia-ollama-modelos.yaml`](./08-gateway-ia-ollama-modelos.yaml) | Frontend + `Gateway API` ➔ 2 Modelos IA (Ollama) | Selector web que enruta `/ia/rapido` o `/ia/avanzado` a distintos modelos. |
 | [`09-bonus-gateway-inference-extension.yaml`](./09-bonus-gateway-inference-extension.yaml) | **Bonus:** `Gateway API Inference Extension` (`CPU`) | `InferencePool` + `InferenceModel` enrutando `/v1/chat/completions` por modelo. |
+| [`10-cilium-loadbalancer-l2.yaml`](./10-cilium-loadbalancer-l2.yaml) | `Service` tipo `LoadBalancer` con **Cilium L2** | Asigna IP externa real (`172.16.0.200–240`) en la red del clúster. |
 
 ---
 
@@ -408,6 +409,45 @@ GW_IP=$(kubectl get gateway kubecafe-gateway -o jsonpath='{.status.addresses[0].
 curl -s http://$GW_IP/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model":"qwen2.5:0.5b","messages":[{"role":"user","content":"Explica Kubernetes en 1 frase"}]}'
+```
+
+---
+
+## ⚖️ Laboratorio 10: Service `LoadBalancer` con Cilium (`IPPool` + `L2 Announcements`)
+
+En un clúster propio o en **iximiuz Kubernetes Cluster Playground** (red `172.16.0.0/24` sobre `eth0`), un `Service` de tipo `LoadBalancer` queda en `<pending>` a menos que un controlador asigne IPs. **Cilium** puede asignar IPs de un rango (`CiliumLoadBalancerIPPool`) y anunciarlas por ARP en capa 2 (`CiliumL2AnnouncementPolicy`).
+
+### Paso 1: Verifica si Cilium tiene habilitado L2 Announcements
+```bash
+cilium config view | grep -E "enable-l2-announcements|l2-pod-announcements"
+```
+Si `enable-l2-announcements` no aparece en `true`, habilítalo con Helm:
+```bash
+helm upgrade cilium cilium/cilium \
+  --namespace kube-system \
+  --reuse-values \
+  --set l2announcements.enabled=true \
+  --set externalIPs.enabled=true
+
+kubectl -n kube-system rollout restart deployment/cilium-operator
+kubectl -n kube-system rollout restart daemonset/cilium
+```
+
+### Paso 2: Aplica el Pool de IPs (`172.16.0.200–172.16.0.240`), la Política L2 y el Service `LoadBalancer`
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/10-cilium-loadbalancer-l2.yaml
+kubectl get ciliumloadbalancerippool,ciliuml2announcementpolicy
+kubectl get svc kubecafe-lb-svc
+```
+> 💡 En unos segundos, la columna `EXTERNAL-IP` de `kubecafe-lb-svc` mostrará una IP del rango (por ejemplo `172.16.0.200`).
+
+### Paso 3: Prueba el acceso directo a la `EXTERNAL-IP`
+Desde `dev-machine` (o cualquier nodo en la red `172.16.0.0/24`):
+```bash
+LB_IP=$(kubectl get svc kubecafe-lb-svc -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+for i in $(seq 1 6); do
+  curl -s http://$LB_IP
+done
 ```
 
 ---
