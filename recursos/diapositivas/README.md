@@ -11,6 +11,7 @@ En este directorio se almacenan las presentaciones visuales del workshop **Funda
 | **Semana 00** | [**📥 `0.Fundamentos-Docker.pdf`**](./0.Fundamentos-Docker.pdf) | Fundamentos de contenedores, arquitectura de Docker, `Dockerfile`, imágenes OCI, ciclo de vida y buenas prácticas. |
 | **Semana 01** | [**📥 `1.KubeCafe-De-Docker-a-Kubernetes.pdf`**](./1.KubeCafe-De-Docker-a-Kubernetes.pdf) | **☕ KubeCafé: De Docker a Kubernetes** — Guía visual de componentes (`Control Plane`, `Worker Nodes`, `Pods`, `Deployments`, `Services`, `Gateway API`, `ConfigMaps`, `Secrets` y `PV`) explicados con una cafetería de especialidad. |
 | **Semana 02** | [**📥 `2.KubeCafe-De-un-Pod-al-Deployment.pdf`**](./2.KubeCafe-De-un-Pod-al-Deployment.pdf) | **☕ KubeCafé: De un Pod al Deployment** — Despliegues sin caídas y autorreparación (`Deployments`, `ReplicaSets`, `Self-Healing`, `RollingUpdate`, `Rollback` y escalamiento de réplicas). |
+| **Semana 03** | [**📥 `3.KubeCafe-Services-y-Gateway-API.pdf`**](./3.KubeCafe-Services-y-Gateway-API.pdf) | **☕ KubeCafé: Services y Gateway API** — Conectividad en Kubernetes (`ClusterIP`, `NodePort`, `EndpointSlices`, `CoreDNS`, `Canary`, `Cilium Gateway API` y `AI Gateway`). |
 
 ---
 
