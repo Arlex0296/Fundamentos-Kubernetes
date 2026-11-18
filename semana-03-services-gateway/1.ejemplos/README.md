@@ -421,8 +421,11 @@ En un clúster propio o en **iximiuz Kubernetes Cluster Playground** (red `172.1
 ```bash
 cilium config view | grep -E "enable-l2-announcements|l2-pod-announcements"
 ```
-Si `enable-l2-announcements` no aparece en `true`, habilítalo con Helm:
+Si `enable-l2-announcements` no aparece en `true`, agrega el repositorio oficial de Helm de Cilium y habilítalo:
 ```bash
+helm repo add cilium https://helm.cilium.io/
+helm repo update
+
 helm upgrade cilium cilium/cilium \
   --namespace kube-system \
   --reuse-values \
@@ -432,6 +435,7 @@ helm upgrade cilium cilium/cilium \
 kubectl -n kube-system rollout restart deployment/cilium-operator
 kubectl -n kube-system rollout restart daemonset/cilium
 ```
+> 📚 **Documentación oficial de Cilium:** [LoadBalancer IPAM](https://docs.cilium.io/en/stable/network/lb-ipam/) • [L2 Announcements (ARP)](https://docs.cilium.io/en/stable/network/l2-announcements/) • [Gateway API en Cilium](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)
 
 ### Paso 2: Aplica el Pool de IPs (`172.16.0.200–172.16.0.240`), la Política L2 y el Service `LoadBalancer`
 ```bash
