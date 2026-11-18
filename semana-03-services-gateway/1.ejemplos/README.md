@@ -230,7 +230,10 @@ Este laboratorio utiliza **Cilium** (el CNI del clúster) como controlador nativ
    ```
 2. Habilita `gatewayAPI.enabled=true` en tu instalación existente de **Cilium CNI** (elige Helm o Cilium CLI según cómo lo hayas instalado) y reinicia el operador/agente para que detecten los CRDs:
    ```bash
-   # Opción A: Con Helm
+   # Opción A: Con Helm (agrega primero el repositorio oficial de Cilium)
+   helm repo add cilium https://helm.cilium.io/
+   helm repo update
+
    helm upgrade cilium cilium/cilium \
      --namespace kube-system \
      --reuse-values \
