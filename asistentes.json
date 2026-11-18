@@ -175,6 +175,16 @@
     "motivacion": "Aprender sobre Docker y Kubernete. Aprovechadno al maximo estos cursos"
   },
   {
+    "github": "jsanch89",
+    "nombre": "Julian Andres Sanchez Alzate",
+    "rol": "Backend developer",
+    "linkedin": "",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 60,
+    "motivacion": "Profundizar conceptos de Kubernetes."
+  },
+  {
     "github": "sanjavier88",
     "nombre": "Jorge Alberto Monsalve Ruiz",
     "rol": "Estudiante",
@@ -525,15 +535,5 @@
     "rango": "⛵ Marinero",
     "puntos": 10,
     "motivacion": "Aprender de kubernetes, docker"
-  },
-  {
-    "github": "jsanch89",
-    "nombre": "Julian Andres Sanchez Alzate",
-    "rol": "Backend developer",
-    "linkedin": "",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 10,
-    "motivacion": "Profundizar conceptos de Kubernetes."
   }
 ]
