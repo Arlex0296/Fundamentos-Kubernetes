@@ -3,6 +3,7 @@
 # Pista: Cuando un contenedor arranca pero falla por dentro, 'describe' no basta.
 #        Usa 'kubectl logs reto-02-crash' para ver qué gritó el contenedor antes de morir.
 
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -13,7 +14,7 @@ spec:
   containers:
     - name: trabajador-confundido
       image: busybox:latest
-      command: ["sh", "-c", "echho '¡Hola Cloud Native Medellín!' && sleep 3600"]
+      command: ["sh", "-c", "echo '¡Hola Cloud Native Medellín!' && sleep 3600"]
 
 #Reto 02
 #Error: El contenedor se reinicia una y otra vez, porque el comando "echho" no existe.
