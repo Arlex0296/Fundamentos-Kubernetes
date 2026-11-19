@@ -542,6 +542,14 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/Arlex0296/README.md" title="Arlex0296 (@Arlex0296) — 70 XP">
+        <img src="https://github.com/Arlex0296.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Arlex0296"/><br/>
+        <sub><b>Arlex0296</b></sub>
+      </a><br/>
+      <sub>⛵ Marinero • <b>70 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/Arlex0296/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/devdavco/README.md" title="David Corrales (@devdavco) — 60 XP">
         <img src="https://github.com/devdavco.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="devdavco"/><br/>
         <sub><b>David Corrales</b></sub>
@@ -557,6 +565,8 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/jujo23z/README.md">🎓 Portafolio</a></sub>
     </td>
+  </tr>
+  <tr>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/DrSiker/README.md" title="Didier Alexander Rendón Chaverra (@DrSiker) — 60 XP">
         <img src="https://github.com/DrSiker.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="DrSiker"/><br/>
@@ -565,8 +575,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/DrSiker/README.md">🎓 Portafolio</a></sub>
     </td>
-  </tr>
-  <tr>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/Camilogigom/README.md" title="Camilo Giraldo (@Camilogigom) — 60 XP">
         <img src="https://github.com/Camilogigom.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Camilogigom"/><br/>
@@ -582,14 +590,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       </a><br/>
       <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/jsanch89/README.md">🎓 Portafolio</a></sub>
-    </td>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/Arlex0296/README.md" title="Arlex0296 (@Arlex0296) — 60 XP">
-        <img src="https://github.com/Arlex0296.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Arlex0296"/><br/>
-        <sub><b>Arlex0296</b></sub>
-      </a><br/>
-      <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/Arlex0296/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/sanjavier88/README.md" title="Jorge Alberto Monsalve Ruiz (@sanjavier88) — 50 XP">
