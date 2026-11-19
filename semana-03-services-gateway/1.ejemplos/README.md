@@ -30,7 +30,9 @@ cd Fundamentos-Kubernetes
 | [`06-canary-solo-service.yaml`](./06-canary-solo-service.yaml) | Canary Deployment con solo `Service` (`75% / 25%`) | 3 baristas con receta v1 + 1 barista probando receta v2 bajo el mismo Mesero. |
 | [`07-gateway-canary-deployment.yaml`](./07-gateway-canary-deployment.yaml) | Canary Deployment con `Gateway API` (`weight: 80/20`) | La recepcionista (`HTTPRoute`) envía 80% de clientes a v1 y 20% a v2. |
 | [`08-gateway-ia-ollama-modelos.yaml`](./08-gateway-ia-ollama-modelos.yaml) | Frontend + `Gateway API` ➔ 2 Modelos IA (Ollama) | Selector web que enruta `/ia/rapido` o `/ia/avanzado` a distintos modelos. |
+| [`09a-crds-inference-extension.yaml`](./09a-crds-inference-extension.yaml) | **CRDs:** `InferencePool` e `InferenceModel` | Registra las definiciones de recursos para IA en el clúster. |
 | [`09-bonus-gateway-inference-extension.yaml`](./09-bonus-gateway-inference-extension.yaml) | **Bonus:** `Gateway API Inference Extension` (`CPU`) | `InferencePool` + `InferenceModel` enrutando `/v1/chat/completions` por modelo. |
+| [`09b-frontend-inference-chat.yaml`](./09b-frontend-inference-chat.yaml) | **Frontend Web:** Chat IA en `/chat` | Interfaz web Nginx que envía peticiones `POST /v1/chat/completions` al Gateway. |
 | [`10a-cilium-ippool-l2.yaml`](./10a-cilium-ippool-l2.yaml) | `CiliumLoadBalancerIPPool` + `CiliumL2AnnouncementPolicy` | Configura el rango `172.16.0.200–240` y anuncios L2 en `eth0`. |
 | [`10b-service-loadbalancer-app.yaml`](./10b-service-loadbalancer-app.yaml) | `Deployment` + `Service` `LoadBalancer` | App web KubeCafé expuesta en `EXTERNAL-IP` sin `NodePort`. |
 
@@ -482,28 +484,113 @@ curl -s http://$GW_IP/ia/avanzado
 
 **Gateway API Inference Extension** (`InferencePool` + `InferenceModel`) es la extensión oficial de Kubernetes para servir LLMs: en lugar de balancear por IP como un `Service` clásico, el Gateway inspecciona el campo `"model"` del JSON y elige el Pod óptimo según carga y prioridad (`Critical` vs `Sheddable`). Todo esto funciona **100% en CPU** con modelos ligeros como `qwen2.5:0.5b`.
 
-### Paso 1: Instala los CRDs de Gateway API Inference Extension
-```bash
-kubectl apply -f https://github.com/kubernetes-sigs/gateway-api-inference-extension/releases/latest/download/manifests.yaml
+> 📚 **Referencias y Documentación Oficial:**
+> - 🌐 [Sitio Oficial: Gateway API Inference Extension](https://gateway-api-inference-extension.sigs.k8s.io/)
+> - 📰 [Blog de Kubernetes: Introducing Gateway API Inference Extension](https://kubernetes.io/blog/2025/06/05/introducing-gateway-api-inference-extension/)
+
+### 🗺️ Arquitectura de los Componentes (Frontend + Gateway + Ollama + CRDs de IA)
+
+```mermaid
+flowchart LR
+    USER["🌐 Usuario / Firefox<br/>(o curl)"] -->|"1. GET /chat"| GW["🚪 Gateway (Cilium)<br/>kubecafe-gateway :80"]
+    USER -->|"2. POST /v1/chat/completions<br/>(desde el navegador o curl)"| GW
+
+    GW -->|"HTTPRoute:<br/>kubecafe-chat-ui-route<br/>(/chat ➔ /)"| SVC_UI["🤵 Service<br/>inference-chat-svc :80"]
+    SVC_UI --> POD_UI["🖥️ Pod Nginx<br/>inference-chat-ui<br/>(ConfigMap: inference-chat-html)"]
+
+    GW -->|"HTTPRoute:<br/>kubecafe-inference-route<br/>(/v1/chat/completions)"| SVC_LLM["🤵 Service<br/>kubecafe-llm-pool :11434"]
+    SVC_LLM --> POD_LLM["🤖 Deployment: ollama-cpu-pool<br/>(2 Pods Ollama + qwen2.5:0.5b en CPU)"]
+
+    subgraph CRDS["📦 Capa Declarativa IA (09a-crds-inference-extension.yaml)"]
+        IM["🏷️ InferenceModel<br/>barista-rapido<br/>(model: qwen2.5:0.5b, Critical)"] -->|"poolRef"| IP["🧠 InferencePool<br/>kubecafe-llm-pool<br/>(selector: app=ollama-cpu :11434)"]
+    end
+
+    IP -.->|"Describe el pool de Pods"| POD_LLM
+
+    style GW fill:#2563eb,color:#fff
+    style SVC_UI fill:#0284c7,color:#fff
+    style SVC_LLM fill:#0284c7,color:#fff
+    style POD_UI fill:#16a34a,color:#fff
+    style POD_LLM fill:#16a34a,color:#fff
+    style IM fill:#7c3aed,color:#fff
+    style IP fill:#7c3aed,color:#fff
 ```
 
-### Paso 2: Aplica el Pool de Ollama en CPU, `InferencePool`, `InferenceModel` y `HTTPRoute`
+- **¿Por qué no hay errores de CORS?** Porque tanto la página web (`/chat`) como la API de IA (`/v1/chat/completions`) entran por el mismo `kubecafe-gateway` (`http://$GW_IP`).
+- **¿Qué papel juegan `InferencePool` e `InferenceModel`?** Registran en Kubernetes los recursos estándar de IA (qué modelo está disponible y su prioridad `Critical`), mientras que el `Service` `kubecafe-llm-pool` conecta la red de Cilium hacia los Pods de Ollama.
+
+### Paso 1: Instala los CRDs de Gateway API Inference Extension
+
+Antes de crear los recursos `InferencePool` e `InferenceModel`, el clúster de Kubernetes debe conocer sus definiciones personalizadas (CRDs). Aplícalos directamente desde el manifiesto local incluido en el repositorio (100% offline y sin depender de URLs externas):
+
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/09a-crds-inference-extension.yaml
+```
+
+Verifica que los CRDs estén registrados en el clúster:
+```bash
+kubectl get crd | grep inference
+```
+*Salida esperada:*
+```text
+inferencemodels.inference.networking.x-k8s.io
+inferencepools.inference.networking.x-k8s.io
+```
+
+### Paso 2: Aplica el Pool de Ollama en CPU, `InferencePool`, `InferenceModel`, `Service` y `HTTPRoute`
 ```bash
 kubectl apply -f semana-03-services-gateway/1.ejemplos/09-bonus-gateway-inference-extension.yaml
 kubectl get inferencepool,inferencemodel,httproute
+kubectl get svc kubecafe-llm-pool
 ```
 
 ### Paso 3: Descarga el modelo ligero en los Pods y prueba `/v1/chat/completions`
-```bash
-# Descarga qwen2.5:0.5b (~400 MB) en un Pod de ollama-cpu-pool:
-POD=$(kubectl get pod -l app=ollama-cpu -o jsonpath='{.items[0].metadata.name}')
-kubectl exec $POD -- ollama pull qwen2.5:0.5b
 
-# Envía una petición al Gateway especificando el modelo en el JSON:
+> ⚠️ **Punto Clave:** Ollama necesita tener el modelo descargado localmente antes de poder responder la inferencia en su API OpenAI-compatible (`/v1/chat/completions`).
+
+```bash
+# 1. Espera a que los Pods de ollama estén en estado Running:
+kubectl wait --for=condition=ready pod -l app=ollama-cpu --timeout=90s
+
+# 2. Descarga qwen2.5:0.5b (~390 MB optimizado para CPU) en los Pods:
+PODS=$(kubectl get pods -l app=ollama-cpu -o jsonpath='{.items[*].metadata.name}')
+for pod in $PODS; do
+  echo "Descargando modelo qwen2.5:0.5b en $pod..."
+  kubectl exec $pod -- ollama pull qwen2.5:0.5b
+done
+
+# 3. Obtén la IP del Gateway y envía la inferencia:
 GW_IP=$(kubectl get gateway kubecafe-gateway -o jsonpath='{.status.addresses[0].value}')
+echo "Gateway IP: $GW_IP"
+
+# Con -s (silent) para formatear el JSON limpiamente con jq:
 curl -s http://$GW_IP/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -d '{"model":"qwen2.5:0.5b","messages":[{"role":"user","content":"Explica Kubernetes en 1 frase"}]}'
+  -d '{"model":"qwen2.5:0.5b","messages":[{"role":"user","content":"Explica Kubernetes en 1 frase"}]}' | jq
+
+# (Opcional) Para ver solo el texto de la respuesta del modelo:
+curl -s http://$GW_IP/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"qwen2.5:0.5b","messages":[{"role":"user","content":"Explica Kubernetes en 1 frase"}]}' | jq -r '.choices[0].message.content'
+```
+
+*Salida esperada (código HTTP 200 OK y respuesta generada por el LLM en CPU):*
+```json
+HTTP/1.1 200 OK
+content-type: application/json
+...
+
+{"id":"chatcmpl-...","object":"chat.completion","model":"qwen2.5:0.5b","choices":[{"index":0,"message":{"role":"assistant","content":"Kubernetes es una plataforma de código abierto para automatizar la implementación, escalado y administración de aplicaciones en contenedores."},"finish_reason":"stop"}]}
+```
+
+### Paso 4: Despliega el Frontend Web (`/chat`) para chatear desde el navegador
+
+Como tanto la interfaz web (`/chat`) como la API de Ollama (`/v1/chat/completions`) pasan por el mismo `kubecafe-gateway`, el navegador puede hacer peticiones `POST` directas al Gateway sin problemas de CORS:
+
+```bash
+kubectl apply -f semana-03-services-gateway/1.ejemplos/09b-frontend-inference-chat.yaml
+kubectl get httproute kubecafe-chat-ui-route
+echo "Abre en tu navegador (ej. Firefox en iximiuz): http://$GW_IP/chat"
 ```
 
 ---
@@ -528,6 +615,7 @@ Luego, en **iximiuz**, abre el modal **Expose HTTP(S) Ports**, selecciona:
 ```bash
 kubectl delete -f semana-03-services-gateway/1.ejemplos/10b-service-loadbalancer-app.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/10a-cilium-ippool-l2.yaml --ignore-not-found
+kubectl delete -f semana-03-services-gateway/1.ejemplos/09b-frontend-inference-chat.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/09-bonus-gateway-inference-extension.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/08-gateway-ia-ollama-modelos.yaml --ignore-not-found
 kubectl delete -f semana-03-services-gateway/1.ejemplos/07-gateway-canary-deployment.yaml --ignore-not-found

@@ -4,7 +4,7 @@
 >
 > 🧪 **Laboratorio Online (sin instalación):** [**Playground del Workshop en iximiuz**](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)  
 > 🇨🇴 **Comunidad Oficial CNCF:** [**Únete a Cloud Native Medellín en CNCF Community Groups**](https://ocgroups.dev/cncf/group/2majk4r)  
-> 📚 **Documentación Oficial:** [**K8s Services**](https://kubernetes.io/es/docs/concepts/services-networking/service/) • [**EndpointSlices**](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/) • [**DNS para Services y Pods**](https://kubernetes.io/es/docs/concepts/services-networking/dns-pod-service/) • [**CoreDNS**](https://coredns.io/manual/toc/) • [**Kubernetes Gateway API**](https://gateway-api.sigs.k8s.io/) • [**Cilium Gateway API**](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)
+> 📚 **Documentación Oficial:** [**K8s Services**](https://kubernetes.io/es/docs/concepts/services-networking/service/) • [**EndpointSlices**](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/) • [**DNS para Services y Pods**](https://kubernetes.io/es/docs/concepts/services-networking/dns-pod-service/) • [**CoreDNS**](https://coredns.io/manual/toc/) • [**Kubernetes Gateway API**](https://gateway-api.sigs.k8s.io/) • [**Cilium Gateway API**](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/) • [**Gateway API Inference Extension**](https://gateway-api-inference-extension.sigs.k8s.io/) • [**Blog K8s Inference Extension**](https://kubernetes.io/blog/2025/06/05/introducing-gateway-api-inference-extension/)
 
 ---
 
@@ -73,7 +73,9 @@ semana-03-services-gateway/
 │   ├── 06-canary-solo-service.yaml                  # Canary Deployment con solo Service (75% / 25%)
 │   ├── 07-gateway-canary-deployment.yaml            # Canary con Gateway API (80% / 20%) + Monitor /canary-ui
 │   ├── 08-gateway-ia-ollama-modelos.yaml            # AI Gateway: Frontend -> 2 modelos Ollama + /ia/auto
+│   ├── 09a-crds-inference-extension.yaml            # CRDs: InferencePool e InferenceModel (Gateway API Inference Extension)
 │   ├── 09-bonus-gateway-inference-extension.yaml    # Bonus: Gateway API Inference Extension en CPU
+│   ├── 09b-frontend-inference-chat.yaml             # Frontend Web (/chat) conectado al Gateway API (/v1/chat/completions)
 │   ├── 10a-cilium-ippool-l2.yaml                    # CiliumLoadBalancerIPPool + CiliumL2AnnouncementPolicy
 │   └── 10b-service-loadbalancer-app.yaml            # Deployment + Service LoadBalancer (sin NodePort)
 └── 2.reto-roto/                                     # 4 Retos con errores de red (+40 XP)
