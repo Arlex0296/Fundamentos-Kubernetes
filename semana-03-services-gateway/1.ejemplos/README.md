@@ -26,6 +26,9 @@ cd Fundamentos-Kubernetes
 | [`02-service-nodeport-externo.yaml`](./02-service-nodeport-externo.yaml) | `Service` tipo `NodePort` (`30080`) | Ventanilla directa hacia la calle en un puerto fijo. |
 | [`03-dns-interno-coredns.yaml`](./03-dns-interno-coredns.yaml) | Descubrimiento con `CoreDNS` entre namespaces | Llamar por nombre (`cocina-svc.default.svc.cluster.local`). |
 | [`04-gateway-api-httproute.yaml`](./04-gateway-api-httproute.yaml) | `Gateway` y `HTTPRoute` (Gateway API) | Puerta principal y recepcionista enrutando `/cocina` y `/menu`. |
+| [`04b-httproute-por-dominio.yaml`](./04b-httproute-por-dominio.yaml) | `HTTPRoute` por `hostnames` | Enruta peticiones con dominio `cocina.kubecafe.local`. |
+| [`04c-httproute-por-header.yaml`](./04c-httproute-por-header.yaml) | `HTTPRoute` por `headers` | Enruta `/beta` según el header `X-Env: beta`. |
+| [`04d-httproute-canary-peso.yaml`](./04d-httproute-canary-peso.yaml) | `HTTPRoute` Canary por `weight` | Divide `/peso` en `80%` cocina y `20%` menú. |
 | [`05-frontend-nodeport-backend-clusterip.yaml`](./05-frontend-nodeport-backend-clusterip.yaml) | Frontend (`NodePort`) ➔ Backend (`ClusterIP`) | Salón abierto al público conectado internamente con la API de cocina. |
 | [`06-canary-solo-service.yaml`](./06-canary-solo-service.yaml) | Canary Deployment con solo `Service` (`75% / 25%`) | 3 baristas con receta v1 + 1 barista probando receta v2 bajo el mismo Mesero. |
 | [`07-gateway-canary-deployment.yaml`](./07-gateway-canary-deployment.yaml) | Canary Deployment con `Gateway API` (`weight: 80/20`) | La recepcionista (`HTTPRoute`) envía 80% de clientes a v1 y 20% a v2. |
@@ -491,29 +494,20 @@ curl -s http://$GW_IP/ia/avanzado
 ### 🗺️ Arquitectura de los Componentes (Frontend + Gateway + Ollama + CRDs de IA)
 
 ```mermaid
-flowchart LR
-    USER["🌐 Usuario / Firefox<br/>(o curl)"] -->|"1. GET /chat"| GW["🚪 Gateway (Cilium)<br/>kubecafe-gateway :80"]
-    USER -->|"2. POST /v1/chat/completions<br/>(desde el navegador o curl)"| GW
+flowchart TD
+    USER["🌐 Usuario / Firefox :3000"] --> GW["🚪 kubecafe-gateway :80"]
 
-    GW -->|"HTTPRoute:<br/>kubecafe-chat-ui-route<br/>(/chat ➔ /)"| SVC_UI["🤵 Service<br/>inference-chat-svc :80"]
-    SVC_UI --> POD_UI["🖥️ Pod Nginx<br/>inference-chat-ui<br/>(ConfigMap: inference-chat-html)"]
+    GW -->|"/chat (URLRewrite -> /)"| UI["🖥️ Pod Nginx: inference-chat-ui"]
+    GW -->|"/v1/chat/completions"| SVC["🤵 Service: kubecafe-llm-pool :11434"]
+    SVC --> OLLAMA["🤖 Deployment: ollama-cpu-pool<br/>(2 Pods Ollama + qwen2.5:0.5b)"]
 
-    GW -->|"HTTPRoute:<br/>kubecafe-inference-route<br/>(/v1/chat/completions)"| SVC_LLM["🤵 Service<br/>kubecafe-llm-pool :11434"]
-    SVC_LLM --> POD_LLM["🤖 Deployment: ollama-cpu-pool<br/>(2 Pods Ollama + qwen2.5:0.5b en CPU)"]
-
-    subgraph CRDS["📦 Capa Declarativa IA (09a-crds-inference-extension.yaml)"]
-        IM["🏷️ InferenceModel<br/>barista-rapido<br/>(model: qwen2.5:0.5b, Critical)"] -->|"poolRef"| IP["🧠 InferencePool<br/>kubecafe-llm-pool<br/>(selector: app=ollama-cpu :11434)"]
-    end
-
-    IP -.->|"Describe el pool de Pods"| POD_LLM
+    CRDS["📦 CRDs IA (09a):<br/>InferencePool + InferenceModel"] -.->|"Define pool y prioridad Critical"| OLLAMA
 
     style GW fill:#2563eb,color:#fff
-    style SVC_UI fill:#0284c7,color:#fff
-    style SVC_LLM fill:#0284c7,color:#fff
-    style POD_UI fill:#16a34a,color:#fff
-    style POD_LLM fill:#16a34a,color:#fff
-    style IM fill:#7c3aed,color:#fff
-    style IP fill:#7c3aed,color:#fff
+    style UI fill:#0284c7,color:#fff
+    style SVC fill:#0284c7,color:#fff
+    style OLLAMA fill:#16a34a,color:#fff
+    style CRDS fill:#7c3aed,color:#fff
 ```
 
 - **¿Por qué no hay errores de CORS?** Porque tanto la página web (`/chat`) como la API de IA (`/v1/chat/completions`) entran por el mismo `kubecafe-gateway` (`http://$GW_IP`).

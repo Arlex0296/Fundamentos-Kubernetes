@@ -69,6 +69,9 @@ semana-03-services-gateway/
 │   ├── 02-service-nodeport-externo.yaml             # Deployment + Service NodePort (:30080)
 │   ├── 03-dns-interno-coredns.yaml                  # Namespace kubecafe-salon + Pod curl tester
 │   ├── 04-gateway-api-httproute.yaml                # Gateway (Cilium) + HTTPRoute (/cocina y /menu)
+│   ├── 04b-httproute-por-dominio.yaml               # HTTPRoute por hostname (cocina.kubecafe.local)
+│   ├── 04c-httproute-por-header.yaml                # HTTPRoute por header HTTP (X-Env: beta)
+│   ├── 04d-httproute-canary-peso.yaml               # HTTPRoute canary por peso (80% / 20% en /peso)
 │   ├── 05-frontend-nodeport-backend-clusterip.yaml  # Integrador Frontend NodePort -> Backend ClusterIP (3 réplicas)
 │   ├── 06-canary-solo-service.yaml                  # Canary Deployment con solo Service (75% / 25%)
 │   ├── 07-gateway-canary-deployment.yaml            # Canary con Gateway API (80% / 20%) + Monitor /canary-ui
