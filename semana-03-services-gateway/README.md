@@ -15,9 +15,10 @@ Al finalizar esta semana serás capaz de:
 2. **Diferenciar los tipos de exposición**:
    - `ClusterIP`: comunicación interna exclusiva dentro del clúster.
    - `NodePort`: exposición externa directa en el rango `30000-32767` de cada nodo.
-3. **Usar el DNS interno (`CoreDNS`)** para conectar microservicios por nombre (`<service>.<namespace>.svc.cluster.local`).
+   - `LoadBalancer` (con **Cilium LB IPAM + L2 Announcements**): asignación de IP externa real (`EXTERNAL-IP`) sin necesidad de abrir un `NodePort` (`allocateLoadBalancerNodePorts: false`).
+3. **Usar el DNS interno (`CoreDNS`)** para conectar microservicios por nombre y FQDN (`<service>.<namespace>.svc.cluster.local`).
 4. **Inspeccionar `Endpoints` y `EndpointSlices`** (`kubectl get endpoints` / `kubectl get endpointslices`) para diagnosticar si un `Service` está conectado correctamente a sus Pods y entender por qué `EndpointSlices` reemplaza a `Endpoints` en clústeres modernos.
-5. **Enrutar tráfico HTTP moderno con Gateway API** (`Gateway` + `HTTPRoute`), el sucesor estándar de `Ingress`.
+5. **Enrutar tráfico HTTP moderno con Gateway API y AI Gateway** (`Gateway` + `HTTPRoute` + `Canary` por peso + balanceo hacia modelos de IA **Ollama** y `Gateway API Inference Extension` en CPU).
 6. **Resolver los 4 retos rotos de la semana** y acumular **+40 XP** en el marcador de la comunidad.
 
 ---
@@ -61,27 +62,34 @@ flowchart LR
 
 ```text
 semana-03-services-gateway/
-├── README.md                                    # Esta guía principal
-├── 1.ejemplos/                                  # 4 laboratorios guiados de redes
-│   ├── README.md                                # Paso a paso interactivo
-│   ├── 01-service-clusterip-interno.yaml        # Deployment + Service ClusterIP
-│   ├── 02-service-nodeport-externo.yaml         # Deployment + Service NodePort (:30080)
-│   ├── 03-dns-interno-coredns.yaml              # Namespace kubecafe-salon + Pod curl tester
-│   └── 04-gateway-api-httproute.yaml            # Gateway + HTTPRoute (/cocina y /menu)
-└── 2.reto-roto/                                 # 4 Retos con errores de red (+40 XP)
-    ├── README.md                                # Guía de diagnóstico y entrega
-    ├── 01-service-selector-roto.yaml            # Error: selector mismatch (Endpoints: <none>)
-    ├── 02-service-targetport-incorrecto.yaml    # Error: targetPort equivocado (Connection refused)
-    ├── 03-nodeport-fuera-de-rango.yaml          # Error: nodePort fuera de 30000-32767
-    └── 04-httproute-parentref-roto.yaml         # Error: parentRefs y backendRefs rotos
+├── README.md                                        # Esta guía principal
+├── 1.ejemplos/                                      # 10 laboratorios guiados + Bonus de redes e IA
+│   ├── README.md                                    # Paso a paso interactivo + modo imperativo
+│   ├── 01-service-clusterip-interno.yaml            # Deployment + Service ClusterIP
+│   ├── 02-service-nodeport-externo.yaml             # Deployment + Service NodePort (:30080)
+│   ├── 03-dns-interno-coredns.yaml                  # Namespace kubecafe-salon + Pod curl tester
+│   ├── 04-gateway-api-httproute.yaml                # Gateway (Cilium) + HTTPRoute (/cocina y /menu)
+│   ├── 05-frontend-nodeport-backend-clusterip.yaml  # Integrador Frontend NodePort -> Backend ClusterIP (3 réplicas)
+│   ├── 06-canary-solo-service.yaml                  # Canary Deployment con solo Service (75% / 25%)
+│   ├── 07-gateway-canary-deployment.yaml            # Canary con Gateway API (80% / 20%) + Monitor /canary-ui
+│   ├── 08-gateway-ia-ollama-modelos.yaml            # AI Gateway: Frontend -> 2 modelos Ollama + /ia/auto
+│   ├── 09-bonus-gateway-inference-extension.yaml    # Bonus: Gateway API Inference Extension en CPU
+│   ├── 10a-cilium-ippool-l2.yaml                    # CiliumLoadBalancerIPPool + CiliumL2AnnouncementPolicy
+│   └── 10b-service-loadbalancer-app.yaml            # Deployment + Service LoadBalancer (sin NodePort)
+└── 2.reto-roto/                                     # 4 Retos con errores de red (+40 XP)
+    ├── README.md                                    # Guía de diagnóstico y entrega
+    ├── 01-service-selector-roto.yaml                # Error: selector mismatch (Endpoints: <none>)
+    ├── 02-service-targetport-incorrecto.yaml        # Error: targetPort equivocado (Connection refused)
+    ├── 03-nodeport-fuera-de-rango.yaml              # Error: nodePort fuera de 30000-32767
+    └── 04-httproute-parentref-roto.yaml             # Error: parentRefs y backendRefs rotos
 ```
 
 ---
 
 ## 🚀 Inicio Rápido
 
-1. **Explora los 4 laboratorios guiados:**
-   Entra a [`1.ejemplos/README.md`](./1.ejemplos/README.md) para desplegar `ClusterIP`, `NodePort`, probar `CoreDNS` entre namespaces y configurar `Gateway API`.
+1. **Explora los 10 laboratorios guiados (+ Bonus):**
+   Entra a [`1.ejemplos/README.md`](./1.ejemplos/README.md) para desplegar `ClusterIP`, `NodePort`, probar `CoreDNS` (FQDNs), modo imperativo, Frontend ➔ Backend, `Canary`, `Gateway API`, `AI Gateway` y `LoadBalancer` con Cilium L2.
 2. **Resuelve los 4 retos rotos (+40 XP):**
    Entra a [`2.reto-roto/README.md`](./2.reto-roto/README.md), reproduce los fallos en tu clúster, repáralos en tu carpeta de `aportes-comunidad/soluciones-retos/<tu-usuario>/semana-03/` y envía tu Pull Request.
 3. **Documenta tu bitácora (+10 XP):**

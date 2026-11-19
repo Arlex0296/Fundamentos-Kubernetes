@@ -51,8 +51,28 @@
     "linkedin": "https://www.linkedin.com/in/juan-josé-gonzález-rosales-40a4a8203?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     "redes": [],
     "rango": "🧭 Timonel",
-    "puntos": 120,
+    "puntos": 170,
     "motivacion": "Aprender sobre contenedores y kubernetes con el ánimo de crecer profesionalmente."
+  },
+  {
+    "github": "karolrojas68",
+    "nombre": "Karol Rojas",
+    "rol": "Tripulante de la Comunidad",
+    "linkedin": "",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 120,
+    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
+  },
+  {
+    "github": "RAVILA28",
+    "nombre": "Fernando Avila",
+    "rol": "DevOps",
+    "linkedin": "https://www.linkedin.com/in/raymundo-avila-r-04775932",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 110,
+    "motivacion": "Reforzar conocimiento y aportar a la comunidad."
   },
   {
     "github": "StivenMunera",
@@ -95,16 +115,6 @@
     "motivacion": "Entender de verdad cómo funcionan los contenedores y poder llevar mis propias apps de mi computador a producción sin miedo"
   },
   {
-    "github": "RAVILA28",
-    "nombre": "Fernando Avila",
-    "rol": "DevOps",
-    "linkedin": "https://www.linkedin.com/in/raymundo-avila-r-04775932",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 90,
-    "motivacion": "Reforzar conocimiento y aportar a la comunidad."
-  },
-  {
     "github": "marnathali",
     "nombre": "Nathali Anzola",
     "rol": "Software Engineer",
@@ -135,16 +145,6 @@
     "motivacion": "El conocimiento es la clave para mi avance tanto profesional como laboral."
   },
   {
-    "github": "karolrojas68",
-    "nombre": "Karol Rojas",
-    "rol": "Tripulante de la Comunidad",
-    "linkedin": "",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 60,
-    "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
-  },
-  {
     "github": "jujo23z",
     "nombre": "Juan Jose Jaramillo",
     "rol": "Ingeniero de Sistemas",
@@ -173,6 +173,26 @@
     "rango": "⛵ Marinero",
     "puntos": 60,
     "motivacion": "Aprender sobre Docker y Kubernete. Aprovechadno al maximo estos cursos"
+  },
+  {
+    "github": "jsanch89",
+    "nombre": "Julian Andres Sanchez Alzate",
+    "rol": "Backend developer",
+    "linkedin": "",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 60,
+    "motivacion": "Profundizar conceptos de Kubernetes."
+  },
+  {
+    "github": "Arlex0296",
+    "nombre": "Arlex0296",
+    "rol": "Tripulante de la Comunidad",
+    "linkedin": "",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 60,
+    "motivacion": "Aporte en PR #109: Solución retos semana 00 - Arlex0296"
   },
   {
     "github": "sanjavier88",
@@ -525,5 +545,15 @@
     "rango": "⛵ Marinero",
     "puntos": 10,
     "motivacion": "Aprender de kubernetes, docker"
+  },
+  {
+    "github": "Erica1912",
+    "nombre": "Erica Andrea Ruiz Tabarez",
+    "rol": "DevOps Engineer",
+    "linkedin": "https://www.linkedin.com/in/erica-andrea-ruiz/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 10,
+    "motivacion": "Me motiva profundizar mis conocimientos en Kubernetes y fortalecer mis habilidades en arquitectura, orquestación y despliegue de aplicaciones en contenedores. Tengo experiencia trabajando con AWS, Docker, Terraform y CI/CD, y quiero complementar estos conocimientos aprendiendo a administrar clústeres, gestionar deployments, services, networking y escalabilidad.   Espero llevar mis conocimientos al siguiente nivel, aplicar lo aprendido en proyectos reales y seguir creciendo profesionalmente como Senior DevOps Engineer."
   }
 ]

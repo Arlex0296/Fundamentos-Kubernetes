@@ -13,4 +13,4 @@ spec:
     - name: servidor-web
       image: nginx:alpine # se actualiza a una imagen existente
       ports:
-        - containerPort: 8080 #puerto estaba errado 
+        - containerPort: 80 #puerto estaba errado 

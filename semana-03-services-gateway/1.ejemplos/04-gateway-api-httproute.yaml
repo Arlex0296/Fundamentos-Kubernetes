@@ -31,6 +31,12 @@ spec:
         - path:
             type: PathPrefix
             value: /cocina
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
       backendRefs:
         - name: cocina-svc
           port: 80
@@ -38,6 +44,12 @@ spec:
         - path:
             type: PathPrefix
             value: /menu
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
       backendRefs:
         - name: menu-nodeport-svc
           port: 80
