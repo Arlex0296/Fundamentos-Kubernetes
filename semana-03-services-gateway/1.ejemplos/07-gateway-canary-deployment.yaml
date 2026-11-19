@@ -175,6 +175,12 @@ spec:
         - path:
             type: PathPrefix
             value: /canary
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
       backendRefs:
         - name: menu-v1-svc
           port: 80

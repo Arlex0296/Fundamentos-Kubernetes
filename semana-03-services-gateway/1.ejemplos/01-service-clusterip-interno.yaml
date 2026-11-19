@@ -21,6 +21,12 @@ spec:
       containers:
         - name: cocina
           image: nginx:alpine
+          command:
+            - sh
+            - -c
+            - |
+              echo "☕ Cocina KubeCafe (ClusterIP) | Pod: $HOSTNAME" > /usr/share/nginx/html/index.html
+              exec nginx -g "daemon off;"
           ports:
             - containerPort: 80
           resources:

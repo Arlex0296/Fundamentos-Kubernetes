@@ -21,6 +21,12 @@ spec:
       containers:
         - name: web
           image: nginx:alpine
+          command:
+            - sh
+            - -c
+            - |
+              echo "📋 Menu KubeCafe (NodePort :30080) | Pod: $HOSTNAME" > /usr/share/nginx/html/index.html
+              exec nginx -g "daemon off;"
           ports:
             - containerPort: 80
           resources:

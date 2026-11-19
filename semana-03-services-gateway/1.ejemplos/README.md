@@ -93,20 +93,16 @@ Desde `kubecafe-salon`, revisa primero cómo resuelve DNS el Pod y luego prueba 
 kubectl exec -n kubecafe-salon mesero-tester -- cat /etc/resolv.conf
 
 # 1. Nombre corto falla porque busca en kubecafe-salon.svc.cluster.local:
-kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc || echo "Falla sin namespace"
 kubectl exec -n kubecafe-salon mesero-tester -- curl -s --max-time 3 http://cocina-svc || echo "Falla sin namespace"
 
-# 2. Usando <service>.<namespace> funciona:
-kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc.default
-kubectl exec -n kubecafe-salon mesero-tester -- curl -i http://cocina-svc.default
+# 2. Usando <service>.<namespace> funciona (curl -v muestra la IP resuelta por CoreDNS):
+kubectl exec -n kubecafe-salon mesero-tester -- curl -s http://cocina-svc.default
 
 # 3. Usando <service>.<namespace>.svc:
-kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc.default.svc
-kubectl exec -n kubecafe-salon mesero-tester -- curl -i http://cocina-svc.default.svc
+kubectl exec -n kubecafe-salon mesero-tester -- curl -s http://cocina-svc.default.svc
 
 # 4. Usando el FQDN completo de Kubernetes (<service>.<namespace>.svc.cluster.local):
-kubectl exec -n kubecafe-salon mesero-tester -- nslookup cocina-svc.default.svc.cluster.local
-kubectl exec -n kubecafe-salon mesero-tester -- curl -i http://cocina-svc.default.svc.cluster.local
+kubectl exec -n kubecafe-salon mesero-tester -- curl -v http://cocina-svc.default.svc.cluster.local
 ```
 
 ---
@@ -219,43 +215,112 @@ kubectl run canary-tester --image=curlimages/curl:8.10.1 --rm -it --restart=Neve
 
 ---
 
-## 🏛️ Laboratorio 7: Enrutamiento HTTP Moderno con Gateway API (Cilium)
+## ⚖️ Laboratorio 7: Service `LoadBalancer` con Cilium (`IPPool` + `L2 Announcements`)
+
+En un clúster propio o en **iximiuz Kubernetes Cluster Playground** (red `172.16.0.0/24` sobre `eth0`), un `Service` de tipo `LoadBalancer` queda en `<pending>` a menos que un controlador asigne IPs. **Cilium** puede asignar IPs de un rango y anunciarlas en la red local.
+
+### 🧩 ¿Qué hace cada recurso que vamos a desplegar?
+1. **`CiliumLoadBalancerIPPool` (`10a-cilium-ippool-l2.yaml`):** Es la "caja de IPs disponibles" (`172.16.0.200` a `172.16.0.240`) de donde Cilium toma una `EXTERNAL-IP` libre cuando creas un `Service` `LoadBalancer`.
+2. **`CiliumL2AnnouncementPolicy` (`10a-cilium-ippool-l2.yaml`):** Le indica a Cilium en qué interfaz de red (`eth0`) debe anunciar por ARP (*"yo tengo esta IP"*) para que `dev-machine` y la red del clúster puedan llegar a ella.
+3. **`Deployment` (`10b-service-loadbalancer-app.yaml`):** Levanta 2 Pods con una página web KubeCafé que muestra qué Pod exacto responde.
+4. **`Service` `type: LoadBalancer` (`10b-service-loadbalancer-app.yaml`):** Recibe una `EXTERNAL-IP` del Pool y reparte el tráfico entre los 2 Pods. Con `allocateLoadBalancerNodePorts: false` evitamos que Kubernetes abra un puerto `NodePort` adicional innecesario.
+
+### Paso 1: Verifica si Cilium tiene habilitado L2 Announcements
+```bash
+cilium config view | grep -E "enable-l2-announcements|l2-pod-announcements"
+```
+Si `enable-l2-announcements` no aparece en `true`, agrega el repositorio oficial de Helm de Cilium y habilítalo:
+```bash
+helm repo add cilium https://helm.cilium.io/
+helm repo update
+
+helm upgrade cilium cilium/cilium \
+  --namespace kube-system \
+  --reuse-values \
+  --set l2announcements.enabled=true \
+  --set externalIPs.enabled=true
+
+kubectl -n kube-system rollout restart deployment/cilium-operator
+kubectl -n kube-system rollout restart daemonset/cilium
+```
+> 📚 **Documentación oficial de Cilium:** [LoadBalancer IPAM](https://docs.cilium.io/en/stable/network/lb-ipam/) • [L2 Announcements (ARP)](https://docs.cilium.io/en/stable/network/l2-announcements/) • [Gateway API en Cilium](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)
+
+### Paso 2: Aplica primero la configuración de Cilium (`IPPool` + `L2 Policy`) y luego la App (`LoadBalancer`)
+```bash
+# 1. Configurar rango de IPs y política L2 en Cilium:
+kubectl apply -f semana-03-services-gateway/1.ejemplos/10a-cilium-ippool-l2.yaml
+kubectl get ciliumloadbalancerippool,ciliuml2announcementpolicy
+
+# 2. Desplegar la aplicación y su Service LoadBalancer (sin NodePort):
+kubectl apply -f semana-03-services-gateway/1.ejemplos/10b-service-loadbalancer-app.yaml
+kubectl get svc kubecafe-lb-svc
+```
+> 💡 En unos segundos, la columna `EXTERNAL-IP` de `kubecafe-lb-svc` mostrará una IP del rango (por ejemplo `172.16.0.200`).
+
+### Paso 3: Prueba el acceso directo a la `EXTERNAL-IP`
+Desde `dev-machine` (o cualquier nodo en la red `172.16.0.0/24`):
+```bash
+LB_IP=$(kubectl get svc kubecafe-lb-svc -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+for i in $(seq 1 6); do
+  curl -s http://$LB_IP
+done
+```
+
+---
+
+## 🏛️ Laboratorio 8: Enrutamiento HTTP Moderno con Gateway API (Cilium)
 
 Este laboratorio utiliza **Cilium** (el CNI del clúster) como controlador nativo de **Gateway API** (`gatewayClassName: cilium`).
 
-### Paso 1: Instalar los CRDs de Gateway API y habilitar Gateway API en Cilium
-1. Instala los CRDs oficiales de Kubernetes Gateway API:
+### Paso 1: Instalar los CRDs de Gateway API (v1.6.3) y habilitar Gateway API en Cilium
+*(Basado en la [Documentación Oficial de Cilium Gateway API](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/))*
+
+1. Instala los **7 CRDs requeridos** de Kubernetes Gateway API v1.6.3 (`--server-side`):
    ```bash
-   kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.1/standard-install.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_gateways.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_grpcroutes.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_backendtlspolicies.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_tlsroutes.yaml
    ```
-2. Habilita `gatewayAPI.enabled=true` en tu instalación existente de **Cilium CNI** (elige Helm o Cilium CLI según cómo lo hayas instalado) y reinicia el operador/agente para que detecten los CRDs:
+   *(Opcional — para habilitar soporte de `ListenerSet`, `TCPRoute` y `UDPRoute` en Cilium):*
    ```bash
-   # Opción A: Con Helm (agrega primero el repositorio oficial de Cilium)
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_listenersets.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_tcproutes.yaml
+   kubectl apply --server-side -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_udproutes.yaml
+   ```
+2. Agrega el repositorio oficial de Helm de Cilium, habilita `kubeProxyReplacement=true` y `gatewayAPI.enabled=true`, y reinicia el operador y el DaemonSet:
+   ```bash
    helm repo add cilium https://helm.cilium.io/
    helm repo update
 
    helm upgrade cilium cilium/cilium \
      --namespace kube-system \
      --reuse-values \
+     --set kubeProxyReplacement=true \
      --set gatewayAPI.enabled=true
 
-   # Opción B: Con Cilium CLI
-   # cilium upgrade --reuse-values --set gatewayAPI.enabled=true
-
-   # Reiniciar Cilium Operator y DaemonSet para activar el controlador Gateway API
    kubectl -n kube-system rollout restart deployment/cilium-operator
-   kubectl -n kube-system rollout restart daemonset/cilium
+   kubectl -n kube-system rollout restart ds/cilium
    ```
-3. Verifica que Cilium registró el `GatewayClass`:
+3. Verifica el estado de Cilium y que `GatewayClass` muestre `ACCEPTED: True`:
    ```bash
+   cilium status
    kubectl get gatewayclass cilium
    ```
-   *(La columna `ACCEPTED` debe mostrar `True`).*
 
-### Paso 2: Aplicar el Gateway y el HTTPRoute
+### Paso 2: Asegura los Deployments y Services base (Lab 1 y Lab 2) y aplica el Gateway + HTTPRoute
+*(Este laboratorio reutiliza `iximiuz-pool` del **Lab 7** para recibir `EXTERNAL-IP`, y los Services `cocina-svc` del **Lab 1** y `menu-nodeport-svc` del **Lab 2** como backends)*:
 ```bash
+# 1. Asegúrate de tener activos los Deployments y Services del Lab 1 y Lab 2:
+kubectl apply -f semana-03-services-gateway/1.ejemplos/01-service-clusterip-interno.yaml
+kubectl apply -f semana-03-services-gateway/1.ejemplos/02-service-nodeport-externo.yaml
+
+# 2. Aplica el Gateway (Cilium) y el HTTPRoute (/cocina y /menu):
 kubectl apply -f semana-03-services-gateway/1.ejemplos/04-gateway-api-httproute.yaml
-kubectl get gateway,httproute
+kubectl get deploy,svc,gateway,httproute
 ```
 
 ### Paso 3: Probar las rutas `/cocina` y `/menu`
@@ -335,12 +400,12 @@ curl -I http://$GW_IP/menu
 
 ---
 
-## 🚦 Laboratorio 8: Canary Deployment Fácil con Gateway API (`80%` / `20%`)
+## 🚦 Laboratorio 9: Canary Deployment Fácil con Gateway API (`80%` / `20%`)
 
 A diferencia del **Laboratorio 6** (donde el porcentaje dependía del número de Pods), con **Gateway API** puedes controlar el porcentaje exacto (`weight: 80` / `weight: 20`) sin importar cuántas réplicas tenga cada Deployment.
 
 ### Paso 1: Aplica los 2 Deployments, sus 2 Services y el `HTTPRoute`
-*(Requiere tener `kubecafe-gateway` creado del Laboratorio 7).*
+*(Requiere tener `kubecafe-gateway` creado en el Laboratorio 8).*
 ```bash
 kubectl apply -f semana-03-services-gateway/1.ejemplos/07-gateway-canary-deployment.yaml
 kubectl get httproute menu-canary-route
@@ -357,7 +422,7 @@ done
 
 ---
 
-## 🤖 Laboratorio 9: AI Gateway — Frontend con Gateway API consumiendo 2 Modelos de IA (Ollama)
+## 🤖 Laboratorio 10: AI Gateway — Frontend con Gateway API consumiendo 2 Modelos de IA (Ollama)
 
 En este laboratorio montas un **AI Gateway** en Kubernetes: un único punto de entrada (`Gateway` + `HTTPRoute`) donde un mismo **Frontend web** (`ia-frontend-svc`) consume **dos backends de IA distintos** en el puerto estándar de Ollama (`:11434`):
 - `/ia/rapido` ➔ `ollama-llama-svc:11434` (`llama3.2:1b`)
@@ -366,7 +431,7 @@ En este laboratorio montas un **AI Gateway** en Kubernetes: un único punto de e
 > 💡 **¿Por qué usar un AI Gateway?** Te permite cambiar de modelo, hacer A/B testing con `weight`, o enrutar por header (`X-Model`) sin modificar el código del Frontend.
 
 ### Paso 1: Aplica el Frontend, los 2 Modelos y el `HTTPRoute`
-*(Requiere tener `kubecafe-gateway` creado del Laboratorio 7).*
+*(Requiere tener `kubecafe-gateway` creado en el Laboratorio 8).*
 ```bash
 kubectl apply -f semana-03-services-gateway/1.ejemplos/08-gateway-ia-ollama-modelos.yaml
 kubectl get svc ia-frontend-svc ollama-llama-svc ollama-gemma-svc
@@ -413,59 +478,6 @@ GW_IP=$(kubectl get gateway kubecafe-gateway -o jsonpath='{.status.addresses[0].
 curl -s http://$GW_IP/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model":"qwen2.5:0.5b","messages":[{"role":"user","content":"Explica Kubernetes en 1 frase"}]}'
-```
-
----
-
-## ⚖️ Laboratorio 10: Service `LoadBalancer` con Cilium (`IPPool` + `L2 Announcements`)
-
-En un clúster propio o en **iximiuz Kubernetes Cluster Playground** (red `172.16.0.0/24` sobre `eth0`), un `Service` de tipo `LoadBalancer` queda en `<pending>` a menos que un controlador asigne IPs. **Cilium** puede asignar IPs de un rango y anunciarlas en la red local.
-
-### 🧩 ¿Qué hace cada recurso que vamos a desplegar?
-1. **`CiliumLoadBalancerIPPool` (`10a-cilium-ippool-l2.yaml`):** Es la "caja de IPs disponibles" (`172.16.0.200` a `172.16.0.240`) de donde Cilium toma una `EXTERNAL-IP` libre cuando creas un `Service` `LoadBalancer`.
-2. **`CiliumL2AnnouncementPolicy` (`10a-cilium-ippool-l2.yaml`):** Le indica a Cilium en qué interfaz de red (`eth0`) debe anunciar por ARP (*"yo tengo esta IP"*) para que `dev-machine` y la red del clúster puedan llegar a ella.
-3. **`Deployment` (`10b-service-loadbalancer-app.yaml`):** Levanta 2 Pods con una página web KubeCafé que muestra qué Pod exacto responde.
-4. **`Service` `type: LoadBalancer` (`10b-service-loadbalancer-app.yaml`):** Recibe una `EXTERNAL-IP` del Pool y reparte el tráfico entre los 2 Pods. Con `allocateLoadBalancerNodePorts: false` evitamos que Kubernetes abra un puerto `NodePort` adicional innecesario.
-
-### Paso 1: Verifica si Cilium tiene habilitado L2 Announcements
-```bash
-cilium config view | grep -E "enable-l2-announcements|l2-pod-announcements"
-```
-Si `enable-l2-announcements` no aparece en `true`, agrega el repositorio oficial de Helm de Cilium y habilítalo:
-```bash
-helm repo add cilium https://helm.cilium.io/
-helm repo update
-
-helm upgrade cilium cilium/cilium \
-  --namespace kube-system \
-  --reuse-values \
-  --set l2announcements.enabled=true \
-  --set externalIPs.enabled=true
-
-kubectl -n kube-system rollout restart deployment/cilium-operator
-kubectl -n kube-system rollout restart daemonset/cilium
-```
-> 📚 **Documentación oficial de Cilium:** [LoadBalancer IPAM](https://docs.cilium.io/en/stable/network/lb-ipam/) • [L2 Announcements (ARP)](https://docs.cilium.io/en/stable/network/l2-announcements/) • [Gateway API en Cilium](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)
-
-### Paso 2: Aplica primero la configuración de Cilium (`IPPool` + `L2 Policy`) y luego la App (`LoadBalancer`)
-```bash
-# 1. Configurar rango de IPs y política L2 en Cilium:
-kubectl apply -f semana-03-services-gateway/1.ejemplos/10a-cilium-ippool-l2.yaml
-kubectl get ciliumloadbalancerippool,ciliuml2announcementpolicy
-
-# 2. Desplegar la aplicación y su Service LoadBalancer (sin NodePort):
-kubectl apply -f semana-03-services-gateway/1.ejemplos/10b-service-loadbalancer-app.yaml
-kubectl get svc kubecafe-lb-svc
-```
-> 💡 En unos segundos, la columna `EXTERNAL-IP` de `kubecafe-lb-svc` mostrará una IP del rango (por ejemplo `172.16.0.200`).
-
-### Paso 3: Prueba el acceso directo a la `EXTERNAL-IP`
-Desde `dev-machine` (o cualquier nodo en la red `172.16.0.0/24`):
-```bash
-LB_IP=$(kubectl get svc kubecafe-lb-svc -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-for i in $(seq 1 6); do
-  curl -s http://$LB_IP
-done
 ```
 
 ---
