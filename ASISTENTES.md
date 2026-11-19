@@ -12,11 +12,11 @@
 
 <table>
   <tr>
-    <td align="center" width="150"><sub>⛵ <b>TRIPULANTES</b></sub><br/><h3><code>51</code></h3></td>
+    <td align="center" width="150"><sub>⛵ <b>TRIPULANTES</b></sub><br/><h3><code>52</code></h3></td>
     <td align="center" width="150"><sub>🎓 <b>PORTAFOLIOS</b></sub><br/><h3><code>17</code></h3></td>
     <td align="center" width="150"><sub>🥇 <b>CAPITANES (ORO)</b></sub><br/><h3><code>0</code></h3></td>
     <td align="center" width="150"><sub>🥈 <b>TIMONELES (PLATA)</b></sub><br/><h3><code>8</code></h3></td>
-    <td align="center" width="150"><sub>🥉 <b>MARINEROS (BRONCE)</b></sub><br/><h3><code>43</code></h3></td>
+    <td align="center" width="150"><sub>🥉 <b>MARINEROS (BRONCE)</b></sub><br/><h3><code>44</code></h3></td>
   </tr>
 </table>
 
@@ -69,7 +69,7 @@ A medida que avances semana a semana, nuestro bot de GitHub Actions inspeccionar
 
 ---
 
-## 👥 Tabla de Posiciones de la Tripulación (51 Tripulantes)
+## 👥 Tabla de Posiciones de la Tripulación (52 Tripulantes)
 
 <!-- INICIO_TABLA_ASISTENTES -->
 | # | Foto | 👤 Tripulante | 💼 Rol / Especialidad | 🌐 Redes y Portafolio | 🎖️ Rango y Progreso (XP) | 🎯 ¿Qué te motivó a unirte? |
@@ -125,7 +125,7 @@ A medida que avances semana a semana, nuestro bot de GitHub Actions inspeccionar
 | #49 | <img src="https://github.com/juand-alvarado.png?size=80" width="42" height="42" alt="juand-alvarado"/> | **Juan Diego Alvarado** | DevOps | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/juand-alvarado) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/juan-diego-alvarado-gantiva-7801a816a/) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Profundizar en mis conocimientos de K8s y acercarme al ecosistema de la CNCF |
 | #50 | <img src="https://github.com/YimmyZuluaga.png?size=80" width="42" height="42" alt="YimmyZuluaga"/> | **Yimmy Zuluaga** | Estudiante de ingeniería | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/YimmyZuluaga) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Aprender de kubernetes, docker |
 | #51 | <img src="https://github.com/Erica1912.png?size=80" width="42" height="42" alt="Erica1912"/> | **Erica Andrea Ruiz Tabarez** | DevOps Engineer | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Erica1912) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/erica-andrea-ruiz/) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Me motiva profundizar mis conocimientos en Kubernetes y fortalecer mis habilidades en arquitectura, orquestación y despliegue de aplicaciones en contenedores. Tengo experiencia trabajando con AWS, Docker, Terraform y CI/CD, y quiero complementar estos conocimientos aprendiendo a administrar clústeres, gestionar deployments, services, networking y escalabilidad.   Espero llevar mis conocimientos al siguiente nivel, aplicar lo aprendido en proyectos reales y seguir creciendo profesionalmente como Senior DevOps Engineer. |
-| #52 | <img src="https://avatars.githubusercontent.com/u/126529767?v=4" width="42" height="42" alt="Welinton Suarez"/> | **Welinton Suarez** | Ingeniero de Sistemas | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/wesgdev1) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/welinton-suarez/) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Aprender y mejorar todos los conocimientos en Cloud y Kubernetes |
+| #52 | <img src="https://github.com/wesgdev1.png?size=80" width="42" height="42" alt="wesgdev1"/> | **wesgdev1** | <img src="https://avatars.githubusercontent.com/u/126529767?v=4" width="42" height="42" alt="Welinton Suarez"/> | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/wesgdev1) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/welinton-suarez/) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Aprender y mejorar todos los conocimientos en Cloud y Kubernetes |
 <!-- FIN_TABLA_ASISTENTES -->
 
 > [!TIP]

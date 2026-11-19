@@ -555,5 +555,15 @@
     "rango": "⛵ Marinero",
     "puntos": 10,
     "motivacion": "Me motiva profundizar mis conocimientos en Kubernetes y fortalecer mis habilidades en arquitectura, orquestación y despliegue de aplicaciones en contenedores. Tengo experiencia trabajando con AWS, Docker, Terraform y CI/CD, y quiero complementar estos conocimientos aprendiendo a administrar clústeres, gestionar deployments, services, networking y escalabilidad.   Espero llevar mis conocimientos al siguiente nivel, aplicar lo aprendido en proyectos reales y seguir creciendo profesionalmente como Senior DevOps Engineer."
+  },
+  {
+    "github": "wesgdev1",
+    "nombre": "wesgdev1",
+    "rol": "<img src=\"https://avatars.githubusercontent.com/u/126529767?v=4\" width=\"42\" height=\"42\" alt=\"Welinton Suarez\"/>",
+    "linkedin": "https://linkedin.com/in/welinton-suarez/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 10,
+    "motivacion": "Aprender y mejorar todos los conocimientos en Cloud y Kubernetes"
   }
 ]

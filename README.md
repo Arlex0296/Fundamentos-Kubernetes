@@ -411,11 +411,11 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
 ---
 
 <!-- INICIO_MOSAICO_TRIPULACION -->
-## 👥 Tripulación a Bordo y Ranking (51 Tripulantes)
+## 👥 Tripulación a Bordo y Ranking (52 Tripulantes)
 
 <div align="center">
 
-[![Tripulantes a Bordo](https://img.shields.io/badge/⛵_Tripulantes_a_Bordo-51-00C7B7?style=for-the-badge)](./ASISTENTES.md)
+[![Tripulantes a Bordo](https://img.shields.io/badge/⛵_Tripulantes_a_Bordo-52-00C7B7?style=for-the-badge)](./ASISTENTES.md)
 [![Registrarme en 30 seg](https://img.shields.io/badge/➕_¡Regístrate_Aquí!_(Formulario_Visual)-2ea44f?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml)
 [![Registrar Bitácora Semanal](https://img.shields.io/badge/📔_Bitácora_Semanal_y_Portafolio-8B5CF6?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml)
 [![Actualizar mis Datos](https://img.shields.io/badge/✏️_Actualizar_mis_Datos_o_Redes-f57c00?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml)
@@ -463,7 +463,7 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
   </tr>
 </table>
 
-### 🏆 Ranking de la Tripulación (51 Tripulantes)
+### 🏆 Ranking de la Tripulación (52 Tripulantes)
 
 <table>
   <tr>
@@ -854,6 +854,13 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <a href="https://www.linkedin.com/in/erica-andrea-ruiz/" title="Erica Andrea Ruiz Tabarez (@Erica1912) — 10 XP">
         <img src="https://github.com/Erica1912.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="Erica1912"/><br/>
         <sub><b>Erica Andrea</b></sub>
+      </a><br/>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
+    </td>
+    <td align="center" width="140">
+      <a href="https://linkedin.com/in/welinton-suarez/" title="wesgdev1 (@wesgdev1) — 10 XP">
+        <img src="https://github.com/wesgdev1.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="wesgdev1"/><br/>
+        <sub><b>wesgdev1</b></sub>
       </a><br/>
       <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>
