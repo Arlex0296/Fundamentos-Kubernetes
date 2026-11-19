@@ -24,6 +24,7 @@ spec:
             - sh
             - -c
             - |
+              echo "charset utf-8;" > /etc/nginx/conf.d/charset.conf
               echo "☕ Version v1.0 (Estable - 75%) | Pod: $HOSTNAME" > /usr/share/nginx/html/index.html
               exec nginx -g "daemon off;"
           ports:
@@ -55,6 +56,7 @@ spec:
             - sh
             - -c
             - |
+              echo "charset utf-8;" > /etc/nginx/conf.d/charset.conf
               echo "🚀 Version v2.0 (Canary - 25%) | Pod: $HOSTNAME" > /usr/share/nginx/html/index.html
               exec nginx -g "daemon off;"
           ports:

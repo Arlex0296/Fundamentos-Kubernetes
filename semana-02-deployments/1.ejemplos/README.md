@@ -4,6 +4,20 @@
 
 ---
 
+## 📦 Paso 0: Prepara tu Entorno (Clonar y Ruta de Trabajo)
+
+Todos los comandos de esta semana se ejecutan desde la **raíz del repositorio (`Fundamentos-Kubernetes`)**:
+
+```bash
+# 1. Clonar el repositorio oficial del workshop
+git clone https://github.com/edwinbermudez91/Fundamentos-Kubernetes.git
+
+# 2. Entrar a la raíz del repositorio (ruta de trabajo)
+cd Fundamentos-Kubernetes
+```
+
+---
+
 ## 📑 Índice de Ejemplos
 
 | Manifiesto | Concepto Clave | Equivalente en ☕ KubeCafé |
