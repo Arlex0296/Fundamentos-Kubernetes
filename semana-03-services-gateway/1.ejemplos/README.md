@@ -286,7 +286,7 @@ kubectl -n kube-system rollout restart daemonset/cilium
 # Esperar y corroborar que todos los componentes de Cilium estén OK:
 cilium status --wait
 ```
-> 📚 **Documentación oficial de Cilium:** [LoadBalancer IPAM](https://docs.cilium.io/en/stable/network/lb-ipam/) • [L2 Announcements (ARP)](https://docs.cilium.io/en/stable/network/l2-announcements/) • [Gateway API en Cilium](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)
+> 📚 **Documentación oficial y práctica de Cilium:** [LoadBalancer IPAM](https://docs.cilium.io/en/stable/network/lb-ipam/) • [L2 Announcements (ARP)](https://docs.cilium.io/en/stable/network/l2-announcements/) • [Gateway API en Cilium](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/) • [🐝 Ejercicios Interactivos de Cilium (Isovalent Labs)](https://labs.isovalent.com/#/overview)
 
 ### Paso 2: Aplica primero la configuración de Cilium (`IPPool` + `L2 Policy`) y luego la App (`LoadBalancer`)
 ```bash

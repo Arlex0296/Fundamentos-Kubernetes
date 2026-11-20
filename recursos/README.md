@@ -26,3 +26,4 @@ En esta carpeta encontrarás todas las guías complementarias, herramientas visu
 | [**🤖 IA Local con Ollama (`guia-ollama-ia-local.md`)**](./guia-ollama-ia-local.md) | Ejecución de modelos de lenguaje (LLMs) locales en CPU con Docker y Kubernetes. |
 | [**🔄 Cómo Sincronizar tu Fork (`como-sincronizar-tu-fork.md`)**](./como-sincronizar-tu-fork.md) | Paso a paso visual para traer los últimos cambios del repositorio oficial sin conflictos. |
 | [**🏅 Portafolio y Badges (`portafolio-y-badges.md`)**](./portafolio-y-badges.md) | Cómo funciona el sistema automático de puntos (XP), rangos e insignias para compartir en LinkedIn y GitHub. |
+| [**🐝 Laboratorios Interactivos de Cilium (Isovalent Labs)**](https://labs.isovalent.com/#/overview) | Plataforma oficial gratuita de ejercicios prácticos de **Cilium**, eBPF, Gateway API, Network Policies y Hubble. |

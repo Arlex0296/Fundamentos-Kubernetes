@@ -306,7 +306,7 @@ flowchart LR
   8. [`10a-cilium-ippool-l2.yaml`](./semana-03-services-gateway/1.ejemplos/10a-cilium-ippool-l2.yaml) & [`10b-service-loadbalancer-app.yaml`](./semana-03-services-gateway/1.ejemplos/10b-service-loadbalancer-app.yaml) — `Service LoadBalancer` con Cilium IPPool + L2 Announcements (sin `NodePort`).
 * 💥 **Los 4 Retos Rotos ([`semana-03-services-gateway/2.reto-roto`](./semana-03-services-gateway/2.reto-roto)):**
   `01-service-selector-roto.yaml` • `02-service-targetport-incorrecto.yaml` • `03-nodeport-fuera-de-rango.yaml` • `04-httproute-parentref-roto.yaml`
-* 🚀 [**Entrar a la Semana 03**](./semana-03-services-gateway) | 🧪 [**Ir a los Ejemplos**](./semana-03-services-gateway/1.ejemplos) | 💥 [**Resolver los Retos Rotos (+40 XP)**](./semana-03-services-gateway/2.reto-roto) | 📊 [**Ver Diapositivas PDF**](./recursos/diapositivas/3.KubeCafe-Services-y-Gateway-API.pdf)
+* 🚀 [**Entrar a la Semana 03**](./semana-03-services-gateway) | 🧪 [**Ir a los Ejemplos**](./semana-03-services-gateway/1.ejemplos) | 💥 [**Resolver los Retos Rotos (+40 XP)**](./semana-03-services-gateway/2.reto-roto) | 📊 [**Ver Diapositivas PDF**](./recursos/diapositivas/3.KubeCafe-Services-y-Gateway-API.pdf) | 🐝 [**Ejercicios Cilium (Isovalent Labs)**](https://labs.isovalent.com/#/overview)
 </details>
 
 <details>
