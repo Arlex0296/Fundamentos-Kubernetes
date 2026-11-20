@@ -135,6 +135,16 @@
     "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
   },
   {
+    "github": "devdavco",
+    "nombre": "David Corrales",
+    "rol": "Desarrollador Fullstack Java",
+    "linkedin": "https://www.linkedin.com/in/juandavidcorrales/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 80,
+    "motivacion": "El conocimiento es la clave para mi avance tanto profesional como laboral."
+  },
+  {
     "github": "eandreaja",
     "nombre": "Andrea Jaramillo",
     "rol": "Python Developer · Data Science en formación",
@@ -143,16 +153,6 @@
     "rango": "⛵ Marinero",
     "puntos": 70,
     "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
-  },
-  {
-    "github": "devdavco",
-    "nombre": "David Corrales",
-    "rol": "Desarrollador Fullstack Java",
-    "linkedin": "https://www.linkedin.com/in/juandavidcorrales/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 70,
-    "motivacion": "El conocimiento es la clave para mi avance tanto profesional como laboral."
   },
   {
     "github": "jujo23z",
