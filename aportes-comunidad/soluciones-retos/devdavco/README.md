@@ -26,7 +26,7 @@
     </td>
     <td align="center" width="140">
       <sub>⚡ <b>PUNTAJE TOTAL</b></sub><br/>
-      <h3><code>80 XP</code></h3>
+      <h3><code>90 XP</code></h3>
       <sub>Verificado • Cloud Native Medellín</sub>
     </td>
     <td align="center" width="140">
@@ -36,7 +36,7 @@
     </td>
     <td align="center" width="140">
       <sub>✍️ <b>BITÁCORAS</b></sub><br/>
-      <h3><code>0</code></h3>
+      <h3><code>2</code></h3>
       <sub><a href="#-bitácoras-de-reflexión-e-ingeniería">Ver notas</a></sub>
     </td>
     <td align="center" width="165">
@@ -87,7 +87,8 @@ Cada entrega en este portafolio es validada automáticamente por el motor de int
 
 <div align="left">
 
-> 💡 *¡Suma **+10 XP Bonus** por semana! Haz clic en **[📔 Registrar mi Bitácora de Aprendizaje en 20 segundos](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml&github_user=devdavco&semana=semana-00+%E2%80%94+%F0%9F%90%B3+Fundamentos+de+Docker+%28De+C%C3%B3digo+a+Contenedor%29)** para documentar lo que aprendiste y obtener un post personalizado para LinkedIn.*
+- 📔 **[🐳 Semana 00: Fundamentos de Docker (De Código a Contenedor)](./semana-00/bitacora.md)** *(+10 XP Bonus)* — *Reflexión técnica, diagnóstico de errores y comandos practicados.*
+- 📔 **[🌱 Semana 01: Arquitectura de Kubernetes y Pods](./semana-01/bitacora.md)** *(+10 XP Bonus)* — *Reflexión técnica, diagnóstico de errores y comandos practicados.*
 
 </div>
 
@@ -119,7 +120,7 @@ Sigue estos **3 sencillos pasos**:
 ```text
 ☸️ ¡Sigo construyendo mi Portafolio Práctico de Docker y Kubernetes en el workshop "De Cero a Capitán en Kubernetes" con la comunidad Cloud Native Medellín (CNCF)! 🏔️☕
 ⠀
-🎖️ Rango actual: ⛵ Marinero (80 XP)
+🎖️ Rango actual: ⛵ Marinero (90 XP)
 ⠀
 📂 Mi Portafolio de Laboratorios y Bitácora verificada:
 https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/aportes-comunidad/soluciones-retos/devdavco
@@ -137,12 +138,12 @@ Agradecimientos a @Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por e
 #Kubernetes #Docker #CloudNative #DevOps #KubeCafe #CNCFMedellin #OpenSource
 ```
 
-2. **Descarga tu Tarjeta PNG en 1 clic** (lista en `1200×630` con tu rango **⛵ Marinero**, tus **80 XP** y tus módulos) o toma una captura de tu cabecera.
+2. **Descarga tu Tarjeta PNG en 1 clic** (lista en `1200×630` con tu rango **⛵ Marinero**, tus **90 XP** y tus módulos) o toma una captura de tu cabecera.
 3. **Pega en LinkedIn, etiqueta a la comunidad y adjunta tu imagen:** Haz clic en el botón de LinkedIn, pega el texto (`Ctrl+V` / `Cmd+V`), busca **`@Cloud Native Colombia (Armenia, Bogota, Cali, Medellin)`** en el desplegable para etiquetarnos y sube tu tarjeta PNG:
 
 <div align="center">
 
-[![Descargar Tarjeta PNG](https://img.shields.io/badge/1._Descargar_Tarjeta_PNG-(1200x630)-10B981?style=for-the-badge&logo=kubernetes&logoColor=white)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=devdavco&nombre=David%20Corrales&rol=Desarrollador%20Fullstack%20Java&rango=%E2%9B%B5%20Marinero&xp=80&retos=7&bitacoras=0&semanas=%F0%9F%90%B3%20Docker%20%26%20OCI%2C%F0%9F%8C%B1%20K8s%20Pods%20%26%20Arquitectura&badges=semana-00%3Acompletado%2Csemana-01%3Aprogreso%2Csemana-02%3Abloqueado%2Csemana-03%3Abloqueado%2Csemana-04%3Abloqueado%2Csemana-05%3Abloqueado%2Csemana-06%3Abloqueado&linkedin=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fjuandavidcorrales%2F&redes=&portfolio=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco)
+[![Descargar Tarjeta PNG](https://img.shields.io/badge/1._Descargar_Tarjeta_PNG-(1200x630)-10B981?style=for-the-badge&logo=kubernetes&logoColor=white)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=devdavco&nombre=David%20Corrales&rol=Desarrollador%20Fullstack%20Java&rango=%E2%9B%B5%20Marinero&xp=90&retos=6&bitacoras=2&semanas=%F0%9F%90%B3%20Docker%20%26%20OCI%2C%F0%9F%8C%B1%20K8s%20Pods%20%26%20Arquitectura&badges=semana-00%3Acompletado%2Csemana-01%3Aprogreso%2Csemana-02%3Abloqueado%2Csemana-03%3Abloqueado%2Csemana-04%3Abloqueado%2Csemana-05%3Abloqueado%2Csemana-06%3Abloqueado&linkedin=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fjuandavidcorrales%2F&redes=&portfolio=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco)
 [![Publicar en LinkedIn](https://img.shields.io/badge/2._Abrir_y_Crear_Post_en-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/feed/?shareActive=true)
 
 </div>
@@ -155,9 +156,9 @@ Agradecimientos a @Cloud Native Colombia (Armenia, Bogota, Cali, Medellin) por e
 
 <div align="center">
 
-[![Tarjeta PNG](https://img.shields.io/badge/🖼️_Tarjeta_PNG-Para_Redes-10B981?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=devdavco&nombre=David%20Corrales&rol=Desarrollador%20Fullstack%20Java&rango=%E2%9B%B5%20Marinero&xp=80&retos=7&bitacoras=0&semanas=%F0%9F%90%B3%20Docker%20%26%20OCI%2C%F0%9F%8C%B1%20K8s%20Pods%20%26%20Arquitectura&badges=semana-00%3Acompletado%2Csemana-01%3Aprogreso%2Csemana-02%3Abloqueado%2Csemana-03%3Abloqueado%2Csemana-04%3Abloqueado%2Csemana-05%3Abloqueado%2Csemana-06%3Abloqueado&linkedin=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fjuandavidcorrales%2F&redes=&portfolio=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco)
-[![Compartir en WhatsApp](https://img.shields.io/badge/Compartir_en-WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send?text=%E2%98%B8%EF%B8%8F%20%C2%A1Sigo%20construyendo%20mi%20Portafolio%20Pr%C3%A1ctico%20de%20Docker%20y%20Kubernetes%20en%20el%20workshop%20%22De%20Cero%20a%20Capit%C3%A1n%20en%20Kubernetes%22%20con%20la%20comunidad%20Cloud%20Native%20Medell%C3%ADn%20(CNCF)!%20%F0%9F%8F%94%EF%B8%8F%E2%98%95%0A%E2%A0%80%0A%F0%9F%8E%96%EF%B8%8F%20Rango%20actual%3A%20%E2%9B%B5%20Marinero%20(80%20XP)%0A%E2%A0%80%0A%F0%9F%93%82%20Mi%20Portafolio%20de%20Laboratorios%20y%20Bit%C3%A1cora%20verificada%3A%0Ahttps%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco%0A%E2%A0%80%0AAgradecimientos%20a%20%40Cloud%20Native%20Colombia%20(Armenia%2C%20Bogota%2C%20Cali%2C%20Medellin)%20por%20este%20espacio%20de%20formaci%C3%B3n%20abierta%3A%0A%E2%A0%80%0A%F0%9F%8F%A2%20LinkedIn%3A%20https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fcloud-native-colombia%2F%0A%E2%A0%80%0A%F0%9F%93%B8%20Instagram%3A%20https%3A%2F%2Fwww.instagram.com%2Fcolombiacloudnative%2F%0A%E2%A0%80%0A%E2%96%B6%EF%B8%8F%20YouTube%3A%20https%3A%2F%2Fwww.youtube.com%2F%40CloudNativeColombia%0A%E2%A0%80%0A%F0%9F%94%97%20Cap%C3%ADtulo%20oficial%20CNCF%3A%20https%3A%2F%2Focgroups.dev%2Fcncf%2Fgroup%2F2majk4r%0A%E2%A0%80%0A%23Kubernetes%20%23Docker%20%23CloudNative%20%23DevOps%20%23KubeCafe%20%23CNCFMedellin%20%23OpenSource)
-[![Compartir en Telegram](https://img.shields.io/badge/Compartir_en-Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/share/url?url=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco&text=%E2%98%B8%EF%B8%8F%20Mi%20Portafolio%20Pr%C3%A1ctico%20de%20Docker%20y%20Kubernetes%20en%20Cloud%20Native%20Medell%C3%ADn%20(%E2%9B%B5%20Marinero%20%E2%80%A2%2080%20XP)%20%F0%9F%8F%94%EF%B8%8F%E2%98%95)
+[![Tarjeta PNG](https://img.shields.io/badge/🖼️_Tarjeta_PNG-Para_Redes-10B981?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/tarjeta-portafolio.html?user=devdavco&nombre=David%20Corrales&rol=Desarrollador%20Fullstack%20Java&rango=%E2%9B%B5%20Marinero&xp=90&retos=6&bitacoras=2&semanas=%F0%9F%90%B3%20Docker%20%26%20OCI%2C%F0%9F%8C%B1%20K8s%20Pods%20%26%20Arquitectura&badges=semana-00%3Acompletado%2Csemana-01%3Aprogreso%2Csemana-02%3Abloqueado%2Csemana-03%3Abloqueado%2Csemana-04%3Abloqueado%2Csemana-05%3Abloqueado%2Csemana-06%3Abloqueado&linkedin=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fjuandavidcorrales%2F&redes=&portfolio=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco)
+[![Compartir en WhatsApp](https://img.shields.io/badge/Compartir_en-WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send?text=%E2%98%B8%EF%B8%8F%20%C2%A1Sigo%20construyendo%20mi%20Portafolio%20Pr%C3%A1ctico%20de%20Docker%20y%20Kubernetes%20en%20el%20workshop%20%22De%20Cero%20a%20Capit%C3%A1n%20en%20Kubernetes%22%20con%20la%20comunidad%20Cloud%20Native%20Medell%C3%ADn%20(CNCF)!%20%F0%9F%8F%94%EF%B8%8F%E2%98%95%0A%E2%A0%80%0A%F0%9F%8E%96%EF%B8%8F%20Rango%20actual%3A%20%E2%9B%B5%20Marinero%20(90%20XP)%0A%E2%A0%80%0A%F0%9F%93%82%20Mi%20Portafolio%20de%20Laboratorios%20y%20Bit%C3%A1cora%20verificada%3A%0Ahttps%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco%0A%E2%A0%80%0AAgradecimientos%20a%20%40Cloud%20Native%20Colombia%20(Armenia%2C%20Bogota%2C%20Cali%2C%20Medellin)%20por%20este%20espacio%20de%20formaci%C3%B3n%20abierta%3A%0A%E2%A0%80%0A%F0%9F%8F%A2%20LinkedIn%3A%20https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fcloud-native-colombia%2F%0A%E2%A0%80%0A%F0%9F%93%B8%20Instagram%3A%20https%3A%2F%2Fwww.instagram.com%2Fcolombiacloudnative%2F%0A%E2%A0%80%0A%E2%96%B6%EF%B8%8F%20YouTube%3A%20https%3A%2F%2Fwww.youtube.com%2F%40CloudNativeColombia%0A%E2%A0%80%0A%F0%9F%94%97%20Cap%C3%ADtulo%20oficial%20CNCF%3A%20https%3A%2F%2Focgroups.dev%2Fcncf%2Fgroup%2F2majk4r%0A%E2%A0%80%0A%23Kubernetes%20%23Docker%20%23CloudNative%20%23DevOps%20%23KubeCafe%20%23CNCFMedellin%20%23OpenSource)
+[![Compartir en Telegram](https://img.shields.io/badge/Compartir_en-Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/share/url?url=https%3A%2F%2Fgithub.com%2Fedwinbermudez91%2FFundamentos-Kubernetes%2Ftree%2Fmain%2Faportes-comunidad%2Fsoluciones-retos%2Fdevdavco&text=%E2%98%B8%EF%B8%8F%20Mi%20Portafolio%20Pr%C3%A1ctico%20de%20Docker%20y%20Kubernetes%20en%20Cloud%20Native%20Medell%C3%ADn%20(%E2%9B%B5%20Marinero%20%E2%80%A2%2090%20XP)%20%F0%9F%8F%94%EF%B8%8F%E2%98%95)
 
 </div>
 
