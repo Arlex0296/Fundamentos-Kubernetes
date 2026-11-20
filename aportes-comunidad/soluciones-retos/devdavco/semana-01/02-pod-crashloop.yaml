@@ -13,4 +13,6 @@ spec:
   containers:
     - name: trabajador-confundido
       image: busybox:latest
-      command: ["sh", "-c", "echho '¡Hola Cloud Native Medellín!' && sleep 3600"]
+      command: ["sh", "-c", "echo '¡Hola Cloud Native Medellín!' && sleep 3600"]
+
+      #Primero, corregir el echho -> echo, luego, como los pods son inmutables, debía eliminar el que se había creado con en el error y luego volver a crearlo
