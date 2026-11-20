@@ -11,6 +11,6 @@ metadata:
 spec:
   containers:
     - name: servidor-web
-      image: nginx:version-fantasma-999
+      image: nginx:alpine #Version inexistente, cambiada por la liviana
       ports:
-        - containerPort: 80809
+        - containerPort: 80 #venia mal configurado el puerto
