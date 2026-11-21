@@ -85,6 +85,16 @@
     "motivacion": "Aprovechar al maximo esta oportunidad de aprender"
   },
   {
+    "github": "eandreaja",
+    "nombre": "Andrea Jaramillo",
+    "rol": "Python Developer · Data Science en formación",
+    "linkedin": "https://www.linkedin.com/in/eandreaja/",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 120,
+    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
+  },
+  {
     "github": "RAVILA28",
     "nombre": "Fernando Avila",
     "rol": "DevOps",
@@ -143,16 +153,6 @@
     "rango": "⛵ Marinero",
     "puntos": 100,
     "motivacion": "El conocimiento es la clave para mi avance tanto profesional como laboral."
-  },
-  {
-    "github": "eandreaja",
-    "nombre": "Andrea Jaramillo",
-    "rol": "Python Developer · Data Science en formación",
-    "linkedin": "https://www.linkedin.com/in/eandreaja/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 80,
-    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
   },
   {
     "github": "jujo23z",
