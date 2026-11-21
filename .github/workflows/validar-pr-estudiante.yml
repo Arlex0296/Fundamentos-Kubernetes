@@ -25,6 +25,7 @@ jobs:
             const path = require('path');
             const {
               INSTRUCTORS,
+              CHALLENGE_VALIDATORS,
               discoverOfficialChallenges,
               evaluateUserProgress
             } = require('./scripts/generar-asistentes.js');
@@ -95,9 +96,36 @@ jobs:
             }
 
             body += `### 📊 Evaluación de Retos Detectados\n`;
-            if (result.detailedReport && result.detailedReport.length > 0) {
-              body += `${result.detailedReport.join('\n')}\n\n`;
-              body += `**Progreso estimado tras este PR:** ${result.newRank} · **${result.points} XP**\n`;
+            const touchedWeeks = new Set();
+            for (const f of studentFiles) {
+              const m = f.filename.match(/\/(semana-\d+)\//i);
+              if (m) touchedWeeks.add(m[1].toLowerCase());
+            }
+
+            const relevantWeeks = (result.detailedReport || []).filter(
+              r => touchedWeeks.has(r.weekKey) || r.solvedCount > 0 || r.hasBitacora
+            );
+
+            if (relevantWeeks.length > 0) {
+              for (const r of relevantWeeks) {
+                const icon = r.isComplete ? '✅' : '⏳';
+                const bitacoraTxt = r.hasBitacora ? ' • 📔 Bitácora OK' : '';
+                body += `\n#### 📂 \`${r.weekKey}\` (${r.solvedCount}/${r.totalExpected} ${icon}${bitacoraTxt})\n\n`;
+                body += `| Ejercicio | Estado |\n| :--- | :---: |\n`;
+                const validators = CHALLENGE_VALIDATORS[r.weekKey];
+                if (validators) {
+                  for (const v of validators) {
+                    const ok = r.solvedNums.includes(v.id);
+                    body += `| \`${v.name}\` | ${ok ? '✅ OK' : '❌ FAIL'} |\n`;
+                  }
+                } else {
+                  for (const num of official[r.weekKey] || []) {
+                    const ok = r.solvedNums.includes(num);
+                    body += `| Reto \`${num}\` | ${ok ? '✅ OK' : '❌ FAIL'} |\n`;
+                  }
+                }
+              }
+              body += `\n**Progreso estimado tras este PR:** ${result.rango} · **${result.points} XP**\n`;
             } else {
               body += `⚠️ No se detectaron archivos válidos en \`aportes-comunidad/soluciones-retos/${prUser}/semana-XX/\`.\n`;
             }
