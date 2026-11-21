@@ -13,17 +13,74 @@
 
 ## 📑 Índice Rápido
 
-0. [🧱 Paso 0 (Prerrequisito): Instalar Docker y Verificar Recursos](#-paso-0-prerrequisito-instalar-docker-y-verificar-recursos)
-1. [☸️ Paso 1: Instalar `kubectl`, Alias `k` y Autocompletado](#-paso-1-instalar-kubectl-alias-k-y-autocompletado)
-2. [🐳 Paso 2: ¿Qué es Kind y cómo crear tu Clúster Local?](#-paso-2-qué-es-kind-y-cómo-crear-tu-clúster-local)
-3. [🛠️ Paso 3: Personalizando tu Clúster de Kind con YAML (Multi-Nodo, Cilium y Gateway API)](#️-paso-3-personalizando-tu-clúster-de-kind-con-yaml)
-4. [🧰 Paso 4: Kit de Supervivencia CLI (`kubectx`, `kubens`, `k9s` y `stern`)](#-paso-4-kit-de-supervivencia-cli-kubectx-kubens-k9s-y-stern)
-   - [🔀 `kubectx` y `kubens`: Cambia de clúster y namespace en 1 segundo](#-1-kubectx-y-kubens--el-control-remoto-de-clústeres-y-namespaces)
-   - [🐶 `k9s`: Panel de control interactivo en tu terminal](#-2-k9s--el-panel-de-control-interactivo-en-tu-terminal)
-   - [📢 `stern`: Logs de múltiples Pods en tiempo real y a color](#-3-stern--el-megáfono-de-logs-multi-pod-en-tiempo-real)
-5. [🖥️ Paso 5: Consola Visual Open Source — Headlamp](#️-paso-5-consola-visual-open-source--headlamp)
+* [🚀 Opción 1 (Recomendada): Setup Automático en 1 Comando (`setup-lab.sh`)](#-opción-1-recomendada-setup-automático-en-1-comando-setup-labsh)
+* [🛠️ Opción 2: Instalación Manual Paso a Paso](#-opción-2-instalación-manual-paso-a-paso)
+  0. [🧱 Paso 0 (Prerrequisito): Instalar Docker y Verificar Recursos](#-paso-0-prerrequisito-instalar-docker-y-verificar-recursos)
+  1. [☸️ Paso 1: Instalar `kubectl`, Alias `k` y Autocompletado](#-paso-1-instalar-kubectl-alias-k-y-autocompletado)
+  2. [🐳 Paso 2: ¿Qué es Kind y cómo crear tu Clúster Local?](#-paso-2-qué-es-kind-y-cómo-crear-tu-clúster-local)
+  3. [🛠️ Paso 3: Personalizando tu Clúster de Kind con YAML (Multi-Nodo, Cilium y Gateway API)](#️-paso-3-personalizando-tu-clúster-de-kind-con-yaml)
+  4. [🧰 Paso 4: Kit de Supervivencia CLI (`kubectx`, `kubens`, `k9s` y `stern`)](#-paso-4-kit-de-supervivencia-cli-kubectx-kubens-k9s-y-stern)
+  5. [🖥️ Paso 5: Consola Visual Open Source — Headlamp](#️-paso-5-consola-visual-open-source--headlamp)
 
 ---
+
+## 🚀 Opción 1 (Recomendada): Setup Automático en 1 Comando (`setup-lab.sh`)
+
+¿Quieres tener todo el laboratorio listo en minutos sin crear archivos YAML ni correr comando por comando? El asistente interactivo [`setup-lab.sh`](./setup-lab.sh) crea tu clúster Kind, instala Cilium, Gateway API, LoadBalancer, `metrics-server` y Headlamp automáticamente.
+
+### 📦 ¿Qué necesitas tener instalado antes de ejecutar el script?
+Asegúrate de contar con estas **4 herramientas** (si te falta alguna, instálala primero en la [Opción 2 Manual](#-opción-2-instalación-manual-paso-a-paso) de abajo):
+
+| Herramienta | ¿Para qué la usa el script? | Verifica que esté lista |
+| :--- | :--- | :--- |
+| **Docker** (corriendo) | Motor donde corren los nodos de Kind (mín. 4 GB RAM, 2 vCPUs). | `docker info >/dev/null && echo "OK"` |
+| **Kind** | Crea, lista, recrea o elimina el clúster Kubernetes local. | `kind version` |
+| **kubectl** | Instala CRDs, parcha `metrics-server`, crea el Secret y consulta nodos/servicios. | `kubectl version --client` |
+| **Helm** | Despliega **Cilium CNI** y la consola visual **Headlamp**. | `helm version` |
+
+### ▶️ Cómo ejecutar el script
+
+**Opción A — Enlace directo (sin clonar el repositorio):**
+```bash
+curl -fsSL https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/semana-01-arquitectura/0.prepara-tu-laboratorio/setup-lab.sh -o /tmp/setup-lab.sh && bash /tmp/setup-lab.sh
+```
+*(Se descarga a `/tmp/setup-lab.sh` y se ejecuta con `bash` para que las preguntas interactivas funcionen correctamente).*
+
+**Opción B — Desde el repositorio clonado:**
+```bash
+git clone https://github.com/edwinbermudez91/Fundamentos-Kubernetes.git 2>/dev/null || true
+cd Fundamentos-Kubernetes
+bash semana-01-arquitectura/0.prepara-tu-laboratorio/setup-lab.sh
+```
+
+### 🤔 ¿Qué te va a preguntar el asistente?
+Puedes presionar **Enter** en cualquier pregunta para aceptar el valor recomendado por defecto:
+
+| Pregunta Interactiva | Valor por Defecto | ¿Qué configura en tu clúster? |
+| :--- | :---: | :--- |
+| **Acción si ya existen clústeres** | `1` (Crear nuevo) | Si detecta clústeres Kind previos, permite **1)** crear uno nuevo, **2)** eliminar uno o **`todos`** los existentes (`kind delete`), o **3)** recrear uno desde cero. |
+| **Nombre del clúster Kind** | `kubecafe` | Nombre de tu clúster y contexto en `kubectl`. |
+| **Número de nodos Worker** | `2` | El clúster siempre incluye **`1 control-plane`** (el cerebro de Kubernetes) más los nodos **`worker`** que elijas:<br>• **`0`**: Clúster de **1 solo nodo** (solo `control-plane`, ideal para PCs con **4 GB de RAM**).<br>• **`1`**: `1 control-plane + 1 worker` (2 nodos totales, mínimo para separar gestión de cargas).<br>• **`2` (Recomendado)**: `1 control-plane + 2 workers` (3 nodos totales, ideal para probar balanceo entre nodos, réplicas y DaemonSets de Cilium).<br>• **`3+`**: Clúster amplio (requiere **8+ GB de RAM** libres en Docker). |
+| **¿Instalar Cilium CNI + Gateway API?** | `S` (Sí) | Deshabilita `kindnet`, instala los **7 CRDs de Gateway API v1.6.3** y despliega **Cilium** con `kubeProxyReplacement=true` y `gatewayAPI.enabled=true`. |
+| **¿Configurar LoadBalancer (`IPPool` + `L2`)?** | `S` (Sí) | Inspecciona la subred de Docker (`docker network inspect kind`), te propone un rango automático (ej. `172.18.255.200–172.18.255.240`) o te deja escribir el tuyo, y aplica `CiliumLoadBalancerIPPool` + `CiliumL2AnnouncementPolicy`. |
+| **¿Instalar `metrics-server`?** | `S` (Sí) | Despliega `metrics-server` parchado con `--kubelet-insecure-tls` para que funcione `kubectl top nodes/pods` en Kind. |
+| **¿Instalar consola visual Headlamp?** | `S` (Sí) | Instala **Headlamp** via Helm expuesto como **`LoadBalancer`** (sin `NodePort` extra si Cilium LB está activo) o `NodePort`, crea el `Secret` `headlamp-admin` e imprime la URL y el **token JWT de conexión** al final. |
+
+> 💡 **Resultado esperado al finalizar:** Verás `🎉 ¡Clúster 'kubecafe' listo para KubeCafé!`, la tabla de nodos en estado **`Ready`**, el servicio `headlamp` en `kube-system` y tu **token JWT** listo para copiar.
+
+> [!TIP]
+> **🍏 Si usas macOS con Docker Desktop y quieres abrir la IP del LoadBalancer (`http://172.18.x.x`) directo en tu navegador:**  
+> En Linux funciona de forma nativa, pero en macOS Docker corre dentro de una VM. Instala y reinicia **`docker-mac-net-connect`** (o usa **OrbStack**, o `kubectl -n kube-system port-forward svc/headlamp 8080:80`):
+> ```bash
+> brew install chipmk/tap/docker-mac-net-connect
+> sudo brew services restart chipmk/tap/docker-mac-net-connect
+> ```
+
+---
+---
+
+## 🛠️ Opción 2: Instalación Manual Paso a Paso
+*(Usa esta sección únicamente si necesitas instalar `docker`, `kubectl`, `kind` o `helm` desde cero, o si prefieres crear y configurar cada componente manualmente).*
 
 ## 🧱 Paso 0 (Prerrequisito): Instalar Docker y Verificar Recursos
 

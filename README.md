@@ -52,6 +52,14 @@
 > | [![Comunidad CNCF](https://img.shields.io/badge/CNCF-Capítulo_Medellín-00C7B7?style=for-the-badge&logo=cncf&logoColor=white)](https://ocgroups.dev/cncf/group/2majk4r)<br>[**Registro en CNCF Medellín**](https://ocgroups.dev/cncf/group/2majk4r)<br>Únete a la comunidad oficial para próximos eventos y meetups. | [![YouTube Grabaciones](https://img.shields.io/badge/YouTube-@CloudNativeColombia-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@CloudNativeColombia)<br>[**Canal @CloudNativeColombia**](https://www.youtube.com/@CloudNativeColombia)<br>Revive las grabaciones y explicaciones de cada sesión en vivo. | [![Laboratorios iximiuz](https://img.shields.io/badge/Playgrounds-iximiuz_Labs-8A2BE2?style=for-the-badge&logo=docker&logoColor=white)](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)<br>[**Playgrounds de Docker y Kubernetes**](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)<br>Entorno de laboratorios online para practicar sin instalar nada. | [![Simulador KubeCafé](https://img.shields.io/badge/KubeCafé-Cómo_Opera_K8s-00C7B7?style=for-the-badge&logo=kubernetes&logoColor=white)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html)<br>[**Simulador Interactivo K8s**](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html)<br>Aprende visualmente cómo opera Kubernetes y la analogía de KubeCafé. |
 
 > [!TIP]
+> ### ⚡ ¿Practicas en Local? Crea tu Clúster Kind + Cilium + Headlamp en 1 Comando
+> Despliega de forma interactiva tu clúster **Kind** (elige número de nodos), **Cilium CNI**, **Gateway API CRDs**, **LoadBalancer IPPool**, **`metrics-server`** y consola **Headlamp**:
+> ```bash
+> curl -fsSL https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/semana-01-arquitectura/0.prepara-tu-laboratorio/setup-lab.sh -o /tmp/setup-lab.sh && bash /tmp/setup-lab.sh
+> ```
+> [![Setup Rápido Kind + Cilium](https://img.shields.io/badge/⚡_Setup_Automático-Kind_+_Cilium_+_Headlamp-10B981?style=for-the-badge&logo=kubernetes&logoColor=white)](./semana-01-arquitectura/0.prepara-tu-laboratorio#-opción-1-recomendada-setup-automático-en-1-comando-setup-labsh) [![Ver Requisitos y Opciones](https://img.shields.io/badge/📖_Ver_Guía_Completa-Requisitos_y_Nodos-2563EB?style=for-the-badge&logo=bookstack&logoColor=white)](./semana-01-arquitectura/0.prepara-tu-laboratorio#-opción-1-recomendada-setup-automático-en-1-comando-setup-labsh)
+
+> [!TIP]
 > 📚 **Documentación Oficial de Referencia:**  
 > Consulta siempre las fuentes oficiales para validar especificaciones, APIs, parámetros y buenas prácticas:  
 > * 🐳 **Docker:** [Documentación Oficial](https://docs.docker.com/) • [Referencia de Dockerfile](https://docs.docker.com/reference/dockerfile/) • [Referencia de CLI Docker](https://docs.docker.com/reference/cli/docker/) • [Almacenamiento y Volúmenes](https://docs.docker.com/engine/storage/volumes/) • [Redes en Docker](https://docs.docker.com/engine/network/)  
@@ -492,7 +500,7 @@ No necesitas tarjeta de crédito ni cuentas en la nube; todo corre en tu computa
 4. **Editor:** [VS Code](https://code.visualstudio.com/) con la extensión oficial de **YAML** y **Kubernetes**.
 5. **Gestor de Paquetes:** [Helm](https://helm.sh/) (para desplegar complementos y la consola visual [Headlamp](https://headlamp.dev/)).
 
-👉 *¿Tienes problemas instalando alguno? Entra a [`0.prepara-tu-laboratorio`](./semana-01-arquitectura/0.prepara-tu-laboratorio) para ver guías paso a paso y plantillas de Kind.*
+👉 *¿Tienes problemas instalando alguno? Entra a [`0.prepara-tu-laboratorio`](./semana-01-arquitectura/0.prepara-tu-laboratorio) para ver guías paso a paso, plantillas de Kind o ejecutar el script automático [`setup-lab.sh`](./semana-01-arquitectura/0.prepara-tu-laboratorio/setup-lab.sh) (multi-nodo, Cilium, Gateway API y LoadBalancer).*
 </details>
 
 <details>

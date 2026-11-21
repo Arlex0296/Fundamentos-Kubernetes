@@ -74,10 +74,17 @@ flowchart TD
 > Puedes realizar ejercicios interactivos guiados con terminal en la nube en [**KodeKloud Studio — Kubernetes Labs**](https://kodekloud.com/studio/labs/kubernetes).
 
 ### Paso 1: Crea tu clúster local
-Si usas **Kind**, abre tu terminal y ejecuta:
+Si usas **Kind**, puedes crear un clúster básico con:
 ```bash
 kind create cluster --name cnm-lab
 ```
+O si quieres el **clúster completo del workshop en 1 solo comando** (multi-nodo configurable, **Cilium CNI**, **Gateway API CRDs**, **LoadBalancer IPPool** basado en Docker, **`metrics-server`** y **Headlamp**), clona el repo y ejecuta el script interactivo:
+```bash
+git clone https://github.com/edwinbermudez91/Fundamentos-Kubernetes.git 2>/dev/null || true
+cd Fundamentos-Kubernetes
+bash semana-01-arquitectura/0.prepara-tu-laboratorio/setup-lab.sh
+```
+*(Consulta todos los detalles y opciones en [`0.prepara-tu-laboratorio/README.md`](./0.prepara-tu-laboratorio/README.md)).*
 Verifica que tu clúster esté vivo:
 ```bash
 kubectl cluster-info

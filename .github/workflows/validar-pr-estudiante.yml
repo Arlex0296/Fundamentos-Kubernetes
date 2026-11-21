@@ -1,0 +1,130 @@
+name: 🤖 Validar PR de Estudiante (Feedback y Protección)
+
+on:
+  pull_request_target:
+    branches: [main, master]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validar-pr:
+    name: Validar retos y archivos del PR
+    runs-on: ubuntu-24.04
+    steps:
+      - name: 📥 Clonar rama base confiable
+        uses: actions/checkout@v7
+
+      - name: 🔍 Verificar archivos modificados y evaluar retos
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const {
+              INSTRUCTORS,
+              discoverOfficialChallenges,
+              evaluateUserProgress
+            } = require('./scripts/generar-asistentes.js');
+
+            const pr = context.payload.pull_request;
+            const prUser = pr.user.login;
+            const isInstructor = INSTRUCTORS.map(u => u.toLowerCase()).includes(prUser.toLowerCase());
+            const allowedPrefix = `aportes-comunidad/soluciones-retos/${prUser.toLowerCase()}/`;
+
+            // 1. Listar todos los archivos cambiados en el PR
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100
+            });
+
+            const forbiddenFiles = [];
+            const studentFiles = [];
+
+            for (const f of files) {
+              const lower = f.filename.toLowerCase();
+              if (lower.startsWith(allowedPrefix)) {
+                studentFiles.push(f);
+              } else if (!isInstructor) {
+                forbiddenFiles.push(f.filename);
+              }
+            }
+
+            // 2. Descargar al workspace solo las soluciones del estudiante (sin ejecutar código del fork)
+            for (const f of studentFiles) {
+              if (f.status === 'removed') continue;
+              try {
+                const { data } = await github.rest.repos.getContent({
+                  owner: pr.head.repo.owner.login,
+                  repo: pr.head.repo.name,
+                  path: f.filename,
+                  ref: pr.head.sha
+                });
+                if (data && data.content) {
+                  const dest = path.join(process.cwd(), f.filename);
+                  fs.mkdirSync(path.dirname(dest), { recursive: true });
+                  fs.writeFileSync(dest, Buffer.from(data.content, 'base64').toString('utf8'));
+                }
+              } catch (err) {
+                console.log(`No se pudo descargar ${f.filename}:`, err.message);
+              }
+            }
+
+            // 3. Evaluar progreso con las reglas oficiales
+            const official = discoverOfficialChallenges();
+            const result = evaluateUserProgress(prUser, official);
+
+            // 4. Construir comentario claro para el estudiante
+            const marker = '<!-- BOT_VALIDACION_PR -->';
+            let body = `${marker}\n## 🤖 Reporte Automático de Validación — @${prUser}\n\n`;
+
+            if (forbiddenFiles.length > 0) {
+              body += `### ⛔ Archivos protegidos modificados (causan conflictos de merge)\n`;
+              body += `Tu Pull Request solo debe modificar archivos dentro de \`aportes-comunidad/soluciones-retos/${prUser}/\`.\n`;
+              body += `Por favor revierte estos archivos (el bot los actualiza automáticamente después del merge):\n\n`;
+              for (const ff of forbiddenFiles) {
+                body += `- ❌ \`${ff}\`\n`;
+              }
+              body += `\n**Cómo limpiarlo en 3 comandos:**\n\`\`\`bash\ngit fetch origin\ngit checkout origin/main -- ${forbiddenFiles.join(' ')}\ngit commit -m "chore: revertir archivos protegidos" && git push\n\`\`\`\n\n---\n\n`;
+            } else {
+              body += `✅ **Archivos permitidos:** Solo modificaste tu carpeta personal (sin conflictos en \`ASISTENTES.md\`, \`README.md\` ni \`asistentes.json\`).\n\n`;
+            }
+
+            body += `### 📊 Evaluación de Retos Detectados\n`;
+            if (result.detailedReport && result.detailedReport.length > 0) {
+              body += `${result.detailedReport.join('\n')}\n\n`;
+              body += `**Progreso estimado tras este PR:** ${result.newRank} · **${result.points} XP**\n`;
+            } else {
+              body += `⚠️ No se detectaron archivos válidos en \`aportes-comunidad/soluciones-retos/${prUser}/semana-XX/\`.\n`;
+            }
+
+            // 5. Publicar o actualizar comentario en el PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number
+            });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body
+              });
+            }
+
+            if (forbiddenFiles.length > 0) {
+              core.setFailed(`El PR modifica archivos protegidos fuera de aportes-comunidad/soluciones-retos/${prUser}/: ${forbiddenFiles.join(', ')}`);
+            }
