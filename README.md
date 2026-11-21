@@ -680,11 +680,11 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/devdavco/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md" title="Andrea Jaramillo (@eandreaja) — 70 XP">
+      <a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md" title="Andrea Jaramillo (@eandreaja) — 80 XP">
         <img src="https://github.com/eandreaja.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="eandreaja"/><br/>
         <sub><b>Andrea Jaramillo</b></sub>
       </a><br/>
-      <sub>⛵ Marinero • <b>70 XP</b></sub><br/>
+      <sub>⛵ Marinero • <b>80 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
