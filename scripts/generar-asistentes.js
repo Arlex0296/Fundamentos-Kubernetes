@@ -488,6 +488,86 @@ const CHALLENGE_VALIDATORS = {
           );
         })
     }
+  ],
+  'semana-04': [
+    {
+      id: '01',
+      name: '01-configmap-clave-inexistente',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto01 = /reto-?01|barista-reto-01|menu-precios-cfg/.test(code) || /0?1/.test(f.relPath);
+          return (
+            isReto01 &&
+            /kind:\s*ConfigMap/.test(code) &&
+            !code.includes('PRECIO_ESPRESSO') &&
+            /key:\s*(PRECIO_TINTO|MONEDA)\b/.test(code)
+          );
+        })
+    },
+    {
+      id: '02',
+      name: '02-secret-base64-roto',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto02 = /reto-?02|caja-reto-02|credenciales-kubecafe/.test(code) || /0?2/.test(f.relPath);
+          return (
+            isReto02 &&
+            /kind:\s*Secret/.test(code) &&
+            !code.includes('secreto-inexistente') &&
+            !code.includes('TOKEN_SECRETO') &&
+            /name:\s*credenciales-kubecafe\b/.test(code) &&
+            /key:\s*API_TOKEN\b/.test(code)
+          );
+        })
+    },
+    {
+      id: '03',
+      name: '03-pvc-pendiente-storageclass',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto03 = /reto-?03|bodega-reto-03/.test(code) || /0?3/.test(f.relPath);
+          return (
+            isReto03 &&
+            /kind:\s*PersistentVolumeClaim/.test(code) &&
+            !code.includes('ssd-ultra-inexistente') &&
+            !code.includes('50Gi') &&
+            /storageClassName:\s*manual\b/.test(code)
+          );
+        })
+    },
+    {
+      id: '04',
+      name: '04-volumen-mountpath-roto',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto04 = /reto-?04|pod-volumen-reto-04/.test(code) || /0?4/.test(f.relPath);
+          return (
+            isReto04 &&
+            /kind:\s*Pod/.test(code) &&
+            (/volumeMounts:[\s\S]*name:\s*volumen-bodega\b/.test(code) ||
+              /volumes:[\s\S]*name:\s*datos-kubecafe\b/.test(code))
+          );
+        })
+    },
+    {
+      id: '05',
+      name: '05-configmap-volumen-roto',
+      validate: files =>
+        files.some(f => {
+          const code = stripComments(f.content);
+          const isReto05 = /reto-?05|web-reto-05|menu-html-reto-05/.test(code) || /0?5/.test(f.relPath);
+          return (
+            isReto05 &&
+            /kind:\s*ConfigMap/.test(code) &&
+            ((/pagina\.html:/.test(code) && /key:\s*pagina\.html\b/.test(code)) ||
+              (/menu\.html:/.test(code) && /key:\s*menu\.html\b/.test(code)))
+          );
+        })
+    }
   ]
 };
 

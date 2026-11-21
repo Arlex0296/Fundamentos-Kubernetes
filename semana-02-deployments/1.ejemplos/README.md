@@ -32,6 +32,20 @@ cd Fundamentos-Kubernetes
 
 ## 🚀 Laboratorio 1: Tu Primer Deployment y la Magia del Self-Healing
 
+```mermaid
+flowchart TD
+    S2_DEP["🔄 Deployment: cafecito-app\n(replicas: 3)"] --> S2_RS["📋 ReplicaSet\n(Vigila que siempre haya 3)"]
+    S2_RS --> S2_P1["☕ Pod 1"]
+    S2_RS --> S2_P2["☕ Pod 2"]
+    S2_RS --> S2_P3["☕ Pod 3 (si muere, nace otro)"]
+
+    style S2_DEP fill:#2563eb,color:#fff
+    style S2_RS fill:#7c3aed,color:#fff
+    style S2_P1 fill:#16a34a,color:#fff
+    style S2_P2 fill:#16a34a,color:#fff
+    style S2_P3 fill:#16a34a,color:#fff
+```
+
 ### Paso 1: Aplica el Deployment básico
 ```bash
 kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/01-primer-deployment-replicas.yaml
@@ -93,6 +107,16 @@ kubectl apply -f $PWD/semana-02-deployments/1.ejemplos/01-primer-deployment-repl
 ---
 
 ## 🔄 Laboratorio 3: Rolling Update (Actualización con Cero Caídas)
+
+```mermaid
+flowchart TD
+    S2_RU["🔄 RollingUpdate\n(maxSurge: 1, maxUnavailable: 0)"] --> S2_V1["📦 ReplicaSet v1 (Baja 3 -> 2 -> 0)"]
+    S2_RU --> S2_V2["✨ ReplicaSet v2 (Sube 0 -> 1 -> 3)"]
+
+    style S2_RU fill:#2563eb,color:#fff
+    style S2_V1 fill:#d97706,color:#fff
+    style S2_V2 fill:#16a34a,color:#fff
+```
 
 Aplica el Deployment con estrategia `RollingUpdate`:
 ```bash

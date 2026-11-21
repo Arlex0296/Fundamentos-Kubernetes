@@ -198,6 +198,17 @@ kubectl delete namespace salon-imp --ignore-not-found
 
 ## 🔗 Laboratorio 5 (Integrador): Frontend (`NodePort`) ➔ Backend (`ClusterIP` + FQDN)
 
+```mermaid
+flowchart TD
+    S3_L5_CLI["🌐 Navegador (:30090)"] --> S3_L5_FE["🖥️ Service NodePort\nfrontend-salon-svc"]
+    S3_L5_FE -->|"Consume DNS interno:\ncocina-api-svc:80"| S3_L5_BE["🤵 Service ClusterIP\ncocina-api-svc"]
+    S3_L5_BE --> S3_L5_PODS["☕ 3 Pods Backend\ncocina-api"]
+
+    style S3_L5_FE fill:#2563eb,color:#fff
+    style S3_L5_BE fill:#0284c7,color:#fff
+    style S3_L5_PODS fill:#16a34a,color:#fff
+```
+
 Este ejercicio conecta una arquitectura real de 2 capas:
 1. **Backend (`api-backend-svc` · `ClusterIP`):** solo accesible dentro del clúster.
 2. **Frontend (`web-frontend-svc` · `NodePort :30090`):** expuesto hacia afuera; cuando recibe `/api`, reenvía la petición al Backend usando su FQDN interno (`http://api-backend-svc.default.svc.cluster.local`).
@@ -233,6 +244,16 @@ done
 
 ## 🐤 Laboratorio 6: Canary Deployment con solo `Service` (`75% v1` / `25% v2`)
 
+```mermaid
+flowchart TD
+    S3_L6_SVC["🤵 Service: barista-canary-svc\n(selector: app=barista)"] -->|"75% (3 Pods)"| S3_L6_V1["☕ barista-v1 (3 réplicas)"]
+    S3_L6_SVC -->|"25% (1 Pod)"| S3_L6_V2["✨ barista-v2 (1 réplica)"]
+
+    style S3_L6_SVC fill:#2563eb,color:#fff
+    style S3_L6_V1 fill:#16a34a,color:#fff
+    style S3_L6_V2 fill:#d97706,color:#fff
+```
+
 No siempre necesitas un Gateway o Service Mesh para hacer pruebas **Canary**: un simple `Service` cuyo `selector` (`app: barista`) coincida con **dos Deployments** (`barista-v1` con 3 réplicas y `barista-v2-canary` con 1 réplica) repartirá el tráfico proporcionalmente según el número de Pods (`75%` vs `25%`).
 
 ### Paso 1: Aplica ambos Deployments y el Service compartido
@@ -256,6 +277,21 @@ kubectl run canary-tester --image=curlimages/curl:8.10.1 --rm --attach --restart
 ---
 
 ## ⚖️ Laboratorio 7: Service `LoadBalancer` con Cilium (`IPPool` + `L2 Announcements`)
+
+```mermaid
+flowchart TD
+    S3_L7_CLI["💻 dev-machine / Firefox :3000"] -->|"ARP L2 (172.16.0.200)"| S3_L7_SVC["⚖️ Service: kubecafe-lb-svc"]
+    S3_L7_POOL["📦 CiliumLoadBalancerIPPool (10a)"] -.->|"Asigna EXTERNAL-IP"| S3_L7_SVC
+    S3_L7_L2["📢 CiliumL2AnnouncementPolicy (10a)"] -.->|"Anuncia IP en eth0"| S3_L7_SVC
+    S3_L7_SVC --> S3_L7_P1["☕ Pod 1: kubecafe-lb-app"]
+    S3_L7_SVC --> S3_L7_P2["☕ Pod 2: kubecafe-lb-app"]
+
+    style S3_L7_SVC fill:#2563eb,color:#fff
+    style S3_L7_POOL fill:#7c3aed,color:#fff
+    style S3_L7_L2 fill:#7c3aed,color:#fff
+    style S3_L7_P1 fill:#16a34a,color:#fff
+    style S3_L7_P2 fill:#16a34a,color:#fff
+```
 
 En un clúster propio o en **iximiuz Kubernetes Cluster Playground** (red `172.16.0.0/24` sobre `eth0`), un `Service` de tipo `LoadBalancer` queda en `<pending>` a menos que un controlador asigne IPs. **Cilium** puede asignar IPs de un rango y anunciarlas en la red local.
 
@@ -333,6 +369,21 @@ Luego abre el modal **Expose HTTP(S) Ports** en iximiuz:
 ---
 
 ## 🏛️ Laboratorio 8: Enrutamiento HTTP Moderno con Gateway API (Cilium)
+
+```mermaid
+flowchart TD
+    S3_L8_CLI["🌐 Cliente (curl / Firefox :3000)"] -->|"HTTP :80"| S3_L8_GW["🚪 Gateway: kubecafe-gateway"]
+    S3_L8_GW -->|"/cocina, Host o 80% /peso"| S3_L8_SVC1["🤵 Service: cocina-svc"]
+    S3_L8_GW -->|"/menu, X-Env: beta o 20% /peso"| S3_L8_SVC2["🤵 Service: menu-nodeport-svc"]
+    S3_L8_SVC1 --> S3_L8_P1["☕ Pods: kubecafe-cocina"]
+    S3_L8_SVC2 --> S3_L8_P2["📋 Pods: kubecafe-menu"]
+
+    style S3_L8_GW fill:#2563eb,color:#fff
+    style S3_L8_SVC1 fill:#0284c7,color:#fff
+    style S3_L8_SVC2 fill:#0284c7,color:#fff
+    style S3_L8_P1 fill:#16a34a,color:#fff
+    style S3_L8_P2 fill:#16a34a,color:#fff
+```
 
 Este laboratorio utiliza **Cilium** (el CNI del clúster) como controlador nativo de **Gateway API** (`gatewayClassName: cilium`).
 
@@ -433,6 +484,19 @@ Cada ejemplo tiene su propio manifiesto y su propia ruta para que puedas probarl
 
 ## 🚦 Laboratorio 9: Canary Deployment Fácil con Gateway API (`80%` / `20%`)
 
+```mermaid
+flowchart TD
+    S3_L9_CLI["🌐 Cliente / Firefox :3000"] -->|"HTTP :80"| S3_L9_GW["🚪 kubecafe-gateway"]
+    S3_L9_GW -->|"/canary-ui"| S3_L9_UI["🖥️ canary-frontend-svc"]
+    S3_L9_GW -->|"/canary (80%)"| S3_L9_V1["📋 menu-v1-svc"]
+    S3_L9_GW -->|"/canary (20%)"| S3_L9_V2["✨ menu-v2-svc"]
+
+    style S3_L9_GW fill:#2563eb,color:#fff
+    style S3_L9_UI fill:#0284c7,color:#fff
+    style S3_L9_V1 fill:#16a34a,color:#fff
+    style S3_L9_V2 fill:#d97706,color:#fff
+```
+
 A diferencia del **Laboratorio 6** (donde el porcentaje dependía del número de Pods), con **Gateway API** puedes controlar el porcentaje exacto (`weight: 80` / `weight: 20`) sin importar cuántas réplicas tenga cada Deployment.
 
 ### Paso 1: Aplica los 2 Deployments, sus 2 Services y el `HTTPRoute`
@@ -454,6 +518,19 @@ done
 ---
 
 ## 🤖 Laboratorio 10: AI Gateway — Frontend con Gateway API consumiendo 2 Modelos de IA (Ollama)
+
+```mermaid
+flowchart TD
+    S3_L10_CLI["🌐 Usuario / Firefox :3000"] -->|"HTTP :80"| S3_L10_GW["🚪 kubecafe-gateway"]
+    S3_L10_GW -->|"/"| S3_L10_FE["🖥️ ia-frontend-svc"]
+    S3_L10_GW -->|"/ia/rapido o 70% /ia/auto"| S3_L10_LLM1["⚡ ollama-llama-svc :11434"]
+    S3_L10_GW -->|"/ia/avanzado o 30% /ia/auto"| S3_L10_LLM2["🧠 ollama-gemma-svc :11434"]
+
+    style S3_L10_GW fill:#2563eb,color:#fff
+    style S3_L10_FE fill:#0284c7,color:#fff
+    style S3_L10_LLM1 fill:#16a34a,color:#fff
+    style S3_L10_LLM2 fill:#7c3aed,color:#fff
+```
 
 En este laboratorio montas un **AI Gateway** en Kubernetes: un único punto de entrada (`Gateway` + `HTTPRoute`) donde un mismo **Frontend web** (`ia-frontend-svc`) consume **dos backends de IA distintos** en el puerto estándar de Ollama (`:11434`):
 - `/ia/rapido` ➔ `ollama-llama-svc:11434` (`llama3.2:1b`)

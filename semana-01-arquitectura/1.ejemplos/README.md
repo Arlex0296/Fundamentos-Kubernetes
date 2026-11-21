@@ -431,6 +431,16 @@ k delete -f 03-pod-con-recursos-y-env.yaml
 * Si hay varios `initContainers`, se ejecutan **en orden secuencial estricto**, uno tras otro.
 * **Deben finalizar con código de salida 0**. Si fallan, Kubernetes reinicia el Pod hasta que tengan éxito.
 
+```mermaid
+flowchart TD
+    S1_INIT["1️⃣ initContainer: inicializador\n(Prepara /trabajo/index.html)"] -->|"Exit 0 ✅"| S1_VOL["📁 Volumen emptyDir\ndatos-inicio"]
+    S1_VOL -->|"Montado en /usr/share/nginx/html"| S1_MAIN["2️⃣ Contenedor Principal:\nservidor-web (Nginx)"]
+
+    style S1_INIT fill:#d97706,color:#fff
+    style S1_VOL fill:#7c3aed,color:#fff
+    style S1_MAIN fill:#16a34a,color:#fff
+```
+
 ### 🚀 Paso a Paso de Ejecución:
 
 #### 1. Aplicar el manifiesto y vigilar la transición de estados en vivo

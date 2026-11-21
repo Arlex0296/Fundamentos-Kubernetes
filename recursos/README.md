@@ -21,6 +21,7 @@ En esta carpeta encontrarás todas las guías complementarias, herramientas visu
 | Guía | Descripción |
 | :--- | :--- |
 | [**⌨️ Shell DX para Kubernetes (`guia-shell-dx-kubernetes.md`)**](./guia-shell-dx-kubernetes.md) | Cómo configurar tu terminal profesional con `kubectl` autocomplete, alias `k`, `kubectx`, `kubens`, `k9s` y `stern`. |
+| [**📋 Cheat Sheet de `kubectl` (`cheatsheet-kubectl.md`)**](./cheatsheet-kubectl.md) | Hoja de referencia rápida con comandos de inspección, diagnóstico (`describe`, `logs`, `events`) y redes para principiantes. |
 | [**🛡️ Seguridad de Imágenes con Trivy (`guia-trivy-seguridad.md`)**](./guia-trivy-seguridad.md) | Escaneo de vulnerabilidades (CVEs) en imágenes Docker, `Dockerfile` y manifiestos antes de desplegar a producción. |
 | [**🏪 Registro Privado con Harbor (`guia-harbor-registry.md`)**](./guia-harbor-registry.md) | Cómo operar un registro OCI empresarial con firma de imágenes y escaneo integrado. |
 | [**🤖 IA Local con Ollama (`guia-ollama-ia-local.md`)**](./guia-ollama-ia-local.md) | Ejecución de modelos de lenguaje (LLMs) locales en CPU con Docker y Kubernetes. |
