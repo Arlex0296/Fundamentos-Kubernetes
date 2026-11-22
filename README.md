@@ -57,6 +57,11 @@
 > ```bash
 > curl -fsSL https://raw.githubusercontent.com/edwinbermudez91/Fundamentos-Kubernetes/main/semana-01-arquitectura/0.prepara-tu-laboratorio/setup-lab.sh -o /tmp/setup-lab.sh && bash /tmp/setup-lab.sh
 > ```
+>
+> <p align="center">
+>   <img src="./recursos/img/demo-setup-lab.gif" alt="Demo en vivo de setup-lab.sh creando clúster Kind con Cilium, LoadBalancer y Headlamp" width="820" />
+> </p>
+>
 > [![Setup Rápido Kind + Cilium](https://img.shields.io/badge/⚡_Setup_Automático-Kind_+_Cilium_+_Headlamp-10B981?style=for-the-badge&logo=kubernetes&logoColor=white)](./semana-01-arquitectura/0.prepara-tu-laboratorio#-opción-1-recomendada-setup-automático-en-1-comando-setup-labsh) [![Ver Requisitos y Opciones](https://img.shields.io/badge/📖_Ver_Guía_Completa-Requisitos_y_Nodos-2563EB?style=for-the-badge&logo=bookstack&logoColor=white)](./semana-01-arquitectura/0.prepara-tu-laboratorio#-opción-1-recomendada-setup-automático-en-1-comando-setup-labsh)
 
 > [!TIP]

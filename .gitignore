@@ -216,5 +216,6 @@ tags
 ### macOS ###
 *.code-workspace
 .DS_Store
+*.cast
 
 # End of https://www.toptal.com/developers/gitignore/api/python,vim,visualstudiocode
