@@ -111,6 +111,11 @@ git add aportes-comunidad/soluciones-retos/TU-USUARIO/
 ```
 * **¿Qué hace?** Agrega únicamente tus soluciones en `aportes-comunidad/soluciones-retos/TU-USUARIO/` y evita subir por accidente cambios en los archivos originales de `2.reto-roto/`. Verifica con `git status` que no hayas modificado nada fuera de tu carpeta.
 
+> [!WARNING]
+> **🤖 Validación Automática en tu Pull Request:**  
+> Al abrir tu PR, nuestro bot evaluará cada reto automáticamente y publicará una tabla con el estado (`✅ OK` / `❌ FAIL`).  
+> Si modificas por error archivos protegidos como `ASISTENTES.md`, `README.md` o `asistentes.json`, el check fallará para evitar conflictos de merge (el bot los actualiza solo después del merge).
+
 #### 2. Sella y titula tu paquete:
 ```bash
 git commit -m "Tu mensaje descriptivo aquí"

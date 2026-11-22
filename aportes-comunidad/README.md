@@ -40,9 +40,10 @@ flowchart TD
 ### ⚠️ La Regla de Oro Antes de Empezar
 
 > [!IMPORTANT]
-> **¡NUNCA modifiques ni borres los archivos originales dentro de `semana-XX-.../2.reto-roto/`!**  
-> Esos archivos son los ejercicios base para todos tus compañeros.  
-> **Siempre debes copiar los archivos a tu propia carpeta personal** dentro de `aportes-comunidad/soluciones-retos/TU-USUARIO/semana-XX/` y arreglarlos allí.
+> **¡NUNCA modifiques archivos originales ni archivos del ranking!**  
+> - No edites los archivos base dentro de `semana-XX-.../2.reto-roto/` (cópialos siempre a `aportes-comunidad/soluciones-retos/TU-USUARIO/semana-XX/`).  
+> - **Tampoco edites** `ASISTENTES.md`, `README.md` ni `asistentes.json`: el bot de GitHub Actions los actualiza automáticamente al hacer merge, y si los tocas en tu PR el check de validación automática te pedirá revertirlos para evitar conflictos.
+> - Al abrir tu PR, el bot comentará al instante una tabla indicando qué ejercicios pasaron (`✅ OK`) y cuáles requieren ajuste (`❌ FAIL`).
 
 ---
 
