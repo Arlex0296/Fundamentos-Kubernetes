@@ -85,15 +85,15 @@
 
 <a id="directorio-visual"></a>
 
-## 📂 Directorio Visual del Repositorio
-<sub><i>Navegación rápida por módulos con acceso directo a guías, laboratorios prácticos y retos (+XP)</i></sub>
+## 📂 Directorio y Tablero de Navegación del Repositorio
+<sub><i>Acceso único a todos los módulos del workshop (Semanas 00–06), XP en juego, guías, ejemplos, retos, PDFs y carpetas del repositorio</i></sub>
 
 <table width="100%">
   <thead>
     <tr>
-      <th align="left" width="26%">📁 Módulo / Carpeta</th>
-      <th align="center" width="22%">🏷️ Tecnología &amp; Estado</th>
-      <th align="left">🧭 Contenido y Accesos Directos</th>
+      <th align="left" width="27%">📁 Módulo / Carpeta</th>
+      <th align="center" width="21%">🏷️ Estado &amp; XP</th>
+      <th align="left">🧭 Qué vas a dominar y Accesos Directos</th>
     </tr>
   </thead>
   <tbody>
@@ -103,11 +103,12 @@
         <a href="./semana-00-fundamentos-docker"><code>semana-00-fundamentos-docker/</code></a>
       </td>
       <td align="center">
-        <a href="./semana-00-fundamentos-docker"><img src="https://img.shields.io/badge/Docker-Disponible-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker Disponible"/></a>
+        <a href="./semana-00-fundamentos-docker"><img src="https://img.shields.io/badge/Docker-Disponible-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker Disponible"/></a><br/>
+        <sub><b>+50 XP</b> (5 Retos + 10 Bitácora)</sub>
       </td>
       <td>
-        Empaquetado de apps, imágenes Alpine ligeras, redes bridge, volúmenes y Trivy.<br/>
-        <sub><a href="./semana-00-fundamentos-docker">📖 Guía</a> • <a href="./semana-00-fundamentos-docker/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-00-fundamentos-docker/2.reto-roto">💥 Retos</a></sub>
+        <code>Dockerfile</code>, imágenes Alpine OCI, redes bridge, volúmenes y Trivy.<br/>
+        <sub><a href="./semana-00-fundamentos-docker/README.md">📖 Guía</a> • <a href="./semana-00-fundamentos-docker/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-00-fundamentos-docker/2.reto-roto">💥 Retos</a> • <a href="./recursos/diapositivas/0.Fundamentos-Docker.pdf">📊 PDF</a></sub>
       </td>
     </tr>
     <tr>
@@ -116,11 +117,12 @@
         <a href="./semana-01-arquitectura"><code>semana-01-arquitectura/</code></a>
       </td>
       <td align="center">
-        <a href="./semana-01-arquitectura"><img src="https://img.shields.io/badge/K8s_Pods-Disponible-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="K8s Pods Disponible"/></a>
+        <a href="./semana-01-arquitectura"><img src="https://img.shields.io/badge/K8s_Pods-Disponible-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="K8s Pods Disponible"/></a><br/>
+        <sub><b>+40 XP</b> (4 Retos + 10 Bitácora)</sub>
       </td>
       <td>
-        Control Plane vs. Workers, Pods, Sidecars, InitContainers y probes.<br/>
-        <sub><a href="./semana-01-arquitectura">📖 Guía</a> • <a href="./semana-01-arquitectura/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-01-arquitectura/2.reto-roto">💥 Retos</a></sub>
+        Control Plane vs. Workers, <code>kubectl</code>, Pods, Sidecars, InitContainers y probes.<br/>
+        <sub><a href="./semana-01-arquitectura/README.md">📖 Guía</a> • <a href="./semana-01-arquitectura/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-01-arquitectura/2.reto-roto">💥 Retos</a> • <a href="./recursos/diapositivas/1.KubeCafe-De-Docker-a-Kubernetes.pdf">📊 PDF</a></sub>
       </td>
     </tr>
     <tr>
@@ -129,11 +131,12 @@
         <a href="./semana-02-deployments"><code>semana-02-deployments/</code></a>
       </td>
       <td align="center">
-        <a href="./semana-02-deployments"><img src="https://img.shields.io/badge/Deployments-Disponible-10B981?style=flat-square&logo=kubernetes&logoColor=white" alt="Deployments Disponible"/></a>
+        <a href="./semana-02-deployments"><img src="https://img.shields.io/badge/Deployments-Disponible-10B981?style=flat-square&logo=kubernetes&logoColor=white" alt="Deployments Disponible"/></a><br/>
+        <sub><b>+40 XP</b> (4 Retos + 10 Bitácora)</sub>
       </td>
       <td>
-        Réplicas, autorreparación (<i>self-healing</i>), rolling updates cero caídas y rollbacks.<br/>
-        <sub><a href="./semana-02-deployments">📖 Guía</a> • <a href="./semana-02-deployments/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-02-deployments/2.reto-roto">💥 Retos</a></sub>
+        <code>ReplicaSets</code>, autorreparación (<i>self-healing</i>), rolling updates cero caídas y rollbacks.<br/>
+        <sub><a href="./semana-02-deployments/README.md">📖 Guía</a> • <a href="./semana-02-deployments/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-02-deployments/2.reto-roto">💥 Retos</a> • <a href="./recursos/diapositivas/2.KubeCafe-De-un-Pod-al-Deployment.pdf">📊 PDF</a></sub>
       </td>
     </tr>
     <tr>
@@ -142,24 +145,54 @@
         <a href="./semana-03-services-gateway"><code>semana-03-services-gateway/</code></a>
       </td>
       <td align="center">
-        <a href="./semana-03-services-gateway"><img src="https://img.shields.io/badge/Cilium_%26_Gateway-Disponible-06B6D4?style=flat-square&logo=cilium&logoColor=white" alt="Cilium y Gateway API Disponible"/></a>
+        <a href="./semana-03-services-gateway"><img src="https://img.shields.io/badge/Cilium_%26_Gateway-Disponible-06B6D4?style=flat-square&logo=cilium&logoColor=white" alt="Cilium y Gateway API Disponible"/></a><br/>
+        <sub><b>+40 XP</b> (4 Retos + 10 Bitácora)</sub>
       </td>
       <td>
         <code>ClusterIP</code>, <code>NodePort</code>, <code>CoreDNS</code>, <b>Cilium LoadBalancer</b>, <b>Gateway API</b> y <b>AI Gateway</b>.<br/>
-        <sub><a href="./semana-03-services-gateway">📖 Guía</a> • <a href="./semana-03-services-gateway/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-03-services-gateway/2.reto-roto">💥 Retos</a></sub>
+        <sub><a href="./semana-03-services-gateway/README.md">📖 Guía</a> • <a href="./semana-03-services-gateway/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-03-services-gateway/2.reto-roto">💥 Retos</a> • <a href="./recursos/diapositivas/3.KubeCafe-Services-y-Gateway-API.pdf">📊 PDF</a></sub>
       </td>
     </tr>
     <tr>
       <td>
-        <b>💾 Semana 04 — Configuración &amp; Storage</b><br/>
+        <b>💾 Semana 04 — Config &amp; Storage</b><br/>
         <a href="./semana-04-configuracion-almacenamiento"><code>semana-04-configuracion-almacenamiento/</code></a>
       </td>
       <td align="center">
-        <a href="./semana-04-configuracion-almacenamiento"><img src="https://img.shields.io/badge/Config_%26_PV-En_Curso-8B5CF6?style=flat-square&logo=kubernetes&logoColor=white" alt="Config y PV En Curso"/></a>
+        <a href="./semana-04-configuracion-almacenamiento"><img src="https://img.shields.io/badge/Config_%26_PV-En_Curso-8B5CF6?style=flat-square&logo=kubernetes&logoColor=white" alt="Config y PV En Curso"/></a><br/>
+        <sub><b>+50 XP</b> (5 Retos + 10 Bitácora)</sub>
       </td>
       <td>
         <code>ConfigMaps</code>, <code>Secrets</code>, <code>emptyDir</code> vs <code>hostPath</code>, <b>PV/PVC</b> y <b>StorageClass</b> dinámico.<br/>
-        <sub><a href="./semana-04-configuracion-almacenamiento">📖 Guía</a> • <a href="./semana-04-configuracion-almacenamiento/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-04-configuracion-almacenamiento/2.reto-roto">💥 Retos</a></sub>
+        <sub><a href="./semana-04-configuracion-almacenamiento/README.md">📖 Guía</a> • <a href="./semana-04-configuracion-almacenamiento/1.ejemplos">🧪 Ejemplos</a> • <a href="./semana-04-configuracion-almacenamiento/2.reto-roto">💥 Retos</a></sub>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>🛡️ Semana 05 — Salud &amp; Seguridad</b><br/>
+        <sub><code>Liveness/Readiness</code> • <code>Quotas</code> • <code>RBAC</code></sub>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Seguridad_%26_RBAC-Pr%C3%B3ximamente-64748B?style=flat-square&logo=kubernetes&logoColor=white" alt="Seguridad Próximamente"/><br/>
+        <sub><b>+40 XP</b> 🔒</sub>
+      </td>
+      <td>
+        Sondas <code>Liveness/Readiness</code>, límites de CPU/RAM, NetworkPolicies y permisos <code>RBAC</code>.<br/>
+        <sub><a href="https://kubernetes.io/es/docs/concepts/security/">📚 Docs Security</a></sub>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>🚀 Semana 06 — Helm &amp; Proyecto Final</b><br/>
+        <sub><code>Helm Charts</code> • <code>KubeCafé 3 Capas</code></sub>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/Helm_&_Proyecto-Pr%C3%B3ximamente-EC4899?style=flat-square&logo=helm&logoColor=white" alt="Helm Próximamente"/><br/>
+        <sub><b>+50 XP</b> 🏆</sub>
+      </td>
+      <td>
+        Empaquetado con <b>Helm Charts</b> y despliegue completo de <b>KubeCafé</b> en 3 capas.<br/>
+        <sub><a href="https://helm.sh/docs/">📚 Docs Helm</a></sub>
       </td>
     </tr>
     <tr>
@@ -184,8 +217,8 @@
         <a href="./recursos"><img src="https://img.shields.io/badge/Recursos-Simulador_%26_PDF-8B5CF6?style=flat-square&logo=coffeescript&logoColor=white" alt="Recursos Simulador"/></a>
       </td>
       <td>
-        Simulador KubeCafé, diapositivas PDF, Trivy, Harbor, Ollama y Labs Cilium.<br/>
-        <sub><a href="./recursos/guia-shell-dx-kubernetes.md">⌨️ Shell DX</a> • <a href="./recursos/portafolio-y-badges.md">🏅 Insignias</a> • <a href="https://labs.isovalent.com/#/overview">🐝 Isovalent Labs</a></sub>
+        Simulador KubeCafé, diapositivas PDF, Trivy, Harbor, Ollama, Cheat Sheet y Labs Cilium.<br/>
+        <sub><a href="./recursos/cheatsheet-kubectl.md">📋 Cheat Sheet</a> • <a href="./recursos/guia-shell-dx-kubernetes.md">⌨️ Shell DX</a> • <a href="./recursos/portafolio-y-badges.md">🏅 Insignias</a> • <a href="https://labs.isovalent.com/#/overview">🐝 Isovalent Labs</a></sub>
       </td>
     </tr>
     <tr>
@@ -317,15 +350,16 @@ flowchart LR
     click S1 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-01-arquitectura" "Ir a Semana 01: Arquitectura y Pods"
     click S2 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-02-deployments" "Ir a Semana 02: Deployments y Réplicas"
     click S3 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-03-services-gateway" "Ir a Semana 03: Services y Gateway API"
+    click S4 "https://github.com/edwinbermudez91/Fundamentos-Kubernetes/tree/main/semana-04-configuracion-almacenamiento" "Ir a Semana 04: Configuración y Almacenamiento"
 
     classDef done fill:#064E3B,stroke:#10B981,stroke-width:2px,color:#ECFDF5;
     classDef active fill:#1E3A8A,stroke:#00F0FF,stroke-width:3px,color:#FFFFFF;
     classDef next fill:#0F172A,stroke:#475569,stroke-width:1.5px,stroke-dasharray: 4 4,color:#CBD5E1;
     classDef final fill:#3B0764,stroke:#C084FC,stroke-width:2px,stroke-dasharray: 4 4,color:#F3E8FF;
 
-    class S0,S1,S2 done;
-    class S3 active;
-    class S4,S5 next;
+    class S0,S1,S2,S3 done;
+    class S4 active;
+    class S5 next;
     class S6 final;
 
     style F1 fill:#0B1120,stroke:#10B981,stroke-width:1.5px,color:#10B981
@@ -333,18 +367,6 @@ flowchart LR
     style F3 fill:#0B1120,stroke:#00F0FF,stroke-width:2px,color:#00F0FF
     style F4 fill:#0B1120,stroke:#A855F7,stroke-width:1.5px,stroke-dasharray: 5 5,color:#C084FC
 ```
-
-### 🧭 Tablero de Navegación Rápida por Semana
-
-| Semana | Módulo y Analogía en ☕ KubeCafé | Lo que vas a dominar | XP en Juego | Accesos Directos al Material |
-| :---: | :--- | :--- | :---: | :--- |
-| **00**<br>🟢 *Activo* | [**De Código a Contenedor con Docker**](./semana-00-fundamentos-docker)<br><sub>🌱 Grano → 📜 Receta → 📦 Bolsa → ☕ Taza</sub> | `Dockerfile`, imágenes OCI, capas, seguridad rootless y puente a Kind/K8s. | **+50 XP**<br><sub>(5 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-00-fundamentos-docker/README.md) • [🧪 Ejemplos](./semana-00-fundamentos-docker/1.ejemplos) • [💥 Retos](./semana-00-fundamentos-docker/2.reto-roto) • [📚 Docs Docker](https://docs.docker.com/) • [📊 PDF](./recursos/diapositivas/0.Fundamentos-Docker.pdf) |
-| **01**<br>🟢 *Activo* | [**El motor por dentro y tu primer Pod**](./semana-01-arquitectura)<br><sub>🍽️ Bandeja (`Pod`), 🪵 Mesas (`Nodes`) y 🏢 Gerencia</sub> | Control Plane vs. Worker Nodes, `kubectl`, Pods multicontenedor y sondas. | **+40 XP**<br><sub>(4 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-01-arquitectura/README.md) • [🧪 Ejemplos](./semana-01-arquitectura/1.ejemplos) • [💥 Retos](./semana-01-arquitectura/2.reto-roto) • [📚 Docs Pods](https://kubernetes.io/es/docs/concepts/workloads/pods/) • [📊 PDF](./recursos/diapositivas/1.KubeCafe-De-Docker-a-Kubernetes.pdf) |
-| **02**<br>🟢 *Activo* | [**Despliegues sin caídas y autorreparación**](./semana-02-deployments)<br><sub>🧐 Supervisor (`Controller`) y 📝 Orden de Turno</sub> | `ReplicaSets`, `Deployments`, *Self-healing*, *Rolling Updates* y *Rollbacks*. | **+40 XP**<br><sub>(4 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-02-deployments/README.md) • [🧪 Ejemplos](./semana-02-deployments/1.ejemplos) • [💥 Retos](./semana-02-deployments/2.reto-roto) • [📚 Docs Deployments](https://kubernetes.io/es/docs/concepts/workloads/controllers/deployment/) • [🎮 Simular](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html) • [📊 PDF](./recursos/diapositivas/2.KubeCafe-De-un-Pod-al-Deployment.pdf) |
-| **03**<br>🟢 *Activo* | [**Conectando todo: Redes en K8s**](./semana-03-services-gateway)<br><sub>🤵 Mesero (`Service`), 🚪 Puerta (`Gateway`) y 🧭 Recepción (`HTTPRoute`)</sub> | Comunicación interna y externa: `ClusterIP`, `NodePort`, `LoadBalancer` (Cilium L2), `CoreDNS`, `Canary` y **Gateway API** (`Gateway` / `HTTPRoute` / `AI Gateway`). | **+40 XP**<br><sub>(4 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-03-services-gateway/README.md) • [🧪 Ejemplos](./semana-03-services-gateway/1.ejemplos) • [💥 Retos](./semana-03-services-gateway/2.reto-roto) • [🎮 Panel 360°](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/panel-interactivo-kubecafe.html) • [📊 PDF](./recursos/diapositivas/3.KubeCafe-Services-y-Gateway-API.pdf) |
-| **04**<br>🔥 *En Curso* | [**Configuración y Datos Persistentes**](./semana-04-configuracion-almacenamiento)<br><sub>🧂 Especias (`ConfigMap`), 🔐 Caja fuerte (`Secret`) y 🏬 Bodega (`PV/PVC`)</sub> | Desacoplar configuración con `ConfigMaps`, `Secrets`, `emptyDir` vs `hostPath` y volúmenes persistentes (`PV`/`PVC` + `StorageClass`). | **+50 XP**<br><sub>(5 Retos + 10 XP Bitácora)</sub> | [📖 Guía](./semana-04-configuracion-almacenamiento/README.md) • [🧪 Ejemplos](./semana-04-configuracion-almacenamiento/1.ejemplos) • [💥 Retos](./semana-04-configuracion-almacenamiento/2.reto-roto) • [📚 Docs ConfigMaps](https://kubernetes.io/es/docs/concepts/configuration/configmap/) |
-| **05**<br>🔜 *Pronto* | **Salud, Límites y Seguridad Básica**<br><sub>🌡️ Termómetro (`Probes`), ⚖️ Agua y 🪪 Carnets (`RBAC`)</sub> | `Liveness/Readiness Probes`, `Requests/Limits` de CPU/RAM y permisos `RBAC`. | **+40 XP** | [📚 Docs Security](https://kubernetes.io/es/docs/concepts/security/) • *Próximamente* 🔒 |
-| **06**<br>🔜 *Pronto* | **Empaquetado con Helm y Proyecto Final**<br><sub>🍱 Kit de Franquicia (`Helm Chart`)</sub> | Creación de Charts y despliegue completo de **KubeCafé** en 3 capas. | **+50 XP** | [📚 Docs Helm](https://helm.sh/docs/) • *Gran Misión Final* 🏆 |
 
 ---
 
