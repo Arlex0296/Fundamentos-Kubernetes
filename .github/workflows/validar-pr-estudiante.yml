@@ -1,13 +1,12 @@
 name: 🤖 Validar PR de Estudiante (Feedback y Protección)
 
 on:
-  pull_request_target:
+  pull_request:
     branches: [main, master]
     types: [opened, synchronize, reopened]
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   validar-pr:
@@ -16,6 +15,8 @@ jobs:
     steps:
       - name: 📥 Clonar rama base confiable
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.base_ref }}
 
       - name: 🔍 Verificar archivos modificados y evaluar retos
         uses: actions/github-script@v9
@@ -130,29 +131,18 @@ jobs:
               body += `⚠️ No se detectaron archivos válidos en \`aportes-comunidad/soluciones-retos/${prUser}/semana-XX/\`.\n`;
             }
 
-            // 5. Publicar o actualizar comentario en el PR
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number
-            });
-            const existing = comments.find(c => c.body && c.body.includes(marker));
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                body
-              });
-            }
+            // Guardar reporte para que el workflow comentar-pr-estudiante lo publique de forma segura
+            fs.mkdirSync('/tmp/pr-report', { recursive: true });
+            fs.writeFileSync('/tmp/pr-report/report.json', JSON.stringify({ prNumber: pr.number, body }));
 
             if (forbiddenFiles.length > 0) {
               core.setFailed(`El PR modifica archivos protegidos fuera de aportes-comunidad/soluciones-retos/${prUser}/: ${forbiddenFiles.join(', ')}`);
             }
+
+      - name: 📤 Subir reporte de validación
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-validation-report
+          path: /tmp/pr-report/report.json
+          retention-days: 1
