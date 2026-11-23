@@ -13,10 +13,12 @@
 [![Portafolios y Ranking](https://img.shields.io/badge/🎓_Portafolios_y_Ranking-ASISTENTES-8B5CF6?style=for-the-badge&logo=kubernetes&logoColor=white)](./ASISTENTES.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-¡Bienvenidos!-brightgreen.svg?style=for-the-badge)](./CONTRIBUTING.md)
 [![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/edwinbermudez91/Fundamentos-Kubernetes?style=for-the-badge&logo=github&label=%E2%AD%90_Apoya_con_una_Estrella&color=F59E0B)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/stargazers)
 
 <p align="center">
   <b>Un repositorio vivo construido por y para la comunidad.</b><br>
-  Aprende haciendo, rompe cosas sin miedo en tu entorno local y haz tu primer aporte al Open Source.
+  Aprende haciendo, rompe cosas sin miedo en tu entorno local y haz tu primer aporte al Open Source.<br>
+  <sub>⭐ <b>¿Te está sirviendo este workshop? ¡Regálanos una estrella arriba a la derecha!</b> Cada ⭐ ayuda a que más personas en el mundo descubran este material gratuito en español y permite que el proyecto siga creciendo.</sub>
 </p>
 
 [🇨🇴 Únete al Capítulo CNCF Medellín](https://ocgroups.dev/cncf/group/2majk4r) •
@@ -1082,6 +1084,7 @@ Gracias al apoyo de nuestros aliados y patrocinadores, los tripulantes más dest
 
 Hay muchas formas de sumar a la comunidad (¡no todo es código!):
 
+- ⭐ **Regala una estrella al repositorio:** Es la forma más rápida de apoyar. Haz clic en **Star** (arriba a la derecha en GitHub) para dar visibilidad al proyecto, ayudar a que más personas lo encuentren y motivar a que siga creciendo.
 - 🐛 **Caza errores en los Retos Rotos:** Sube tu solución en [`aportes-comunidad/soluciones-retos/`](./aportes-comunidad/soluciones-retos).
 - 📝 **Mejora las explicaciones:** ¿Encontraste una analogía genial en clase? Agrégala al `README.md` de esa semana.
 - 🧰 **Alimenta los Cheatsheets:** Comparte tus alias, trucos o comandos favoritos en [`aportes-comunidad/cheatsheets/`](./aportes-comunidad/cheatsheets).
@@ -1092,5 +1095,6 @@ Hay muchas formas de sumar a la comunidad (¡no todo es código!):
 ---
 
 <div align="center">
+  ⭐ <b>Si este workshop te aportó valor, apóyanos con una estrella en GitHub y compártelo con tu equipo.</b><br><br>
   Hecho con ❤️ y mucho ☕ por la comunidad de <b>Cloud Native Medellín</b>
 </div>
