@@ -205,6 +205,16 @@
     "motivacion": "Me motiva profundizar mis conocimientos en Kubernetes y fortalecer mis habilidades en arquitectura, orquestación y despliegue de aplicaciones en contenedores. Tengo experiencia trabajando con AWS, Docker, Terraform y CI/CD, y quiero complementar estos conocimientos aprendiendo a administrar clústeres, gestionar deployments, services, networking y escalabilidad.   Espero llevar mis conocimientos al siguiente nivel, aplicar lo aprendido en proyectos reales y seguir creciendo profesionalmente como Senior DevOps Engineer."
   },
   {
+    "github": "aiops88",
+    "nombre": "Airy Nieves",
+    "rol": "👩‍💻 Ingeniera<br>Infraestructura",
+    "linkedin": "https://www.linkedin.com/in/airy-nc/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 60,
+    "motivacion": "Aprender de la comunidad de Cloud Native Medellín."
+  },
+  {
     "github": "sanjavier88",
     "nombre": "Jorge Alberto Monsalve Ruiz",
     "rol": "Estudiante",
@@ -293,16 +303,6 @@
     "rango": "⛵ Marinero",
     "puntos": 10,
     "motivacion": "Mejora de mi perfil profesional y mis conocimientos en tecnologias Cloud"
-  },
-  {
-    "github": "aiops88",
-    "nombre": "Airy Nieves",
-    "rol": "👩‍💻 Ingeniera<br>Infraestructura",
-    "linkedin": "https://www.linkedin.com/in/airy-nc/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 10,
-    "motivacion": "Aprender de la comunidad de Cloud Native Medellín."
   },
   {
     "github": "DavidUpegui",
