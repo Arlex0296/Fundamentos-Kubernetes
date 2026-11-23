@@ -5,14 +5,12 @@ on:
     branches: [main]
     paths:
       - "**/*.md"
+      - "!aportes-comunidad/soluciones-retos/**"
       - ".github/workflows/check-links.yml"
-    paths-ignore:
-      - "aportes-comunidad/soluciones-retos/**"
   pull_request:
     paths:
       - "**/*.md"
-    paths-ignore:
-      - "aportes-comunidad/soluciones-retos/**"
+      - "!aportes-comunidad/soluciones-retos/**"
 
 permissions:
   contents: read
