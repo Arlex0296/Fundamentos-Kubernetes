@@ -550,12 +550,14 @@ helm version
 </details>
 
 <details>
-<summary><b>🌐 ¿Tu computador tiene pocos recursos? (Laboratorios interactivos en el navegador)</b></summary>
+<summary><b>🌐 ¿Tu computador tiene pocos recursos? (Laboratorios en el navegador y GitHub Codespaces — Opcional)</b></summary>
 <br>
 
-Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria RAM para levantar clústeres locales, puedes realizar los ejercicios prácticos directamente desde el navegador sin instalar nada:
+Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria RAM para levantar clústeres locales, tienes **dos alternativas opcionales en la nube** sin instalar nada en tu PC:
 
-* 🧪 **Entorno Oficial del Workshop en iximiuz (Recomendado):** [**Laboratorios de Fundamentos de Docker y Kubernetes**](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)
+* 🧪 **Entorno Oficial del Workshop en iximiuz (Recomendado para prácticas rápidas):** [**Laboratorios de Fundamentos de Docker y Kubernetes**](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)
+* ☁️ **GitHub Codespaces (VS Code + Docker + Kind + kubectl + Helm + k9s listos en tu navegador):** [**📖 Ver Guía Paso a Paso y Disclaimers (`recursos/codespaces.md`)**](./recursos/codespaces.md)  
+  <sub>ℹ️ <i>Corre bajo <b>tu propia cuenta de GitHub</b> (60 horas/mes gratis en máquina de 2 cores con límite de gasto en $0 por defecto). Recuerda hacer <code>git push</code> y detener/borrar el Codespace al terminar.</i></sub>
 * 🐳 **Ejercicios complementarios de Docker:** [KodeKloud Studio — Docker Labs](https://kodekloud.com/studio/labs/docker)
 * ☸️ **Ejercicios complementarios de Kubernetes:** [KodeKloud Studio — Kubernetes Labs](https://kodekloud.com/studio/labs/kubernetes)
 

@@ -1,0 +1,32 @@
+{
+  "name": "KubeCafé — Fundamentos de Kubernetes (CNCF Medellín)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb",
+    "storage": "32gb"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true
+    },
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "latest",
+      "helm": "latest",
+      "minikube": "none"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "postCreateCommand": "bash -c 'ARCH=$(dpkg --print-architecture); curl -fsSLo /tmp/kind https://kind.sigs.k8s.io/dl/latest/kind-linux-${ARCH} && chmod +x /tmp/kind && sudo mv /tmp/kind /usr/local/bin/kind && K9S_ARCH=$([ \"$ARCH\" = \"amd64\" ] && echo \"amd64\" || echo \"arm64\"); curl -fsSL https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_${K9S_ARCH}.tar.gz | sudo tar -xz -C /usr/local/bin k9s && chmod +x scripts/verificar-reto.sh'",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
