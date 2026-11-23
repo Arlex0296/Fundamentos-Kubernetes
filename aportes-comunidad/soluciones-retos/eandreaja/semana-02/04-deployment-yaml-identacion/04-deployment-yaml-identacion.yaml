@@ -1,0 +1,48 @@
+# 🚨 RETO 4 (Nivel Ninja): El Manifiesto con Indentación Rota y apiVersion Incompatible 🚨
+# Síntoma: Al hacer 'kubectl apply', la terminal muestra:
+#          "error: error parsing 04-deployment-yaml-identacion.yaml: error converting YAML to JSON"
+#          o indica que el recurso no es reconocido en ese apiVersion.
+#
+# Pista: Revisa con lupa dos cosas:
+#        1. Para un Deployment, el apiVersion estándar en Kubernetes es 'apps/v1' (no 'v1').
+#        2. La sangría (indentación con espacios) de YAML es estricta: 'template:' debe estar dentro
+#           de 'spec:', y 'containers:' debe estar dentro de 'template.spec:'.
+# Misión: Arregla la estructura y la indentación de espacios para que el Deployment se aplique limpiamente.
+
+# Solución del reto 04 (Andrea)
+#
+# Fallo original: había tres errores. El apiVersion era v1, pero los
+# Deployments pertenecen al grupo apps/v1. Además, template: estaba pegado al
+# borde izquierdo en vez de estar dentro de spec:, y containers: también estaba
+# pegado al borde en vez de estar dentro del spec: de template.
+#
+# Cómo lo descubrí: leí el archivo completo y lo comparé con los Deployments de
+# los otros retos y del laboratorio de la semana 02, donde el apiVersion es
+# apps/v1 y template y containers están con sangría. El primer error que
+# muestra el API Server es el del apiVersion, pero los otros dos errores de
+# sangría también estaban y había que corregirlos.
+#
+# Ajuste: cambié apiVersion a apps/v1. Moví template: un escalón (2 espacios)
+# dentro de spec:, y con él todo su bloque. Moví containers: un escalón dentro
+# del spec: de template, también con todo su bloque.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reto-04-estructura
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pagos
+  template:
+    metadata:
+      labels:
+        app: pagos
+    spec:
+      containers:
+        - name: servicio-pagos
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+

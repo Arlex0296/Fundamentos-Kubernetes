@@ -1,0 +1,46 @@
+# 🚨 RETO 1 (Nivel Fácil): El Selector que no reconoce a sus propios Pods 🚨
+# Síntoma: Al hacer 'kubectl apply', el API Server rechaza el manifiesto con un error de validación:
+#          "The Deployment is invalid: spec.template.metadata.labels: Invalid value: `selector` does not match template `labels`"
+#
+# Pista: En Kubernetes, el Deployment usa 'spec.selector.matchLabels' para saber qué Pods le pertenecen.
+#        Si las etiquetas en 'spec.template.metadata.labels' no coinciden exactamente, el despliegue es rechazado.
+# Misión: Corrige las etiquetas para que 'matchLabels' y 'template.metadata.labels' coincidan y el Deployment cree sus 3 réplicas.
+
+# Solución del reto 01 (Andrea)
+#
+# Fallo original: el selector (spec.selector.matchLabels) buscaba pods con
+# app: cafeteriamovil-api, pero la plantilla (spec.template.metadata.labels)
+# les ponía app: etiqueta-equivocada-web. Como no coincidían, el API Server
+# rechazó el Deployment antes de crear nada.
+#
+# Cómo lo descubrí: al correr 'kubectl apply -f' el error decía
+# "`selector` does not match template `labels`", y 'kubectl get
+# deployments,replicasets,pods' confirmó que no se había creado ningún recurso.
+#
+# Ajuste: cambié el valor de app en spec.template.metadata.labels por
+# cafeteriamovil-api para que coincida con el selector.
+# No toqué el selector, porque el valor equivocado era el de la plantilla.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reto-01-selector
+  labels:
+    reto: "1"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cafeteriamovil-api
+  template:
+    metadata:
+      labels:
+        app: cafeteriamovil-api
+        reto: "1"
+    spec:
+      containers:
+        - name: web
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+

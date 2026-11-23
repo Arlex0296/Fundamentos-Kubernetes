@@ -1,0 +1,51 @@
+# 🚨 RETO 2 (Nivel Medio): El Despliegue Fallido y el Bloqueo de Réplicas 🚨
+# Síntoma: Al hacer 'kubectl apply', el Deployment se crea pero NUNCA queda en estado Ready.
+#          'kubectl get deployments' muestra '0/3 READY' y los Pods entran en 'ImagePullBackOff'.
+#
+# Pista: Revisa qué imagen se configuró en el contenedor. Si la etiqueta no existe en el Registry,
+#        el Deployment se queda esperando eternamente.
+# Misión: Cambia la imagen por una imagen válida y funcional (por ejemplo 'nginx:alpine')
+#         para que las 3 réplicas alcancen el estado '3/3 READY'.
+
+# Solución del reto 02 (Andrea)
+#
+# Fallo original: la imagen del contenedor era nginx:version-fantasma-prod-999.
+# El nombre nginx es correcto, pero esa etiqueta (versión) no existe en el
+# registro. El Deployment se creó, pero los 3 Pods se quedaron en
+# ImagePullBackOff y el Deployment en 0/3 READY.
+#
+# Cómo lo descubrí: 'kubectl get deployments' mostró 0/3 READY y 'kubectl get
+# pods' mostró ImagePullBackOff. Con 'kubectl describe pod' vi en Events que
+# fallaba el pull de la imagen con el mensaje "not found". Con 'kubectl rollout
+# history' vi que solo había 1 revisión (la rota), así que 'rollout undo' no
+# tenía una versión buena anterior a la que volver.
+#
+# Ajuste: cambié solo la etiqueta de la imagen, de version-fantasma-prod-999 a
+# alpine (queda nginx:alpine). No cambié nada más.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reto-02-imagen
+  labels:
+    reto: "2"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tienda-online
+  template:
+    metadata:
+      labels:
+        app: tienda-online
+    spec:
+      containers:
+        - name: app
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "30m"
+              memory: "32Mi"
+
