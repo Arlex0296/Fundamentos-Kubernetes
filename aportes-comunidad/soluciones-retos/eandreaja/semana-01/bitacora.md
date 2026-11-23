@@ -33,7 +33,15 @@ git checkout -b eandreaja/semana-01
 
 ## 4️⃣ 🚀 Aplicación real y próximos pasos
 
-Cuando dockerice mi proyecto de Python y lo despliegue, quiero leer los errores por capas (apply, Events y logs) en vez de adivinar, y pedir recursos ajustados a lo que la aplicación necesita. Me quedó la duda de cómo se cambia el comando de un Pod sin borrarlo; entiendo que en la práctica lo hace un Deployment (semana 02).
+Cuando dockerice mi proyecto de Python y lo despliegue, quiero leer los errores por capas (apply, Events y logs) en vez de adivinar, y pedir recursos ajustados a lo que la aplicación necesita.
+
+---
+
+## 5️⃣ ❓ Dudas abiertas para revisar en clase
+
+Me quedó la duda de cómo se cambia el comando de un Pod sin borrarlo; entiendo que en la práctica lo hace un Deployment (semana 02).
+
+> 💬 **Respuesta de la comunidad:** ¡Tu intuición es correcta! La especificación de un Pod (`command`, `args`, `resources`) es **inmutable** por diseño en Kubernetes, por lo que un Pod suelto debe recrearse. En producción se usa un **Deployment** para actualizar sin caída. Ver explicación completa en [**❓ FAQ de la Comunidad (`recursos/faq.md`)**](../../../../recursos/faq.md#1-cómo-cambio-el-command-args-o-resources-de-un-pod-sin-borrarlo).
 
 ---
 

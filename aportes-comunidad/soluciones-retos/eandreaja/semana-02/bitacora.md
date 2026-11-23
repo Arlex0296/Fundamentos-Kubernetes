@@ -38,7 +38,15 @@ git checkout -b eandreaja/semana-02
 
 ## 4️⃣ 🚀 Aplicación real y próximos pasos
 
-Quiero usar Deployments con `RollingUpdate` (`maxSurge: 1` y `maxUnavailable: 0`) y sondas de preparación cuando despliegue mi proyecto de Python, para actualizar sin que el servicio se caiga y poder volver atrás con un rollback. Me quedó una duda para la semana 03: con `port-forward` el túnel va siempre a un solo Pod, aunque haya varios; entiendo que quien reparte el tráfico entre Pods es un Service.
+Quiero usar Deployments con `RollingUpdate` (`maxSurge: 1` y `maxUnavailable: 0`) y sondas de preparación cuando despliegue mi proyecto de Python, para actualizar sin que el servicio se caiga y poder volver atrás con un rollback.
+
+---
+
+## 5️⃣ ❓ Dudas abiertas para revisar en clase
+
+Me quedó una duda para la semana 03: con `port-forward` el túnel va siempre a un solo Pod, aunque haya varios; entiendo que quien reparte el tráfico entre Pods es un Service.
+
+> 💬 **Respuesta de la comunidad:** ¡Exacto! `kubectl port-forward` abre un túnel directo hacia **un único Pod** (sin balancear carga). Quien agrupa los Pods por `labels` y **reparte el tráfico** entre todas las réplicas es el **Service** (o **Gateway / HTTPRoute**). Ver explicación completa en [**❓ FAQ de la Comunidad (`recursos/faq.md`)**](../../../../recursos/faq.md#5-con-kubectl-port-forward-se-reparte-el-tráfico-entre-todos-los-pods-del-deployment).
 
 ---
 
