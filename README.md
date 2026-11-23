@@ -1102,6 +1102,16 @@ Completar estas 6 semanas te da una base práctica sólida sobre contenedores, a
 
 > 💡 **Consejo práctico:** Antes de presentar **CKAD** o **CKA**, practica con nuestra [**⚡ Guía Shell DX (`recursos/guia-shell-dx-kubernetes.md`)**](./recursos/guia-shell-dx-kubernetes.md) para ganar velocidad con autocompletado y alias de `kubectl`.
 
+<div align="center">
+  <sub><b>👨‍🚀 Perfil Kubestronaut &amp; Certificaciones CNCF del Instructor:</b></sub><br><br>
+  <a href="https://certdirectory.io/profile/edwinbermudez?utm_source=github&utm_medium=readme">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://certdirectory.io/badge/edwinbermudez.svg?style=card&theme=dark">
+      <img alt="Edwin Bermúdez on CertDirectory" src="https://certdirectory.io/badge/edwinbermudez.svg?style=card">
+    </picture>
+  </a>
+</div>
+
 ---
 
 ## 🤝 ¿Cómo contribuir al repositorio?
