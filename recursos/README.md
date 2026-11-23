@@ -26,5 +26,7 @@ En esta carpeta encontrarás todas las guías complementarias, herramientas visu
 | [**🏪 Registro Privado con Harbor (`guia-harbor-registry.md`)**](./guia-harbor-registry.md) | Cómo operar un registro OCI empresarial con firma de imágenes y escaneo integrado. |
 | [**🤖 IA Local con Ollama (`guia-ollama-ia-local.md`)**](./guia-ollama-ia-local.md) | Ejecución de modelos de lenguaje (LLMs) locales en CPU con Docker y Kubernetes. |
 | [**🔄 Cómo Sincronizar tu Fork (`como-sincronizar-tu-fork.md`)**](./como-sincronizar-tu-fork.md) | Paso a paso visual para traer los últimos cambios del repositorio oficial sin conflictos. |
+| [**❓ Preguntas Frecuentes (`faq.md`)**](./faq.md) | Respuestas a dudas reales de la comunidad y bitácoras (inmutabilidad de Pods, `port-forward` vs `Service`, `Pending`, YAML). |
+| [**☁️ GitHub Codespaces (`codespaces.md`)**](./codespaces.md) | Guía opcional paso a paso (con disclaimers de cuota gratuita) para practicar en el navegador sin instalar nada local. |
 | [**🏅 Portafolio y Badges (`portafolio-y-badges.md`)**](./portafolio-y-badges.md) | Cómo funciona el sistema automático de puntos (XP), rangos e insignias para compartir en LinkedIn y GitHub. |
 | [**🐝 Laboratorios Interactivos de Cilium (Isovalent Labs)**](https://labs.isovalent.com/#/overview) | Plataforma oficial gratuita de ejercicios prácticos de **Cilium**, eBPF, Gateway API, Network Policies y Hubble. |
