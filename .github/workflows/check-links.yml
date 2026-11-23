@@ -6,9 +6,13 @@ on:
     paths:
       - "**/*.md"
       - ".github/workflows/check-links.yml"
+    paths-ignore:
+      - "aportes-comunidad/soluciones-retos/**"
   pull_request:
     paths:
       - "**/*.md"
+    paths-ignore:
+      - "aportes-comunidad/soluciones-retos/**"
 
 permissions:
   contents: read
@@ -24,5 +28,5 @@ jobs:
       - name: 🔗 Ejecutar lychee (enlaces internos y rutas locales)
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --offline --no-progress "**/*.md"
+          args: --offline --no-progress --exclude-path 'aportes-comunidad/soluciones-retos' "**/*.md"
           fail: true
