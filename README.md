@@ -14,6 +14,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-¡Bienvenidos!-brightgreen.svg?style=for-the-badge)](./CONTRIBUTING.md)
 [![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![GitHub Stars](https://img.shields.io/github/stars/edwinbermudez91/Fundamentos-Kubernetes?style=for-the-badge&logo=github&label=%E2%AD%90_Apoya_con_una_Estrella&color=F59E0B)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/stargazers)
+[![Validar YAML](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/actions/workflows/lint-yaml.yml/badge.svg)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/actions/workflows/lint-yaml.yml)
+[![Validar Enlaces](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/actions/workflows/check-links.yml/badge.svg)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/actions/workflows/check-links.yml)
 
 <p align="center">
   <b>Un repositorio vivo construido por y para la comunidad.</b><br>
@@ -1105,7 +1107,7 @@ Completar estas 6 semanas te da una base práctica sólida sobre contenedores, a
 Hay muchas formas de sumar a la comunidad (¡no todo es código!):
 
 - ⭐ **Regala una estrella al repositorio:** Es la forma más rápida de apoyar. Haz clic en **Star** (arriba a la derecha en GitHub) para dar visibilidad al proyecto, ayudar a que más personas lo encuentren y motivar a que siga creciendo.
-- 🐛 **Caza errores en los Retos Rotos:** Sube tu solución en [`aportes-comunidad/soluciones-retos/`](./aportes-comunidad/soluciones-retos).
+- 🐛 **Caza errores en los Retos Rotos:** Sube tu solución en [`aportes-comunidad/soluciones-retos/`](./aportes-comunidad/soluciones-retos) y valídala antes del PR con `./scripts/verificar-reto.sh <tu-usuario>`.
 - 📝 **Mejora las explicaciones:** ¿Encontraste una analogía genial en clase? Agrégala al `README.md` de esa semana.
 - 🧰 **Alimenta los Cheatsheets:** Comparte tus alias, trucos o comandos favoritos en [`aportes-comunidad/cheatsheets/`](./aportes-comunidad/cheatsheets).
 - 🙋 **Toma un Issue:** Revisa la pestaña de [**Issues**](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues) con la etiqueta `good first issue`.
