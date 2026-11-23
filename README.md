@@ -628,6 +628,17 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
 </table>
 
 <details>
+<summary><sub>👨‍🚀 <b>Ver certificaciones CNCF del Capitán (CertDirectory)</b></sub></summary>
+<br>
+<a href="https://certdirectory.io/profile/edwinbermudez?utm_source=github&utm_medium=readme">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://certdirectory.io/badge/edwinbermudez.svg?style=card&theme=dark">
+    <img alt="Edwin Bermúdez on CertDirectory" src="https://certdirectory.io/badge/edwinbermudez.svg?style=card">
+  </picture>
+</a>
+</details>
+
+<details>
 <summary><b>🏆 Ver Mosaico Completo de la Tripulación (52 Tripulantes) — o abre <a href="./ASISTENTES.md">ASISTENTES.md</a></b></summary>
 <br>
 
@@ -1101,16 +1112,6 @@ Completar estas 6 semanas te da una base práctica sólida sobre contenedores, a
 | **4️⃣** | **Comunidad Cloud Native Medellín** | ¿Ya dominaste los retos? Súmate como **colaborador, mentor de nuevos tripulantes o speaker** en los próximos meetups del [**Capítulo CNCF Medellín**](https://ocgroups.dev/cncf/group/2majk4r). |
 
 > 💡 **Consejo práctico:** Antes de presentar **CKAD** o **CKA**, practica con nuestra [**⚡ Guía Shell DX (`recursos/guia-shell-dx-kubernetes.md`)**](./recursos/guia-shell-dx-kubernetes.md) para ganar velocidad con autocompletado y alias de `kubectl`.
-
-<div align="center">
-  <sub><b>👨‍🚀 Perfil Kubestronaut &amp; Certificaciones CNCF del Instructor:</b></sub><br><br>
-  <a href="https://certdirectory.io/profile/edwinbermudez?utm_source=github&utm_medium=readme">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://certdirectory.io/badge/edwinbermudez.svg?style=card&theme=dark">
-      <img alt="Edwin Bermúdez on CertDirectory" src="https://certdirectory.io/badge/edwinbermudez.svg?style=card">
-    </picture>
-  </a>
-</div>
 
 ---
 

@@ -1224,7 +1224,7 @@ function buildReadmeMosaicSection(students, instructorsList = []) {
       const profileLink = cleanLinkedin(inst.linkedin) || `https://github.com/${user}`;
       return `    <td align="center" width="150">\n      <a href="${profileLink}" title="${fullName} (@${user})">\n        <img src="https://github.com/${user}.png?size=100" width="68" height="68" style="border-radius: 50%;" alt="${user}"/><br/>\n        <sub><b>${shortName}</b></sub>\n      </a><br/>\n      <sub>${roleTag}</sub>\n    </td>`;
     });
-    instructorsBlock = `### 👨‍🏫 Capitán y Colaboradores de la Nave\n\n<table>\n  <tr>\n${instCells.join('\n')}\n  </tr>\n</table>\n\n`;
+    instructorsBlock = `### 👨‍🏫 Capitán y Colaboradores de la Nave\n\n<table>\n  <tr>\n${instCells.join('\n')}\n  </tr>\n</table>\n\n<details>\n<summary><sub>👨‍🚀 <b>Ver certificaciones CNCF del Capitán (CertDirectory)</b></sub></summary>\n<br>\n<a href="https://certdirectory.io/profile/edwinbermudez?utm_source=github&utm_medium=readme">\n  <picture>\n    <source media="(prefers-color-scheme: dark)" srcset="https://certdirectory.io/badge/edwinbermudez.svg?style=card&theme=dark">\n    <img alt="Edwin Bermúdez on CertDirectory" src="https://certdirectory.io/badge/edwinbermudez.svg?style=card">\n  </picture>\n</a>\n</details>\n\n`;
   }
 
   return `<!-- INICIO_MOSAICO_TRIPULACION -->
