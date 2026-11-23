@@ -27,34 +27,7 @@ jobs:
           echo "Validando archivos YAML (excluyendo carpetas reto-roto)..."
           yamllint -c .yamllint.yml .
 
-      - name: ⚙️ Validar script de gamificación (sintaxis JS)
-        run: node --check scripts/generar-asistentes.js
-
-      - name: 🔗 Verificar enlaces relativos en Markdown
+      - name: ⚙️ Validar scripts del repositorio (JS y Bash)
         run: |
-          python3 - << 'EOF'
-          import glob, os, re
-          broken = []
-          for md in sorted(glob.glob('**/*.md', recursive=True)):
-              if 'aportes-comunidad/soluciones-retos/' in md:
-                  continue
-              text = open(md, encoding='utf-8').read()
-              # Ignorar bloques de código fenced
-              text_no_code = re.sub(r'```[\s\S]*?```', '', text)
-              for m in re.finditer(r'\]\(([^)]+)\)', text_no_code):
-                  link = m.group(1).strip()
-                  if not link or link.startswith(('http://', 'https://', '#', 'mailto:')):
-                      continue
-                  path_part = link.split('#')[0]
-                  if not path_part:
-                      continue
-                  target = os.path.normpath(os.path.join(os.path.dirname(md), path_part))
-                  if not os.path.exists(target):
-                      broken.append(f"{md} -> {link}")
-          if broken:
-              print("Enlaces rotos encontrados:")
-              for b in broken:
-                  print(" -", b)
-              raise SystemExit(1)
-          print("Todos los enlaces relativos Markdown están OK.")
-          EOF
+          node --check scripts/generar-asistentes.js
+          bash -n scripts/verificar-reto.sh

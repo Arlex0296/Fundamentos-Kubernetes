@@ -99,9 +99,15 @@ cp semana-01-arquitectura/2.reto-roto/*.yaml aportes-comunidad/soluciones-retos/
 
 ---
 
-### Paso 4: Guarda tus cambios (`git add` y `git commit`)
+### Paso 4: Valida y guarda tus cambios (`verificar-reto.sh`, `git add` y `git commit`)
 
 Cuando edites los archivos **dentro de `aportes-comunidad/soluciones-retos/TU-USUARIO/semana-XX/`** en VS Code y los guardes (`Cmd + S` o `Ctrl + S`), los cambios están en tu disco, pero Git todavía no los ha registrado en su historia oficial.
+
+#### 0. Valida tus retos localmente antes de subirlos (recomendado):
+```bash
+./scripts/verificar-reto.sh TU-USUARIO
+```
+* **¿Qué hace?** Verifica sintaxis YAML, comprueba que no hayas tocado archivos protegidos fuera de tu carpeta y te muestra localmente el resultado (`✅ OK` / `❌ FAIL`) antes de abrir el Pull Request.
 
 Para guardarlos en Git, ejecutas dos comandos:
 

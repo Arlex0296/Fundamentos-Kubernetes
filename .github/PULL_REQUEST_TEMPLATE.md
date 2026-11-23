@@ -12,5 +12,6 @@
 
 
 ### ✅ Checklist rápido antes de enviar:
-- [ ] Si resolví un *Reto Roto*, **NO modifiqué** el archivo original dentro de `reto-roto/`, sino que creé mi copia en `aportes-comunidad/`.
+- [ ] Si resolví un *Reto Roto*, **NO modifiqué** el archivo original dentro de `reto-roto/`, sino que creé mi copia en `aportes-comunidad/soluciones-retos/<tu-usuario>/`.
+- [ ] Ejecuté `./scripts/verificar-reto.sh <tu-usuario>` para validar la sintaxis YAML y confirmar que no modifiqué archivos protegidos.
 - [ ] Probé mis archivos YAML con `kubectl apply` en mi clúster local.
