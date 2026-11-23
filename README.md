@@ -1110,7 +1110,7 @@ Hay muchas formas de sumar a la comunidad (¡no todo es código!):
 - 🧰 **Alimenta los Cheatsheets:** Comparte tus alias, trucos o comandos favoritos en [`aportes-comunidad/cheatsheets/`](./aportes-comunidad/cheatsheets).
 - 🙋 **Toma un Issue:** Revisa la pestaña de [**Issues**](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues) con la etiqueta `good first issue`.
 
-📖 **Lee aquí el paso a paso ilustrado: [`CONTRIBUTING.md`](./CONTRIBUTING.md)**
+📖 **Lee aquí el paso a paso ilustrado: [`CONTRIBUTING.md`](./CONTRIBUTING.md)** • 🤝 [**Código de Conducta**](./CODE_OF_CONDUCT.md) • 🛡️ [**Política de Seguridad**](./SECURITY.md)
 
 ---
 
