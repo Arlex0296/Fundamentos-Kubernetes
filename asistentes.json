@@ -95,6 +95,16 @@
     "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
   },
   {
+    "github": "marnathali",
+    "nombre": "Nathali Anzola",
+    "rol": "Software Engineer",
+    "linkedin": "https://linkedin.com/in/maria-nathali-anzola",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 140,
+    "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
+  },
+  {
     "github": "RAVILA28",
     "nombre": "Fernando Avila",
     "rol": "DevOps",
@@ -133,16 +143,6 @@
     "rango": "🧭 Timonel",
     "puntos": 100,
     "motivacion": "Entender de verdad cómo funcionan los contenedores y poder llevar mis propias apps de mi computador a producción sin miedo"
-  },
-  {
-    "github": "marnathali",
-    "nombre": "Nathali Anzola",
-    "rol": "Software Engineer",
-    "linkedin": "https://linkedin.com/in/maria-nathali-anzola",
-    "redes": [],
-    "rango": "🧭 Timonel",
-    "puntos": 100,
-    "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
   },
   {
     "github": "devdavco",
