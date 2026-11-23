@@ -33,6 +33,7 @@
 [📔 Formulario de Bitácora Semanal](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml) •
 [⚡ Guía Shell DX (Terminal Pro)](./recursos/guia-shell-dx-kubernetes.md) •
 [🔄 Sincronizar tu Fork](./recursos/como-sincronizar-tu-fork.md) •
+[❓ FAQ Comunidad](./recursos/faq.md) •
 [📊 Diapositivas (PDF)](./recursos/diapositivas/README.md) •
 [☕ Analogía KubeCafé](./recursos/de-un-tinto-a-kubernetes.md) •
 [⚓ Guía de Harbor](./recursos/guia-harbor-registry.md) •
@@ -313,7 +314,7 @@
 
 <div align="center">
 
-[![Progreso del Workshop](https://img.shields.io/badge/🚂_Estación_Actual-Semana_03_(Services_y_Gateway_API)-06B6D4?style=for-the-badge)](./semana-03-services-gateway)
+[![Progreso del Workshop](https://img.shields.io/badge/🚂_Estación_Actual-Semana_04_(Configuración_y_Almacenamiento)-8B5CF6?style=for-the-badge)](./semana-04-configuracion-almacenamiento)
 [![XP Desbloqueable Hoy](https://img.shields.io/badge/⚡_XP_Disponible_Hoy-170_XP_Retos_+_40_XP_Bitácoras-f59e0b?style=for-the-badge)](./ASISTENTES.md)
 [![Abrir Simulador KubeCafé](https://img.shields.io/badge/🎮_Probar_en_Vivo-Simulador_KubeCafé-326CE5?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html)
 [![Panel Interactivo 360](https://img.shields.io/badge/☕_Panel_360°-Las_7_Semanas_Interactivas-10B981?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/panel-interactivo-kubecafe.html)
@@ -622,7 +623,9 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
   </tr>
 </table>
 
-### 🏆 Ranking de la Tripulación (52 Tripulantes)
+<details>
+<summary><b>🏆 Ver Mosaico Completo de la Tripulación (52 Tripulantes) — o abre <a href="./ASISTENTES.md">ASISTENTES.md</a></b></summary>
+<br>
 
 <table>
   <tr>
@@ -1028,6 +1031,8 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
   </tr>
 </table>
 
+</details>
+
 <sub>💡 <b>¿Aún no apareces aquí, quieres actualizar tus redes o registrar tu Bitácora Semanal?</b> Haz clic en <a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml"><b>➕ Registrarme / ✏️ Actualizar Datos</b></a> o en <a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml"><b>📔 Llenar Bitácora Semanal</b></a> y nuestro bot actualizará tu tarjeta y portafolio automáticamente en 15 segundos.</sub>
 
 </div>
@@ -1077,6 +1082,21 @@ Gracias al apoyo de nuestros aliados y patrocinadores, los tripulantes más dest
 | Acompañamiento, mentoría y oportunidades para potenciar la permanencia estudiantil y el crecimiento profesional.<br>👉 **[fundacionantivirusparaladesercion.org/es](https://www.fundacionantivirusparaladesercion.org/es)** | Plataforma interactiva de laboratorios prácticos en contenedores, Linux, Kubernetes y DevOps.<br>👉 **[labs.iximiuz.com](https://labs.iximiuz.com/)** |
 
 </div>
+
+---
+
+## 🎓 Después del Workshop: Tu Ruta CNCF (KCNA, CKAD y CKA)
+
+Completar estas 6 semanas te da una base práctica sólida sobre contenedores, arquitectura, despliegues, redes, almacenamiento, seguridad y Helm. Si quieres seguir creciendo y validar tu conocimiento oficialmente en la **Cloud Native Computing Foundation (CNCF)**, esta es la ruta recomendada:
+
+| Paso | Certificación / Meta | Cómo se conecta con este Workshop |
+| :---: | :--- | :--- |
+| **1️⃣** | **[KCNA](https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-associate-kcna/)** *(Kubernetes and Cloud Native Associate)* | Ideal como primer examen teórico: refuerza arquitectura (`Control Plane`, `etcd`, `Scheduler`, `kubelet`), contenedores OCI, observabilidad y ecosistema CNCF vistos en **Semanas 00–03**. |
+| **2️⃣** | **[CKAD](https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/)** *(Application Developer)* | 100% práctico en terminal: profundiza en Pods multi-contenedor, Deployments, Rollbacks, Services, ConfigMaps, Secrets, Probes y Helm (**Semanas 01–06**). |
+| **3️⃣** | **[CKA](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/)** *(Kubernetes Administrator)* | Administración de clústeres: networking, troubleshooting profundo, RBAC, almacenamiento y mantenimiento de nodos (**Semanas 01–06** + práctica extra de cluster admin). |
+| **4️⃣** | **Comunidad Cloud Native Medellín** | ¿Ya dominaste los retos? Súmate como **colaborador, mentor de nuevos tripulantes o speaker** en los próximos meetups del [**Capítulo CNCF Medellín**](https://ocgroups.dev/cncf/group/2majk4r). |
+
+> 💡 **Consejo práctico:** Antes de presentar **CKAD** o **CKA**, practica con nuestra [**⚡ Guía Shell DX (`recursos/guia-shell-dx-kubernetes.md`)**](./recursos/guia-shell-dx-kubernetes.md) para ganar velocidad con autocompletado y alias de `kubectl`.
 
 ---
 

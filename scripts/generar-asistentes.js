@@ -1223,7 +1223,7 @@ function buildReadmeMosaicSection(students, instructorsList = []) {
       const profileLink = cleanLinkedin(inst.linkedin) || `https://github.com/${user}`;
       return `    <td align="center" width="150">\n      <a href="${profileLink}" title="${fullName} (@${user})">\n        <img src="https://github.com/${user}.png?size=100" width="68" height="68" style="border-radius: 50%;" alt="${user}"/><br/>\n        <sub><b>${shortName}</b></sub>\n      </a><br/>\n      <sub>${roleTag}</sub>\n    </td>`;
     });
-    instructorsBlock = `### 👨‍🏫 Capitán y Colaboradores de la Nave\n\n<table>\n  <tr>\n${instCells.join('\n')}\n  </tr>\n</table>\n\n### 🏆 Ranking de la Tripulación (${students.length} Tripulantes)\n\n`;
+    instructorsBlock = `### 👨‍🏫 Capitán y Colaboradores de la Nave\n\n<table>\n  <tr>\n${instCells.join('\n')}\n  </tr>\n</table>\n\n`;
   }
 
   return `<!-- INICIO_MOSAICO_TRIPULACION -->
@@ -1237,9 +1237,15 @@ function buildReadmeMosaicSection(students, instructorsList = []) {
 [![Actualizar mis Datos](https://img.shields.io/badge/✏️_Actualizar_mis_Datos_o_Redes-f57c00?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml)
 [![Ver Ranking Completo](https://img.shields.io/badge/🏆_Ver_Tabla_de_Puntajes_y_Redes-326CE5?style=for-the-badge)](./ASISTENTES.md)
 
-${instructorsBlock}<table>
+${instructorsBlock}<details>
+<summary><b>🏆 Ver Mosaico Completo de la Tripulación (${students.length} Tripulantes) — o abre <a href="./ASISTENTES.md">ASISTENTES.md</a></b></summary>
+<br>
+
+<table>
 ${rowsHtml.join('\n')}
 </table>
+
+</details>
 
 <sub>💡 <b>¿Aún no apareces aquí, quieres actualizar tus redes o registrar tu Bitácora Semanal?</b> Haz clic en <a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml"><b>➕ Registrarme / ✏️ Actualizar Datos</b></a> o en <a href="https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml"><b>📔 Llenar Bitácora Semanal</b></a> y nuestro bot actualizará tu tarjeta y portafolio automáticamente en 15 segundos.</sub>
 

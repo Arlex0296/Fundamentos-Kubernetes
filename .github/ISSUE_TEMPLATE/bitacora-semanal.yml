@@ -77,9 +77,18 @@ body:
   - type: textarea
     id: aplicacion
     attributes:
-      label: "6️⃣ 🚀 ¿Cómo aplicarías esto en tu trabajo/estudios o qué duda te quedó? (Opcional)"
+      label: "6️⃣ 🚀 ¿Cómo aplicarías esto en tu trabajo o estudios? (Opcional)"
       description: "Reflexión final para tu portafolio: ¿dónde ves útil este tema en la vida real o qué quieres seguir explorando?"
       placeholder: "Quiero aplicar multi-stage builds y usuarios no-root en las APIs de mi portafolio y profundizar en sondas livenessProbe."
+    validations:
+      required: false
+
+  - type: textarea
+    id: dudas
+    attributes:
+      label: "7️⃣ ❓ ¿Te quedó alguna duda o tema para revisar en clase? (Opcional)"
+      description: "Si algo no quedó 100% claro, escríbelo aquí. Etiquetaremos el ticket automáticamente como `duda-bitacora` para responderte y alimentar el FAQ de la comunidad."
+      placeholder: "Ej: ¿Cómo se reparte el tráfico entre réplicas cuando uso port-forward vs un Service?"
     validations:
       required: false
 

@@ -62,6 +62,7 @@ jobs:
             const desafio = extractField('retador o qué error') || '- Diagnóstico y resolución de manifiestos en el laboratorio.';
             const comandos = extractField('Comandos o herramientas');
             const aplicacion = extractField('aplicarías esto');
+            const dudas = extractField('Te quedó alguna duda');
 
             const solBaseDir = path.join('aportes-comunidad', 'soluciones-retos');
             if (!fs.existsSync(solBaseDir)) {
@@ -80,6 +81,17 @@ jobs:
               ? `\`\`\`bash\n${comandos}\n\`\`\``
               : `\`\`\`bash\nkubectl get pods -o wide\nkubectl describe pod <nombre-pod>\n\`\`\``;
             const aplicacionBlock = aplicacion || 'Seguir practicando en los laboratorios del workshop y aplicando buenas prácticas Cloud Native.';
+
+            const dudasSection = dudas
+              ? [
+                  '',
+                  '---',
+                  '',
+                  '## 5️⃣ ❓ Dudas abiertas para revisar en clase',
+                  '',
+                  dudas
+                ]
+              : [];
 
             const bitacoraMarkdown = [
               `# 📔 Bitácora de Aprendizaje — ${weekMeta.title}`,
@@ -111,6 +123,7 @@ jobs:
               '## 4️⃣ 🚀 Aplicación real y próximos pasos',
               '',
               aplicacionBlock,
+              ...dudasSection,
               '',
               '---',
               '',
@@ -150,6 +163,7 @@ jobs:
             core.setOutput('xp', xp.toString());
             core.setOutput('rango', rango);
             core.setOutput('aprendizaje', aprendizaje);
+            core.setOutput('has_dudas', dudas ? 'true' : 'false');
 
       - name: 💾 Guardar bitácora y portafolio en el repositorio
         run: |
@@ -175,6 +189,7 @@ jobs:
           XP: ${{ steps.bitacora.outputs.xp }}
           RANGO: ${{ steps.bitacora.outputs.rango }}
           APRENDIZAJE: ${{ steps.bitacora.outputs.aprendizaje }}
+          HAS_DUDAS: ${{ steps.bitacora.outputs.has_dudas }}
         with:
           script: |
             const { buildShareLinks } = require('./scripts/generar-asistentes.js');
@@ -246,6 +261,15 @@ jobs:
               issue_number: context.payload.issue.number,
               body: comment
             });
+
+            if (process.env.HAS_DUDAS === 'true') {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                labels: ['duda-bitacora']
+              });
+            }
 
             await github.rest.issues.update({
               owner: context.repo.owner,
