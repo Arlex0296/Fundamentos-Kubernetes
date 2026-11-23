@@ -27,7 +27,8 @@ jobs:
           echo "Validando archivos YAML (excluyendo carpetas reto-roto)..."
           yamllint -c .yamllint.yml .
 
-      - name: ⚙️ Validar scripts del repositorio (JS y Bash)
+      - name: ⚙️ Validar scripts y validadores del repositorio
         run: |
           node --check scripts/generar-asistentes.js
+          node scripts/test-validadores.js
           bash -n scripts/verificar-reto.sh

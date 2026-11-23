@@ -317,11 +317,11 @@
 <div align="center">
 
 [![Progreso del Workshop](https://img.shields.io/badge/🚂_Estación_Actual-Semana_04_(Configuración_y_Almacenamiento)-8B5CF6?style=for-the-badge)](./semana-04-configuracion-almacenamiento)
-[![XP Desbloqueable Hoy](https://img.shields.io/badge/⚡_XP_Disponible_Hoy-170_XP_Retos_+_40_XP_Bitácoras-f59e0b?style=for-the-badge)](./ASISTENTES.md)
+[![XP Desbloqueable Hoy](https://img.shields.io/badge/⚡_XP_Disponible_Hoy-220_XP_Retos_+_50_XP_Bitácoras-f59e0b?style=for-the-badge)](./ASISTENTES.md)
 [![Abrir Simulador KubeCafé](https://img.shields.io/badge/🎮_Probar_en_Vivo-Simulador_KubeCafé-326CE5?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/simulador-interactivo-kubernetes.html)
 [![Panel Interactivo 360](https://img.shields.io/badge/☕_Panel_360°-Las_7_Semanas_Interactivas-10B981?style=for-the-badge)](https://edwinbermudez91.github.io/Fundamentos-Kubernetes/recursos/panel-interactivo-kubecafe.html)
 
-**Progreso de la Travesía Cloud Native (4 de 7 módulos activos):**  
+**Progreso de la Travesía Cloud Native (5 de 7 módulos activos):**  
 `🟢 Semana 00` ━━━▶ `🟢 Semana 01` ━━━▶ `🟢 Semana 02` ━━━▶ `🟢 Semana 03` ━━━▶ `🔥 Semana 04 (ACTUAL)` ━━━▶ `⚪ Semana 05` ━━━▶ `⚪ Semana 06`
 
 </div>
@@ -340,8 +340,8 @@ flowchart LR
     end
 
     subgraph F3["03 • RED Y PERSISTENCIA"]
-        S3["🌐 SEMANA 03 · EN CURSO\nServices y Gateway API\n☕ Mesero y Recepción · +40 XP"]
-        S4["💾 SEMANA 04 · PRÓXIMAMENTE\nConfigMaps, Secrets y PV\n☕ Especias y Bodega · +40 XP"]
+        S3["🌐 SEMANA 03 · DISPONIBLE\nServices y Gateway API\n☕ Mesero y Recepción · +40 XP"]
+        S4["💾 SEMANA 04 · EN CURSO\nConfigMaps, Secrets y PV\n☕ Especias y Bodega · +50 XP"]
     end
 
     subgraph F4["04 • PRODUCCIÓN Y ENTREGA"]

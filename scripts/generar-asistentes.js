@@ -267,7 +267,7 @@ const CHALLENGE_VALIDATORS = {
       validate: files => {
         const hasDockerignore = files.some(
           f =>
-            f.relPath.toLowerCase().includes('dockerignore') &&
+            path.basename(f.relPath).toLowerCase().includes('dockerignore') &&
             /\.env/.test(stripComments(f.content))
         );
         const hasFixedDockerfile = files.some(f => {
@@ -545,12 +545,13 @@ const CHALLENGE_VALIDATORS = {
         files.some(f => {
           const code = stripComments(f.content);
           const isReto04 = /reto-?04|pod-volumen-reto-04/.test(code) || /0?4/.test(f.relPath);
-          return (
-            isReto04 &&
-            /kind:\s*Pod/.test(code) &&
-            (/volumeMounts:[\s\S]*name:\s*volumen-bodega\b/.test(code) ||
-              /volumes:[\s\S]*name:\s*datos-kubecafe\b/.test(code))
-          );
+          if (!isReto04 || !/kind:\s*Pod/.test(code)) return false;
+          const vmMatch = code.match(/volumeMounts:([\s\S]*?)volumes:/);
+          const volMatch = code.match(/volumes:([\s\S]*)/);
+          if (!vmMatch || !volMatch) return false;
+          const vmNames = [...vmMatch[1].matchAll(/name:\s*([a-z0-9-]+)/gi)].map(m => m[1]);
+          const volNames = [...volMatch[1].matchAll(/name:\s*([a-z0-9-]+)/gi)].map(m => m[1]);
+          return vmNames.some(n => volNames.includes(n));
         })
     },
     {
