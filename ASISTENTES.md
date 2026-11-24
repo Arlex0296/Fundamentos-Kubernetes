@@ -31,7 +31,7 @@ A medida que avances semana a semana, nuestro bot de GitHub Actions inspeccionar
 | Acción / Logro | Puntos / Insignia | Regla de Validación Estricta |
 | :--- | :---: | :--- |
 | **1. Registro en el Muro** | **+10 XP** | Por registrarte en el formulario o vía Pull Request. |
-| **2. Reto Roto Resuelto y Validado** | **+10 XP por reto** | Cada ejercicio de `2.reto-roto/` (`semana-00` (5 retos rotos), `semana-01` (4 retos rotos), `semana-02` (4 retos rotos), `semana-03` (4 retos rotos), `semana-04` (5 retos rotos)) que resuelvas y pase la validación de contenido suma **+10 XP** en la tabla de posiciones. |
+| **2. Reto Roto Resuelto y Validado** | **+10 XP por reto** | Cada ejercicio de `2.reto-roto/` (`semana-00` (5 retos rotos), `semana-01` (4 retos rotos), `semana-02` (4 retos rotos), `semana-03` (4 retos rotos), `semana-04` (5 retos rotos), `semana-05` (4 retos rotos), `semana-06` (6 retos rotos)) que resuelvas y pase la validación de contenido suma **+10 XP** en la tabla de posiciones. |
 | **3. Bitácora de Navegación y Portafolio KubeCafé** | **+10 XP + 🎓 Portafolio** | Registra lo aprendido en el **[📔 Formulario Visual de Bitácora](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml)** (o incluye `bitacora.md` en tu PR) para desbloquear tu **Portafolio Profesional K8s**. |
 
 ### 🎖️ Requisitos para subir de Rango:
