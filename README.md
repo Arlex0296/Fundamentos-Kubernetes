@@ -703,6 +703,14 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/marnathali/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/devdavco/README.md" title="David Corrales (@devdavco) — 120 XP">
+        <img src="https://github.com/devdavco.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="devdavco"/><br/>
+        <sub><b>David Corrales</b></sub>
+      </a><br/>
+      <sub>🧭 Timonel • <b>120 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/devdavco/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Stiven Munera (@StivenMunera) — 100 XP">
         <img src="https://github.com/StivenMunera.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="StivenMunera"/><br/>
         <sub><b>Stiven Munera</b></sub>
@@ -725,14 +733,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       </a><br/>
       <sub>🧭 Timonel • <b>100 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/parte193/README.md">🎓 Portafolio</a></sub>
-    </td>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/devdavco/README.md" title="David Corrales (@devdavco) — 100 XP">
-        <img src="https://github.com/devdavco.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="devdavco"/><br/>
-        <sub><b>David Corrales</b></sub>
-      </a><br/>
-      <sub>⛵ Marinero • <b>100 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/devdavco/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/jujo23z/README.md" title="Juan Jose Jaramillo (@jujo23z) — 60 XP">

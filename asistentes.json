@@ -115,6 +115,16 @@
     "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
   },
   {
+    "github": "devdavco",
+    "nombre": "David Corrales",
+    "rol": "Desarrollador Fullstack Java",
+    "linkedin": "https://www.linkedin.com/in/juandavidcorrales/",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 120,
+    "motivacion": "El conocimiento es la clave para mi avance tanto profesional como laboral."
+  },
+  {
     "github": "StivenMunera",
     "nombre": "Stiven Munera",
     "rol": "FullStack Developer Jr",
@@ -143,16 +153,6 @@
     "rango": "🧭 Timonel",
     "puntos": 100,
     "motivacion": "Entender de verdad cómo funcionan los contenedores y poder llevar mis propias apps de mi computador a producción sin miedo"
-  },
-  {
-    "github": "devdavco",
-    "nombre": "David Corrales",
-    "rol": "Desarrollador Fullstack Java",
-    "linkedin": "https://www.linkedin.com/in/juandavidcorrales/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 100,
-    "motivacion": "El conocimiento es la clave para mi avance tanto profesional como laboral."
   },
   {
     "github": "jujo23z",

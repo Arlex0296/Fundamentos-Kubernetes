@@ -2,13 +2,14 @@
 # Síntoma: Al hacer 'kubectl apply', Kubernetes rechaza el archivo de inmediato.
 # Pista: Hay 3 errores de estructura y nombres de campos en este archivo. Lee el error que te da la terminal.
 
-apiVersion: v2
+apiVersion: v1 # La version debe ser v1
 kind: Pod
 metadata:
   name: reto-04-sintaxis
 spec:
   containers:
     - name: mi-nginx
-      imaeg: nginx:alpine
+      image: nginx:alpine #image! capa 8
       ports:
-        - port: 80
+        - name: http-port ## sintaxis
+          containerPort: 80 # containerPort
