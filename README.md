@@ -695,11 +695,11 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
   </tr>
   <tr>
     <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 120 XP">
+      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 130 XP">
         <img src="https://github.com/RAVILA28.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="RAVILA28"/><br/>
         <sub><b>Fernando Avila</b></sub>
       </a><br/>
-      <sub>🧭 Timonel • <b>120 XP</b></sub><br/>
+      <sub>🧭 Timonel • <b>130 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
