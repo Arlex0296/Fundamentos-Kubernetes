@@ -50,16 +50,43 @@ kubectl wait --for=condition=ready pod/barista-config-env --timeout=60s
 > pod/barista-config-env condition met
 > ```
 
-### Paso 2: Inspecciona el `ConfigMap` y verifica los logs del Pod
+### Paso 2: Lista y accede al contenido del `ConfigMap`
 ```bash
-kubectl get configmap kubecafe-config
+# Listar todos los ConfigMaps del namespace (forma corta: cm)
+kubectl get configmaps
+kubectl get cm
+
+# Ver detalles y claves del ConfigMap
+kubectl describe configmap kubecafe-config
+
+# Acceder al contenido completo en formato YAML
+kubectl get configmap kubecafe-config -o yaml
+```
+> 💡 **Respuesta esperada (`describe` / `-o yaml`):** Verás las 4 claves definidas en `data`: `NOMBRE_LOCAL`, `MONEDA`, `PRECIO_TINTO` y `MODO_DEBUG`.
+
+### Paso 3: Inspecciona el Pod con `describe`, `logs` y `exec`
+```bash
+# 1. Ver en el Pod que las variables están conectadas al ConfigMap
+kubectl describe pod barista-config-env
+
+# 2. Ver la salida impresa al iniciar el contenedor
 kubectl logs barista-config-env
+
+# 3. Validar las variables directamente dentro del contenedor con exec
+kubectl exec barista-config-env -- env | grep -E "NOMBRE_LOCAL|MONEDA|PRECIO_TINTO|MODO_DEBUG"
+
+# (Opcional) Entrar en modo interactivo al contenedor y consultarlas manualmente
+kubectl exec -it barista-config-env -- sh
+# Dentro del Pod ejecuta: echo "$NOMBRE_LOCAL | $MONEDA | $PRECIO_TINTO" && exit
 ```
 > 💡 **Respuesta esperada:**
-> En `kubectl logs barista-config-env` verás que el contenedor leyó automáticamente las variables desde `kubecafe-config`:
+> - En `kubectl describe pod barista-config-env` verás la sección `Environment Variables from: kubecafe-config ConfigMap`.
+> - En `kubectl logs` y `kubectl exec` confirmarás los valores reales dentro del contenedor:
 > ```text
-> === Configuración de KubeCafé Medellín ===
-> Moneda: COP | Precio Tinto: 3500 | Debug: false
+> NOMBRE_LOCAL=KubeCafé Medellín
+> MONEDA=COP
+> PRECIO_TINTO=3500
+> MODO_DEBUG=false
 > ```
 
 ---
@@ -93,7 +120,13 @@ kubectl get pods,svc -l app=menu-config-web
 > pod/menu-config-web-... condition met
 > ```
 
-### Paso 2: Comprueba la página web servida por Nginx
+### Paso 2: Comprueba el archivo montado (`exec`) y la página web servida por Nginx
+```bash
+# Verificar el archivo montado dentro del contenedor
+kubectl exec deployment/menu-config-web -- ls -la /usr/share/nginx/html
+kubectl exec deployment/menu-config-web -- head -n 10 /usr/share/nginx/html/index.html
+```
+
 Abrimos un túnel temporal (`port-forward`) desde tu terminal hacia el servicio en el puerto `8084` y consultamos con `curl`:
 ```bash
 kubectl port-forward svc/menu-config-svc 8084:80 >/tmp/pf-8084.log 2>&1 &
