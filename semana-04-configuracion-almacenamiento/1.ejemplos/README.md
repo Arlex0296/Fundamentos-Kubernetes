@@ -269,9 +269,12 @@ kubectl exec deployment/frontend-secret-web -- wget -qO- http://backend-api-svc:
 ## ⏳ Laboratorio 4: `emptyDir` (Efímero) vs `hostPath` (Nodo)
 
 ### 💡 ¿Qué aprenderás?
-Por defecto, si un Pod muere o se borra, todo lo que guardó dentro de su contenedor se pierde. Aquí comparamos dos tipos de volúmenes locales de forma sencilla:
-- **`emptyDir`:** Una carpeta temporal que nace vacía cuando arranca el Pod y **desaparece** en cuanto el Pod se borra (sirve como bandeja temporal o caché compartida entre contenedores del mismo Pod).
-- **`hostPath`:** Apunta a una carpeta física dentro del nodo (`Worker Node`) donde corre el Pod. **Sobrevive** si borras el Pod en ese mismo nodo, pero si el Pod se mueve a otro nodo distinto ya no verá esos archivos.
+Por defecto, si un Pod se borra, todo lo que guardó en su capa efímera desaparece. Aquí comparamos dos volúmenes locales de forma sencilla:
+
+| Volumen | Dónde guarda los datos | ¿Sobrevive si se reinicia el contenedor? | ¿Sobrevive si borras el Pod? | Limitación |
+| :--- | :--- | :---: | :---: | :--- |
+| **`emptyDir`** | Directorio temporal del Pod | ✅ Sí | ❌ **No** (se borra con el Pod) | Ideal solo para archivos temporales o compartir datos entre contenedores del mismo Pod. |
+| **`hostPath`** | Carpeta física en el **nodo** (`/tmp/kubecafe-nodo-estante`) | ✅ Sí | ✅ **Sí**, si el nuevo Pod cae en el **mismo nodo** | Si el Pod se agenda en otro `Worker Node`, verá una carpeta distinta. |
 
 ```mermaid
 flowchart TD
@@ -283,30 +286,60 @@ flowchart TD
     style L4_HP fill:#0284c7,color:#fff
 ```
 
-### Paso 1: Crea el Pod, inspecciona sus volúmenes (`describe`) y verifica con `exec`
+### Paso 1: Crea el Pod, mira en qué nodo quedó y revisa sus volúmenes (`describe` + `exec`)
 ```bash
 kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml
 kubectl wait --for=condition=ready pod/pod-almacenamiento-local --timeout=60s
 
-# Ver en el Pod cómo están declarados y montados ambos volúmenes (Volumes / Mounts)
+# 1. Ver en qué Worker Node quedó agendado el Pod
+kubectl get pod pod-almacenamiento-local -o wide
+
+# 2. Ver en el Pod cómo están declarados y montados ambos volúmenes (Mounts / Volumes)
 kubectl describe pod pod-almacenamiento-local
 
-# Entrar con exec a revisar las carpetas y los archivos creados
+# 3. Ver logs y entrar con exec a revisar las carpetas y los archivos creados
+kubectl logs pod-almacenamiento-local
 kubectl exec pod-almacenamiento-local -- ls -la /tmp-bandeja /nodo-estante
 kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && echo '---' && cat /nodo-estante/historial.log"
 ```
-> 💡 **Respuesta esperada:** En `describe` verás `EmptyDir` y `HostPath` bajo `Volumes:`. Con `exec` verás **1 fecha** en `/tmp-bandeja/pedidos.log` (`emptyDir`) y **1 fecha** en `/nodo-estante/historial.log` (`hostPath`).
+> 💡 **Respuesta esperada:**
+> - En `kubectl describe pod pod-almacenamiento-local` verás:
+> ```text
+>     Mounts:
+>       /nodo-estante from estante-nodo (rw)
+>       /tmp-bandeja from bandeja-efimera (rw)
+> Volumes:
+>   bandeja-efimera:
+>     Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+>   estante-nodo:
+>     Type:       HostPath (bare host directory volume)
+>     Path:       /tmp/kubecafe-nodo-estante
+> ```
+> - Con `exec` verás **1 fecha** en `pedidos.log` (`emptyDir`) y **1 fecha** en `historial.log` (`hostPath`):
+> ```text
+> Tue Nov 24 18:50:10 UTC 2026
+> ---
+> Tue Nov 24 18:50:10 UTC 2026
+> ```
 
 ### Paso 2: Borra el Pod, recréalo y observa la diferencia
 ```bash
 kubectl delete pod pod-almacenamiento-local
 kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml
 kubectl wait --for=condition=ready pod/pod-almacenamiento-local --timeout=60s
+kubectl get pod pod-almacenamiento-local -o wide
 kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && echo '---' && cat /nodo-estante/historial.log"
 ```
-> 💡 **Respuesta esperada:**
-> - `/tmp-bandeja/pedidos.log` (`emptyDir`) tendrá **solo 1 línea nueva** (el dato anterior se perdió al borrar el Pod).
-> - `/nodo-estante/historial.log` (`hostPath`) tendrá **2 líneas** (conservó la fecha anterior en el nodo).
+> 💡 **Respuesta esperada (si quedó en el mismo nodo):**
+> ```text
+> Tue Nov 24 18:51:02 UTC 2026
+> ---
+> Tue Nov 24 18:50:10 UTC 2026
+> Tue Nov 24 18:51:02 UTC 2026
+> ```
+> - **`/tmp-bandeja/pedidos.log` (`emptyDir`):** tiene **solo 1 línea nueva** (el archivo anterior se destruyó junto con el Pod viejo).
+> - **`/nodo-estante/historial.log` (`hostPath`):** conserva **2 líneas** (la del Pod anterior + la del Pod nuevo) porque el archivo quedó guardado en `/tmp/kubecafe-nodo-estante` del nodo.
+> - 📌 **Nota en clústeres multi-nodo (2+ workers):** si `kubectl get pod -o wide` muestra que el nuevo Pod cayó en **otro nodo distinto**, `historial.log` mostrará solo 1 línea allí porque cada nodo tiene su propio disco local. Por eso en producción usamos **`PV` / `PVC`** (Labs 5 y 6).
 
 ---
 
