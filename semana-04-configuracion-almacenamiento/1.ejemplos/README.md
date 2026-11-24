@@ -91,58 +91,63 @@ kubectl exec -it barista-config-env -- sh
 
 ---
 
-## 📄 Laboratorio 2: `ConfigMap` montado como Archivo en Nginx
+## 📄 Laboratorio 2: `ConfigMap` para Web HTML, Config de Nginx y `NodePort`
 
 ### 💡 ¿Qué aprenderás?
-Un `ConfigMap` también puede montarse como un **archivo real** dentro de una carpeta del contenedor (`volumeMounts`). Aquí Nginx sirve su página `index.html` directamente desde un `ConfigMap`, sin necesidad de crear una imagen Docker nueva.
+Un `ConfigMap` también puede montarse como **archivos reales** dentro del contenedor (`volumeMounts`). Aquí usamos **dos ConfigMaps** sin reconstruir la imagen:
+- `kubecafe-menu-html` → monta `index.html` en `/usr/share/nginx/html`.
+- `kubecafe-nginx-conf` → monta `default.conf` en `/etc/nginx/conf.d` (agrega el header `X-KubeCafe-Config` y el endpoint `/healthz`).
+- Y exponemos el servicio con **`type: NodePort`** en el puerto **`30084`**.
 
 ```mermaid
 flowchart TD
     L2_CM["📄 ConfigMap: kubecafe-menu-html\n(index.html)"] -->|"volumeMounts:\n/usr/share/nginx/html"| L2_POD["🌐 Pod Nginx\nmenu-config-web"]
-    L2_SVC["🤵 Service: menu-config-svc :80"] --> L2_POD
+    L2_CONF["⚙️ ConfigMap: kubecafe-nginx-conf\n(default.conf)"] -->|"volumeMounts:\n/etc/nginx/conf.d"| L2_POD
+    L2_SVC["🤵 Service NodePort: menu-config-svc\n:80 → NodePort :30084"] --> L2_POD
 
     style L2_CM fill:#0284c7,color:#fff
+    style L2_CONF fill:#7c3aed,color:#fff
     style L2_POD fill:#16a34a,color:#fff
     style L2_SVC fill:#2563eb,color:#fff
 ```
 
-### Paso 1: Despliega Nginx con el `ConfigMap` montado
+### Paso 1: Despliega Nginx con ambos `ConfigMaps` y el `Service NodePort`
 ```bash
 kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/02-configmap-volumen-archivo.yaml
 kubectl wait --for=condition=ready pod -l app=menu-config-web --timeout=60s
+kubectl get configmaps
 kubectl get pods,svc -l app=menu-config-web
 ```
 > 💡 **Respuesta esperada:**
 > ```text
 > configmap/kubecafe-menu-html created
+> configmap/kubecafe-nginx-conf created
 > deployment.apps/menu-config-web created
 > service/menu-config-svc created
-> pod/menu-config-web-... condition met
 > ```
 
-### Paso 2: Comprueba el archivo montado (`exec`) y la página web servida por Nginx
+### Paso 2: Inspecciona los archivos montados (`exec`) y prueba por `NodePort` (`30084`)
 ```bash
-# Verificar el archivo montado dentro del contenedor
-kubectl exec deployment/menu-config-web -- ls -la /usr/share/nginx/html
-kubectl exec deployment/menu-config-web -- head -n 10 /usr/share/nginx/html/index.html
-```
+# 1. Verificar ambos archivos montados dentro del contenedor
+kubectl exec deployment/menu-config-web -- ls -la /usr/share/nginx/html /etc/nginx/conf.d
+kubectl exec deployment/menu-config-web -- cat /etc/nginx/conf.d/default.conf
 
-Abrimos un túnel temporal (`port-forward`) desde tu terminal hacia el servicio en el puerto `8084` y consultamos con `curl`:
-```bash
-kubectl port-forward svc/menu-config-svc 8084:80 >/tmp/pf-8084.log 2>&1 &
-PF_PID=$!
-sleep 2
-curl -s http://localhost:8084 | grep -E "h1|li"
-kill $PF_PID
+# 2. Obtener la IP de un nodo y probar el Service NodePort :30084
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+curl -i http://$NODE_IP:30084/healthz
+curl -s http://$NODE_IP:30084 | grep -E "h1|li"
 ```
+> 💡 *(Si estás en **macOS/Windows con Docker Desktop** y la IP interna del nodo no es alcanzable desde tu navegador, usa un túnel rápido: `kubectl port-forward svc/menu-config-svc 8084:80` y abre `http://localhost:8084` o `http://localhost:8084/healthz`).*
 > 💡 **Respuesta esperada:**
+> - En `/healthz` verás `OK - Nginx configurado desde ConfigMap`.
+> - En `/` verás el header `X-KubeCafe-Config: ConfigMap-Nginx` y el menú HTML:
 > ```html
 >       <h1>☕ Menú KubeCafé — Cargado desde ConfigMap</h1>
 >         <li>Tinto Campesino — $3.500 COP</li>
 >         <li>Espresso Doble — $5.000 COP</li>
 >         <li>Capuccino Vainilla — $7.500 COP</li>
 > ```
-> 📌 **Dato clave:** Si editas el `ConfigMap` (`kubectl edit cm kubecafe-menu-html`), Kubernetes actualiza el archivo dentro del contenedor automáticamente (~60 segundos) sin reiniciar ni reconstruir la imagen.
+> 📌 **Dato clave:** Si editas cualquiera de los dos `ConfigMaps` (`kubectl edit cm kubecafe-menu-html` o `kubecafe-nginx-conf`), Kubernetes actualiza el archivo dentro del contenedor automáticamente (~60 segundos) sin reconstruir la imagen.
 
 ---
 
