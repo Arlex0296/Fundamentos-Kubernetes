@@ -149,6 +149,53 @@ curl -s http://$NODE_IP:30084 | grep -E "h1|li"
 > ```
 > 📌 **Dato clave:** Si editas cualquiera de los dos `ConfigMaps` (`kubectl edit cm kubecafe-menu-html` o `kubecafe-nginx-conf`), Kubernetes actualiza el archivo dentro del contenedor automáticamente (~60 segundos) sin reconstruir la imagen.
 
+### Paso 3: Cambia por otro `ConfigMap` y recrea el Pod para que tome la nueva config
+Cuando quieres cambiar a un **nuevo `ConfigMap`** (por ejemplo `kubecafe-nginx-conf-v2` para una nueva versión o entorno) sin borrar el `Deployment`, actualiza la referencia del volumen en el `Deployment` para que Kubernetes **recree el Pod automáticamente**:
+
+```bash
+# 1. Crear un segundo ConfigMap con la nueva configuración de Nginx (v2)
+kubectl apply -f - <<'EOF'
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubecafe-nginx-conf-v2
+data:
+  default.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+            add_header X-KubeCafe-Config "ConfigMap-Nginx-v2" always;
+        }
+
+        location /healthz {
+            default_type text/plain;
+            return 200 "OK - Nginx v2 desde nuevo ConfigMap\n";
+        }
+    }
+EOF
+
+# 2. Cambiar el volumen del Deployment al nuevo ConfigMap (esto recrea el Pod automáticamente)
+kubectl set volume deployment/menu-config-web --add --overwrite \
+  --name=nginx-conf-vol \
+  --type=configmap \
+  --configmap-name=kubecafe-nginx-conf-v2 \
+  --mount-path=/etc/nginx/conf.d \
+  --read-only
+
+# (Tip: si en vez de cambiar de ConfigMap editas variables envFrom, fuerza la recreación con:)
+# kubectl rollout restart deployment/menu-config-web
+
+# 3. Esperar al nuevo Pod y verificar con describe + curl que tomó el nuevo ConfigMap
+kubectl rollout status deployment/menu-config-web
+kubectl describe pod -l app=menu-config-web | grep -A 3 "nginx-conf-vol"
+curl -i http://$NODE_IP:30084/healthz
+```
+> 💡 **Respuesta esperada:** Verás que nació un Pod nuevo, en `describe` aparece `Name: kubecafe-nginx-conf-v2`, y `/healthz` ahora responde **`OK - Nginx v2 desde nuevo ConfigMap`** (y `/` trae el header `X-KubeCafe-Config: ConfigMap-Nginx-v2`).
+
 ---
 
 ## 🔐 Laboratorio 3: `Secret` para Credenciales Sensibles
