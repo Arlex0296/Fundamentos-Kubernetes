@@ -1170,11 +1170,11 @@ function buildSocialBadgesString(entry) {
 
 function buildStudentRow(entry, rankPosition) {
   const user = cleanGithubUser(entry.github);
-  const nombre = (entry.nombre || user).replace(/\|/g, '').replace(/\r?\n/g, ' ').trim();
-  const rol = (entry.rol || 'Tripulante de la Comunidad').replace(/\|/g, '/').replace(/\r?\n/g, ' ').trim();
+  const nombre = sanitizeText((entry.nombre || user).replace(/\|/g, '').replace(/\r?\n/g, ' '));
+  const rol = sanitizeText((entry.rol || 'Tripulante de la Comunidad').replace(/\|/g, '/').replace(/\r?\n/g, ' '));
   const rango = (entry.rango || '⛵ Marinero').trim();
   const progreso = entry.progresoTexto || `**${entry.puntos || 10} XP** (Registro inicial)`;
-  const motivacion = (entry.motivacion || 'Aprender y compartir en la comunidad Cloud Native Medellín.').replace(/\|/g, '').replace(/\r?\n/g, ' ').trim();
+  const motivacion = sanitizeText((entry.motivacion || 'Aprender y compartir en la comunidad Cloud Native Medellín.').replace(/\|/g, '').replace(/\r?\n/g, ' '));
 
   let medal = `#${rankPosition}`;
   if (entry.puntos > 10) {
@@ -1197,7 +1197,7 @@ function buildReadmeMosaicSection(students, instructorsList = []) {
     const cells = chunk.map((entry, idx) => {
       const pos = i + idx + 1;
       const user = cleanGithubUser(entry.github);
-      const fullName = (entry.nombre || user).replace(/<[^>]*>/g, '').trim();
+      const fullName = sanitizeText(entry.nombre || user);
       const parts = fullName.split(/\s+/);
       const shortName = parts.length > 2 ? `${parts[0]} ${parts[1]}` : fullName;
       const rango = (entry.rango || '⛵ Marinero').trim();
@@ -1277,7 +1277,7 @@ function buildReadmePodiumSection(students) {
   const medals = ['🥇 #1', '🥈 #2', '🥉 #3', '🏅 #4', '🏅 #5'];
   const cells = top5.map((entry, idx) => {
     const user = cleanGithubUser(entry.github);
-    const fullName = (entry.nombre || user).replace(/<[^>]*>/g, '').trim();
+    const fullName = sanitizeText(entry.nombre || user);
     const parts = fullName.split(/\s+/);
     const shortName = parts.length > 2 ? `${parts[0]} ${parts[1]}` : fullName;
     const rango = (entry.rango || '⛵ Marinero').trim();
