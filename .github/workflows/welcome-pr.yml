@@ -10,6 +10,7 @@ permissions:
 jobs:
   welcome:
     name: Saludar al contribuyente
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-24.04
     steps:
       - name: Publicar comentario de bienvenida
