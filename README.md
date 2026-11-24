@@ -297,7 +297,7 @@
         <img src="https://github.com/juanjosegonzalezrosales.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
         <b>Juan José</b>
       </a><br/>
-      <sub>🧭 Timonel • <b>170 XP</b></sub><br/>
+      <sub>🧭 Timonel • <b>180 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
   </tr>
@@ -704,11 +704,11 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Juan José González Rosales (@juanjosegonzalezrosales) — 170 XP">
+      <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Juan José González Rosales (@juanjosegonzalezrosales) — 180 XP">
         <img src="https://github.com/juanjosegonzalezrosales.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
         <sub><b>Juan José</b></sub>
       </a><br/>
-      <sub>🧭 Timonel • <b>170 XP</b></sub><br/>
+      <sub>🧭 Timonel • <b>180 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
