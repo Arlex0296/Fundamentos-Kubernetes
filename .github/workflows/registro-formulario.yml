@@ -27,7 +27,10 @@ jobs:
           script: |
             const fs = require('fs');
             const {
+              INSTRUCTORS,
               cleanGithubUser,
+              isValidGithubUsername,
+              sanitizeText,
               cleanLinkedin,
               parseExtraSocialLinks,
               syncAllFiles
@@ -36,6 +39,7 @@ jobs:
             const issue = context.payload.issue;
             const authorUser = issue.user.login;
             const body = issue.body || '';
+            const isInstructor = INSTRUCTORS.map(u => u.toLowerCase()).includes(authorUser.toLowerCase());
 
             function extractField(labelFragment, preserveNewlines = false) {
               const regex = new RegExp(`###\\s+.*${labelFragment}.*\\r?\\n+([\\s\\S]*?)(?=\\r?\\n###\\s+|$)`, 'i');
@@ -49,12 +53,17 @@ jobs:
             }
 
             const githubInput = extractField('Usuario de GitHub');
-            const user = cleanGithubUser(githubInput, authorUser);
-            const nombre = extractField('Nombre y Apellido') || user;
-            const rol = extractField('Rol, Especialidad o Carrera') || 'Tripulante de la Comunidad';
+            const requestedUser = cleanGithubUser(githubInput, authorUser);
+            const user = isInstructor ? requestedUser : authorUser;
+            if (!isValidGithubUsername(user)) {
+              core.setFailed(`Usuario de GitHub inválido: ${user}`);
+              return;
+            }
+            const nombre = sanitizeText(extractField('Nombre y Apellido')) || user;
+            const rol = sanitizeText(extractField('Rol, Especialidad o Carrera')) || 'Tripulante de la Comunidad';
             const linkedinRaw = extractField('LinkedIn');
             const otrasRedesRaw = extractField('Otras Redes Sociales', true);
-            const motivacion = extractField('motivó a unirte') || 'Aprender y compartir en la comunidad Cloud Native Medellín.';
+            const motivacion = sanitizeText(extractField('motivó a unirte')) || 'Aprender y compartir en la comunidad Cloud Native Medellín.';
 
             const linkedin = cleanLinkedin(linkedinRaw);
             const extraRedes = parseExtraSocialLinks(otrasRedesRaw);

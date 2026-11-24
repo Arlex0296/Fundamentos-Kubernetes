@@ -111,7 +111,21 @@ function cleanGithubUser(input, fallbackUser = '') {
   val = val.split(/[/?#]/)[0];
   val = val.replace(/\.png$/i, '');
   val = val.replace(/^@/, '').trim();
-  return val || fallbackUser;
+  return isValidGithubUsername(val) ? val : fallbackUser;
+}
+
+function isValidGithubUsername(username) {
+  if (!username || typeof username !== 'string') return false;
+  return /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/.test(username);
+}
+
+function sanitizeText(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    .replace(/<[^>]*>/g, '')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .trim();
 }
 
 function cleanLinkedin(url) {
@@ -1815,6 +1829,8 @@ ${rows}
       BITACORA_DROPDOWN_OPTIONS,
       CHALLENGE_VALIDATORS,
       cleanGithubUser,
+      isValidGithubUsername,
+      sanitizeText,
       cleanLinkedin,
       parseExtraSocialLinks,
       discoverOfficialChallenges,

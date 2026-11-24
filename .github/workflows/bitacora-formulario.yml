@@ -28,8 +28,11 @@ jobs:
             const fs = require('fs');
             const path = require('path');
             const {
+              INSTRUCTORS,
               WEEK_METADATA,
               cleanGithubUser,
+              isValidGithubUsername,
+              sanitizeText,
               buildShareLinks,
               syncAllFiles
             } = require('./scripts/generar-asistentes.js');
@@ -37,6 +40,7 @@ jobs:
             const issue = context.payload.issue;
             const authorUser = issue.user.login;
             const body = issue.body || '';
+            const isInstructor = INSTRUCTORS.map(u => u.toLowerCase()).includes(authorUser.toLowerCase());
 
             function extractField(labelFragment, preserveNewlines = true) {
               const regex = new RegExp(`###\\s+.*${labelFragment}.*\\r?\\n+([\\s\\S]*?)(?=\\r?\\n###\\s+|$)`, 'i');
@@ -52,17 +56,22 @@ jobs:
             }
 
             const githubInput = extractField('Usuario de GitHub', false);
-            const user = cleanGithubUser(githubInput, authorUser);
+            const requestedUser = cleanGithubUser(githubInput, authorUser);
+            const user = isInstructor ? requestedUser : authorUser;
+            if (!isValidGithubUsername(user)) {
+              core.setFailed(`Usuario de GitHub inválido: ${user}`);
+              return;
+            }
             const semanaRaw = extractField('semana estás documentando', false) || 'semana-00';
             const weekMatch = semanaRaw.match(/(semana-\d+)/i);
             const weekKey = weekMatch ? weekMatch[1].toLowerCase() : 'semana-00';
             const weekMeta = WEEK_METADATA[weekKey] || { title: semanaRaw };
 
-            const aprendizaje = extractField('aprendiste esta semana') || '- Conceptos fundamentales de contenedores y Kubernetes.';
-            const desafio = extractField('retador o qué error') || '- Diagnóstico y resolución de manifiestos en el laboratorio.';
+            const aprendizaje = sanitizeText(extractField('aprendiste esta semana')) || '- Conceptos fundamentales de contenedores y Kubernetes.';
+            const desafio = sanitizeText(extractField('retador o qué error')) || '- Diagnóstico y resolución de manifiestos en el laboratorio.';
             const comandos = extractField('Comandos o herramientas');
-            const aplicacion = extractField('aplicarías esto');
-            const dudas = extractField('Te quedó alguna duda');
+            const aplicacion = sanitizeText(extractField('aplicarías esto'));
+            const dudas = sanitizeText(extractField('Te quedó alguna duda'));
 
             const solBaseDir = path.join('aportes-comunidad', 'soluciones-retos');
             if (!fs.existsSync(solBaseDir)) {
