@@ -15,5 +15,9 @@ spec:
       image: nginx:alpine
       resources:
         requests:
-          memory: "500Gi"
-          cpu: "64"
+          memory: "64Mi"
+          cpu: "50m"
+        limits:
+          memory: "128Mi"
+          cpu: "200m"
+          #Corregir los recursos de memoria y cpu como tambien establecer límites
