@@ -24,8 +24,8 @@ spec:
         app: pagos
     spec:
       containers: # ❌ Error de indentación: 'containers' debe estar dentro de 'template.spec'
-      - name: servicio-pagos
-        image: nginx:alpine
-        ports:
-          - containerPort: 80
+        - name: servicio-pagos
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
 
