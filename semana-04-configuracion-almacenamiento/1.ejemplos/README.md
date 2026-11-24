@@ -198,60 +198,70 @@ curl -i http://$NODE_IP:30084/healthz
 
 ---
 
-## 🔐 Laboratorio 3: `Secret` para Credenciales Sensibles
+## 🔐 Laboratorio 3: App 3 Capas con `Secret` (Frontend ➔ Backend ➔ PostgreSQL)
 
 ### 💡 ¿Qué aprenderás?
-Los datos confidenciales (contraseñas, tokens, API Keys) **no** deben ir en `ConfigMaps`, sino en un **`Secret`**. Un `Secret` puede consumirse como variable de entorno (`secretKeyRef`) o montado como archivo de solo lectura (`readOnly: true`).
+Los datos confidenciales (contraseñas de base de datos, tokens, `API_KEY`) **no** deben ir en `ConfigMaps`, sino en un **`Secret`**. Aquí desplegamos una mini aplicación completa de **3 capas** compartiendo un mismo `Secret` (`kubecafe-receta-secreta`):
+- **Frontend (`frontend-secret-web`, `NodePort :30085`):** toma `API_KEY` del `Secret` (`secretKeyRef`) y la envía en el header `X-API-Key` cuando hace proxy a `/api/`.
+- **Backend API (`backend-api`, `ClusterIP :5000`):** monta el `Secret` como archivo (`readOnly: true` en `/etc/kubecafe/API_KEY`), valida la `X-API-Key` del Frontend y verifica conexión real con la base de datos usando `DB_USER` y `DB_PASS`.
+- **Base de datos (`db-postgres`, `ClusterIP :5432`):** arranca PostgreSQL con `POSTGRES_USER`, `POSTGRES_PASSWORD` y `POSTGRES_DB` leídos del mismo `Secret`.
 
 ```mermaid
 flowchart TD
-    L3_SEC["🔐 Secret: kubecafe-receta-secreta\n(Base64 en etcd)"] -->|"secretKeyRef (env)"| L3_POD["📦 Pod: caja-fuerte-pod"]
-    L3_SEC -->|"volumeMounts readOnly:\n/etc/kubecafe/API_KEY"| L3_POD
+    L3_SEC["🔐 Secret: kubecafe-receta-secreta\n(DB_USER, DB_PASS, POSTGRES_DB, API_KEY)"]
+    L3_SEC -->|"secretKeyRef: API_KEY\n(header X-API-Key)"| L3_FE["🌐 Frontend Nginx\nfrontend-secret-svc :30085"]
+    L3_SEC -->|"volumeMounts readOnly:\n/etc/kubecafe/API_KEY"| L3_BE["⚙️ Backend Python\nbackend-api-svc :5000"]
+    L3_SEC -->|"secretKeyRef:\nUSER / PASS / DB"| L3_DB["🗄️ PostgreSQL\ndb-postgres-svc :5432"]
+    L3_FE -->|"/api/ + X-API-Key"| L3_BE
+    L3_BE -->|"TCP :5432"| L3_DB
 
     style L3_SEC fill:#dc2626,color:#fff
-    style L3_POD fill:#16a34a,color:#fff
+    style L3_FE fill:#2563eb,color:#fff
+    style L3_BE fill:#16a34a,color:#fff
+    style L3_DB fill:#7c3aed,color:#fff
 ```
 
-### Paso 1: Crea el `Secret` y el Pod `caja-fuerte-pod`
+### Paso 1: Despliega la app de 3 capas con el `Secret`
 ```bash
 kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/03-secret-credenciales.yaml
-kubectl wait --for=condition=ready pod/caja-fuerte-pod --timeout=60s
+kubectl wait --for=condition=available deployment/db-postgres deployment/backend-api deployment/frontend-secret-web --timeout=120s
+kubectl get pods,svc
 ```
-> 💡 **Respuesta esperada:**
-> ```text
-> secret/kubecafe-receta-secreta created
-> pod/caja-fuerte-pod created
-> pod/caja-fuerte-pod condition met
-> ```
 
-### Paso 2: Lista, accede e inspecciona el `Secret` y el Pod (`describe`, `logs` y `exec`)
+### Paso 2: Lista e inspecciona el `Secret` y los Pods (`describe` y `exec`)
 ```bash
-# 1. Listar los Secrets del namespace
+# 1. Listar Secrets y ver sus claves (sin revelar los valores)
 kubectl get secrets
-
-# 2. Ver metadatos y claves del Secret (muestra el tamaño en bytes, SIN revelar el valor)
 kubectl describe secret kubecafe-receta-secreta
 
-# 3. Ver el Secret completo en YAML (observa los valores codificados en Base64)
+# 2. Ver el Secret completo en Base64 y decodificar una clave puntual
 kubectl get secret kubecafe-receta-secreta -o yaml
-
-# 4. Decodificar una clave puntual desde la terminal
 kubectl get secret kubecafe-receta-secreta -o jsonpath='{.data.DB_PASS}' | base64 -d && echo
 
-# 5. Ver en el Pod de dónde salen sus variables y volúmenes secretos
-kubectl describe pod caja-fuerte-pod
+# 3. Ver en el Backend que las variables y el volumen secreto están conectados
+kubectl describe pod -l app=backend-api
 
-# 6. Ver logs y validar variables + archivo secreto dentro del contenedor con exec
-kubectl logs caja-fuerte-pod
-kubectl exec caja-fuerte-pod -- env | grep -E "DB_USER|DB_PASS"
-kubectl exec caja-fuerte-pod -- cat /etc/kubecafe/API_KEY
-
-# 7. Comprobar que el volumen está montado en solo lectura (readOnly: true -> debe fallar)
-kubectl exec caja-fuerte-pod -- touch /etc/kubecafe/prueba.txt
+# 4. Validar dentro del Backend con exec (variables + archivo readOnly)
+kubectl exec deployment/backend-api -- env | grep -E "DB_USER|DB_PASS|POSTGRES_DB"
+kubectl exec deployment/backend-api -- cat /etc/kubecafe/API_KEY
+kubectl exec deployment/backend-api -- touch /etc/kubecafe/prueba.txt
 ```
-> 💡 **Respuesta esperada:**
-> - En `kubectl describe pod caja-fuerte-pod` verás `Environment:` (`<set to the key 'DB_USER' in secret 'kubecafe-receta-secreta'>`) y `Mounts:` (`/etc/kubecafe from secreto-volumen (ro)`).
-> - En `kubectl logs` y `kubectl exec` confirmarás que Kubernetes **decodifica el Secret automáticamente** para el contenedor (`barista_admin` y `kc-live-987654321`), y que `touch` falla con `Read-only file system` porque está protegido contra escritura.
+
+### Paso 3: Prueba la conexión Frontend ➔ Backend ➔ PostgreSQL por `NodePort` (`30085`)
+```bash
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+
+# 1. Llamar vía Frontend (inyecta X-API-Key automáticamente desde el Secret -> HTTP 200)
+curl -s http://$NODE_IP:30085/api/status
+
+# 2. Llamar directo al Backend SIN X-API-Key (debe rechazar con HTTP 401 Unauthorized)
+kubectl exec deployment/frontend-secret-web -- wget -qO- http://backend-api-svc:5000/status || echo "Rechazado (401) sin API_KEY"
+```
+> 💡 **Respuesta esperada en `/api/status`:**
+> ```json
+> {"status": "ok", "auth": "API_KEY del Secret validada", "db": "db-postgres-svc:5432 CONECTADA", "db_user": "barista_admin", "db_name": "kubecafe"}
+> ```
+> *(En macOS/Windows con Docker Desktop también puedes abrir `http://localhost:30085` usando `kubectl port-forward svc/frontend-secret-svc 30085:80`).*
 > ⚠️ **Importante para principiantes:** Base64 (`echo -n "TintoSeguro2026!" | base64`) es codificación, **no cifrado**. En repositorios reales nunca subas contraseñas reales en texto plano; usa herramientas como *Sealed Secrets* o *External Secrets*.
 
 ---
