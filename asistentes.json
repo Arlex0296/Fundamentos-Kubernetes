@@ -55,6 +55,16 @@
     "motivacion": "Aporte en PR #109: Solución retos semana 00 - Arlex0296"
   },
   {
+    "github": "RAVILA28",
+    "nombre": "Fernando Avila",
+    "rol": "DevOps",
+    "linkedin": "https://www.linkedin.com/in/raymundo-avila-r-04775932",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 180,
+    "motivacion": "Reforzar conocimiento y aportar a la comunidad."
+  },
+  {
     "github": "juanjosegonzalezrosales",
     "nombre": "Juan José González Rosales",
     "rol": "Desarrollador Jr",
@@ -103,16 +113,6 @@
     "rango": "🧭 Timonel",
     "puntos": 140,
     "motivacion": "Aprender a contenizar y desplegar mis aplicaciones con Docker y Kubernetes"
-  },
-  {
-    "github": "RAVILA28",
-    "nombre": "Fernando Avila",
-    "rol": "DevOps",
-    "linkedin": "https://www.linkedin.com/in/raymundo-avila-r-04775932",
-    "redes": [],
-    "rango": "🧭 Timonel",
-    "puntos": 140,
-    "motivacion": "Reforzar conocimiento y aportar a la comunidad."
   },
   {
     "github": "StivenMunera",

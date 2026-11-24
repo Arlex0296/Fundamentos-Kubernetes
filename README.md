@@ -266,6 +266,15 @@
     </td>
     <td align="center" width="175">
       <b>🥈 #2</b><br/>
+      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Portafolio de Fernando Avila (@RAVILA28)">
+        <img src="https://github.com/RAVILA28.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="RAVILA28"/><br/>
+        <b>Fernando Avila</b>
+      </a><br/>
+      <sub>🧭 Timonel • <b>180 XP</b></sub><br/>
+      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md"><b>🎓 Ver Portafolio</b></a>
+    </td>
+    <td align="center" width="175">
+      <b>🥉 #3</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Portafolio de Juan José González Rosales (@juanjosegonzalezrosales)">
         <img src="https://github.com/juanjosegonzalezrosales.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
         <b>Juan José</b>
@@ -274,7 +283,7 @@
       <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
     <td align="center" width="175">
-      <b>🥉 #3</b><br/>
+      <b>🏅 #4</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Portafolio de Karol Rojas (@karolrojas68)">
         <img src="https://github.com/karolrojas68.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="karolrojas68"/><br/>
         <b>Karol Rojas</b>
@@ -283,22 +292,13 @@
       <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
     <td align="center" width="175">
-      <b>🏅 #4</b><br/>
+      <b>🏅 #5</b><br/>
       <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md" title="Portafolio de Yorman Agudelo (@Cuburi)">
         <img src="https://github.com/Cuburi.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="Cuburi"/><br/>
         <b>Yorman Agudelo</b>
       </a><br/>
       <sub>🧭 Timonel • <b>170 XP</b></sub><br/>
       <a href="./aportes-comunidad/soluciones-retos/Cuburi/README.md"><b>🎓 Ver Portafolio</b></a>
-    </td>
-    <td align="center" width="175">
-      <b>🏅 #5</b><br/>
-      <a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md" title="Portafolio de Andrea Jaramillo (@eandreaja)">
-        <img src="https://github.com/eandreaja.png?size=120" width="68" height="68" style="border-radius: 50%;" alt="eandreaja"/><br/>
-        <b>Andrea Jaramillo</b>
-      </a><br/>
-      <sub>🧭 Timonel • <b>170 XP</b></sub><br/>
-      <a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md"><b>🎓 Ver Portafolio</b></a>
     </td>
   </tr>
 </table>
@@ -653,9 +653,17 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/Arlex0296/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 180 XP">
+        <img src="https://github.com/RAVILA28.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="RAVILA28"/><br/>
+        <sub><b>🥈 Fernando Avila</b></sub>
+      </a><br/>
+      <sub>🧭 Timonel • <b>180 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md">🎓 Portafolio</a></sub>
+    </td>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md" title="Juan José González Rosales (@juanjosegonzalezrosales) — 170 XP">
         <img src="https://github.com/juanjosegonzalezrosales.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="juanjosegonzalezrosales"/><br/>
-        <sub><b>🥈 Juan José</b></sub>
+        <sub><b>🥉 Juan José</b></sub>
       </a><br/>
       <sub>🧭 Timonel • <b>170 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/juanjosegonzalezrosales/README.md">🎓 Portafolio</a></sub>
@@ -663,7 +671,7 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md" title="Karol Rojas (@karolrojas68) — 170 XP">
         <img src="https://github.com/karolrojas68.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="karolrojas68"/><br/>
-        <sub><b>🥉 Karol Rojas</b></sub>
+        <sub><b>Karol Rojas</b></sub>
       </a><br/>
       <sub>🧭 Timonel • <b>170 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/karolrojas68/README.md">🎓 Portafolio</a></sub>
@@ -684,6 +692,8 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub>🧭 Timonel • <b>170 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/eandreaja/README.md">🎓 Portafolio</a></sub>
     </td>
+  </tr>
+  <tr>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/marnathali/README.md" title="Nathali Anzola (@marnathali) — 140 XP">
         <img src="https://github.com/marnathali.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="marnathali"/><br/>
@@ -691,16 +701,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       </a><br/>
       <sub>🧭 Timonel • <b>140 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/marnathali/README.md">🎓 Portafolio</a></sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md" title="Fernando Avila (@RAVILA28) — 140 XP">
-        <img src="https://github.com/RAVILA28.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="RAVILA28"/><br/>
-        <sub><b>Fernando Avila</b></sub>
-      </a><br/>
-      <sub>🧭 Timonel • <b>140 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/RAVILA28/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/StivenMunera/README.md" title="Stiven Munera (@StivenMunera) — 100 XP">
