@@ -8,7 +8,7 @@
 
 ## 1️⃣ 💡 ¿Qué aprendí esta semana?
 
-Aprendí que un Service reconoce a sus Pods comparando su `selector` con las etiquetas de los Pods, y que `kubectl get endpoints` es el primer lugar donde mirar: si dice ``, el problema es el selector. También aprendí a no mezclar los tres puertos: `port` (lo que ve el cliente), `targetPort` (a dónde reenvía el Service dentro del Pod) y `containerPort` (donde la aplicación escucha de verdad). Esta semana hice los 4 retos rotos; los laboratorios de la semana 03 los dejo para otro momento.
+Aprendí que un Service reconoce a sus Pods comparando su `selector` con las etiquetas de los Pods, y que `kubectl get endpoints` es el primer lugar donde mirar: si aparece vacío (`none`), el problema es el selector. También aprendí a no mezclar los tres puertos: `port` (lo que ve el cliente), `targetPort` (a dónde reenvía el Service dentro del Pod) y `containerPort` (donde la aplicación escucha de verdad). Esta semana hice los 4 retos rotos; los laboratorios de la semana 03 los dejo para otro momento.
 
 ---
 
