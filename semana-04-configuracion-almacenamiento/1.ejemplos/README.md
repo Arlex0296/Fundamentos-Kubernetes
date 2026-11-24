@@ -172,20 +172,34 @@ kubectl wait --for=condition=ready pod/caja-fuerte-pod --timeout=60s
 > pod/caja-fuerte-pod condition met
 > ```
 
-### Paso 2: Revisa cómo guarda Kubernetes el `Secret` y qué lee el Pod
+### Paso 2: Lista, accede e inspecciona el `Secret` y el Pod (`describe`, `logs` y `exec`)
 ```bash
-# 1. Ver el Secret guardado (observa que los valores aparecen codificados en Base64):
+# 1. Listar los Secrets del namespace
+kubectl get secrets
+
+# 2. Ver metadatos y claves del Secret (muestra el tamaño en bytes, SIN revelar el valor)
+kubectl describe secret kubecafe-receta-secreta
+
+# 3. Ver el Secret completo en YAML (observa los valores codificados en Base64)
 kubectl get secret kubecafe-receta-secreta -o yaml
 
-# 2. Ver los logs del Pod (Kubernetes decodifica automáticamente el Secret para el contenedor):
+# 4. Decodificar una clave puntual desde la terminal
+kubectl get secret kubecafe-receta-secreta -o jsonpath='{.data.DB_PASS}' | base64 -d && echo
+
+# 5. Ver en el Pod de dónde salen sus variables y volúmenes secretos
+kubectl describe pod caja-fuerte-pod
+
+# 6. Ver logs y validar variables + archivo secreto dentro del contenedor con exec
 kubectl logs caja-fuerte-pod
+kubectl exec caja-fuerte-pod -- env | grep -E "DB_USER|DB_PASS"
+kubectl exec caja-fuerte-pod -- cat /etc/kubecafe/API_KEY
+
+# 7. Comprobar que el volumen está montado en solo lectura (readOnly: true -> debe fallar)
+kubectl exec caja-fuerte-pod -- touch /etc/kubecafe/prueba.txt
 ```
-> 💡 **Respuesta esperada en `kubectl logs caja-fuerte-pod`:**
-> ```text
-> Usuario DB: barista_admin
-> Archivo secreto montado en /etc/kubecafe/API_KEY:
-> kc-live-987654321
-> ```
+> 💡 **Respuesta esperada:**
+> - En `kubectl describe pod caja-fuerte-pod` verás `Environment:` (`<set to the key 'DB_USER' in secret 'kubecafe-receta-secreta'>`) y `Mounts:` (`/etc/kubecafe from secreto-volumen (ro)`).
+> - En `kubectl logs` y `kubectl exec` confirmarás que Kubernetes **decodifica el Secret automáticamente** para el contenedor (`barista_admin` y `kc-live-987654321`), y que `touch` falla con `Read-only file system` porque está protegido contra escritura.
 > ⚠️ **Importante para principiantes:** Base64 (`echo -n "TintoSeguro2026!" | base64`) es codificación, **no cifrado**. En repositorios reales nunca subas contraseñas reales en texto plano; usa herramientas como *Sealed Secrets* o *External Secrets*.
 
 ---
@@ -193,9 +207,9 @@ kubectl logs caja-fuerte-pod
 ## ⏳ Laboratorio 4: `emptyDir` (Efímero) vs `hostPath` (Nodo)
 
 ### 💡 ¿Qué aprenderás?
-Por defecto, si un Pod muere o se borra, todo lo que guardó dentro de su contenedor se pierde. Aquí comparamos dos tipos de volúmenes locales:
-- **`emptyDir`:** Vive únicamente mientras exista el Pod (una bandeja temporal).
-- **`hostPath`:** Guarda los archivos en una carpeta física del nodo donde corre el Pod.
+Por defecto, si un Pod muere o se borra, todo lo que guardó dentro de su contenedor se pierde. Aquí comparamos dos tipos de volúmenes locales de forma sencilla:
+- **`emptyDir`:** Una carpeta temporal que nace vacía cuando arranca el Pod y **desaparece** en cuanto el Pod se borra (sirve como bandeja temporal o caché compartida entre contenedores del mismo Pod).
+- **`hostPath`:** Apunta a una carpeta física dentro del nodo (`Worker Node`) donde corre el Pod. **Sobrevive** si borras el Pod en ese mismo nodo, pero si el Pod se mueve a otro nodo distinto ya no verá esos archivos.
 
 ```mermaid
 flowchart TD
@@ -207,13 +221,19 @@ flowchart TD
     style L4_HP fill:#0284c7,color:#fff
 ```
 
-### Paso 1: Crea el Pod y verifica qué escribió en cada carpeta
+### Paso 1: Crea el Pod, inspecciona sus volúmenes (`describe`) y verifica con `exec`
 ```bash
 kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml
 kubectl wait --for=condition=ready pod/pod-almacenamiento-local --timeout=60s
+
+# Ver en el Pod cómo están declarados y montados ambos volúmenes (Volumes / Mounts)
+kubectl describe pod pod-almacenamiento-local
+
+# Entrar con exec a revisar las carpetas y los archivos creados
+kubectl exec pod-almacenamiento-local -- ls -la /tmp-bandeja /nodo-estante
 kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && echo '---' && cat /nodo-estante/historial.log"
 ```
-> 💡 **Respuesta esperada:** Verás **1 fecha** en `/tmp-bandeja/pedidos.log` (`emptyDir`) y **1 fecha** en `/nodo-estante/historial.log` (`hostPath`).
+> 💡 **Respuesta esperada:** En `describe` verás `EmptyDir` y `HostPath` bajo `Volumes:`. Con `exec` verás **1 fecha** en `/tmp-bandeja/pedidos.log` (`emptyDir`) y **1 fecha** en `/nodo-estante/historial.log` (`hostPath`).
 
 ### Paso 2: Borra el Pod, recréalo y observa la diferencia
 ```bash
@@ -248,9 +268,16 @@ flowchart TD
 ### Paso 1: Crea el `PV`, el `PVC` y el Pod que los usa
 ```bash
 kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-almacenamiento-persistente.yaml
+
+# 1. Listar PV y PVC y comprobar que estén en estado Bound
 kubectl get pv,pvc
+kubectl describe pvc bodega-kubecafe-pvc
+
+# 2. Esperar al Pod, revisar su montaje con describe y validar el disco con exec
 kubectl wait --for=condition=ready pod/inventario-bodega-pod --timeout=60s
+kubectl describe pod inventario-bodega-pod
 kubectl logs inventario-bodega-pod
+kubectl exec inventario-bodega-pod -- ls -la /datos
 ```
 > 💡 **Respuesta esperada en `kubectl get pv,pvc`:**
 > ```text
@@ -292,9 +319,11 @@ kubectl get storageclass
 kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/06-storageclass-dinamico-stateful.yaml
 kubectl wait --for=condition=available deployment/caja-persistente --timeout=90s
 
-# 3. Ver el PVC enlazado y la primera línea escrita en ventas.log:
-kubectl get pvc caja-diaria-pvc
+# 3. Ver el PVC enlazado, el PV creado automáticamente y validar con logs/exec:
+kubectl get pvc,pv
+kubectl describe pod -l app=caja-persistente
 kubectl logs deployment/caja-persistente
+kubectl exec deployment/caja-persistente -- cat /var/lib/kubecafe/ventas.log
 ```
 > 💡 **Respuesta esperada:**
 > - `caja-diaria-pvc` aparecerá en estado **`Bound`** (el clúster creó el `PV` automáticamente).
