@@ -75,6 +75,16 @@
     "motivacion": "Reforzar conocimiento y aportar a la comunidad."
   },
   {
+    "github": "eandreaja",
+    "nombre": "Andrea Jaramillo",
+    "rol": "Python Developer · Data Science en formación",
+    "linkedin": "https://www.linkedin.com/in/eandreaja/",
+    "redes": [],
+    "rango": "🧭 Timonel",
+    "puntos": 180,
+    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
+  },
+  {
     "github": "juanjosegonzalezrosales",
     "nombre": "Juan José González Rosales",
     "rol": "Desarrollador Jr",
@@ -93,16 +103,6 @@
     "rango": "🧭 Timonel",
     "puntos": 170,
     "motivacion": "Aprender de la comunidad y fortalecer mis conocimientos en Kubernetes"
-  },
-  {
-    "github": "eandreaja",
-    "nombre": "Andrea Jaramillo",
-    "rol": "Python Developer · Data Science en formación",
-    "linkedin": "https://www.linkedin.com/in/eandreaja/",
-    "redes": [],
-    "rango": "🧭 Timonel",
-    "puntos": 170,
-    "motivacion": "Un modelo que nunca sale del notebook es un experimento que todavía no llegó a ningún lado. Voy camino a Data Scientist y vine a aprender a llevar un proyecto de Python desde el código hasta un contenedor y un clúster."
   },
   {
     "github": "marnathali",
