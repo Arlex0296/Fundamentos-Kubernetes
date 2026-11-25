@@ -155,6 +155,16 @@
     "motivacion": "Entender de verdad cómo funcionan los contenedores y poder llevar mis propias apps de mi computador a producción sin miedo"
   },
   {
+    "github": "aiops88",
+    "nombre": "Airy Nieves",
+    "rol": "👩‍💻 Ingeniera<br>Infraestructura",
+    "linkedin": "https://www.linkedin.com/in/airy-nc/",
+    "redes": [],
+    "rango": "⛵ Marinero",
+    "puntos": 70,
+    "motivacion": "Aprender de la comunidad de Cloud Native Medellín."
+  },
+  {
     "github": "jujo23z",
     "nombre": "Juan Jose Jaramillo",
     "rol": "Ingeniero de Sistemas",
@@ -203,16 +213,6 @@
     "rango": "⛵ Marinero",
     "puntos": 60,
     "motivacion": "Me motiva profundizar mis conocimientos en Kubernetes y fortalecer mis habilidades en arquitectura, orquestación y despliegue de aplicaciones en contenedores. Tengo experiencia trabajando con AWS, Docker, Terraform y CI/CD, y quiero complementar estos conocimientos aprendiendo a administrar clústeres, gestionar deployments, services, networking y escalabilidad.   Espero llevar mis conocimientos al siguiente nivel, aplicar lo aprendido en proyectos reales y seguir creciendo profesionalmente como Senior DevOps Engineer."
-  },
-  {
-    "github": "aiops88",
-    "nombre": "Airy Nieves",
-    "rol": "👩‍💻 Ingeniera<br>Infraestructura",
-    "linkedin": "https://www.linkedin.com/in/airy-nc/",
-    "redes": [],
-    "rango": "⛵ Marinero",
-    "puntos": 60,
-    "motivacion": "Aprender de la comunidad de Cloud Native Medellín."
   },
   {
     "github": "sanjavier88",

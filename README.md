@@ -762,6 +762,16 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub><a href="./aportes-comunidad/soluciones-retos/parte193/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
+      <a href="./aportes-comunidad/soluciones-retos/aiops88/README.md" title="Airy Nieves (@aiops88) — 70 XP">
+        <img src="https://github.com/aiops88.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="aiops88"/><br/>
+        <sub><b>Airy Nieves</b></sub>
+      </a><br/>
+      <sub>⛵ Marinero • <b>70 XP</b></sub><br/>
+      <sub><a href="./aportes-comunidad/soluciones-retos/aiops88/README.md">🎓 Portafolio</a></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/jujo23z/README.md" title="Juan Jose Jaramillo (@jujo23z) — 60 XP">
         <img src="https://github.com/jujo23z.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="jujo23z"/><br/>
         <sub><b>Juan Jose</b></sub>
@@ -769,8 +779,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/jujo23z/README.md">🎓 Portafolio</a></sub>
     </td>
-  </tr>
-  <tr>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/DrSiker/README.md" title="Didier Alexander Rendón Chaverra (@DrSiker) — 60 XP">
         <img src="https://github.com/DrSiker.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="DrSiker"/><br/>
@@ -802,14 +810,6 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       </a><br/>
       <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/Erica1912/README.md">🎓 Portafolio</a></sub>
-    </td>
-    <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/aiops88/README.md" title="Airy Nieves (@aiops88) — 60 XP">
-        <img src="https://github.com/aiops88.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="aiops88"/><br/>
-        <sub><b>Airy Nieves</b></sub>
-      </a><br/>
-      <sub>⛵ Marinero • <b>60 XP</b></sub><br/>
-      <sub><a href="./aportes-comunidad/soluciones-retos/aiops88/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
       <a href="./aportes-comunidad/soluciones-retos/sanjavier88/README.md" title="Jorge Alberto Monsalve Ruiz (@sanjavier88) — 50 XP">
