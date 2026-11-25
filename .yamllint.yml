@@ -13,6 +13,7 @@ ignore:
   - "*reto-roto*/**"
   - "**/reto-roto/**"
   - "**/*reto-roto*/**"
+  - "**/templates/**"
   - ".github/workflows/**"
 
 rules:
