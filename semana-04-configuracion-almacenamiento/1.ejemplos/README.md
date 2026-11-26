@@ -556,9 +556,31 @@ kubectl delete pod pod-escritor
 > - Al final verás `<h1>☕ Receta Persistente Guardada por Pod 1</h1>` y `pod "pod-escritor" deleted`.
 
 ### Paso 4: Conecta un segundo Pod distinto (`nginx`) al mismo `PVC` y revisa sus eventos
+Como `recetario-pv` y `recetario-pvc` ya existen desde los Pasos 1 y 2, aquí creamos únicamente el nuevo Pod `recetario-web` en el mismo nodo `$NODO`:
+
 ```bash
 # 1. Crear el Pod recetario-web (Nginx) en el mismo nodo $NODO montando recetario-pvc en /usr/share/nginx/html
-sed "s/^spec:/spec:\n  nodeName: $NODO/" semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml | kubectl apply -f -
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: recetario-web
+spec:
+  nodeName: $NODO
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: disco-recetario
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: disco-recetario
+      persistentVolumeClaim:
+        claimName: recetario-pvc
+EOF
+
 kubectl wait --for=condition=ready pod/recetario-web --timeout=60s
 
 # 2. Ver los eventos de montaje/arranque y confirmar en el PVC que ahora Used By apunta a recetario-web
@@ -569,6 +591,7 @@ kubectl describe pvc recetario-pvc | grep -E "Status:|Volume:|Used By:"
 kubectl exec recetario-web -- cat /usr/share/nginx/html/index.html
 kubectl exec recetario-web -- wget -qO- http://localhost
 ```
+> *(Nota: si estás en un clúster de 1 solo nodo y quieres aplicar PV + PVC + Pod de una vez, usa `kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml`).*
 > 💡 **Respuesta esperada:**
 > - En `kubectl describe pod recetario-web` verás en `Events:` que se montó el volumen y arrancó Nginx; y en `kubectl describe pvc recetario-pvc` verás `Used By: recetario-web`.
 > - En la salida de `cat` y `wget`:
