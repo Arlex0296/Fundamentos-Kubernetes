@@ -395,31 +395,42 @@ kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && 
 >     Type:       HostPath (bare host directory volume)
 >     Path:       /tmp/kubecafe-nodo-estante
 > ```
-> - Con `exec` verás **1 fecha** en `pedidos.log` (`emptyDir`) y **1 fecha** en `historial.log` (`hostPath`):
+> - Con `kubectl logs` y `exec` verás **1 línea** en `pedidos.log` (`emptyDir`) y **1 línea** en `historial.log` (`hostPath`), indicando el nodo donde corrió:
 > ```text
-> Tue Nov 24 18:50:10 UTC 2026
-> ---
-> Tue Nov 24 18:50:10 UTC 2026
+> === Contenido de /tmp-bandeja/pedidos.log (emptyDir) ===
+> [emptyDir] Thu Nov 26 13:56:33 UTC 2026 | nodo: k3s-worker-1
+> === Contenido de /nodo-estante/historial.log (hostPath) ===
+> [hostPath] Thu Nov 26 13:56:33 UTC 2026 | nodo: k3s-worker-1
 > ```
 
-### Paso 2: Borra el Pod, recréalo y observa la diferencia
+### Paso 2: Borra el Pod, recréalo en el mismo nodo y observa la diferencia
+En clústeres multi-nodo (como `k3s` en iximiuz Labs), si borras el Pod y lo recreas sin fijar el nodo, Kubernetes puede enviarlo a otro Worker Node distinto (que tiene otro `/tmp` vacío). Para ver claramente la persistencia de `hostPath`, guardamos el nombre del nodo actual en `$NODO` y recreamos el Pod allí mismo:
+
 ```bash
+# 1. Guardar el nodo actual y eliminar el Pod
+NODO=$(kubectl get pod pod-almacenamiento-local -o jsonpath='{.spec.nodeName}')
+echo "Nodo actual: $NODO"
 kubectl delete pod pod-almacenamiento-local
-kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml
+
+# 2. Recrear el Pod en el MISMO nodo para comparar emptyDir vs hostPath
+sed "s/^spec:/spec:\n  nodeName: $NODO/" semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml | kubectl apply -f -
 kubectl wait --for=condition=ready pod/pod-almacenamiento-local --timeout=60s
-kubectl get pod pod-almacenamiento-local -o wide
+
+# 3. Ver los logs y archivos (ya verás la diferencia clara!)
+kubectl logs pod-almacenamiento-local
 kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && echo '---' && cat /nodo-estante/historial.log"
 ```
-> 💡 **Respuesta esperada (si quedó en el mismo nodo):**
+> 💡 **Respuesta esperada:**
 > ```text
-> Tue Nov 24 18:51:02 UTC 2026
-> ---
-> Tue Nov 24 18:50:10 UTC 2026
-> Tue Nov 24 18:51:02 UTC 2026
+> === Contenido de /tmp-bandeja/pedidos.log (emptyDir) ===
+> [emptyDir] Thu Nov 26 13:57:40 UTC 2026 | nodo: k3s-worker-1
+> === Contenido de /nodo-estante/historial.log (hostPath) ===
+> [hostPath] Thu Nov 26 13:56:33 UTC 2026 | nodo: k3s-worker-1
+> [hostPath] Thu Nov 26 13:57:40 UTC 2026 | nodo: k3s-worker-1
 > ```
 > - **`/tmp-bandeja/pedidos.log` (`emptyDir`):** tiene **solo 1 línea nueva** (el archivo anterior se destruyó junto con el Pod viejo).
-> - **`/nodo-estante/historial.log` (`hostPath`):** conserva **2 líneas** (la del Pod anterior + la del Pod nuevo) porque el archivo quedó guardado en `/tmp/kubecafe-nodo-estante` del nodo.
-> - 📌 **Nota en clústeres multi-nodo (2+ workers):** si `kubectl get pod -o wide` muestra que el nuevo Pod cayó en **otro nodo distinto**, `historial.log` mostrará solo 1 línea allí porque cada nodo tiene su propio disco local. Por eso en producción usamos **`PV` / `PVC`** (Labs 5 y 6).
+> - **`/nodo-estante/historial.log` (`hostPath`):** conserva **2 líneas** (la del Pod anterior + la del Pod nuevo) porque el archivo quedó guardado en `/tmp/kubecafe-nodo-estante` del nodo `$NODO`.
+> - 📌 **Por qué en producción no usamos `hostPath`:** si el Pod llega a caer en otro nodo distinto, no verá esa carpeta. Por eso en los Labs 5–8 usamos **`PV` / `PVC`**.
 
 ---
 
