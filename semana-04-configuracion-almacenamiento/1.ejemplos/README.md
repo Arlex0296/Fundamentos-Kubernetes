@@ -565,6 +565,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: recetario-web
+  labels:
+    app: recetario-web
 spec:
   nodeName: $NODO
   containers:
