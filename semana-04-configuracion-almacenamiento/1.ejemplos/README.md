@@ -180,12 +180,22 @@ data:
 EOF
 
 # 2. Cambiar el volumen del Deployment al nuevo ConfigMap (esto recrea el Pod automáticamente)
-kubectl set volume deployment/menu-config-web --add --overwrite \
-  --name=nginx-conf-vol \
-  --type=configmap \
-  --configmap-name=kubecafe-nginx-conf-v2 \
-  --mount-path=/etc/nginx/conf.d \
-  --read-only
+kubectl patch deployment menu-config-web --type=strategic -p '{
+  "spec": {
+    "template": {
+      "spec": {
+        "volumes": [
+          {
+            "name": "nginx-conf-vol",
+            "configMap": {
+              "name": "kubecafe-nginx-conf-v2"
+            }
+          }
+        ]
+      }
+    }
+  }
+}'
 
 # (Tip: si en vez de cambiar de ConfigMap editas variables envFrom, fuerza la recreación con:)
 # kubectl rollout restart deployment/menu-config-web
