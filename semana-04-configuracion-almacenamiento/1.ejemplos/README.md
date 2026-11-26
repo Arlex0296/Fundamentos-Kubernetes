@@ -685,8 +685,16 @@ Crear un `PV` manual para cada aplicación es poco práctico en clústeres grand
 
 | Comparación | **Labs 5 y 6 (Estático / Manual)** | **Lab 7 (Dinámico con `StorageClass`)** |
 | :--- | :--- | :--- |
-| **`storageClassName`** | Nombre ficticio de etiqueta (`manual-lab5`, `manual`) — no aparece en `kubectl get sc` | `StorageClass` real del clúster (`local-path` / `standard` o por defecto) |
-| **¿Quién crea el `PV`?** | Tú manualmente en el YAML | Kubernetes automáticamente al crear el `PVC` |
+| **`storageClassName`** | Nombre ficticio de etiqueta (`manual-lab5`, `manual`) — no aparece en `kubectl get sc` | `StorageClass` real del clúster (`local-path` de Rancher o `standard` en Kind) |
+| **¿Quién crea el `PV`?** | Tú manualmente en el YAML | El controlador del `StorageClass` automáticamente al crear el `PVC` |
+| **`reclaimPolicy`** | `Retain` (conserva datos tras borrar `PVC`) | `Delete` (limpia el `PV` y la carpeta al borrar el `PVC`) |
+
+### 🧠 ¿Cómo funciona el aprovisionamiento dinámico con **Rancher `local-path-provisioner`**?
+Si tu clúster no trae un `StorageClass` por defecto, usamos **Rancher `local-path-provisioner`** (`v0.0.37`). Esto es lo que hace por dentro paso a paso:
+1. **Instala el controlador en `local-path-storage`:** crea un `Deployment` (`local-path-provisioner`) y el `StorageClass` llamado **`local-path`** (`provisioner: rancher.io/local-path`).
+2. **Espera al primer Pod (`volumeBindingMode: WaitForFirstConsumer`):** cuando creas el `PVC`, verás que espera unos segundos antes de crear el disco; primero mira **en qué Worker Node** va a correr tu Pod para crear la carpeta en ese mismo nodo.
+3. **Crea el disco automático (`helperPod`):** lanza un mini Pod auxiliar en ese nodo, crea una carpeta dedicada dentro de **`/opt/local-path-provisioner/`**, registra el **`PV`** automáticamente en Kubernetes y enlaza tu **`PVC`** a **`Bound`**.
+4. **Por qué hacemos `kubectl patch`:** el YAML de Rancher crea `local-path` sin marcarlo como predeterminado; con el `patch` le agregamos `storageclass.kubernetes.io/is-default-class: "true"` para que cualquier `PVC` sin `storageClassName` explícito (como este Lab 7 y el `StatefulSet` del Lab 8) lo use automáticamente.
 
 ```mermaid
 flowchart TD
