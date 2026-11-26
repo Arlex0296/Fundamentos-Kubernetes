@@ -592,6 +592,28 @@ kubectl exec recetario-web -- cat /usr/share/nginx/html/index.html
 kubectl exec recetario-web -- wget -qO- http://localhost
 ```
 > *(Nota: si estás en un clúster de 1 solo nodo y quieres aplicar PV + PVC + Pod de una vez, usa `kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml`).*
+
+### Paso 5: Expón `recetario-web` rápidamente con un `Service` tipo `NodePort` por comando
+Para ver la receta persistente desde fuera sin escribir más YAML, usa `kubectl expose`:
+```bash
+# 1. Exponer el Pod recetario-web como Service NodePort en un solo comando
+kubectl expose pod recetario-web --type=NodePort --port=80 --name=recetario-web-svc
+
+# 2. Ver el puerto NodePort asignado (rango 30000-32767)
+kubectl get svc recetario-web-svc
+
+# 3. Probar la web desde el nodo usando la IP interna y el NodePort asignado
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+NODE_PORT=$(kubectl get svc recetario-web-svc -o jsonpath='{.spec.ports[0].nodePort}')
+curl -s http://$NODE_IP:$NODE_PORT
+```
+> 💡 **Respuesta esperada:**
+> - `service/recetario-web-svc exposed`
+> - En `kubectl get svc recetario-web-svc` verás `TYPE: NodePort` y `80:3xxxx/TCP`.
+> - Con `curl` verás directamente:
+> ```html
+> <h1>☕ Receta Persistente Guardada por Pod 1</h1>
+> ```
 > 💡 **Respuesta esperada:**
 > - En `kubectl describe pod recetario-web` verás en `Events:` que se montó el volumen y arrancó Nginx; y en `kubectl describe pvc recetario-pvc` verás `Used By: recetario-web`.
 > - En la salida de `cat` y `wget`:
@@ -852,6 +874,7 @@ kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/08-statefuls
 kubectl delete pvc -l app=mysql --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/07-storageclass-dinamico-stateful.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/06-pv-pvc-almacenamiento-persistente.yaml --ignore-not-found
+kubectl delete svc recetario-web-svc --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/03-secret-credenciales.yaml --ignore-not-found
