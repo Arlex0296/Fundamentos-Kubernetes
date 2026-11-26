@@ -585,10 +585,18 @@ EOF
 
 kubectl wait --for=condition=ready pod/recetario-web --timeout=60s
 
-# 2. Ver los eventos de montaje/arranque y confirmar en el PVC que ahora Used By apunta a recetario-web
+# 2. Ver los eventos de montaje/arranque y confirmar en el PVC Used By + Conditions
 kubectl describe pod recetario-web
-kubectl describe pvc recetario-pvc | grep -E "Status:|Volume:|Used By:"
+kubectl describe pvc recetario-pvc
+```
+> 💡 **Qué observar en `kubectl describe pvc recetario-pvc`:**
+> - **`Used By: recetario-web`**: indica qué Pod está montando el disco ahora mismo.
+> - **`Conditions:`** (`Unused` / `False` / `PodUsingPVC`):
+>   - **`Type: Unused`** pregunta: *«¿Este PVC está sin usar?»*
+>   - **`Status: False`** responde: ***«Falso»*** (es decir, **NO** está sin usar = **sí está en uso**).
+>   - **`Reason: PodUsingPVC` (`A pod is currently referencing this PVC`)**: explica que hay un Pod usándolo, activando la protección (`pvc-protection`) para evitar borrar el PVC por accidente mientras el Pod viva. Cuando borras el Pod, cambia a `Unused: True`.
 
+```bash
 # 3. Leer el archivo dentro del nuevo Pod y probar que Nginx lo sirve intacto
 kubectl exec recetario-web -- cat /usr/share/nginx/html/index.html
 kubectl exec recetario-web -- wget -qO- http://localhost
