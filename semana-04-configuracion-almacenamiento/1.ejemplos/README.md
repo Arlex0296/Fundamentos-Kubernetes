@@ -28,10 +28,10 @@ git pull origin main
 | [`02-configmap-volumen-archivo.yaml`](./02-configmap-volumen-archivo.yaml) | `ConfigMap` montado como archivo | Carta HTML colgada en Nginx sin reconstruir la imagen. |
 | [`03-secret-credenciales.yaml`](./03-secret-credenciales.yaml) | `Secret` (`env` + volumen `readOnly`) | Clave de caja fuerte y API Key en bóveda protegida. |
 | [`04-volumen-emptydir-vs-hostpath.yaml`](./04-volumen-emptydir-vs-hostpath.yaml) | `emptyDir` vs `hostPath` | Bandeja temporal en barra vs estante fijo del nodo. |
-| [`05-pv-pvc-almacenamiento-persistente.yaml`](./05-pv-pvc-almacenamiento-persistente.yaml) | `PV` + `PVC` (`manual`) | Bodega física (`PV`) reservada mediante contrato (`PVC`). |
-| [`06-storageclass-dinamico-stateful.yaml`](./06-storageclass-dinamico-stateful.yaml) | `PVC` dinámico + `Deployment` | Caja registradora cuyos registros sobreviven al borrar el Pod. |
-| [`07-statefulset-mysql-headless-app.yaml`](./07-statefulset-mysql-headless-app.yaml) | `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend | Bóveda de base de datos con nombre fijo (`mysql-0`), disco propio y app completa. |
-| [`08-pv-pvc-paso-a-paso.yaml`](./08-pv-pvc-paso-a-paso.yaml) | `PV` (`Available`) ➔ `PVC` (`Bound`) ➔ Persistencia entre Pods | Un Pod guarda un archivo, muere, y otro Pod distinto lo lee intacto. |
+| [`05-pv-pvc-paso-a-paso.yaml`](./05-pv-pvc-paso-a-paso.yaml) | `PV` (`Available`) ➔ `PVC` (`Bound`) ➔ Persistencia entre Pods | Un Pod guarda un archivo, muere, y otro Pod distinto lo lee intacto. |
+| [`06-pv-pvc-almacenamiento-persistente.yaml`](./06-pv-pvc-almacenamiento-persistente.yaml) | `PV` + `PVC` (`manual`) | Bodega física (`PV`) reservada mediante contrato (`PVC`). |
+| [`07-storageclass-dinamico-stateful.yaml`](./07-storageclass-dinamico-stateful.yaml) | `PVC` dinámico + `Deployment` | Caja registradora cuyos registros sobreviven al borrar el Pod. |
+| [`08-statefulset-mysql-headless-app.yaml`](./08-statefulset-mysql-headless-app.yaml) | `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend | Bóveda de base de datos con nombre fijo (`mysql-0`), disco propio y app completa. |
 
 ---
 
@@ -423,26 +423,142 @@ kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && 
 
 ---
 
-## 📦 Laboratorio 5: `PersistentVolume` (`PV`) y `PersistentVolumeClaim` (`PVC`)
+## 🧱 Laboratorio 5: `PV` y `PVC` Paso a Paso — De `Available` a `Bound` y Persistencia entre Pods Distintos
 
 ### 💡 ¿Qué aprenderás?
-En producción no usamos `hostPath` directo en cada Pod. Separamos el almacenamiento en dos objetos:
+Para entender sin confusiones cómo funcionan **`PersistentVolume` (`PV`)** y **`PersistentVolumeClaim` (`PVC`)**, en este ejercicio vamos a crear **cada pieza por separado** para observar cómo cambia su estado:
+1. Primero crearemos solo el **`PV`** (el disco físico disponible ➔ estado `Available`).
+2. Luego crearemos el **`PVC`** (la solicitud de espacio ➔ ambos pasan a estado `Bound`).
+3. Después un **Pod escritor** guardará un archivo `index.html` en ese volumen y **lo borraremos**.
+4. Por último, un **Pod distinto (`nginx`)** se conectará al **mismo `PVC`** y demostrará que el archivo sigue ahí intacto.
+
+![Diagrama Lab 5: PV y PVC Paso a Paso](./diagrama-lab05-pv-pvc.svg)
+
+### Paso 1: Crea únicamente el `PersistentVolume` (`PV`) y mira su estado `Available`
+```bash
+kubectl apply -f - <<'EOF'
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: recetario-pv
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual-lab5
+  hostPath:
+    path: /tmp/kubecafe-recetario-pv
+EOF
+
+kubectl get pv recetario-pv
+```
+> 💡 **Respuesta esperada:**
+> ```text
+> NAME           CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS
+> recetario-pv   500Mi      RWO            Retain           Available           manual-lab5
+> ```
+> 📌 **Observa:** `STATUS` dice **`Available`** y `CLAIM` está vacío porque todavía ningún `PVC` lo ha reservado.
+
+### Paso 2: Crea el `PersistentVolumeClaim` (`PVC`) y observa cómo se enlazan (`Bound`)
+Fíjate en que pedimos `200Mi` con el mismo `storageClassName: manual-lab5` y `accessModes: ReadWriteOnce`:
+```bash
+kubectl apply -f - <<'EOF'
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: recetario-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual-lab5
+  resources:
+    requests:
+      storage: 200Mi
+EOF
+
+kubectl get pv recetario-pv
+kubectl get pvc recetario-pvc
+```
+> 💡 **Respuesta esperada:**
+> ```text
+> NAME           CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS
+> recetario-pv   500Mi      RWO            Retain           Bound    default/recetario-pvc   manual-lab5
+>
+> NAME            STATUS   VOLUME         CAPACITY   ACCESS MODES   STORAGECLASS
+> recetario-pvc   Bound    recetario-pv   500Mi      RWO            manual-lab5
+> ```
+> 📌 **Observa:** ambos pasaron a **`Bound`** y `CLAIM` ahora apunta a `default/recetario-pvc`. *(Si hubiéramos pedido `1Gi`, el PVC se habría quedado en `Pending` porque el `PV` solo tiene `500Mi`)*.
+
+### Paso 3: Crea un primer Pod que escriba en el `PVC` y luego bórralo
+```bash
+# 1. Crear Pod temporal (busybox) montando recetario-pvc en /datos
+kubectl apply -f - <<'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-escritor
+spec:
+  containers:
+    - name: escritor
+      image: busybox:1.36
+      command: ["sh", "-c", "echo '<h1>☕ Receta Persistente Guardada por Pod 1</h1>' > /datos/index.html && sleep 3600"]
+      volumeMounts:
+        - name: disco
+          mountPath: /datos
+  volumes:
+    - name: disco
+      persistentVolumeClaim:
+        claimName: recetario-pvc
+EOF
+
+kubectl wait --for=condition=ready pod/pod-escritor --timeout=60s
+kubectl exec pod-escritor -- cat /datos/index.html
+
+# 2. Borrar el Pod escritor por completo
+kubectl delete pod pod-escritor
+```
+> 💡 **Respuesta esperada:** primero verás `<h1>☕ Receta Persistente Guardada por Pod 1</h1>` y luego `pod "pod-escritor" deleted`.
+
+### Paso 4: Conecta un segundo Pod distinto (`nginx`) al mismo `PVC` y comprueba los datos
+```bash
+# 1. Crear el Pod recetario-web (Nginx) montando el mismo recetario-pvc en /usr/share/nginx/html
+kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml
+kubectl wait --for=condition=ready pod/recetario-web --timeout=60s
+
+# 2. Leer el archivo dentro del nuevo Pod y probar que Nginx lo sirve intacto
+kubectl exec recetario-web -- cat /usr/share/nginx/html/index.html
+kubectl exec recetario-web -- wget -qO- http://localhost
+```
+> 💡 **Respuesta esperada:**
+> ```html
+> <h1>☕ Receta Persistente Guardada por Pod 1</h1>
+> ```
+> ¡Un Pod diferente (`nginx`) acaba de leer exactamente lo que guardó el Pod anterior (`busybox`) antes de ser eliminado!
+
+---
+
+## 📦 Laboratorio 6: `PersistentVolume` (`PV`) y `PersistentVolumeClaim` (`PVC`) en un Manifiesto
+
+### 💡 ¿Qué aprenderás?
+Ahora que viste cada pieza por separado, aquí desplegamos en un solo archivo el **`PV`** (`1Gi`), el **`PVC`** (`500Mi`) y el Pod `inventario-bodega-pod`:
 - **`PersistentVolume` (`PV`):** El disco o bodega real disponible en el clúster (`1Gi`).
 - **`PersistentVolumeClaim` (`PVC`):** La solicitud o "ticket de reserva" de un Pod pidiendo espacio (`500Mi`).
 
 ```mermaid
 flowchart TD
-    L5_POD["📦 Pod: inventario-bodega-pod"] -->|"mountPath: /datos"| L5_PVC["📄 PVC: bodega-kubecafe-pvc\n(Pide 500Mi)"]
-    L5_PVC -->|"Bound (Enlazado)"| L5_PV["🏢 PV: bodega-kubecafe-pv\n(Bodega 1Gi manual)"]
+    L6_POD["📦 Pod: inventario-bodega-pod"] -->|"mountPath: /datos"| L6_PVC["📄 PVC: bodega-kubecafe-pvc\n(Pide 500Mi)"]
+    L6_PVC -->|"Bound (Enlazado)"| L6_PV["🏢 PV: bodega-kubecafe-pv\n(Bodega 1Gi manual)"]
 
-    style L5_POD fill:#16a34a,color:#fff
-    style L5_PVC fill:#7c3aed,color:#fff
-    style L5_PV fill:#2563eb,color:#fff
+    style L6_POD fill:#16a34a,color:#fff
+    style L6_PVC fill:#7c3aed,color:#fff
+    style L6_PV fill:#2563eb,color:#fff
 ```
 
 ### Paso 1: Crea el `PV`, el `PVC` y el Pod que los usa
 ```bash
-kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-almacenamiento-persistente.yaml
+kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/06-pv-pvc-almacenamiento-persistente.yaml
 
 # 1. Listar PV y PVC y comprobar que estén en estado Bound
 kubectl get pv,pvc
@@ -466,23 +582,23 @@ kubectl exec inventario-bodega-pod -- ls -la /datos
 
 ---
 
-## 🔄 Laboratorio 6: `StorageClass` Dinámico y Prueba de Persistencia ante Caídas
+## 🔄 Laboratorio 7: `StorageClass` Dinámico y Prueba de Persistencia ante Caídas
 
 ### 💡 ¿Qué aprenderás?
 Crear un `PV` manual para cada aplicación es poco práctico en clústeres grandes. Con un **`StorageClass`**, basta con crear un `PVC` y el clúster **fabrica automáticamente el `PV`** por ti (aprovisionamiento dinámico).
 
 ```mermaid
 flowchart TD
-    L6_DEP["🔄 Deployment: caja-persistente"] --> L6_P1["❌ Pod viejo (borrado)"]
-    L6_DEP --> L6_P2["✅ Pod nuevo (reemplazo)"]
-    L6_P2 -->|"Lee el mismo disco"| L6_PVC["📄 PVC: caja-diaria-pvc (1Gi)"]
-    L6_SC["⚙️ StorageClass (por defecto)"] -.->|"Crea PV automático"| L6_PVC
+    L7_DEP["🔄 Deployment: caja-persistente"] --> L7_P1["❌ Pod viejo (borrado)"]
+    L7_DEP --> L7_P2["✅ Pod nuevo (reemplazo)"]
+    L7_P2 -->|"Lee el mismo disco"| L7_PVC["📄 PVC: caja-diaria-pvc (1Gi)"]
+    L7_SC["⚙️ StorageClass (por defecto)"] -.->|"Crea PV automático"| L7_PVC
 
-    style L6_DEP fill:#2563eb,color:#fff
-    style L6_P1 fill:#dc2626,color:#fff
-    style L6_P2 fill:#16a34a,color:#fff
-    style L6_PVC fill:#7c3aed,color:#fff
-    style L6_SC fill:#475569,color:#fff
+    style L7_DEP fill:#2563eb,color:#fff
+    style L7_P1 fill:#dc2626,color:#fff
+    style L7_P2 fill:#16a34a,color:#fff
+    style L7_PVC fill:#7c3aed,color:#fff
+    style L7_SC fill:#475569,color:#fff
 ```
 
 ### Paso 1: Verifica el `StorageClass` de tu clúster y despliega la app
@@ -491,7 +607,7 @@ flowchart TD
 kubectl get storageclass
 
 # 2. Aplicar el PVC dinámico y el Deployment:
-kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/06-storageclass-dinamico-stateful.yaml
+kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/07-storageclass-dinamico-stateful.yaml
 kubectl wait --for=condition=available deployment/caja-persistente --timeout=90s
 
 # 3. Ver el PVC enlazado, el PV creado automáticamente y validar con logs/exec:
@@ -524,7 +640,7 @@ kubectl logs deployment/caja-persistente
 
 ---
 
-## 🗄️ Laboratorio 7: `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend
+## 🗄️ Laboratorio 8: `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend
 
 ### 💡 ¿Qué aprenderás y por qué NO basta un `Deployment` para una Base de Datos?
 En los laboratorios anteriores usamos `Deployment` para Nginx o Python porque sus Pods son **intercambiables** (cualquiera tiene un nombre aleatorio como `caja-persistente-7f8d9-abcde` y puede compartir el mismo disco).  
@@ -543,26 +659,11 @@ Ahí entra el **`Headless Service`** (`clusterIP: None`):
   `mysql-0.mysql-headless.default.svc.cluster.local`
   CoreDNS devuelve **directamente la IP real del Pod `mysql-0`**.
 
-```mermaid
-flowchart TD
-    FE["🌐 Frontend Nginx\nkubecafe-mysql-frontend :30086"] -->|"/api/pedidos"| BE["⚙️ Backend Python\nkubecafe-mysql-backend :5000"]
-    BE -->|"1. Consulta DNS:\nmysql-0.mysql-headless.default.svc.cluster.local"| DNS["🧭 CoreDNS"]
-    DNS -.->|"2. Devuelve IP directa del Pod\n(gracias a clusterIP: None)"| BE
-    HL["👻 Headless Service\nmysql-headless (clusterIP: None)"] -.->|"Registra identidad DNS\nsin balanceo"| STS
-    BE -->|"3. TCP :3306 (SQL)"| STS["🗄️ StatefulSet: mysql\nPod mysql-0"]
-    STS -->|"volumeClaimTemplates"| PVC["📄 PVC dedicado:\nmysql-data-mysql-0 (1Gi)"]
-
-    style FE fill:#2563eb,color:#fff
-    style BE fill:#16a34a,color:#fff
-    style DNS fill:#0284c7,color:#fff
-    style HL fill:#475569,color:#fff
-    style STS fill:#d97706,color:#fff
-    style PVC fill:#7c3aed,color:#fff
-```
+![Diagrama Lab 8: StatefulSet MySQL y Headless Service](./diagrama-lab08-statefulset-mysql.svg)
 
 ### Paso 1: Despliega MySQL (`StatefulSet`), el `Headless Service`, el Backend y el Frontend
 ```bash
-kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/07-statefulset-mysql-headless-app.yaml
+kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/08-statefulset-mysql-headless-app.yaml
 ```
 > 💡 **Respuesta esperada:**
 > ```text
@@ -679,141 +780,16 @@ kubectl exec deployment/kubecafe-mysql-backend -- nslookup mysql-headless.defaul
 
 ---
 
-## 🧱 Laboratorio 8 (Adicional): `PV` y `PVC` Paso a Paso — De `Available` a `Bound` y Persistencia entre Pods Distintos
-
-### 💡 ¿Qué aprenderás?
-Para entender sin confusiones cómo funcionan **`PersistentVolume` (`PV`)** y **`PersistentVolumeClaim` (`PVC`)**, en este ejercicio vamos a crear **cada pieza por separado** para observar cómo cambia su estado:
-1. Primero crearemos solo el **`PV`** (el disco físico disponible ➔ estado `Available`).
-2. Luego crearemos el **`PVC`** (la solicitud de espacio ➔ ambos pasan a estado `Bound`).
-3. Después un **Pod escritor** guardará un archivo `index.html` en ese volumen y **lo borraremos**.
-4. Por último, un **Pod distinto (`nginx`)** se conectará al **mismo `PVC`** y demostrará que el archivo sigue ahí intacto.
-
-```mermaid
-flowchart LR
-    PV["1️⃣ PV: recetario-pv\n(500Mi, Available)"] -->|"2️⃣ Se enlaza (Bound)"| PVC["📄 PVC: recetario-pvc\n(Pide 200Mi)"]
-    P1["3️⃣ Pod 1: pod-escritor\nEscribe index.html y muere"] -->|"Usa"| PVC
-    P2["4️⃣ Pod 2: recetario-web (Nginx)\nLee el mismo index.html"] -->|"Usa el mismo"| PVC
-
-    style PV fill:#2563eb,color:#fff
-    style PVC fill:#7c3aed,color:#fff
-    style P1 fill:#dc2626,color:#fff
-    style P2 fill:#16a34a,color:#fff
-```
-
-### Paso 1: Crea únicamente el `PersistentVolume` (`PV`) y mira su estado `Available`
-```bash
-kubectl apply -f - <<'EOF'
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: recetario-pv
-spec:
-  capacity:
-    storage: 500Mi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: manual-lab8
-  hostPath:
-    path: /tmp/kubecafe-recetario-pv
-EOF
-
-kubectl get pv recetario-pv
-```
-> 💡 **Respuesta esperada:**
-> ```text
-> NAME           CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS
-> recetario-pv   500Mi      RWO            Retain           Available           manual-lab8
-> ```
-> 📌 **Observa:** `STATUS` dice **`Available`** y `CLAIM` está vacío porque todavía ningún `PVC` lo ha reservado.
-
-### Paso 2: Crea el `PersistentVolumeClaim` (`PVC`) y observa cómo se enlazan (`Bound`)
-Fíjate en que pedimos `200Mi` con el mismo `storageClassName: manual-lab8` y `accessModes: ReadWriteOnce`:
-```bash
-kubectl apply -f - <<'EOF'
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: recetario-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: manual-lab8
-  resources:
-    requests:
-      storage: 200Mi
-EOF
-
-kubectl get pv recetario-pv
-kubectl get pvc recetario-pvc
-```
-> 💡 **Respuesta esperada:**
-> ```text
-> NAME           CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS
-> recetario-pv   500Mi      RWO            Retain           Bound    default/recetario-pvc   manual-lab8
->
-> NAME            STATUS   VOLUME         CAPACITY   ACCESS MODES   STORAGECLASS
-> recetario-pvc   Bound    recetario-pv   500Mi      RWO            manual-lab8
-> ```
-> 📌 **Observa:** ambos pasaron a **`Bound`** y `CLAIM` ahora apunta a `default/recetario-pvc`. *(Si hubiéramos pedido `1Gi`, el PVC se habría quedado en `Pending` porque el `PV` solo tiene `500Mi`)*.
-
-### Paso 3: Crea un primer Pod que escriba en el `PVC` y luego bórralo
-```bash
-# 1. Crear Pod temporal (busybox) montando recetario-pvc en /datos
-kubectl apply -f - <<'EOF'
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pod-escritor
-spec:
-  containers:
-    - name: escritor
-      image: busybox:1.36
-      command: ["sh", "-c", "echo '<h1>☕ Receta Persistente Guardada por Pod 1</h1>' > /datos/index.html && sleep 3600"]
-      volumeMounts:
-        - name: disco
-          mountPath: /datos
-  volumes:
-    - name: disco
-      persistentVolumeClaim:
-        claimName: recetario-pvc
-EOF
-
-kubectl wait --for=condition=ready pod/pod-escritor --timeout=60s
-kubectl exec pod-escritor -- cat /datos/index.html
-
-# 2. Borrar el Pod escritor por completo
-kubectl delete pod pod-escritor
-```
-> 💡 **Respuesta esperada:** primero verás `<h1>☕ Receta Persistente Guardada por Pod 1</h1>` y luego `pod "pod-escritor" deleted`.
-
-### Paso 4: Conecta un segundo Pod distinto (`nginx`) al mismo `PVC` y comprueba los datos
-```bash
-# 1. Crear el Pod recetario-web (Nginx) montando el mismo recetario-pvc en /usr/share/nginx/html
-kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/08-pv-pvc-paso-a-paso.yaml
-kubectl wait --for=condition=ready pod/recetario-web --timeout=60s
-
-# 2. Leer el archivo dentro del nuevo Pod y probar que Nginx lo sirve intacto
-kubectl exec recetario-web -- cat /usr/share/nginx/html/index.html
-kubectl exec recetario-web -- wget -qO- http://localhost
-```
-> 💡 **Respuesta esperada:**
-> ```html
-> <h1>☕ Receta Persistente Guardada por Pod 1</h1>
-> ```
-> ¡Un Pod diferente (`nginx`) acaba de leer exactamente lo que guardó el Pod anterior (`busybox`) antes de ser eliminado!
-
----
-
 ## 🧹 Limpieza de los Ejemplos
 
 Cuando termines tus pruebas, limpia todos los recursos creados esta semana (incluyendo los PVCs creados por el `StatefulSet`, ya que Kubernetes no los borra automáticamente al eliminar un `StatefulSet` para proteger tus datos):
 
 ```bash
-kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/08-pv-pvc-paso-a-paso.yaml --ignore-not-foundkubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/07-statefulset-mysql-headless-app.yaml --ignore-not-found
+kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/08-statefulset-mysql-headless-app.yaml --ignore-not-found
 kubectl delete pvc -l app=mysql --ignore-not-found
-kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/06-storageclass-dinamico-stateful.yaml --ignore-not-found
-kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-almacenamiento-persistente.yaml --ignore-not-found
+kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/07-storageclass-dinamico-stateful.yaml --ignore-not-found
+kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/06-pv-pvc-almacenamiento-persistente.yaml --ignore-not-found
+kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/03-secret-credenciales.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/02-configmap-volumen-archivo.yaml --ignore-not-found

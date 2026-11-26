@@ -13,7 +13,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: manual-lab8
+  storageClassName: manual-lab5
   hostPath:
     path: /tmp/kubecafe-recetario-pv
 ---
@@ -24,7 +24,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: manual-lab8
+  storageClassName: manual-lab5
   resources:
     requests:
       storage: 200Mi

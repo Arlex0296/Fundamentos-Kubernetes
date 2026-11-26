@@ -56,10 +56,10 @@ semana-04-configuracion-almacenamiento/
 │   ├── 02-configmap-volumen-archivo.yaml           # ConfigMap montado como HTML en Nginx
 │   ├── 03-secret-credenciales.yaml                 # Secret Opaque -> env y volumen readOnly
 │   ├── 04-volumen-emptydir-vs-hostpath.yaml        # Comparación emptyDir vs hostPath
-│   ├── 05-pv-pvc-almacenamiento-persistente.yaml   # PV + PVC manual + Pod
-│   ├── 06-storageclass-dinamico-stateful.yaml      # PVC dinámico + Deployment resistente a reinicios
-│   ├── 07-statefulset-mysql-headless-app.yaml      # StatefulSet MySQL + Headless Service + Backend + Frontend
-│   └── 08-pv-pvc-paso-a-paso.yaml                  # PV (Available) -> PVC (Bound) -> Persistencia entre Pods
+│   ├── 05-pv-pvc-paso-a-paso.yaml                  # PV (Available) -> PVC (Bound) -> Persistencia entre Pods
+│   ├── 06-pv-pvc-almacenamiento-persistente.yaml   # PV + PVC manual + Pod
+│   ├── 07-storageclass-dinamico-stateful.yaml      # PVC dinámico + Deployment resistente a reinicios
+│   └── 08-statefulset-mysql-headless-app.yaml      # StatefulSet MySQL + Headless Service + Backend + Frontend
 └── 2.reto-roto/                                    # 5 Retos con errores (+50 XP)
     ├── README.md                                   # Guía de diagnóstico y entrega
     ├── 01-configmap-clave-inexistente.yaml         # Error: CreateContainerConfigError (key faltante)

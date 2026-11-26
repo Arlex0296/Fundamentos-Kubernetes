@@ -465,10 +465,10 @@ flowchart LR
   2. [`02-configmap-volumen-archivo.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/02-configmap-volumen-archivo.yaml) — `ConfigMap` montado como archivo HTML vivo en Nginx.
   3. [`03-secret-credenciales.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/03-secret-credenciales.yaml) — `Secret` (`Opaque`) montado en `env` y archivo `readOnly`.
   4. [`04-volumen-emptydir-vs-hostpath.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml) — Comparación entre almacenamiento efímero (`emptyDir`) y de nodo (`hostPath`).
-  5. [`05-pv-pvc-almacenamiento-persistente.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-almacenamiento-persistente.yaml) — `PersistentVolume` (`PV`) + `PersistentVolumeClaim` (`PVC`) manual.
-  6. [`06-storageclass-dinamico-stateful.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/06-storageclass-dinamico-stateful.yaml) — `PVC` dinámico con `StorageClass` y prueba de persistencia al borrar el Pod.
-  7. [`07-statefulset-mysql-headless-app.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/07-statefulset-mysql-headless-app.yaml) — `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend.
-  8. [`08-pv-pvc-paso-a-paso.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/08-pv-pvc-paso-a-paso.yaml) — `PV` (`Available`) ➔ `PVC` (`Bound`) ➔ Persistencia entre Pods distintos.
+  5. [`05-pv-pvc-paso-a-paso.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml) — `PV` (`Available`) ➔ `PVC` (`Bound`) ➔ Persistencia entre Pods distintos.
+  6. [`06-pv-pvc-almacenamiento-persistente.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/06-pv-pvc-almacenamiento-persistente.yaml) — `PersistentVolume` (`PV`) + `PersistentVolumeClaim` (`PVC`) manual en un manifiesto.
+  7. [`07-storageclass-dinamico-stateful.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/07-storageclass-dinamico-stateful.yaml) — `PVC` dinámico con `StorageClass` y prueba de persistencia al borrar el Pod.
+  8. [`08-statefulset-mysql-headless-app.yaml`](./semana-04-configuracion-almacenamiento/1.ejemplos/08-statefulset-mysql-headless-app.yaml) — `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend.
 * 💥 **Los 5 Retos Rotos ([`semana-04-configuracion-almacenamiento/2.reto-roto`](./semana-04-configuracion-almacenamiento/2.reto-roto)):**
   `01-configmap-clave-inexistente.yaml` • `02-secret-base64-roto.yaml` • `03-pvc-pendiente-storageclass.yaml` • `04-volumen-mountpath-roto.yaml` • `05-configmap-volumen-roto.yaml`
 * 🚀 [**Entrar a la Semana 04**](./semana-04-configuracion-almacenamiento) | 🧪 [**Ir a los Ejemplos**](./semana-04-configuracion-almacenamiento/1.ejemplos) | 💥 [**Resolver los Retos Rotos (+50 XP)**](./semana-04-configuracion-almacenamiento/2.reto-roto) | 📊 [**Ver Diapositivas PDF**](./recursos/diapositivas/4.KubeCafe-Configuracion-y-Almacenamiento.pdf)
