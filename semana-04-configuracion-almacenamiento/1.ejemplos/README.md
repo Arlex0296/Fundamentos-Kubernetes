@@ -30,6 +30,7 @@ git pull origin main
 | [`04-volumen-emptydir-vs-hostpath.yaml`](./04-volumen-emptydir-vs-hostpath.yaml) | `emptyDir` vs `hostPath` | Bandeja temporal en barra vs estante fijo del nodo. |
 | [`05-pv-pvc-almacenamiento-persistente.yaml`](./05-pv-pvc-almacenamiento-persistente.yaml) | `PV` + `PVC` (`manual`) | Bodega física (`PV`) reservada mediante contrato (`PVC`). |
 | [`06-storageclass-dinamico-stateful.yaml`](./06-storageclass-dinamico-stateful.yaml) | `PVC` dinámico + `Deployment` | Caja registradora cuyos registros sobreviven al borrar el Pod. |
+| [`07-statefulset-mysql-headless-app.yaml`](./07-statefulset-mysql-headless-app.yaml) | `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend | Bóveda de base de datos con nombre fijo (`mysql-0`), disco propio y app completa. |
 
 ---
 
@@ -522,11 +523,168 @@ kubectl logs deployment/caja-persistente
 
 ---
 
-## 🧹 Limpieza de los Ejemplos
+## 🗄️ Laboratorio 7: `StatefulSet` (MySQL) + `Headless Service` + Backend + Frontend
 
-Cuando termines tus pruebas, limpia todos los recursos creados esta semana:
+### 💡 ¿Qué aprenderás y por qué NO basta un `Deployment` para una Base de Datos?
+En los laboratorios anteriores usamos `Deployment` para Nginx o Python porque sus Pods son **intercambiables** (cualquiera tiene un nombre aleatorio como `caja-persistente-7f8d9-abcde` y puede compartir el mismo disco).  
+En una **base de datos (MySQL)** esto **no sirve** si quieres escalar o tener réplicas ordenadas:
+1. Cada Pod necesita un **nombre e identidad DNS fija**: `mysql-0`, `mysql-1`, `mysql-2` (no nombres aleatorios).
+2. Cada Pod necesita **su propio disco privado (`PVC`)**: `mysql-0` usa `mysql-data-mysql-0`, y si escalas a `mysql-1`, Kubernetes crea automáticamente `mysql-data-mysql-1` mediante `volumeClaimTemplates`.
+3. Si `mysql-0` muere y renace, el nuevo Pod vuelve a llamarse **`mysql-0`** y se vuelve a conectar exactamente a **`mysql-data-mysql-0`**.
+
+### 🧠 ¿Qué es un `Headless Service` (`clusterIP: None`) y para qué sirve?
+Un `Service` normal (`ClusterIP`) crea **una sola IP virtual** que reparte el tráfico al azar entre todos los Pods detrás de él.  
+Para una base de datos con `StatefulSet`, muchas veces el Backend o las réplicas necesitan hablar **directamente con un Pod específico** (por ejemplo, escribir solo en el primario `mysql-0` sin pasar por un balanceador aleatorio).
+
+Ahí entra el **`Headless Service`** (`clusterIP: None`):
+- **No asigna IP virtual** (`CLUSTER-IP: None`).
+- **Convierte a CoreDNS en un directorio directo**: cuando consultas el nombre general `mysql-headless`, DNS devuelve **las IPs reales de todos los Pods**; y cuando consultas el nombre individual de un Pod:
+  `mysql-0.mysql-headless.default.svc.cluster.local`
+  CoreDNS devuelve **directamente la IP real del Pod `mysql-0`**.
+
+```mermaid
+flowchart TD
+    FE["🌐 Frontend Nginx\nkubecafe-mysql-frontend :30086"] -->|"/api/pedidos"| BE["⚙️ Backend Python\nkubecafe-mysql-backend :5000"]
+    BE -->|"1. Consulta DNS:\nmysql-0.mysql-headless.default.svc.cluster.local"| DNS["🧭 CoreDNS"]
+    DNS -.->|"2. Devuelve IP directa del Pod\n(gracias a clusterIP: None)"| BE
+    HL["👻 Headless Service\nmysql-headless (clusterIP: None)"] -.->|"Registra identidad DNS\nsin balanceo"| STS
+    BE -->|"3. TCP :3306 (SQL)"| STS["🗄️ StatefulSet: mysql\nPod mysql-0"]
+    STS -->|"volumeClaimTemplates"| PVC["📄 PVC dedicado:\nmysql-data-mysql-0 (1Gi)"]
+
+    style FE fill:#2563eb,color:#fff
+    style BE fill:#16a34a,color:#fff
+    style DNS fill:#0284c7,color:#fff
+    style HL fill:#475569,color:#fff
+    style STS fill:#d97706,color:#fff
+    style PVC fill:#7c3aed,color:#fff
+```
+
+### Paso 1: Despliega MySQL (`StatefulSet`), el `Headless Service`, el Backend y el Frontend
+```bash
+kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/07-statefulset-mysql-headless-app.yaml
+```
+> 💡 **Respuesta esperada:**
+> ```text
+> secret/mysql-secret created
+> service/mysql-headless created
+> statefulset.apps/mysql created
+> deployment.apps/kubecafe-mysql-backend created
+> service/kubecafe-mysql-backend-svc created
+> configmap/kubecafe-mysql-frontend-html created
+> configmap/kubecafe-mysql-frontend-nginx created
+> deployment.apps/kubecafe-mysql-frontend created
+> service/kubecafe-mysql-frontend-svc created
+> ```
+
+Espera a que `mysql-0` (primera réplica del `StatefulSet`) y los `Deployments` estén listos (MySQL tarda ~20-40s la primera vez mientras inicializa su base de datos):
+```bash
+kubectl rollout status statefulset/mysql --timeout=120s
+kubectl wait --for=condition=available deployment/kubecafe-mysql-backend deployment/kubecafe-mysql-frontend --timeout=120s
+```
+> 💡 **Respuesta esperada:**
+> ```text
+> statefulset rolling update complete 1 pods at revision mysql-...
+> deployment.apps/kubecafe-mysql-backend condition met
+> deployment.apps/kubecafe-mysql-frontend condition met
+> ```
+
+### Paso 2: Inspecciona el `StatefulSet`, el `PVC` automático y el `Headless Service`
+```bash
+# 1. Ver el Pod con nombre fijo (mysql-0), el Headless Service (CLUSTER-IP = None) y el PVC generado
+kubectl get statefulset,pods,svc,pvc
+```
+> 💡 **Respuesta esperada:** observa tres detalles clave:
+> - El Pod de base de datos se llama exactamente **`mysql-0`** (no tiene sufijo aleatorio).
+> - `service/mysql-headless` muestra **`None`** en la columna `CLUSTER-IP`.
+> - Aparece automáticamente **`persistentvolumeclaim/mysql-data-mysql-0`** en estado **`Bound`** (creado por `volumeClaimTemplates`).
 
 ```bash
+# 2. Ver los Endpoints del Headless Service (apuntan directo a la IP del Pod mysql-0)
+kubectl get endpoints mysql-headless
+kubectl get pod mysql-0 -o wide
+```
+> 💡 **Respuesta esperada:** la IP que aparece en `ENDPOINTS` de `mysql-headless` es **exactamente la misma IP** del Pod `mysql-0`.
+
+### Paso 3: Comprueba cómo resuelve CoreDNS el `Headless Service`
+Desde el Pod del Backend (o cualquier Pod), consulta el DNS de `mysql-0.mysql-headless.default.svc.cluster.local`:
+```bash
+kubectl exec deployment/kubecafe-mysql-backend -- nslookup mysql-0.mysql-headless.default.svc.cluster.local
+```
+> 💡 **Respuesta esperada:**
+> ```text
+> Name:      mysql-0.mysql-headless.default.svc.cluster.local
+> Address:   10.244.x.y   <-- IP directa del Pod mysql-0 (sin pasar por IP virtual)
+> ```
+> 📌 **Compáralo con un Service normal (`kubecafe-mysql-backend-svc`):** un `ClusterIP` normal devuelve la IP virtual `10.96.x.y` del Service; el `Headless Service` devuelve directamente la IP del Pod `10.244.x.y`.
+
+### Paso 4: Prueba la app completa (Frontend ➔ Backend ➔ MySQL `mysql-0`)
+```bash
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+
+# 1. Guardar dos pedidos reales en MySQL a través del Frontend (:30086)
+curl -s -X POST http://$NODE_IP:30086/api/pedidos -H "Content-Type: application/json" -d '{"bebida":"Tinto Campesino"}'
+echo ""
+curl -s -X POST http://$NODE_IP:30086/api/pedidos -H "Content-Type: application/json" -d '{"bebida":"Capuccino Vainilla"}'
+echo ""
+
+# 2. Consultar los pedidos desde el Frontend -> Backend -> MySQL
+curl -s http://$NODE_IP:30086/api/pedidos
+```
+> *(En macOS/Windows con Docker Desktop también puedes abrir `http://localhost:30086` usando `kubectl port-forward svc/kubecafe-mysql-frontend-svc 30086:80`).*
+> 💡 **Respuesta esperada:**
+> ```json
+> {
+>   "status": "ok",
+>   "mysql_dns": "mysql-0.mysql-headless.default.svc.cluster.local",
+>   "mysql_ip_resuelta": "10.244.x.y",
+>   "mysql_pod_hostname": "mysql-0",
+>   "total_pedidos": 2,
+>   "pedidos": [
+>     {"id": 2, "bebida": "Capuccino Vainilla", "creado_en": "..."},
+>     {"id": 1, "bebida": "Tinto Campesino", "creado_en": "..."}
+>   ]
+> }
+> ```
+
+### Paso 5: Borra el Pod `mysql-0` y verifica que recupera identidad, DNS y datos
+```bash
+# 1. Eliminar el Pod mysql-0 simulando una caída grave
+kubectl delete pod mysql-0
+
+# 2. Esperar a que el StatefulSet lo recree con el MISMO nombre (mysql-0)
+kubectl rollout status statefulset/mysql --timeout=120s
+
+# 3. Ver la nueva IP del Pod mysql-0 y consultar de nuevo la app
+kubectl get pod mysql-0 -o wide
+curl -s http://$NODE_IP:30086/api/pedidos
+```
+> 💡 **Respuesta esperada:**
+> - El Pod volvió a llamarse **`mysql-0`** (aunque tenga una nueva IP interna `10.244.x.z`).
+> - El `Headless Service` actualizó CoreDNS automáticamente con la nueva IP.
+> - **`total_pedidos` sigue siendo `2`** (`Tinto Campesino` y `Capuccino Vainilla` intactos en `mysql-data-mysql-0`).
+
+### Paso 6 (Bonus): Escala el `StatefulSet` a 2 réplicas y observa el orden
+```bash
+kubectl scale statefulset/mysql --replicas=2
+kubectl rollout status statefulset/mysql --timeout=120s
+kubectl get pods,pvc -l app=mysql
+kubectl exec deployment/kubecafe-mysql-backend -- nslookup mysql-headless.default.svc.cluster.local
+```
+> 💡 **Respuesta esperada:**
+> - Nace **`mysql-1`** en orden (solo después de que `mysql-0` está listo) con **su propio disco nuevo** `mysql-data-mysql-1`.
+> - `nslookup mysql-headless.default.svc.cluster.local` ahora devuelve **ambas IPs** (`mysql-0` y `mysql-1`), y cada Pod tiene además su propio DNS individual (`mysql-0.mysql-headless...` y `mysql-1.mysql-headless...`).
+
+*(Recuerda volver a `1` réplica o limpiar al terminar: `kubectl scale statefulset/mysql --replicas=1`)*
+
+---
+
+## 🧹 Limpieza de los Ejemplos
+
+Cuando termines tus pruebas, limpia todos los recursos creados esta semana (incluyendo los PVCs creados por el `StatefulSet`, ya que Kubernetes no los borra automáticamente al eliminar un `StatefulSet` para proteger tus datos):
+
+```bash
+kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/07-statefulset-mysql-headless-app.yaml --ignore-not-found
+kubectl delete pvc -l app=mysql --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/06-storageclass-dinamico-stateful.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-almacenamiento-persistente.yaml --ignore-not-found
 kubectl delete -f semana-04-configuracion-almacenamiento/1.ejemplos/04-volumen-emptydir-vs-hostpath.yaml --ignore-not-found

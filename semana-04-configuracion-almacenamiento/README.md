@@ -57,7 +57,8 @@ semana-04-configuracion-almacenamiento/
 │   ├── 03-secret-credenciales.yaml                 # Secret Opaque -> env y volumen readOnly
 │   ├── 04-volumen-emptydir-vs-hostpath.yaml        # Comparación emptyDir vs hostPath
 │   ├── 05-pv-pvc-almacenamiento-persistente.yaml   # PV + PVC manual + Pod
-│   └── 06-storageclass-dinamico-stateful.yaml      # PVC dinámico + Deployment resistente a reinicios
+│   ├── 06-storageclass-dinamico-stateful.yaml      # PVC dinámico + Deployment resistente a reinicios
+│   └── 07-statefulset-mysql-headless-app.yaml      # StatefulSet MySQL + Headless Service + Backend + Frontend
 └── 2.reto-roto/                                    # 5 Retos con errores (+50 XP)
     ├── README.md                                   # Guía de diagnóstico y entrega
     ├── 01-configmap-clave-inexistente.yaml         # Error: CreateContainerConfigError (key faltante)
@@ -71,8 +72,8 @@ semana-04-configuracion-almacenamiento/
 
 ## 🚀 Inicio Rápido
 
-1. **Explora los 6 laboratorios guiados:**
-   Entra a [`1.ejemplos/README.md`](./1.ejemplos/README.md) para practicar `ConfigMaps`, `Secrets`, `emptyDir`, `hostPath`, `PV/PVC` y `StorageClass`.
+1. **Explora los 7 laboratorios guiados:**
+   Entra a [`1.ejemplos/README.md`](./1.ejemplos/README.md) para practicar `ConfigMaps`, `Secrets`, `emptyDir`, `hostPath`, `PV/PVC`, `StorageClass`, `StatefulSet` y `Headless Service`.
 2. **Resuelve los 4 retos rotos (+40 XP):**
    Entra a [`2.reto-roto/README.md`](./2.reto-roto/README.md), reproduce los fallos en tu clúster, repáralos en `aportes-comunidad/soluciones-retos/<tu-usuario>/semana-04/` y envía tu Pull Request.
 3. **Documenta tu bitácora (+10 XP):**

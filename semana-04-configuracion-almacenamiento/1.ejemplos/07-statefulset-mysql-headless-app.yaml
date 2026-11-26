@@ -1,0 +1,316 @@
+# 🗄️ Lab 7: StatefulSet (MySQL) + Headless Service + Backend + Frontend
+# Analogía KubeCafé:
+# - Headless Service (clusterIP: None): directorio DNS directo que entrega la IP real de cada Pod (mysql-0, mysql-1).
+# - StatefulSet (mysql): mantiene identidad estable (mysql-0) y un PVC propio (mysql-data-mysql-0) via volumeClaimTemplates.
+# - Backend (Python): se conecta por DNS estable a mysql-0.mysql-headless.default.svc.cluster.local:3306.
+# - Frontend (Nginx NodePort :30086): interfaz web para crear y listar pedidos guardados en MySQL.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+stringData:
+  MYSQL_ROOT_PASSWORD: "RootKubeCafe2026!"
+  MYSQL_DATABASE: "kubecafe"
+  MYSQL_USER: "barista"
+  MYSQL_PASSWORD: "BaristaPass2026!"
+---
+# 1. Headless Service: clusterIP: None (SIN IP virtual de balanceo; DNS apunta directo al Pod)
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mysql
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+---
+# 2. StatefulSet de MySQL con identidad estable (mysql-0) y almacenamiento dedicado (volumeClaimTemplates)
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  serviceName: mysql-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          args:
+            - "--default-authentication-plugin=mysql_native_password"
+          ports:
+            - name: mysql
+              containerPort: 3306
+          envFrom:
+            - secretRef:
+                name: mysql-secret
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - mysqladmin ping -h 127.0.0.1 -uroot -p"$MYSQL_ROOT_PASSWORD"
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - mysqladmin ping -h 127.0.0.1 -uroot -p"$MYSQL_ROOT_PASSWORD"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+---
+# 3. Backend API (Python) conectado al Pod mysql-0 mediante el Headless Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubecafe-mysql-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubecafe-mysql-backend
+  template:
+    metadata:
+      labels:
+        app: kubecafe-mysql-backend
+    spec:
+      containers:
+        - name: api
+          image: python:3.12-alpine
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MYSQL_HOST
+              value: "mysql-0.mysql-headless.default.svc.cluster.local"
+            - name: MYSQL_PORT
+              value: "3306"
+          envFrom:
+            - secretRef:
+                name: mysql-secret
+          command:
+            - sh
+            - -c
+            - |
+              pip install --no-cache-dir -q pymysql
+              python3 -u -c '
+              import json, os, socket
+              from http.server import BaseHTTPRequestHandler, HTTPServer
+              import pymysql
+
+              HOST = os.environ["MYSQL_HOST"]
+              PORT = int(os.environ.get("MYSQL_PORT", "3306"))
+              USER = os.environ["MYSQL_USER"]
+              PASS = os.environ["MYSQL_PASSWORD"]
+              DB   = os.environ["MYSQL_DATABASE"]
+
+              def get_conn():
+                  conn = pymysql.connect(host=HOST, port=PORT, user=USER, password=PASS, database=DB, autocommit=True)
+                  with conn.cursor() as cur:
+                      cur.execute("""
+                          CREATE TABLE IF NOT EXISTS pedidos (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              bebida VARCHAR(100) NOT NULL,
+                              creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                          )
+                      """)
+                  return conn
+
+              class Handler(BaseHTTPRequestHandler):
+                  def _json(self, code, data):
+                      self.send_response(code)
+                      self.send_header("Content-Type", "application/json")
+                      self.end_headers()
+                      self.wfile.write(json.dumps(data).encode())
+
+                  def do_GET(self):
+                      if self.path == "/health":
+                          return self._json(200, {"status": "ok"})
+                      try:
+                          resolved_ip = socket.gethostbyname(HOST)
+                          conn = get_conn()
+                          with conn.cursor() as cur:
+                              cur.execute("SELECT @@hostname")
+                              mysql_pod = cur.fetchone()[0]
+                              cur.execute("SELECT id, bebida, CAST(creado_en AS CHAR) FROM pedidos ORDER BY id DESC LIMIT 20")
+                              rows = [{"id": r[0], "bebida": r[1], "creado_en": r[2]} for r in cur.fetchall()]
+                          conn.close()
+                          self._json(200, {
+                              "status": "ok",
+                              "mysql_dns": HOST,
+                              "mysql_ip_resuelta": resolved_ip,
+                              "mysql_pod_hostname": mysql_pod,
+                              "total_pedidos": len(rows),
+                              "pedidos": rows
+                          })
+                      except Exception as exc:
+                          self._json(500, {"status": "error", "detail": str(exc)})
+
+                  def do_POST(self):
+                      length = int(self.headers.get("Content-Length", "0"))
+                      body = self.rfile.read(length).decode() if length > 0 else "{}"
+                      try:
+                          bebida = json.loads(body).get("bebida", "Tinto Campesino")
+                      except Exception:
+                          bebida = "Tinto Campesino"
+                      try:
+                          conn = get_conn()
+                          with conn.cursor() as cur:
+                              cur.execute("INSERT INTO pedidos (bebida) VALUES (%s)", (bebida,))
+                              new_id = cur.lastrowid
+                          conn.close()
+                          self._json(201, {"status": "created", "id": new_id, "bebida": bebida})
+                      except Exception as exc:
+                          self._json(500, {"status": "error", "detail": str(exc)})
+
+              HTTPServer(("0.0.0.0", 5000), Handler).serve_forever()
+              '
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubecafe-mysql-backend-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: kubecafe-mysql-backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+---
+# 4. Frontend Web (Nginx + ConfigMap) expuesto por NodePort :30086
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubecafe-mysql-frontend-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="es">
+    <head><meta charset="UTF-8"><title>KubeCafé — StatefulSet MySQL + Headless Service</title></head>
+    <body style="font-family:sans-serif;background:#0f172a;color:#f8fafc;padding:2rem;max-width:760px;">
+      <h1>🗄️ KubeCafé — StatefulSet (MySQL) + Headless Service</h1>
+      <p>Frontend (Nginx) ➔ Backend (Python) ➔ <code>mysql-0.mysql-headless.default.svc.cluster.local:3306</code></p>
+      <div style="margin:1rem 0;">
+        <input id="bebida" value="Capuccino Vainilla" style="padding:0.5rem;border-radius:6px;border:none;width:240px;" />
+        <button onclick="crear()" style="padding:0.5rem 1rem;border-radius:6px;border:none;background:#16a34a;color:#fff;cursor:pointer;">☕ Guardar Pedido en MySQL</button>
+        <button onclick="cargar()" style="padding:0.5rem 1rem;border-radius:6px;border:none;background:#2563eb;color:#fff;cursor:pointer;">🔄 Consultar</button>
+      </div>
+      <pre id="out" style="background:#1e293b;padding:1rem;border-radius:8px;overflow:auto;">Consultando /api/pedidos...</pre>
+      <script>
+        async function cargar() {
+          const r = await fetch('/api/pedidos');
+          document.getElementById('out').textContent = JSON.stringify(await r.json(), null, 2);
+        }
+        async function crear() {
+          const bebida = document.getElementById('bebida').value || 'Tinto Campesino';
+          await fetch('/api/pedidos', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({bebida})
+          });
+          await cargar();
+        }
+        cargar();
+      </script>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubecafe-mysql-frontend-nginx
+data:
+  default.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+        }
+
+        location /api/ {
+            proxy_pass http://kubecafe-mysql-backend-svc:5000/;
+        }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubecafe-mysql-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubecafe-mysql-frontend
+  template:
+    metadata:
+      labels:
+        app: kubecafe-mysql-frontend
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: html-vol
+              mountPath: /usr/share/nginx/html
+              readOnly: true
+            - name: nginx-vol
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
+      volumes:
+        - name: html-vol
+          configMap:
+            name: kubecafe-mysql-frontend-html
+        - name: nginx-vol
+          configMap:
+            name: kubecafe-mysql-frontend-nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubecafe-mysql-frontend-svc
+spec:
+  type: NodePort
+  selector:
+    app: kubecafe-mysql-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30086
