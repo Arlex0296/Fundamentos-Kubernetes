@@ -276,10 +276,10 @@ kubectl exec deployment/frontend-secret-web -- wget -qO- http://backend-api-svc:
 > ⚠️ **Importante para principiantes:** Base64 (`echo -n "TintoSeguro2026!" | base64`) es codificación, **no cifrado**. En repositorios reales nunca subas contraseñas reales en texto plano; usa herramientas como *Sealed Secrets* o *External Secrets*.
 
 ### Paso 4: Modifica el `ConfigMap` del `index.html` y reinicia/borra el Pod para aplicarlo al instante
-Cuando actualizas un `ConfigMap` montado como volumen (`frontend-secret-html`), Kubernetes tarda ~60s en sincronizarlo o puedes forzar que el Pod lo tome **de inmediato** con `rollout restart` o eliminando el Pod (`delete pod`):
+Cuando actualizas un `ConfigMap` que está montado como volumen (`frontend-secret-html`), Kubernetes tarda ~60 segundos en reflejar el cambio automáticamente dentro del contenedor. Si quieres que el cambio se aplique **de inmediato** (sin esperar), puedes reiniciar el `Deployment` o borrar el Pod para que nazca uno nuevo con el contenido actualizado.
 
+**1. Actualiza el `ConfigMap` `frontend-secret-html` con el nuevo `index.html` (v2):**
 ```bash
-# 1. Actualizar el ConfigMap frontend-secret-html con un nuevo index.html (v2)
 kubectl apply -f - <<'EOF'
 apiVersion: v1
 kind: ConfigMap
@@ -303,20 +303,43 @@ data:
     </body>
     </html>
 EOF
+```
+> 💡 **Respuesta esperada:**
+> ```text
+> configmap/frontend-secret-html configured
+> ```
 
-# 2. Reiniciar el Deployment (o borrar el Pod) para que tome el nuevo index.html al instante
+**2. Reinicia el `Deployment` (o borra el Pod) para que tome el nuevo `index.html` al instante:**
+```bash
+# Opción A: Reiniciar el Deployment de forma ordenada (crea el Pod nuevo y luego borra el anterior)
 kubectl rollout restart deployment/frontend-secret-web
-# Alternativa equivalente:
-# kubectl delete pod -l app=frontend-secret-web
-
 kubectl rollout status deployment/frontend-secret-web
 
-# 3. Verificar el nuevo HTML servido por NodePort (:30085)
+# Opción B (alternativa): Borrar el Pod manualmente para que el ReplicaSet cree uno nuevo
+# kubectl delete pod -l app=frontend-secret-web
+# kubectl wait --for=condition=ready pod -l app=frontend-secret-web --timeout=60s
+```
+> 💡 **Respuesta esperada:**
+> ```text
+> deployment.apps/frontend-secret-web restarted
+> Waiting for deployment "frontend-secret-web" rollout to finish: 1 old replicas are pending termination...
+> deployment "frontend-secret-web" successfully rolled out
+> ```
+> *(Si usas la Opción B verás `pod "frontend-secret-web-..." deleted` y luego `pod/... condition met`).*
+
+**3. Verifica que el nuevo Pod ya sirve el `index.html` actualizado y sigue conectando con el Backend:**
+```bash
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
 curl -s http://$NODE_IP:30085 | grep h1
+curl -s http://$NODE_IP:30085/api/status
 ```
 > 💡 **Respuesta esperada:**
 > ```html
 >       <h1>🔐 KubeCafé v2 — Frontend ➔ Backend ➔ PostgreSQL (ConfigMap actualizado)</h1>
+> ```
+> Y en `/api/status`:
+> ```json
+> {"status": "ok", "auth": "API_KEY del Secret validada", "db": "db-postgres-svc:5432 CONECTADA", "db_user": "barista_admin", "db_name": "kubecafe"}
 > ```
 
 ---
