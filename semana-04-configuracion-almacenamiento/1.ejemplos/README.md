@@ -492,6 +492,10 @@ EOF
 
 kubectl get pv recetario-pv
 kubectl get pvc recetario-pvc
+
+# Inspeccionar el detalle y eventos del PV y del PVC (útil si usas alias k=kubectl: k describe pvc recetario-pvc)
+kubectl describe pv recetario-pv
+kubectl describe pvc recetario-pvc
 ```
 > 💡 **Respuesta esperada:**
 > ```text
@@ -501,9 +505,17 @@ kubectl get pvc recetario-pvc
 > NAME            STATUS   VOLUME         CAPACITY   ACCESS MODES   STORAGECLASS
 > recetario-pvc   Bound    recetario-pv   500Mi      RWO            manual-lab5
 > ```
-> 📌 **Observa:** ambos pasaron a **`Bound`** y `CLAIM` ahora apunta a `default/recetario-pvc`. *(Si hubiéramos pedido `1Gi`, el PVC se habría quedado en `Pending` porque el `PV` solo tiene `500Mi`)*.
+> Y en `kubectl describe pvc recetario-pvc` verás:
+> ```text
+> Status:        Bound
+> Volume:        recetario-pv
+> Capacity:      500Mi
+> Used By:       <none>   <-- todavía ningún Pod lo está usando
+> Events:        <none>
+> ```
+> 📌 **Observa:** ambos pasaron a **`Bound`** y `CLAIM` apunta a `default/recetario-pvc`. *(Si hubiéramos pedido `1Gi`, el PVC quedaría en `Pending` y en la sección **`Events:`** de `kubectl describe pvc` verías exactamente por qué no encontró volumen compatible).*
 
-### Paso 3: Crea un primer Pod que escriba en el `PVC` y luego bórralo
+### Paso 3: Crea un primer Pod que escriba en el `PVC`, revisa sus eventos (`describe`) y luego bórralo
 ```bash
 # 1. Crear Pod temporal (busybox) montando recetario-pvc en /datos
 kubectl apply -f - <<'EOF'
@@ -526,24 +538,40 @@ spec:
 EOF
 
 kubectl wait --for=condition=ready pod/pod-escritor --timeout=60s
-kubectl exec pod-escritor -- cat /datos/index.html
 
-# 2. Borrar el Pod escritor por completo
+# 2. Revisar los eventos (Scheduled, Pulled, Created, Started) y comprobar que el PVC ya muestra Used By
+kubectl describe pod pod-escritor
+kubectl describe pvc recetario-pvc | grep -E "Status:|Volume:|Used By:"
+
+# 3. Leer el archivo escrito y guardar el nodo donde corrió (para clústeres multi-nodo)
+kubectl exec pod-escritor -- cat /datos/index.html
+NODO=$(kubectl get pod pod-escritor -o jsonpath='{.spec.nodeName}')
+
+# 4. Borrar el Pod escritor por completo
 kubectl delete pod pod-escritor
 ```
-> 💡 **Respuesta esperada:** primero verás `<h1>☕ Receta Persistente Guardada por Pod 1</h1>` y luego `pod "pod-escritor" deleted`.
+> 💡 **Respuesta esperada:**
+> - En `kubectl describe pod pod-escritor` verás la sección **`Events:`** con `Scheduled`, `Pulling`, `Pulled`, `Created` y `Started`, además de `disco` montado en `/datos` (`ClaimName: recetario-pvc`).
+> - En `kubectl describe pvc recetario-pvc` ahora aparecerá `Used By: pod-escritor`.
+> - Al final verás `<h1>☕ Receta Persistente Guardada por Pod 1</h1>` y `pod "pod-escritor" deleted`.
 
-### Paso 4: Conecta un segundo Pod distinto (`nginx`) al mismo `PVC` y comprueba los datos
+### Paso 4: Conecta un segundo Pod distinto (`nginx`) al mismo `PVC` y revisa sus eventos
 ```bash
-# 1. Crear el Pod recetario-web (Nginx) montando el mismo recetario-pvc en /usr/share/nginx/html
-kubectl apply -f semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml
+# 1. Crear el Pod recetario-web (Nginx) en el mismo nodo $NODO montando recetario-pvc en /usr/share/nginx/html
+sed "s/^spec:/spec:\n  nodeName: $NODO/" semana-04-configuracion-almacenamiento/1.ejemplos/05-pv-pvc-paso-a-paso.yaml | kubectl apply -f -
 kubectl wait --for=condition=ready pod/recetario-web --timeout=60s
 
-# 2. Leer el archivo dentro del nuevo Pod y probar que Nginx lo sirve intacto
+# 2. Ver los eventos de montaje/arranque y confirmar en el PVC que ahora Used By apunta a recetario-web
+kubectl describe pod recetario-web
+kubectl describe pvc recetario-pvc | grep -E "Status:|Volume:|Used By:"
+
+# 3. Leer el archivo dentro del nuevo Pod y probar que Nginx lo sirve intacto
 kubectl exec recetario-web -- cat /usr/share/nginx/html/index.html
 kubectl exec recetario-web -- wget -qO- http://localhost
 ```
 > 💡 **Respuesta esperada:**
+> - En `kubectl describe pod recetario-web` verás en `Events:` que se montó el volumen y arrancó Nginx; y en `kubectl describe pvc recetario-pvc` verás `Used By: recetario-web`.
+> - En la salida de `cat` y `wget`:
 > ```html
 > <h1>☕ Receta Persistente Guardada por Pod 1</h1>
 > ```
