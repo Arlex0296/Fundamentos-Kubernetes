@@ -470,7 +470,8 @@ kubectl get pv recetario-pv
 > NAME           CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS
 > recetario-pv   500Mi      RWO            Retain           Available           manual-lab5
 > ```
-> 📌 **Observa:** `STATUS` dice **`Available`** y `CLAIM` está vacío porque todavía ningún `PVC` lo ha reservado.
+> 📌 **Observa:** `STATUS` dice **`Available`** y `CLAIM` está vacío porque todavía ningún `PVC` lo ha reservado.  
+> ℹ️ **¿Por qué `kubectl get storageclass` no muestra `manual-lab5`?** Porque en almacenamiento **manual/estático** (`PV` + `PVC` creados a mano), `storageClassName: manual-lab5` **no crea un objeto `StorageClass`**: funciona solo como una etiqueta de coincidencia para que el `PVC` se enlace únicamente a este `PV` (y no dispare el aprovisionador dinámico por defecto del clúster). En el **Lab 7** sí usaremos un `StorageClass` real.
 
 ### Paso 2: Crea el `PersistentVolumeClaim` (`PVC`) y observa cómo se enlazan (`Bound`)
 Fíjate en que pedimos `200Mi` con el mismo `storageClassName: manual-lab5` y `accessModes: ReadWriteOnce`:
