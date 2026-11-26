@@ -16,7 +16,8 @@ Al finalizar esta semana serás capaz de:
 2. **Proteger credenciales sensibles** (contraseñas, tokens, API keys) con **`Secrets`** (`Opaque` / `stringData` / Base64).
 3. **Diferenciar almacenamiento efímero vs. persistente:** `emptyDir` (vive lo que dura el Pod), `hostPath` (vive en el nodo) y **`PersistentVolume` (`PV`) + `PersistentVolumeClaim` (`PVC`)** (independiente del Pod).
 4. **Entender el aprovisionamiento estático vs. dinámico** mediante **`StorageClass`** y comprobar que los datos sobreviven al reinicio o reemplazo de un Pod.
-5. **Diagnosticar y resolver los 5 retos rotos** (`CreateContainerConfigError`, `Pending` PVC, `volumeMounts`, `MountVolume.SetUp failed`) para ganar **+50 XP**.
+5. **Desplegar bases de datos con identidad estable (`StatefulSet` + `Headless Service`)** como MySQL (`mysql-0`, `volumeClaimTemplates`) conectadas a Backend y Frontend.
+6. **Diagnosticar y resolver los 5 retos rotos** (`CreateContainerConfigError`, `Pending` PVC, `volumeMounts`, `MountVolume.SetUp failed`) para ganar **+50 XP**.
 
 ---
 
