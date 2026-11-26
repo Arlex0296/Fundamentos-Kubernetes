@@ -702,9 +702,15 @@ flowchart TD
     style L7_SC fill:#475569,color:#fff
 ```
 
-### Paso 1: Verifica el `StorageClass` de tu clúster y despliega la app
+### Paso 1: Verifica (o instala) el `StorageClass` de tu clúster y despliega la app
 ```bash
-# 1. Ver qué StorageClass trae tu clúster (en iximiuz Labs suele llamarse 'local-path', en Kind 'standard'):
+# 1. Ver qué StorageClass trae tu clúster (en Kind suele llamarse 'standard')
+kubectl get storageclass
+
+# Si responde "No resources found" (tu clúster no trae aprovisionador dinámico),
+# instala local-path-provisioner y márcalo como StorageClass por defecto:
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.37/deploy/local-path-storage.yaml
+kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 kubectl get storageclass
 
 # 2. Aplicar el PVC dinámico y el Deployment:
