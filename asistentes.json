@@ -565,5 +565,17 @@
     "rango": "⛵ Marinero",
     "puntos": 10,
     "motivacion": "Aprender y mejorar todos los conocimientos en Cloud y Kubernetes"
+  },
+  {
+    "github": "valencastrillon",
+    "nombre": "Valen Castrillon",
+    "rol": "Entusiasta Cloud",
+    "linkedin": "https://www.linkedin.com/in/valentinacastrillonaguilar/",
+    "redes": [
+      "https://portafoliovca.lovable.app/"
+    ],
+    "rango": "⛵ Marinero",
+    "puntos": 10,
+    "motivacion": "Quiero aprender Kubernetes para orquestar contenedores y garantizar despliegues escalables y estables en producción."
   }
 ]

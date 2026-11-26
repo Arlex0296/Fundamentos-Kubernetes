@@ -604,11 +604,11 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
 ---
 
 <!-- INICIO_MOSAICO_TRIPULACION -->
-## 👥 Tripulación a Bordo y Ranking (52 Tripulantes)
+## 👥 Tripulación a Bordo y Ranking (53 Tripulantes)
 
 <div align="center">
 
-[![Tripulantes a Bordo](https://img.shields.io/badge/⛵_Tripulantes_a_Bordo-52-00C7B7?style=for-the-badge)](./ASISTENTES.md)
+[![Tripulantes a Bordo](https://img.shields.io/badge/⛵_Tripulantes_a_Bordo-53-00C7B7?style=for-the-badge)](./ASISTENTES.md)
 [![Registrarme en 30 seg](https://img.shields.io/badge/➕_¡Regístrate_Aquí!_(Formulario_Visual)-2ea44f?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml)
 [![Registrar Bitácora Semanal](https://img.shields.io/badge/📔_Bitácora_Semanal_y_Portafolio-8B5CF6?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=bitacora-semanal.yml)
 [![Actualizar mis Datos](https://img.shields.io/badge/✏️_Actualizar_mis_Datos_o_Redes-f57c00?style=for-the-badge&logo=github)](https://github.com/edwinbermudez91/Fundamentos-Kubernetes/issues/new?template=registro-asistente.yml)
@@ -668,7 +668,7 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
 </details>
 
 <details>
-<summary><b>🏆 Ver Mosaico Completo de la Tripulación (52 Tripulantes) — o abre <a href="./ASISTENTES.md">ASISTENTES.md</a></b></summary>
+<summary><b>🏆 Ver Mosaico Completo de la Tripulación (53 Tripulantes) — o abre <a href="./ASISTENTES.md">ASISTENTES.md</a></b></summary>
 <br>
 
 <table>
@@ -1069,6 +1069,13 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
       <a href="https://linkedin.com/in/welinton-suarez/" title="wesgdev1 (@wesgdev1) — 10 XP">
         <img src="https://github.com/wesgdev1.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="wesgdev1"/><br/>
         <sub><b>wesgdev1</b></sub>
+      </a><br/>
+      <sub>⛵ Marinero • <b>10 XP</b></sub>
+    </td>
+    <td align="center" width="140">
+      <a href="https://www.linkedin.com/in/valentinacastrillonaguilar/" title="Valen Castrillon (@valencastrillon) — 10 XP">
+        <img src="https://github.com/valencastrillon.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="valencastrillon"/><br/>
+        <sub><b>Valen Castrillon</b></sub>
       </a><br/>
       <sub>⛵ Marinero • <b>10 XP</b></sub>
     </td>

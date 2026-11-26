@@ -12,11 +12,11 @@
 
 <table>
   <tr>
-    <td align="center" width="150"><sub>⛵ <b>TRIPULANTES</b></sub><br/><h3><code>52</code></h3></td>
+    <td align="center" width="150"><sub>⛵ <b>TRIPULANTES</b></sub><br/><h3><code>53</code></h3></td>
     <td align="center" width="150"><sub>🎓 <b>PORTAFOLIOS</b></sub><br/><h3><code>19</code></h3></td>
     <td align="center" width="150"><sub>🥇 <b>CAPITANES (ORO)</b></sub><br/><h3><code>0</code></h3></td>
     <td align="center" width="150"><sub>🥈 <b>TIMONELES (PLATA)</b></sub><br/><h3><code>11</code></h3></td>
-    <td align="center" width="150"><sub>🥉 <b>MARINEROS (BRONCE)</b></sub><br/><h3><code>41</code></h3></td>
+    <td align="center" width="150"><sub>🥉 <b>MARINEROS (BRONCE)</b></sub><br/><h3><code>42</code></h3></td>
   </tr>
 </table>
 
@@ -69,7 +69,7 @@ A medida que avances semana a semana, nuestro bot de GitHub Actions inspeccionar
 
 ---
 
-## 👥 Tabla de Posiciones de la Tripulación (52 Tripulantes)
+## 👥 Tabla de Posiciones de la Tripulación (53 Tripulantes)
 
 <!-- INICIO_TABLA_ASISTENTES -->
 | # | Foto | 👤 Tripulante | 💼 Rol / Especialidad | 🌐 Redes y Portafolio | 🎖️ Rango y Progreso (XP) | 🎯 ¿Qué te motivó a unirte? |
@@ -126,6 +126,7 @@ A medida que avances semana a semana, nuestro bot de GitHub Actions inspeccionar
 | #50 | <img src="https://github.com/juand-alvarado.png?size=80" width="42" height="42" alt="juand-alvarado"/> | **Juan Diego Alvarado** | DevOps | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/juand-alvarado) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/juan-diego-alvarado-gantiva-7801a816a/) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Profundizar en mis conocimientos de K8s y acercarme al ecosistema de la CNCF |
 | #51 | <img src="https://github.com/YimmyZuluaga.png?size=80" width="42" height="42" alt="YimmyZuluaga"/> | **Yimmy Zuluaga** | Estudiante de ingeniería | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/YimmyZuluaga) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Aprender de kubernetes, docker |
 | #52 | <img src="https://github.com/wesgdev1.png?size=80" width="42" height="42" alt="wesgdev1"/> | **wesgdev1** |  | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/wesgdev1) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/welinton-suarez/) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Aprender y mejorar todos los conocimientos en Cloud y Kubernetes |
+| #53 | <img src="https://github.com/valencastrillon.png?size=80" width="42" height="42" alt="valencastrillon"/> | **Valen Castrillon** | Entusiasta Cloud | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/valencastrillon) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/valentinacastrillonaguilar/) [![Web](https://img.shields.io/badge/Web-4285F4?style=flat-square&logo=google-chrome&logoColor=white)](https://portafoliovca.lovable.app/) | ⛵ Marinero · **10 XP**<br><sub>(Registro inicial)</sub> | Quiero aprender Kubernetes para orquestar contenedores y garantizar despliegues escalables y estables en producción. |
 <!-- FIN_TABLA_ASISTENTES -->
 
 > [!TIP]
