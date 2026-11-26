@@ -275,6 +275,50 @@ kubectl exec deployment/frontend-secret-web -- wget -qO- http://backend-api-svc:
 > *(En macOS/Windows con Docker Desktop también puedes abrir `http://localhost:30085` usando `kubectl port-forward svc/frontend-secret-svc 30085:80`).*
 > ⚠️ **Importante para principiantes:** Base64 (`echo -n "TintoSeguro2026!" | base64`) es codificación, **no cifrado**. En repositorios reales nunca subas contraseñas reales en texto plano; usa herramientas como *Sealed Secrets* o *External Secrets*.
 
+### Paso 4: Modifica el `ConfigMap` del `index.html` y reinicia/borra el Pod para aplicarlo al instante
+Cuando actualizas un `ConfigMap` montado como volumen (`frontend-secret-html`), Kubernetes tarda ~60s en sincronizarlo o puedes forzar que el Pod lo tome **de inmediato** con `rollout restart` o eliminando el Pod (`delete pod`):
+
+```bash
+# 1. Actualizar el ConfigMap frontend-secret-html con un nuevo index.html (v2)
+kubectl apply -f - <<'EOF'
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-secret-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="es">
+    <head><meta charset="UTF-8"><title>KubeCafé v2 — Secret + ConfigMap</title></head>
+    <body style="font-family:sans-serif;background:#0f172a;color:#f8fafc;padding:2rem;">
+      <h1>🔐 KubeCafé v2 — Frontend ➔ Backend ➔ PostgreSQL (ConfigMap actualizado)</h1>
+      <p>El Frontend reenvía <code>X-API-Key</code> desde el <b>Secret</b> hacia el Backend:</p>
+      <pre id="out" style="background:#1e293b;padding:1rem;border-radius:8px;">Consultando /api/status...</pre>
+      <script>
+        fetch('/api/status')
+          .then(r => r.json())
+          .then(d => document.getElementById('out').textContent = JSON.stringify(d, null, 2))
+          .catch(e => document.getElementById('out').textContent = 'Error: ' + e);
+      </script>
+    </body>
+    </html>
+EOF
+
+# 2. Reiniciar el Deployment (o borrar el Pod) para que tome el nuevo index.html al instante
+kubectl rollout restart deployment/frontend-secret-web
+# Alternativa equivalente:
+# kubectl delete pod -l app=frontend-secret-web
+
+kubectl rollout status deployment/frontend-secret-web
+
+# 3. Verificar el nuevo HTML servido por NodePort (:30085)
+curl -s http://$NODE_IP:30085 | grep h1
+```
+> 💡 **Respuesta esperada:**
+> ```html
+>       <h1>🔐 KubeCafé v2 — Frontend ➔ Backend ➔ PostgreSQL (ConfigMap actualizado)</h1>
+> ```
+
 ---
 
 ## ⏳ Laboratorio 4: `emptyDir` (Efímero) vs `hostPath` (Nodo)
