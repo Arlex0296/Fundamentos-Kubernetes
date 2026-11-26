@@ -130,6 +130,7 @@ kubectl get pods,svc -l app=menu-config-web
 ```bash
 # 1. Verificar ambos archivos montados dentro del contenedor
 kubectl exec deployment/menu-config-web -- ls -la /usr/share/nginx/html /etc/nginx/conf.d
+kubectl exec deployment/menu-config-web -- cat /usr/share/nginx/html/index.html
 kubectl exec deployment/menu-config-web -- cat /etc/nginx/conf.d/default.conf
 
 # 2. Obtener la IP de un nodo y probar el Service NodePort :30084
