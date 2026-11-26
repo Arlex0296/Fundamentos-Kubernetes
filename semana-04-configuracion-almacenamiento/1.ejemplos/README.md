@@ -839,13 +839,11 @@ kubectl exec deployment/kubecafe-mysql-backend -- nslookup mysql-0.mysql-headles
 NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
 
 # 1. Guardar dos pedidos reales en MySQL a través del Frontend (:30086)
-curl -s -X POST http://$NODE_IP:30086/api/pedidos -H "Content-Type: application/json" -d '{"bebida":"Tinto Campesino"}'
-echo ""
-curl -s -X POST http://$NODE_IP:30086/api/pedidos -H "Content-Type: application/json" -d '{"bebida":"Capuccino Vainilla"}'
-echo ""
+curl -s -X POST http://$NODE_IP:30086/api/pedidos -H "Content-Type: application/json" -d '{"bebida":"Tinto Campesino"}' | jq
+curl -s -X POST http://$NODE_IP:30086/api/pedidos -H "Content-Type: application/json" -d '{"bebida":"Capuccino Vainilla"}' | jq
 
-# 2. Consultar los pedidos desde el Frontend -> Backend -> MySQL
-curl -s http://$NODE_IP:30086/api/pedidos
+# 2. Consultar los pedidos desde el Frontend -> Backend -> MySQL (formateado con jq)
+curl -s http://$NODE_IP:30086/api/pedidos | jq
 ```
 > *(En macOS/Windows con Docker Desktop también puedes abrir `http://localhost:30086` usando `kubectl port-forward svc/kubecafe-mysql-frontend-svc 30086:80`).*
 > 💡 **Respuesta esperada:**
@@ -873,7 +871,7 @@ kubectl rollout status statefulset/mysql --timeout=120s
 
 # 3. Ver la nueva IP del Pod mysql-0 y consultar de nuevo la app
 kubectl get pod mysql-0 -o wide
-curl -s http://$NODE_IP:30086/api/pedidos
+curl -s http://$NODE_IP:30086/api/pedidos | jq
 ```
 > 💡 **Respuesta esperada:**
 > - El Pod volvió a llamarse **`mysql-0`** (aunque tenga una nueva IP interna `10.244.x.z`).
