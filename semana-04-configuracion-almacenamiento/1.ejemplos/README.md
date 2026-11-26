@@ -398,13 +398,13 @@ kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && 
 > - Con `kubectl logs` y `exec` verás **1 línea** en `pedidos.log` (`emptyDir`) y **1 línea** en `historial.log` (`hostPath`), indicando el nodo donde corrió:
 > ```text
 > === Contenido de /tmp-bandeja/pedidos.log (emptyDir) ===
-> [emptyDir] Thu Nov 26 13:56:33 UTC 2026 | nodo: k3s-worker-1
+> [emptyDir] Thu Nov 26 13:56:33 UTC 2026 | nodo: node-01
 > === Contenido de /nodo-estante/historial.log (hostPath) ===
-> [hostPath] Thu Nov 26 13:56:33 UTC 2026 | nodo: k3s-worker-1
+> [hostPath] Thu Nov 26 13:56:33 UTC 2026 | nodo: node-01
 > ```
 
 ### Paso 2: Borra el Pod, recréalo en el mismo nodo y observa la diferencia
-En clústeres multi-nodo (como `k3s` en iximiuz Labs), si borras el Pod y lo recreas sin fijar el nodo, Kubernetes puede enviarlo a otro Worker Node distinto (que tiene otro `/tmp` vacío). Para ver claramente la persistencia de `hostPath`, guardamos el nombre del nodo actual en `$NODO` y recreamos el Pod allí mismo:
+En clústeres multi-nodo (como en iximiuz Labs), si borras el Pod y lo recreas sin fijar el nodo, Kubernetes puede enviarlo a otro Worker Node distinto (que tiene otro `/tmp` vacío). Para ver claramente la persistencia de `hostPath`, guardamos el nombre del nodo actual en `$NODO` y recreamos el Pod allí mismo:
 
 ```bash
 # 1. Guardar el nodo actual y eliminar el Pod
@@ -423,10 +423,10 @@ kubectl exec pod-almacenamiento-local -- sh -c "cat /tmp-bandeja/pedidos.log && 
 > 💡 **Respuesta esperada:**
 > ```text
 > === Contenido de /tmp-bandeja/pedidos.log (emptyDir) ===
-> [emptyDir] Thu Nov 26 13:57:40 UTC 2026 | nodo: k3s-worker-1
+> [emptyDir] Thu Nov 26 13:57:40 UTC 2026 | nodo: node-01
 > === Contenido de /nodo-estante/historial.log (hostPath) ===
-> [hostPath] Thu Nov 26 13:56:33 UTC 2026 | nodo: k3s-worker-1
-> [hostPath] Thu Nov 26 13:57:40 UTC 2026 | nodo: k3s-worker-1
+> [hostPath] Thu Nov 26 13:56:33 UTC 2026 | nodo: node-01
+> [hostPath] Thu Nov 26 13:57:40 UTC 2026 | nodo: node-01
 > ```
 > - **`/tmp-bandeja/pedidos.log` (`emptyDir`):** tiene **solo 1 línea nueva** (el archivo anterior se destruyó junto con el Pod viejo).
 > - **`/nodo-estante/historial.log` (`hostPath`):** conserva **2 líneas** (la del Pod anterior + la del Pod nuevo) porque el archivo quedó guardado en `/tmp/kubecafe-nodo-estante` del nodo `$NODO`.
@@ -673,7 +673,7 @@ kubectl exec inventario-bodega-pod -- ls -la /datos
 ## 🔄 Laboratorio 7: `StorageClass` Dinámico y Prueba de Persistencia ante Caídas
 
 ### 💡 ¿Qué aprenderás?
-Crear un `PV` manual para cada aplicación es poco práctico en clústeres grandes. Con un **`StorageClass` real** (aprovisionamiento dinámico), **no creas ningún `PV` a mano**: solo creas el `PVC` y el provisionador del clúster (`standard` en Kind, `local-path` en K3s) **fabrica automáticamente el `PV`** por ti.
+Crear un `PV` manual para cada aplicación es poco práctico en clústeres grandes. Con un **`StorageClass` real** (aprovisionamiento dinámico), **no creas ningún `PV` a mano**: solo creas el `PVC` y el provisionador del clúster (`local-path` en iximiuz Labs, `standard` en Kind) **fabrica automáticamente el `PV`** por ti.
 
 | Comparación | **Labs 5 y 6 (Estático / Manual)** | **Lab 7 (Dinámico con `StorageClass`)** |
 | :--- | :--- | :--- |
@@ -696,7 +696,7 @@ flowchart TD
 
 ### Paso 1: Verifica el `StorageClass` de tu clúster y despliega la app
 ```bash
-# 1. Ver qué StorageClass trae tu clúster (en Kind suele llamarse 'standard', en K3s 'local-path'):
+# 1. Ver qué StorageClass trae tu clúster (en iximiuz Labs suele llamarse 'local-path', en Kind 'standard'):
 kubectl get storageclass
 
 # 2. Aplicar el PVC dinámico y el Deployment:
