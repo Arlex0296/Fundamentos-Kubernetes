@@ -665,14 +665,20 @@ kubectl exec inventario-bodega-pod -- ls -la /datos
 > NAME                                       STATUS   VOLUME               CAPACITY   ACCESS MODES   STORAGECLASS
 > persistentvolumeclaim/bodega-kubecafe-pvc  Bound    bodega-kubecafe-pv   1Gi        RWO            manual
 > ```
-> 📌 **Observa:** Cuando `STATUS` dice **`Bound`**, significa que Kubernetes encontró una bodega (`PV`) compatible y la conectó exitosamente a tu solicitud (`PVC`).
+> 📌 **Observa:** Cuando `STATUS` dice **`Bound`**, significa que Kubernetes encontró una bodega (`PV`) compatible y la conectó exitosamente a tu solicitud (`PVC`).  
+> ℹ️ **Diferencia clave con el Lab 7:** aquí (`Lab 5` y `Lab 6`) usamos `storageClassName: manual-lab5` / `manual` que **no existen como recurso `StorageClass`** en `kubectl get sc`. Sirven solo como etiqueta para emparejar tu `PVC` con el `PV` que creaste a mano.
 
 ---
 
 ## 🔄 Laboratorio 7: `StorageClass` Dinámico y Prueba de Persistencia ante Caídas
 
 ### 💡 ¿Qué aprenderás?
-Crear un `PV` manual para cada aplicación es poco práctico en clústeres grandes. Con un **`StorageClass`**, basta con crear un `PVC` y el clúster **fabrica automáticamente el `PV`** por ti (aprovisionamiento dinámico).
+Crear un `PV` manual para cada aplicación es poco práctico en clústeres grandes. Con un **`StorageClass` real** (aprovisionamiento dinámico), **no creas ningún `PV` a mano**: solo creas el `PVC` y el provisionador del clúster (`standard` en Kind, `local-path` en K3s) **fabrica automáticamente el `PV`** por ti.
+
+| Comparación | **Labs 5 y 6 (Estático / Manual)** | **Lab 7 (Dinámico con `StorageClass`)** |
+| :--- | :--- | :--- |
+| **`storageClassName`** | Nombre ficticio de etiqueta (`manual-lab5`, `manual`) — no aparece en `kubectl get sc` | `StorageClass` real del clúster (`local-path` / `standard` o por defecto) |
+| **¿Quién crea el `PV`?** | Tú manualmente en el YAML | Kubernetes automáticamente al crear el `PVC` |
 
 ```mermaid
 flowchart TD
