@@ -1,0 +1,48 @@
+# 📦 Lab 8: PV y PVC Paso a Paso (Ciclo de Vida y Persistencia entre Pods distintos)
+# Analogía KubeCafé:
+# 1. PersistentVolume (recetario-pv): estante físico de 500Mi disponible en el nodo.
+# 2. PersistentVolumeClaim (recetario-pvc): ticket de reserva por 200Mi que se enlaza (Bound) al PV.
+# 3. Pod lector (recetario-web): lee el archivo guardado previamente por otro Pod ya eliminado.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: recetario-pv
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual-lab8
+  hostPath:
+    path: /tmp/kubecafe-recetario-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: recetario-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual-lab8
+  resources:
+    requests:
+      storage: 200Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: recetario-web
+spec:
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: disco-recetario
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: disco-recetario
+      persistentVolumeClaim:
+        claimName: recetario-pvc
