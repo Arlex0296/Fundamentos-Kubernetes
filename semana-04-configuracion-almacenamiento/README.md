@@ -5,7 +5,7 @@
 > 🧪 **Laboratorio Online (sin instalación):** [**Playground del Workshop en iximiuz**](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)  
 > 📊 **Presentación de la Semana 04 (PDF):** [**Descargar `4.KubeCafe-Configuracion-y-Almacenamiento.pdf`**](../recursos/diapositivas/4.KubeCafe-Configuracion-y-Almacenamiento.pdf)  
 > 🇨🇴 **Comunidad Oficial CNCF:** [**Únete a Cloud Native Medellín en CNCF Community Groups**](https://ocgroups.dev/cncf/group/2majk4r)  
-> 📚 **Documentación Oficial:** [**ConfigMaps**](https://kubernetes.io/es/docs/concepts/configuration/configmap/) • [**Secrets**](https://kubernetes.io/es/docs/concepts/configuration/secret/) • [**Volumes**](https://kubernetes.io/es/docs/concepts/storage/volumes/) • [**Persistent Volumes (PV/PVC)**](https://kubernetes.io/es/docs/concepts/storage/persistent-volumes/) • [**StorageClasses**](https://kubernetes.io/es/docs/concepts/storage/storage-classes/)
+> 📚 **Documentación Oficial:** [**ConfigMaps**](https://kubernetes.io/es/docs/concepts/configuration/configmap/) • [**Secrets**](https://kubernetes.io/es/docs/concepts/configuration/secret/) • [**Volumes**](https://kubernetes.io/es/docs/concepts/storage/volumes/) • [**Persistent Volumes (PV/PVC)**](https://kubernetes.io/es/docs/concepts/storage/persistent-volumes/) • [**StorageClasses**](https://kubernetes.io/es/docs/concepts/storage/storage-classes/) • [**Rancher `local-path-provisioner`**](https://github.com/rancher/local-path-provisioner) • [**StatefulSets**](https://kubernetes.io/es/docs/concepts/workloads/controllers/statefulset/) • [**Headless Services**](https://kubernetes.io/es/docs/concepts/services-networking/service/#headless-services)
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > 🧪 **Laboratorio Online (sin instalación):** [**Playground del Workshop en iximiuz**](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)  
 > 🇨🇴 **Comunidad Oficial CNCF:** [**Únete a Cloud Native Medellín en CNCF Community Groups**](https://ocgroups.dev/cncf/group/2majk4r)  
-> 📚 **Documentación Oficial:** [**Probes**](https://kubernetes.io/es/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) • [**Resource Management**](https://kubernetes.io/es/docs/concepts/configuration/manage-resources-containers/) • [**Security Context**](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) • [**RBAC**](https://kubernetes.io/es/docs/reference/access-authn-authz/rbac/) • [**NetworkPolicies**](https://kubernetes.io/es/docs/concepts/services-networking/network-policies/)
+> 📚 **Documentación Oficial:** [**Probes**](https://kubernetes.io/es/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) • [**Resource Management**](https://kubernetes.io/es/docs/concepts/configuration/manage-resources-containers/) • [**ResourceQuotas**](https://kubernetes.io/es/docs/concepts/policy/resource-quotas/) • [**LimitRanges**](https://kubernetes.io/es/docs/concepts/policy/limit-range/) • [**Security Context**](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) • [**RBAC**](https://kubernetes.io/es/docs/reference/access-authn-authz/rbac/) • [**NetworkPolicies**](https://kubernetes.io/es/docs/concepts/services-networking/network-policies/)
 
 ---
 

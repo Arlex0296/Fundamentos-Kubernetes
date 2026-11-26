@@ -4,7 +4,7 @@
 >
 > 🧪 **Laboratorio Online (sin instalación):** [**Playground del Workshop en iximiuz**](https://labs.iximiuz.com/trainings/fundamentos-de-docker-y-kubernetes-2ae16ea8/)  
 > 🇨🇴 **Comunidad Oficial CNCF:** [**Únete a Cloud Native Medellín en CNCF Community Groups**](https://ocgroups.dev/cncf/group/2majk4r)  
-> 📚 **Documentación Oficial:** [**Helm Docs**](https://helm.sh/docs/) • [**Chart Template Guide**](https://helm.sh/docs/chart_template_guide/) • [**Helm CLI**](https://helm.sh/docs/helm/)
+> 📚 **Documentación Oficial:** [**Helm Docs**](https://helm.sh/docs/) • [**Chart Template Guide**](https://helm.sh/docs/chart_template_guide/) • [**Chart Hooks**](https://helm.sh/docs/topics/charts_hooks/) • [**Chart Tests**](https://helm.sh/docs/topics/chart_tests/) • [**Helm CLI**](https://helm.sh/docs/helm/)
 
 ---
 
