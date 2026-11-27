@@ -724,11 +724,11 @@ Si no puedes instalar Docker Desktop o tu máquina no tiene suficiente memoria R
   </tr>
   <tr>
     <td align="center" width="140">
-      <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md" title="Carlos Andres Montoya Alzate (@calichem26) — 150 XP">
+      <a href="./aportes-comunidad/soluciones-retos/calichem26/README.md" title="Carlos Andres Montoya Alzate (@calichem26) — 160 XP">
         <img src="https://github.com/calichem26.png?size=100" width="64" height="64" style="border-radius: 50%;" alt="calichem26"/><br/>
         <sub><b>Carlos Andres</b></sub>
       </a><br/>
-      <sub>🧭 Timonel • <b>150 XP</b></sub><br/>
+      <sub>🧭 Timonel • <b>160 XP</b></sub><br/>
       <sub><a href="./aportes-comunidad/soluciones-retos/calichem26/README.md">🎓 Portafolio</a></sub>
     </td>
     <td align="center" width="140">
